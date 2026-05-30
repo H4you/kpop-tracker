@@ -1,0 +1,66 @@
+name: KPop Daily Tracker
+
+on:
+  schedule:
+    # 每天台灣時間 09:00 執行（UTC+8，所以是 UTC 01:00）
+    - cron: "0 1 * * *"
+  # 也可以在 GitHub 手動觸發
+  workflow_dispatch:
+
+jobs:
+  fetch-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # ── Step 1：爬取 PTT / Circle / YouTube RSS / Melon，產生 latest.json ──
+      - name: Scrape sources
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python src/scraper.py
+
+      # ── Step 2：把 latest.json commit 回 repo ──
+      - name: Commit updated data
+        run: |
+          git config user.name  "kpop-tracker[bot]"
+          git config user.email "kpop-tracker[bot]@users.noreply.github.com"
+          git add data/latest.json
+          git diff --staged --quiet || \
+            git commit -m "chore: daily update $(date +'%Y-%m-%d')"
+          git push
+
+      # ── Step 3：部署 GitHub Pages ──
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: gh-pages
+          force_orphan: false
+          exclude_assets: ".github,src,scripts,*.py,requirements.txt,*.md"
+
+      # ── Step 4：若有失敗，發 GitHub Issue 通知 ──
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              title: `❌ KPop Tracker 執行失敗 ${new Date().toLocaleDateString('zh-TW')}`,
+              body:  `自動化流程異常，請檢查 [Actions 記錄](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})。`,
+              labels: ["bug", "automation"],
+            });
