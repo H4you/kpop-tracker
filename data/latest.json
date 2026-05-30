@@ -1,214 +1,169 @@
 {
   "tracks": [
     {
-      "group": "aespa",
-      "group_kr": "에스파",
-      "title": "WDA (Whole Different Animal) (Feat. G-DRAGON)",
-      "date": "2026.05.29",
-      "album": "LEMONADE",
-      "yt_url": "https://youtu.be/iTJSbJtS8MU",
-      "ptt_url": "https://www.ptt.cc/bbs/KoreanPop/M.1780029764.A.8E7.html",
-      "circle_rank": null,
-      "is_new": true,
+      "group": "Itzy",
+      "group_kr": "있지",
+      "title": "Motto",
+      "album": "Motto",
+      "date": "2026.05.18",
+      "is_solo": false,
       "sources": [
-        "PTT"
+        "Wikipedia"
       ],
-      "note": "正規2輯主打曲之一；feat. G-DRAGON",
-      "id": "1b8bca527a28"
+      "note": "",
+      "yt_url": "https://www.youtube.com/results?search_query=Itzy+Motto+MV",
+      "is_new": false,
+      "is_hot": false,
+      "id": "951d1d3a5bd4"
     },
     {
-      "group": "aespa",
-      "group_kr": "에스파",
-      "title": "LEMONADE",
-      "date": "2026.05.29",
-      "album": "LEMONADE",
-      "yt_url": "https://youtu.be/83C3TZ4Zm_o",
-      "ptt_url": "https://www.ptt.cc/bbs/KoreanPop/M.1780029764.A.8E7.html",
-      "circle_rank": null,
-      "is_new": true,
+      "group": "I.O.I",
+      "group_kr": "아이오아이",
+      "title": "I.O.I: Loop",
+      "album": "I.O.I: Loop",
+      "date": "2026.05.19",
+      "is_solo": false,
       "sources": [
-        "PTT"
+        "Wikipedia"
       ],
-      "note": "正規2輯主打曲之一（同名主打）",
-      "id": "36d31f6bdd43"
+      "note": "前女團重組發行",
+      "yt_url": "https://www.youtube.com/results?search_query=I.O.I+I.O.I%3A+Loop+MV",
+      "is_new": false,
+      "is_hot": false,
+      "id": "9b1b75ed785f"
     },
     {
-      "group": "aespa",
-      "group_kr": "에스파",
-      "title": "SHAKIN'",
-      "date": "2026.05.29",
-      "album": "LEMONADE",
-      "yt_url": "https://youtu.be/UXnuIai8Ewo",
-      "ptt_url": "https://www.ptt.cc/bbs/KoreanPop/M.1780029764.A.8E7.html",
-      "circle_rank": null,
-      "is_new": true,
+      "group": "Hyojung",
+      "group_kr": "효정",
+      "title": "Purple Note",
+      "album": "Purple Note",
+      "date": "2026.05.21",
+      "is_solo": true,
       "sources": [
+        "Wikipedia",
         "PTT"
       ],
-      "note": "正規2輯收錄曲 Track 3",
-      "id": "47cd797596db"
+      "note": "OH MY GIRL 成員個人 solo 發行",
+      "yt_url": "https://www.youtube.com/results?search_query=Hyojung+Purple+Note+MV",
+      "is_new": false,
+      "is_hot": false,
+      "id": "4a7758741fc9"
     },
     {
-      "group": "aespa",
-      "group_kr": "에스파",
-      "title": "Can't Help Myself",
-      "date": "2026.05.29",
-      "album": "LEMONADE",
-      "yt_url": "https://youtu.be/5tAKxwCldT4",
-      "ptt_url": "https://www.ptt.cc/bbs/KoreanPop/M.1780029764.A.8E7.html",
-      "circle_rank": null,
-      "is_new": true,
-      "sources": [
-        "PTT"
-      ],
-      "note": "正規2輯收錄曲 Track 4",
-      "id": "9269449675c8"
-    },
-    {
-      "group": "aespa",
-      "group_kr": "에스파",
-      "title": "Camouflage",
-      "date": "2026.05.29",
-      "album": "LEMONADE",
-      "yt_url": "https://youtu.be/DFUe0rPqPsQ",
-      "ptt_url": "https://www.ptt.cc/bbs/KoreanPop/M.1780029764.A.8E7.html",
-      "circle_rank": null,
-      "is_new": true,
-      "sources": [
-        "PTT"
-      ],
-      "note": "正規2輯收錄曲 Track 5",
-      "id": "acf87a4b7eae"
-    },
-    {
-      "group": "aespa",
-      "group_kr": "에스파",
-      "title": "Bite",
-      "date": "2026.05.29",
-      "album": "LEMONADE",
-      "yt_url": "https://youtu.be/7GgwG90lGio",
-      "ptt_url": "https://www.ptt.cc/bbs/KoreanPop/M.1780029764.A.8E7.html",
-      "circle_rank": null,
-      "is_new": true,
-      "sources": [
-        "PTT"
-      ],
-      "note": "正規2輯收錄曲 Track 6",
-      "id": "f022cdbb7123"
-    },
-    {
-      "group": "aespa",
-      "group_kr": "에스파",
-      "title": "Switchblade (Feat. Ty Dolla $ign)",
-      "date": "2026.05.29",
-      "album": "LEMONADE",
-      "yt_url": "https://youtu.be/7GgwG90lGio",
-      "ptt_url": "https://www.ptt.cc/bbs/KoreanPop/M.1780029764.A.8E7.html",
-      "circle_rank": null,
-      "is_new": true,
-      "sources": [
-        "PTT"
-      ],
-      "note": "正規2輯收錄曲 Track 7；feat. Ty Dolla $ign；YT連結與 Bite 相同，疑原文有誤",
-      "id": "47147fdf4f99"
-    },
-    {
-      "group": "aespa",
-      "group_kr": "에스파",
-      "title": "Roll",
-      "date": "2026.05.29",
-      "album": "LEMONADE",
-      "yt_url": "https://youtu.be/9vTp5V1zbsc",
-      "ptt_url": "https://www.ptt.cc/bbs/KoreanPop/M.1780029764.A.8E7.html",
-      "circle_rank": null,
-      "is_new": true,
-      "sources": [
-        "PTT"
-      ],
-      "note": "正規2輯收錄曲 Track 8",
-      "id": "9b858bc5cefc"
-    },
-    {
-      "group": "aespa",
-      "group_kr": "에스파",
-      "title": "My Plan",
-      "date": "2026.05.29",
-      "album": "LEMONADE",
-      "yt_url": "https://youtu.be/OJaaRu9Qyuo",
-      "ptt_url": "https://www.ptt.cc/bbs/KoreanPop/M.1780029764.A.8E7.html",
-      "circle_rank": null,
-      "is_new": true,
-      "sources": [
-        "PTT"
-      ],
-      "note": "正規2輯收錄曲 Track 9",
-      "id": "4d179d6722d2"
-    },
-    {
-      "group": "aespa",
-      "group_kr": "에스파",
-      "title": "'Til We Die",
-      "date": "2026.05.29",
-      "album": "LEMONADE",
-      "yt_url": "https://youtu.be/DJRrOBB8z8M",
-      "ptt_url": "https://www.ptt.cc/bbs/KoreanPop/M.1780029764.A.8E7.html",
-      "circle_rank": null,
-      "is_new": true,
-      "sources": [
-        "PTT"
-      ],
-      "note": "正規2輯收錄曲 Track 10",
-      "id": "87a5f6325e34"
-    },
-    {
-      "group": "aespa",
-      "group_kr": "에스파",
-      "title": "LEMONADE (Feat. Becky G)",
-      "date": "2026.05.29",
-      "album": "LEMONADE",
-      "yt_url": "https://youtu.be/sKB5cuIUppA",
-      "ptt_url": "https://www.ptt.cc/bbs/KoreanPop/M.1780029764.A.8E7.html",
-      "circle_rank": null,
-      "is_new": true,
-      "sources": [
-        "PTT"
-      ],
-      "note": "正規2輯收錄曲 Track 11；LEMONADE feat. Becky G 版本",
-      "id": "1173c6382577"
-    },
-    {
-      "group": "LE SSERAFIM",
+      "group": "Le Sserafim",
       "group_kr": "르세라핌",
-      "title": "Pureflow",
+      "title": "Pureflow Pt. 1",
+      "album": "Pureflow Pt. 1",
       "date": "2026.05.22",
-      "album": "PUREFLOW pt.1",
-      "yt_url": "https://youtu.be/L8z453XB6Iw",
-      "ptt_url": "https://www.ptt.cc/bbs/KoreanPop/M.1779442758.A.935.html",
-      "circle_rank": null,
-      "is_new": true,
+      "is_solo": false,
       "sources": [
+        "Wikipedia",
         "PTT"
       ],
-      "note": "正規2輯 pt.1 收錄曲 Track 1；企劃社 Source Music，發行社 YG PLUS",
-      "id": "3788ba01d551"
+      "note": "",
+      "yt_url": "https://www.youtube.com/results?search_query=Le+Sserafim+Pureflow+Pt.+1+MV",
+      "is_new": false,
+      "is_hot": false,
+      "id": "7d401dca5188"
     },
     {
-      "group": "LE SSERAFIM",
-      "group_kr": "르세라핌",
-      "title": "BOOMPALA",
-      "date": "2026.05.22",
-      "album": "PUREFLOW pt.1",
-      "yt_url": "https://youtu.be/V1Lr-_AxeR8",
-      "ptt_url": "https://www.ptt.cc/bbs/KoreanPop/M.1779442758.A.935.html",
-      "circle_rank": null,
+      "group": "Hiipe Princess",
+      "group_kr": "",
+      "title": "17.7",
+      "album": "17.7",
+      "date": "2026.05.27",
+      "is_solo": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "2026年出道團，出道清單中有列，性質待確認",
+      "yt_url": "https://www.youtube.com/results?search_query=Hiipe+Princess+17.7+MV",
       "is_new": true,
+      "is_hot": false,
+      "id": "8def48e002d9"
+    },
+    {
+      "group": "Heart of Woman",
+      "group_kr": "하트 오브 우먼",
+      "title": "Heart Byte: Legacy",
+      "album": "Heart Byte: Legacy",
+      "date": "2026.05.28",
+      "is_solo": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "2026年出道清單中有列，待確認為女團",
+      "yt_url": "https://www.youtube.com/results?search_query=Heart+of+Woman+Heart+Byte%3A+Legacy+MV",
+      "is_new": true,
+      "is_hot": false,
+      "id": "8adfe719f964"
+    },
+    {
+      "group": "Queenz Eye",
+      "group_kr": "퀸즈아이",
+      "title": "Prism Ep.02",
+      "album": "Prism Ep.02",
+      "date": "2026.05.28",
+      "is_solo": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "",
+      "yt_url": "https://www.youtube.com/results?search_query=Queenz+Eye+Prism+Ep.02+MV",
+      "is_new": true,
+      "is_hot": false,
+      "id": "6f30e52783ec"
+    },
+    {
+      "group": "Aespa",
+      "group_kr": "에스파",
+      "title": "Lemonade",
+      "album": "Lemonade",
+      "date": "2026.05.29",
+      "is_solo": false,
+      "sources": [
+        "Wikipedia",
+        "PTT"
+      ],
+      "note": "",
+      "yt_url": "https://www.youtube.com/results?search_query=Aespa+Lemonade+MV",
+      "is_new": true,
+      "is_hot": false,
+      "id": "a617a9a27d04"
+    },
+    {
+      "group": "Krystal",
+      "group_kr": "크리스탈",
+      "title": "PWLT",
+      "album": "PWLT",
+      "date": "",
+      "is_solo": true,
       "sources": [
         "PTT"
       ],
-      "note": "正規2輯 pt.1 主打曲（TITLE）Track 2；原始資料截斷，後續曲目資訊不完整",
-      "id": "7cb15b3b4136"
+      "note": "f(x) 前成員個人 solo 發行，PTT 情報貼文補充，確切日期未收錄於 Wikipedia 清單",
+      "yt_url": "https://www.youtube.com/results?search_query=Krystal+PWLT+MV",
+      "is_new": false,
+      "is_hot": false,
+      "id": "715d18daf662"
+    },
+    {
+      "group": "BIBI",
+      "group_kr": "비비",
+      "title": "BUMPA",
+      "album": "BUMPA",
+      "date": "",
+      "is_solo": true,
+      "sources": [
+        "PTT"
+      ],
+      "note": "女性 solo 藝人發行，PTT 情報貼文補充，確切日期未收錄於 Wikipedia 清單",
+      "yt_url": "https://www.youtube.com/results?search_query=BIBI+BUMPA+MV",
+      "is_new": false,
+      "is_hot": false,
+      "id": "b533808408a6"
     }
   ],
-  "summary": "本次共整理 2 組女團新發行資訊：aespa 正規2輯《LEMONADE》（2026.05.29，11曲，雙主打 WDA feat. G-DRAGON / LEMONADE）及 LE SSERAFIM 正規2輯《PUREFLOW pt.1》（2026.05.22，主打 BOOMPALA，惟原始資料截斷僅取得部分曲目）。",
-  "fetched_at": "2026-05-30 18:36"
+  "summary": "本期共整理 10 筆女團／前女團成員相關發行，涵蓋 Itzy、I.O.I 重組、LE SSERAFIM、aespa 等主流女團，以及 Hyojung（OH MY GIRL）、Krystal（f(x)）、BIBI 等 solo 發行，另收錄 Hiipe Princess、Heart of Woman 等 2026 年新出道團待確認項目。",
+  "fetched_at": "2026-05-30 19:30"
 }
