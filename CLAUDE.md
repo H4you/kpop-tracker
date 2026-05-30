@@ -49,7 +49,7 @@ kpop-tracker/
 ## 技術細節
 
 - **語言**：Python 3.12（爬蟲）+ 純 HTML/CSS/JS（前端，無框架）
-- **AI**：Anthropic Claude API（`claude-sonnet-4-20250514`），用於篩選與結構化爬蟲資料
+- **AI**：Anthropic Claude API（`claude-sonnet-4-6`），用於篩選與結構化爬蟲資料
 - **部署**：GitHub Actions（免費額度內）+ GitHub Pages
 - **資料格式**：`data/latest.json` 結構如下
   ```json
