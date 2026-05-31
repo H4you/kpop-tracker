@@ -42,11 +42,14 @@ kpop-tracker/
 ├── src/
 │   └── scraper.py        # 多來源爬蟲 + Claude AI 分析，產生 data/latest.json
 ├── data/
-│   └── latest.json       # 爬蟲輸出（GitHub Actions 自動更新，初次需手動建立空檔）
+│   ├── latest.json       # 本期爬蟲輸出（GitHub Actions 自動更新，初次需手動建立空檔）
+│   └── archive.json      # 歷史累積（每次跑完依 id 去重合併，前端「歷史」分頁讀取）
 └── .github/
     └── workflows/
         └── daily.yml     # 每日定時任務 + GitHub Pages 部署
 ```
+
+前端功能：每首歌顯示 YouTube MV 縮圖（用 `yt_id` 組 `i.ytimg.com` 圖），點縮圖在頁面內嵌彈窗播放（`youtube.com/embed`）；「歷史」分頁讀 `data/archive.json` 看歷來所有曲目。
 
 ## 技術細節
 
