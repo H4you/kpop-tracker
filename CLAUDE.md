@@ -49,7 +49,11 @@ kpop-tracker/
         └── daily.yml     # 每日定時任務 + GitHub Pages 部署
 ```
 
-前端功能：每首歌顯示 YouTube MV 縮圖（用 `yt_id` 組 `i.ytimg.com` 圖），點縮圖在頁面內嵌彈窗播放（`youtube.com/embed`）；「歷史」分頁讀 `data/archive.json` 看歷來所有曲目。
+前端功能：每首歌顯示 YouTube MV 縮圖（用 `yt_id` 組 `i.ytimg.com` 圖），點縮圖在頁面內嵌彈窗播放（`youtube.com/embed`）；「歷史」分頁讀 `data/archive.json`；搜尋框即時過濾；排序可依日期/熱度（`yt_views` MV 觀看數）。
+
+latest.json 額外欄位：`yt_views`（MV 觀看數 int）、`upcoming`（發行預告陣列，含 `days_left`）、`birthdays`（本月成員生日陣列）、`digest`（AI 本週懶人包，前端 AI 卡與 Discord 通知共用）。
+
+通知：`notify_discord()` 用 `DISCORD_WEBHOOK_URL` secret，有新曲才發（含觀看數+懶人包）。手動觸發 workflow 勾 `test_notify` 可強制測試。LINE Notify 已於 2025 停用，若要 LINE 需改用 Messaging API。
 
 ## 技術細節
 
