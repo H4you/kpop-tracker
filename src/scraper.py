@@ -173,16 +173,24 @@ def fetch_wikipedia_releases(days_back: int = 14) -> list[dict]:
     return recent
 
 
+def _months_between(start: date, end: date) -> list[tuple[int, int]]:
+    """列出 start 到 end 之間（含頭尾）的所有 (year, month)，不漏中間月份。"""
+    out = []
+    y, m = start.year, start.month
+    while (y, m) <= (end.year, end.month):
+        out.append((y, m))
+        m += 1
+        if m > 12:
+            m = 1
+            y += 1
+    return out
+
+
 def fetch_wikipedia_upcoming(days_ahead: int = 45) -> list[dict]:
-    """抓取未來 days_ahead 天內的南韓發行（當月＋下月，必要時跨年）。"""
+    """抓取未來 days_ahead 天內的南韓發行（涵蓋範圍內所有月份，必要時跨年）。"""
     today = datetime.now().date()
     horizon = today + timedelta(days=days_ahead)
-    targets, seen = [], set()
-    for d in (today, horizon):
-        key = (d.year, d.month)
-        if key not in seen:
-            seen.add(key)
-            targets.append(key)
+    targets = _months_between(today, horizon)
 
     rows = []
     for year, month in targets:
