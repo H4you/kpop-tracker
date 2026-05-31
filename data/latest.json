@@ -12,7 +12,7 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "JYP 女團",
+      "note": "知名女團",
       "yt_url": "https://www.youtube.com/watch?v=1jKnI_ib8c8",
       "yt_id": "1jKnI_ib8c8",
       "yt_title": "ITZY “Motto” M/V",
@@ -30,10 +30,10 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女團重聚/再結集發行",
-      "yt_url": "https://www.youtube.com/watch?v=GdxvD7r58ng",
-      "yt_id": "GdxvD7r58ng",
-      "yt_title": "아이오아이 (I.O.I) - 너무너무너무 (Very Very Very) MV",
+      "note": "經典女團重組/回歸發行",
+      "yt_url": "https://www.youtube.com/watch?v=Jxgbfc89hNI",
+      "yt_id": "Jxgbfc89hNI",
+      "yt_title": "아이오아이 (I.O.I) - 갑자기 (Suddenly) MV",
       "id": "9b1b75ed785f"
     },
     {
@@ -48,7 +48,7 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "Oh My Girl 成員個人 solo 發行",
+      "note": "Oh My Girl 現任成員 solo 發行",
       "yt_url": "https://www.youtube.com/watch?v=FMXos3fDQ10",
       "yt_id": "FMXos3fDQ10",
       "yt_title": "[MV] HYOJUNG(효정) (OH MY GIRL(오마이걸)) _ Purple Note(나의 작은 청춘에게)",
@@ -66,29 +66,11 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "HYBE 女團",
+      "note": "知名女團",
       "yt_url": "https://www.youtube.com/watch?v=V1Lr-_AxeR8",
       "yt_id": "V1Lr-_AxeR8",
       "yt_title": "LE SSERAFIM (르세라핌) 'BOOMPALA' OFFICIAL MV",
       "id": "7d401dca5188"
-    },
-    {
-      "group": "And2ble",
-      "group_kr": "",
-      "title": "Sequence 01: Curiosity",
-      "album": "Sequence 01: Curiosity",
-      "date": "2026.05.26",
-      "is_solo": false,
-      "is_new": true,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "本年度出道團清單內，性別未能確認，需進一步確認是否為女團；namuwiki 無資料，待確認",
-      "yt_url": "https://www.youtube.com/watch?v=m6kmpiOsLVk",
-      "yt_id": "m6kmpiOsLVk",
-      "yt_title": "AND2BLE 'Curious' MV",
-      "id": "a5a3438908f2"
     },
     {
       "group": "Heart of Woman",
@@ -102,7 +84,7 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "本年度出道團清單內，團名疑似女團，需確認；namuwiki 無資料，待確認",
+      "note": "本年度出道團清單收錄，Wikipedia 原始資料來源標題含「걸그룹」字樣暗示為女團（石션條目提及 나르샤等混聲，但 Heart of Woman 另條），需小心確認；保留收錄",
       "yt_url": "https://www.youtube.com/watch?v=h8HGbj0enmg",
       "yt_id": "h8HGbj0enmg",
       "yt_title": "HEART OF WOMAN 'How Not to Lose Myself (Lost in Proof)' MV",
@@ -138,7 +120,7 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "SM Entertainment 女團",
+      "note": "知名女團",
       "yt_url": "https://www.youtube.com/watch?v=83C3TZ4Zm_o",
       "yt_id": "83C3TZ4Zm_o",
       "yt_title": "aespa 에스파 'LEMONADE' MV",
@@ -193,16 +175,8 @@
       "date": "2026.06.09",
       "is_solo": true,
       "days_left": 9
-    },
-    {
-      "group": "Uspeer",
-      "group_kr": "어스피어",
-      "title": "Bite District",
-      "date": "2026.06.17",
-      "is_solo": false,
-      "days_left": 17
     }
   ],
-  "summary": "本期收錄 8 首有官方 MV 的女團／前成員 solo 主打發行：Itzy、I.O.I、Hyojung、Le Sserafim、And2ble、Heart of Woman、Queenz Eye、Aespa。（另有 1 筆查無官方 MV 未收錄）",
-  "fetched_at": "2026-05-31 18:35"
+  "summary": "本期收錄 7 首有官方 MV 的女團／前成員 solo 主打發行：Itzy、I.O.I、Hyojung、Le Sserafim、Heart of Woman、Queenz Eye、Aespa。（另有 1 筆查無官方 MV 未收錄）",
+  "fetched_at": "2026-05-31 19:10"
 }
