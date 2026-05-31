@@ -25,10 +25,12 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # ── Step 1：爬取 PTT / Circle / YouTube RSS / Melon，產生 latest.json ──
+      # ── Step 1：爬取 Wikipedia / PTT / namuwiki，AI 篩選，驗證 MV，產生 latest.json ──
       - name: Scrape sources
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SITE_URL: "https://h4you.github.io/kpop-tracker/"
         run: python src/scraper.py
 
       # ── Step 2：把 latest.json commit 回 repo ──

@@ -414,6 +414,61 @@ header {
 .mv-modal-frame { position: relative; width: 100%; aspect-ratio: 16/9; }
 .mv-modal-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
+/* ── 搜尋框 ── */
+.search-row {
+  display: flex; align-items: center; gap: 8px;
+  margin: 0 0 14px;
+  padding: 9px 13px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+}
+.search-row:focus-within { border-color: var(--border2); background: var(--surface2); }
+.search-ic { color: var(--text3); flex-shrink: 0; }
+#search-box {
+  flex: 1; background: none; border: none; outline: none;
+  color: var(--text); font-size: 14px; font-family: var(--font-body);
+}
+#search-box::placeholder { color: var(--text3); }
+
+/* ── 發行預告卡 ── */
+.upcoming-card {
+  display: none;
+  margin: 0 0 16px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.upcoming-card.show { display: block; }
+.upcoming-head {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  padding: 12px 16px 8px;
+}
+.upcoming-title { font-size: 14px; font-weight: 600; color: var(--text); }
+.upcoming-sub { font-size: 12px; color: var(--text3); }
+.upcoming-list { padding: 4px 8px 10px; }
+.up-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 10px; border-radius: 8px;
+  text-decoration: none; color: var(--text2);
+  transition: background .15s;
+}
+.up-item:hover { background: var(--surface2); }
+.up-date { font-size: 12px; color: var(--text3); width: 80px; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.up-main { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.up-group { font-weight: 500; color: var(--text); }
+.up-title { color: var(--text2); }
+.up-tag { font-size: 11px; color: var(--text3); flex-shrink: 0; }
+.up-badge {
+  font-size: 10px; padding: 2px 8px; border-radius: 99px; flex-shrink: 0;
+  background: var(--pink-dim); border: 0.5px solid rgba(232,83,124,0.25); color: var(--pink-text);
+}
+@media (max-width: 560px) {
+  .up-date { width: 64px; }
+  .up-tag { display: none; }
+}
+
 /* ── Empty state ── */
 .empty {
   text-align: center;
@@ -575,6 +630,19 @@ header {
     <span class="src-chip on" data-s="PTT"       onclick="toggleSrc(this)">PTT</span>
   </div>
 
+  <div class="search-row">
+    <svg class="search-ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="search" id="search-box" placeholder="搜尋團名或歌名…" aria-label="搜尋團名或歌名" autocomplete="off">
+  </div>
+
+  <div class="upcoming-card" id="upcoming-card">
+    <div class="upcoming-head">
+      <span class="upcoming-title">🔔 發行預告</span>
+      <span class="upcoming-sub">未來 45 天內的女團 / 前成員 solo 發行</span>
+    </div>
+    <div class="upcoming-list" id="upcoming-list"></div>
+  </div>
+
   <main class="track-list" id="tlist" aria-label="女團新曲清單">
     <div class="empty">
       <div class="empty-icon" aria-hidden="true">◈</div>
@@ -607,6 +675,10 @@ let tracks = [];
 let curTab = 'all';
 let activeSrc = new Set(['Wikipedia','PTT']);
 let added = new Set(JSON.parse(localStorage.getItem('kpop_added_v3') || '[]'));
+let archiveTracks = [];
+let archiveLoaded = false;
+let upcoming = [];
+let searchQuery = '';
 
 /* ── Persist ── */
 function saveAdded() {
@@ -614,10 +686,17 @@ function saveAdded() {
 }
 
 /* ── Tab ── */
-function setTab(el) {
+async function setTab(el) {
   document.querySelectorAll('.tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
   el.classList.add('active'); el.setAttribute('aria-selected','true');
   curTab = el.dataset.tab;
+  if (curTab === 'history' && !archiveLoaded) {
+    try {
+      const r = await fetch('data/archive.json?t=' + Date.now());
+      if (r.ok) { const d = await r.json(); archiveTracks = d.tracks || []; }
+    } catch(e) { /* ignore */ }
+    archiveLoaded = true;
+  }
   render();
 }
 
@@ -660,18 +739,47 @@ function updateStats() {
 
 /* ── Filter ── */
 function getFiltered() {
-  // 歷史分頁：顯示全部歸檔（僅套用來源篩選），不受時間 / 待加入等狀態影響
+  let list;
   if (curTab === 'history') {
-    return archiveTracks.filter(t => (t.sources || ['Wikipedia']).some(s => activeSrc.has(s)));
+    // 歷史分頁：顯示全部歸檔（僅套用來源篩選），不受時間 / 待加入等狀態影響
+    list = archiveTracks.filter(t => (t.sources || ['Wikipedia']).some(s => activeSrc.has(s)));
+  } else {
+    const timeVal = document.getElementById('time-sel').value;
+    list = tracks;
+    if (curTab === 'pending') list = list.filter(t => !added.has(t.id));
+    else if (curTab === 'added') list = list.filter(t => added.has(t.id));
+    else if (curTab === 'new') list = list.filter(t => t.is_new);
+    list = list.filter(t => (t.sources || ['Wikipedia']).some(s => activeSrc.has(s)));
+    if (timeVal === 'new') list = list.filter(t => t.is_new);
   }
-  const timeVal = document.getElementById('time-sel').value;
-  let list = tracks;
-  if (curTab === 'pending') list = list.filter(t => !added.has(t.id));
-  else if (curTab === 'added') list = list.filter(t => added.has(t.id));
-  else if (curTab === 'new') list = list.filter(t => t.is_new);
-  list = list.filter(t => (t.sources || ['Wikipedia']).some(s => activeSrc.has(s)));
-  if (timeVal === 'new') list = list.filter(t => t.is_new);
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    list = list.filter(t =>
+      ((t.group||'') + ' ' + (t.title||'') + ' ' + (t.group_kr||'') + ' ' + (t.album||''))
+        .toLowerCase().includes(q));
+  }
   return list;
+}
+
+/* ── 發行預告 ── */
+function renderUpcoming() {
+  const card = document.getElementById('upcoming-card');
+  const list = document.getElementById('upcoming-list');
+  if (!card || !list) return;
+  if (!upcoming.length) { card.classList.remove('show'); return; }
+  card.classList.add('show');
+  list.innerHTML = upcoming.map(u => {
+    const d = (typeof u.days_left === 'number') ? u.days_left : null;
+    const badge = d === 0 ? '今天' : (d != null && d > 0 ? `${d} 天後` : '');
+    const tag = u.is_solo ? '🎤 solo' : '👯 女團';
+    const q = encodeURIComponent(`${u.group||''} ${u.title||u.album||''} MV`);
+    return `<a class="up-item" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener" title="在 YouTube 搜尋">
+      <span class="up-date">${escHtml(u.date||'')}</span>
+      <span class="up-main"><span class="up-group">${escHtml(u.group||'')}</span> <span class="up-title">${escHtml(u.title||u.album||'')}</span></span>
+      <span class="up-tag">${tag}</span>
+      ${badge ? `<span class="up-badge">${badge}</span>` : ''}
+    </a>`;
+  }).join('');
 }
 
 /* ── Render ── */

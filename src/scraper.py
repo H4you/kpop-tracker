@@ -34,7 +34,9 @@ from anthropic import Anthropic
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
 
-ANTHROPIC_CLIENT = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+AI_ENABLED = bool(_API_KEY) and _API_KEY.lower() != "dummy"
+ANTHROPIC_CLIENT = Anthropic(api_key=_API_KEY) if AI_ENABLED else None
 AI_MODEL = "claude-sonnet-4-6"
 
 HEADERS = {
@@ -147,6 +149,38 @@ def fetch_wikipedia_releases(days_back: int = 14) -> list[dict]:
     return recent
 
 
+def fetch_wikipedia_upcoming(days_ahead: int = 45) -> list[dict]:
+    """抓取未來 days_ahead 天內的南韓發行（當月＋下月，必要時跨年）。"""
+    today = datetime.now().date()
+    horizon = today + timedelta(days=days_ahead)
+    targets, seen = [], set()
+    for d in (today, horizon):
+        key = (d.year, d.month)
+        if key not in seen:
+            seen.add(key)
+            targets.append(key)
+
+    rows = []
+    for year, month in targets:
+        page = f"{year} in South Korean music"
+        try:
+            secs = _wiki_sections(page)
+            month_secs = [s for s in secs if s.get("line") == MONTH_NAMES[month]]
+            if not month_secs:
+                continue
+            html = _wiki_section_html(page, month_secs[0]["index"])
+            rows.extend(_parse_release_table(html, year, month))
+            time.sleep(0.4)
+        except Exception as e:
+            log.warning(f"Wikipedia 預告抓取失敗 {page}/{MONTH_NAMES[month]}: {e}")
+
+    upcoming = [r for r in rows
+                if today.isoformat() < r["_date_obj"] <= horizon.isoformat()]
+    upcoming.sort(key=lambda x: x["_date_obj"])
+    log.info(f"Wikipedia: 未來 {days_ahead} 天內 {len(upcoming)} 筆發行")
+    return upcoming
+
+
 def fetch_wikipedia_debuts() -> list[str]:
     today = datetime.now().date()
     page = f"{today.year} in South Korean music"
@@ -205,6 +239,7 @@ def namu_confirm_girlgroup(name: str) -> dict:
     result = {"exists": False, "is_girlgroup": False, "snippet": ""}
     if not name:
         return result
+    name = str(name)
     try:
         url = "https://namu.wiki/w/" + quote(name)
         r = requests.get(url, headers=HEADERS, timeout=20)
@@ -300,7 +335,43 @@ def youtube_find_mv(group: str, title: str) -> dict | None:
 
 # ── 5. AI 分析（pass 1：篩女團 / 前成員 solo 候選）──────────────────────────────
 
+def ai_filter_upcoming(upcoming: list[dict], debuts: list[str]) -> list[dict]:
+    """用 Claude 從未來發行清單篩出女團 / 前成員 solo（給「發行預告」用，全語言）。"""
+    if not AI_ENABLED or not upcoming:
+        return []
+    items = [{"date": r["date"], "album": r["album"], "artist": r["artist"]}
+             for r in upcoming]
+    prompt = f"""以下是未來幾週的南韓發行預告。請篩出「女子團體」或「前/現任女團成員 solo」的項目（全語言，含冷門小團；排除純男團、男性 solo、混聲團體、純 OST）。
+
+【本年度出道團清單（輔助判斷）】
+{json.dumps(debuts, ensure_ascii=False)}
+
+【未來發行（日期 / 專輯 / 歌手）】
+{json.dumps(items, ensure_ascii=False, indent=1)[:9000]}
+
+只輸出純 JSON：
+{{"upcoming":[{{"group":"團名(英文/羅馬拼音)","group_kr":"韓文團名或空字串","title":"主打曲或專輯名","date":"YYYY.MM.DD","is_solo":false}}]}}"""
+    try:
+        resp = ANTHROPIC_CLIENT.messages.create(
+            model=AI_MODEL, max_tokens=4000,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        text = next((b.text for b in resp.content if b.type == "text"), "")
+        m = re.search(r"\{[\s\S]*\}", text)
+        if m:
+            data = json.loads(m.group())
+            items = data.get("upcoming", [])
+            log.info(f"AI 預告篩選：{len(items)} 筆女團/前成員 solo")
+            return items
+    except Exception as e:
+        log.error(f"AI 預告篩選失敗: {e}")
+    return []
+
+
 def ai_pick_candidates(releases: list[dict], debuts: list[str], ptt: list[dict]) -> list[dict]:
+    if not AI_ENABLED:
+        log.warning("未設定 ANTHROPIC_API_KEY，跳過 AI 篩選（候選為空）")
+        return []
     releases_min = [{"date": r["date"], "album": r["album"], "artist": r["artist"]}
                     for r in releases]
     ptt_min = [{"title": p["title"]} for p in ptt][:40]
@@ -355,6 +426,7 @@ def run_scraper(days_back: int = 14) -> dict:
     releases = fetch_wikipedia_releases(days_back=days_back)
     debuts = fetch_wikipedia_debuts()
     ptt = fetch_ptt_posts(pages=3)
+    upcoming_raw = fetch_wikipedia_upcoming(days_ahead=45)
 
     candidates = ai_pick_candidates(releases, debuts, ptt)
 
@@ -406,14 +478,25 @@ def run_scraper(days_back: int = 14) -> dict:
             "id": hashlib.md5(raw_id.encode()).hexdigest()[:12],
         })
 
+    # 發行預告：AI 從未來發行清單篩出女團 / 前成員 solo
+    upcoming = ai_filter_upcoming(upcoming_raw, debuts)
+    today = datetime.now().date()
+    for u in upcoming:
+        try:
+            d = datetime.strptime(u.get("date", ""), "%Y.%m.%d").date()
+            u["days_left"] = (d - today).days
+        except Exception:
+            u["days_left"] = None
+
     n = len(tracks)
     groups = "、".join(dict.fromkeys(t["group"] for t in tracks))
     summary = (f"本期收錄 {n} 首有官方 MV 的女團／前成員 solo 主打發行"
                + (f"：{groups}。" if groups else "。")
                + (f"（另有 {dropped_no_mv} 筆查無官方 MV 未收錄）" if dropped_no_mv else ""))
 
-    log.info(f"完成：收錄 {n} 筆，略過無 MV {dropped_no_mv} 筆")
-    return {"tracks": tracks, "summary": summary, "fetched_at": now_str}
+    log.info(f"完成：收錄 {n} 筆，略過無 MV {dropped_no_mv} 筆，預告 {len(upcoming)} 筆")
+    return {"tracks": tracks, "upcoming": upcoming,
+            "summary": summary, "fetched_at": now_str}
 
 
 def update_archive(data_dir: str, tracks: list[dict]) -> int:
@@ -451,15 +534,72 @@ def update_archive(data_dir: str, tracks: list[dict]) -> int:
     return len(merged)
 
 
+def notify_discord(new_tracks: list[dict], site_url: str) -> None:
+    """有新曲時發 Discord webhook 通知。新曲 = 不在上次 archive 的曲目（由呼叫端傳入）。"""
+    webhook = os.environ.get("DISCORD_WEBHOOK_URL", "").strip()
+    if not webhook:
+        log.info("未設定 DISCORD_WEBHOOK_URL，跳過通知")
+        return
+    if not new_tracks:
+        log.info("本次無新曲，不發通知")
+        return
+
+    lines = []
+    for t in new_tracks[:15]:
+        tag = "🎤 solo" if t.get("is_solo") else "👯 女團"
+        lines.append(f"**{t.get('group','')}** – {t.get('title','')} "
+                     f"（{t.get('date','')}・{tag}）\n{t.get('yt_url','')}")
+    desc = "\n\n".join(lines)
+    if len(new_tracks) > 15:
+        desc += f"\n\n…等共 {len(new_tracks)} 首"
+
+    payload = {
+        "username": "GirlGroup Tracker",
+        "embeds": [{
+            "title": f"🎀 今日新增 {len(new_tracks)} 首女團新曲",
+            "description": desc[:4000],
+            "url": site_url,
+            "color": 0xE8537C,
+            "footer": {"text": "KPop GirlGroup Tracker"},
+        }],
+    }
+    try:
+        r = requests.post(webhook, json=payload, timeout=15)
+        if r.status_code in (200, 204):
+            log.info(f"Discord 通知已送出（{len(new_tracks)} 首新曲）")
+        else:
+            log.warning(f"Discord 通知失敗 HTTP {r.status_code}: {r.text[:200]}")
+    except Exception as e:
+        log.warning(f"Discord 通知例外: {e}")
+
+
 if __name__ == "__main__":
-    data = run_scraper()
     data_dir = os.path.join(os.path.dirname(__file__), "..", "data")
     os.makedirs(data_dir, exist_ok=True)
+
+    # 先記錄本次執行前 archive 已有的 id，用來判斷哪些是「真正的新曲」
+    arc_path = os.path.join(data_dir, "archive.json")
+    prev_ids = set()
+    if os.path.exists(arc_path):
+        try:
+            with open(arc_path, encoding="utf-8") as f:
+                prev_ids = {t.get("id") for t in json.load(f).get("tracks", [])}
+        except Exception:
+            prev_ids = set()
+
+    data = run_scraper()
 
     out_path = os.path.join(data_dir, "latest.json")
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
     total = update_archive(data_dir, data.get("tracks", []))
-    print(f"✅ 完成，本期 {len(data.get('tracks', []))} 筆 → data/latest.json；"
-          f"歷史累積 {total} 筆 → data/archive.json")
+
+    # 新曲 = 這次出現、但執行前 archive 沒有的
+    new_tracks = [t for t in data.get("tracks", []) if t.get("id") not in prev_ids]
+    site_url = os.environ.get("SITE_URL", "").strip() or "https://h4you.github.io/kpop-tracker/"
+    notify_discord(new_tracks, site_url)
+
+    print(f"✅ 完成，本期 {len(data.get('tracks', []))} 筆 → latest.json；"
+          f"歷史累積 {total} 筆 → archive.json；"
+          f"預告 {len(data.get('upcoming', []))} 筆；新曲 {len(new_tracks)} 首")
