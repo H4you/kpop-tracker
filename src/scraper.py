@@ -293,7 +293,8 @@ def youtube_find_mv(group: str, title: str) -> dict | None:
         rel = (gtok and gtok[:4] in hay) or (ttok and len(ttok) >= 3 and ttok[:4] in norm(t))
         if not rel:
             continue
-        return {"title": t, "channel": ch, "url": f"https://www.youtube.com/watch?v={vid}"}
+        return {"title": t, "channel": ch, "vid": vid,
+                "url": f"https://www.youtube.com/watch?v={vid}"}
     return None
 
 
@@ -400,6 +401,7 @@ def run_scraper(days_back: int = 14) -> dict:
             "sources": ["Wikipedia"],
             "note": note,
             "yt_url": mv["url"],            # 官方 MV 直連
+            "yt_id": mv.get("vid", ""),     # YouTube 影片 ID（縮圖 / 內嵌播放用）
             "yt_title": mv["title"],
             "id": hashlib.md5(raw_id.encode()).hexdigest()[:12],
         })
@@ -414,10 +416,50 @@ def run_scraper(days_back: int = 14) -> dict:
     return {"tracks": tracks, "summary": summary, "fetched_at": now_str}
 
 
+def update_archive(data_dir: str, tracks: list[dict]) -> int:
+    """把本次曲目累積進 data/archive.json（依 id 去重，保留首次出現日期）。回傳總筆數。"""
+    arc_path = os.path.join(data_dir, "archive.json")
+    archive = {"tracks": [], "updated_at": ""}
+    if os.path.exists(arc_path):
+        try:
+            with open(arc_path, encoding="utf-8") as f:
+                archive = json.load(f)
+        except Exception as e:
+            log.warning(f"archive.json 讀取失敗，將重建: {e}")
+            archive = {"tracks": [], "updated_at": ""}
+
+    by_id = {t["id"]: t for t in archive.get("tracks", []) if t.get("id")}
+    today = datetime.now().strftime("%Y-%m-%d")
+    for t in tracks:
+        tid = t.get("id")
+        if not tid:
+            continue
+        if tid in by_id:
+            # 已存在：更新欄位但保留 first_seen
+            first_seen = by_id[tid].get("first_seen", today)
+            by_id[tid] = {**t, "first_seen": first_seen}
+        else:
+            by_id[tid] = {**t, "first_seen": today}
+
+    merged = sorted(by_id.values(),
+                    key=lambda x: (x.get("date", ""), x.get("first_seen", "")),
+                    reverse=True)
+    archive = {"tracks": merged,
+               "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M")}
+    with open(arc_path, "w", encoding="utf-8") as f:
+        json.dump(archive, f, ensure_ascii=False, indent=2)
+    return len(merged)
+
+
 if __name__ == "__main__":
     data = run_scraper()
-    out_path = os.path.join(os.path.dirname(__file__), "..", "data", "latest.json")
-    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    data_dir = os.path.join(os.path.dirname(__file__), "..", "data")
+    os.makedirs(data_dir, exist_ok=True)
+
+    out_path = os.path.join(data_dir, "latest.json")
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-    print(f"✅ 完成，共 {len(data.get('tracks', []))} 筆，已存至 data/latest.json")
+
+    total = update_archive(data_dir, data.get("tracks", []))
+    print(f"✅ 完成，本期 {len(data.get('tracks', []))} 筆 → data/latest.json；"
+          f"歷史累積 {total} 筆 → data/archive.json")
