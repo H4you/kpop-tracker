@@ -335,8 +335,9 @@ def youtube_find_mv(group: str, title: str) -> dict | None:
                 ch = (vr.get("ownerText", {}).get("runs", [{}])[0].get("text", "")
                       or vr.get("longBylineText", {}).get("runs", [{}])[0].get("text", ""))
                 vid = vr.get("videoId", "")
+                vc = vr.get("viewCountText", {}).get("simpleText", "")
                 if t and vid:
-                    vids.append((t, ch, vid))
+                    vids.append((t, ch, vid, vc))
             for v in o.values():
                 walk(v)
         elif isinstance(o, list):
@@ -348,9 +349,13 @@ def youtube_find_mv(group: str, title: str) -> dict | None:
     def norm(s):
         return re.sub(r"[^a-z0-9가-힣]", "", (s or "").lower())
 
+    def parse_views(s):
+        mm = re.search(r"([\d,]+)", s or "")
+        return int(mm.group(1).replace(",", "")) if mm else None
+
     gtok = norm(group)
     ttok = norm(title)
-    for t, ch, vid in vids[:15]:
+    for t, ch, vid, vc in vids[:15]:
         up = t.upper()
         if any(n in up for n in _MV_NEG):
             continue
@@ -361,7 +366,8 @@ def youtube_find_mv(group: str, title: str) -> dict | None:
         if not rel:
             continue
         return {"title": t, "channel": ch, "vid": vid,
-                "url": f"https://www.youtube.com/watch?v={vid}"}
+                "url": f"https://www.youtube.com/watch?v={vid}",
+                "views": parse_views(vc)}
     return None
 
 
@@ -397,6 +403,80 @@ def ai_filter_upcoming(upcoming: list[dict], debuts: list[str]) -> list[dict]:
             return items
     except Exception as e:
         log.error(f"AI 預告篩選失敗: {e}")
+    return []
+
+
+def ai_weekly_digest(tracks: list[dict], upcoming: list[dict]) -> str:
+    """用 Claude 寫一段中文「本週女團懶人包」摘要。失敗回空字串。"""
+    if not AI_ENABLED or (not tracks and not upcoming):
+        return ""
+    t_min = [{"group": t.get("group"), "title": t.get("title"),
+              "date": t.get("date"), "is_solo": t.get("is_solo"),
+              "views": t.get("yt_views")} for t in tracks]
+    u_min = [{"group": u.get("group"), "title": u.get("title"),
+              "date": u.get("date"), "days_left": u.get("days_left")} for u in upcoming]
+    prompt = f"""你是 KPop 女團情報編輯。請根據以下資料，寫一段「本週女團懶人包」中文摘要，給粉絲快速掌握重點。
+
+【本期新曲（含 MV 觀看數）】
+{json.dumps(t_min, ensure_ascii=False)}
+
+【近期發行預告】
+{json.dumps(u_min, ensure_ascii=False)}
+
+要求：
+- 3～5 句、繁體中文、口語自然，像朋友在分享情報。
+- 點出本期亮點（話題作、觀看數高的、前成員 solo、新人團出道）。
+- 提一下接下來值得期待的回歸/發行。
+- 只輸出摘要文字本身，不要標題、不要 JSON、不要 markdown 符號。"""
+    try:
+        resp = ANTHROPIC_CLIENT.messages.create(
+            model=AI_MODEL, max_tokens=1000,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        text = next((b.text for b in resp.content if b.type == "text"), "").strip()
+        if text:
+            log.info("AI 週報已生成")
+        return text
+    except Exception as e:
+        log.error(f"AI 週報生成失敗: {e}")
+        return ""
+
+
+def ai_month_birthdays(group_names: list[str]) -> list[dict]:
+    """用 Claude 列出本月過生日的女團成員（限追蹤清單內的團）。失敗回空陣列。"""
+    if not AI_ENABLED or not group_names:
+        return []
+    month = datetime.now().month
+    prompt = f"""列出以下 KPop 女團中，「生日在 {month} 月」的現役成員。
+
+【女團清單】
+{json.dumps(group_names, ensure_ascii=False)}
+
+要求：
+- 只列你「有把握」的成員生日（{month} 月），沒把握就不要列，寧缺勿錯。
+- 只輸出純 JSON：
+{{"birthdays":[{{"group":"團名","member":"成員名","date":"MM-DD"}}]}}"""
+    try:
+        resp = ANTHROPIC_CLIENT.messages.create(
+            model=AI_MODEL, max_tokens=2000,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        text = next((b.text for b in resp.content if b.type == "text"), "")
+        mt = re.search(r"\{[\s\S]*\}", text)
+        if mt:
+            items = json.loads(mt.group()).get("birthdays", [])
+            today = datetime.now()
+            for b in items:
+                try:
+                    mm, dd = b["date"].split("-")
+                    b["is_today"] = (int(mm) == today.month and int(dd) == today.day)
+                except Exception:
+                    b["is_today"] = False
+            items.sort(key=lambda x: x.get("date", ""))
+            log.info(f"AI 本月生日：{len(items)} 位成員")
+            return items
+    except Exception as e:
+        log.error(f"AI 生日查詢失敗: {e}")
     return []
 
 
@@ -507,6 +587,7 @@ def run_scraper(days_back: int = 14) -> dict:
             "yt_url": mv["url"],            # 官方 MV 直連
             "yt_id": mv.get("vid", ""),     # YouTube 影片 ID（縮圖 / 內嵌播放用）
             "yt_title": mv["title"],
+            "yt_views": mv.get("views"),    # MV 觀看數（int 或 None）
             "id": hashlib.md5(raw_id.encode()).hexdigest()[:12],
         })
 
@@ -526,9 +607,16 @@ def run_scraper(days_back: int = 14) -> dict:
                + (f"：{groups}。" if groups else "。")
                + (f"（另有 {dropped_no_mv} 筆查無官方 MV 未收錄）" if dropped_no_mv else ""))
 
+    digest = ai_weekly_digest(tracks, upcoming)
+
+    # 本月成員生日（限追蹤清單內的女團）
+    all_groups = sorted({t["group"] for t in tracks if not t.get("is_solo")}
+                        | {u["group"] for u in upcoming if not u.get("is_solo")})
+    birthdays = ai_month_birthdays(all_groups)
+
     log.info(f"完成：收錄 {n} 筆，略過無 MV {dropped_no_mv} 筆，預告 {len(upcoming)} 筆")
-    return {"tracks": tracks, "upcoming": upcoming,
-            "summary": summary, "fetched_at": now_str}
+    return {"tracks": tracks, "upcoming": upcoming, "birthdays": birthdays,
+            "summary": summary, "digest": digest, "fetched_at": now_str}
 
 
 def update_archive(data_dir: str, tracks: list[dict]) -> int:
@@ -566,7 +654,18 @@ def update_archive(data_dir: str, tracks: list[dict]) -> int:
     return len(merged)
 
 
-def notify_discord(new_tracks: list[dict], site_url: str) -> None:
+def _fmt_views(v) -> str:
+    """觀看數整數 → 易讀字串（73061587 → 7306 萬次）。"""
+    if not isinstance(v, int):
+        return ""
+    if v >= 100_000_000:
+        return f"{v/100_000_000:.1f} 億次"
+    if v >= 10_000:
+        return f"{v/10_000:.0f} 萬次"
+    return f"{v:,} 次"
+
+
+def notify_discord(new_tracks: list[dict], site_url: str, digest: str = "") -> None:
     """有新曲時發 Discord webhook 通知。新曲 = 不在上次 archive 的曲目（由呼叫端傳入）。"""
     webhook = os.environ.get("DISCORD_WEBHOOK_URL", "").strip()
     if not webhook:
@@ -579,11 +678,14 @@ def notify_discord(new_tracks: list[dict], site_url: str) -> None:
     lines = []
     for t in new_tracks[:15]:
         tag = "🎤 solo" if t.get("is_solo") else "👯 女團"
-        lines.append(f"**{t.get('group','')}** – {t.get('title','')} "
-                     f"（{t.get('date','')}・{tag}）\n{t.get('yt_url','')}")
+        vstr = _fmt_views(t.get("yt_views"))
+        meta = f"（{t.get('date','')}・{tag}" + (f"・▶ {vstr}" if vstr else "") + "）"
+        lines.append(f"**{t.get('group','')}** – {t.get('title','')} {meta}\n{t.get('yt_url','')}")
     desc = "\n\n".join(lines)
     if len(new_tracks) > 15:
         desc += f"\n\n…等共 {len(new_tracks)} 首"
+    if digest:
+        desc = f"📰 **本週懶人包**\n{digest}\n\n" + desc
 
     payload = {
         "username": "GirlGroup Tracker",
@@ -631,12 +733,13 @@ if __name__ == "__main__":
     new_tracks = [t for t in data.get("tracks", []) if t.get("id") not in prev_ids]
     site_url = os.environ.get("SITE_URL", "").strip() or "https://h4you.github.io/kpop-tracker/"
 
+    digest = data.get("digest", "")
     # 測試模式：手動觸發時勾選，強制把本期曲目當新曲發一次，驗證 webhook
     if os.environ.get("TEST_NOTIFY", "").lower() == "true":
         log.info("TEST_NOTIFY=true：強制發送測試通知")
-        notify_discord(data.get("tracks", []) or new_tracks, site_url)
+        notify_discord(data.get("tracks", []) or new_tracks, site_url, digest)
     else:
-        notify_discord(new_tracks, site_url)
+        notify_discord(new_tracks, site_url, digest)
 
     print(f"✅ 完成，本期 {len(data.get('tracks', []))} 筆 → latest.json；"
           f"歷史累積 {total} 筆 → archive.json；"

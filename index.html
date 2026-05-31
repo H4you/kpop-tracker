@@ -464,6 +464,7 @@ header {
   font-size: 10px; padding: 2px 8px; border-radius: 99px; flex-shrink: 0;
   background: var(--pink-dim); border: 0.5px solid rgba(232,83,124,0.25); color: var(--pink-text);
 }
+.view-count { color: var(--amber) !important; font-variant-numeric: tabular-nums; }
 @media (max-width: 560px) {
   .up-date { width: 64px; }
   .up-tag { display: none; }
@@ -570,6 +571,10 @@ header {
       </div>
     </div>
     <div class="header-actions">
+      <select class="btn-ghost" id="sort-sel" style="cursor:pointer" title="排序方式">
+        <option value="date">依日期</option>
+        <option value="views">依熱度</option>
+      </select>
       <select class="btn-ghost" id="time-sel" style="cursor:pointer">
         <option value="all">全部</option>
         <option value="week" selected>本週</option>
@@ -643,6 +648,14 @@ header {
     <div class="upcoming-list" id="upcoming-list"></div>
   </div>
 
+  <div class="upcoming-card" id="bday-card">
+    <div class="upcoming-head">
+      <span class="upcoming-title">🎂 本月成員生日</span>
+      <span class="upcoming-sub">追蹤女團的現役成員</span>
+    </div>
+    <div class="upcoming-list" id="bday-list"></div>
+  </div>
+
   <main class="track-list" id="tlist" aria-label="女團新曲清單">
     <div class="empty">
       <div class="empty-icon" aria-hidden="true">◈</div>
@@ -678,6 +691,7 @@ let added = new Set(JSON.parse(localStorage.getItem('kpop_added_v3') || '[]'));
 let archiveTracks = [];
 let archiveLoaded = false;
 let upcoming = [];
+let birthdays = [];
 let searchQuery = '';
 
 /* ── Persist ── */
@@ -758,6 +772,10 @@ function getFiltered() {
       ((t.group||'') + ' ' + (t.title||'') + ' ' + (t.group_kr||'') + ' ' + (t.album||''))
         .toLowerCase().includes(q));
   }
+  const sortEl = document.getElementById('sort-sel');
+  if (sortEl && sortEl.value === 'views') {
+    list = [...list].sort((a, b) => (b.yt_views || 0) - (a.yt_views || 0));
+  }
   return list;
 }
 
@@ -780,6 +798,21 @@ function renderUpcoming() {
       ${badge ? `<span class="up-badge">${badge}</span>` : ''}
     </a>`;
   }).join('');
+}
+
+/* ── 本月成員生日 ── */
+function renderBirthdays() {
+  const card = document.getElementById('bday-card');
+  const list = document.getElementById('bday-list');
+  if (!card || !list) return;
+  if (!birthdays.length) { card.classList.remove('show'); return; }
+  card.classList.add('show');
+  list.innerHTML = birthdays.map(b => `
+    <div class="up-item" style="cursor:default">
+      <span class="up-date">${escHtml(b.date||'')}</span>
+      <span class="up-main"><span class="up-group">${escHtml(b.member||'')}</span> <span class="up-title">${escHtml(b.group||'')}</span></span>
+      ${b.is_today ? '<span class="up-badge">🎉 今天</span>' : ''}
+    </div>`).join('');
 }
 
 /* ── Render ── */
@@ -821,6 +854,7 @@ function render() {
         <div class="track-meta">
           ${t.date ? `<span class="track-meta-item">${escHtml(t.date)}</span>` : ''}
           ${t.album ? `<span class="track-meta-item" style="color:var(--text3)">${escHtml(t.album)}</span>` : ''}
+          ${fmtViews(t.yt_views) ? `<span class="track-meta-item view-count" title="MV 觀看數">▶ ${fmtViews(t.yt_views)}</span>` : ''}
           ${srcs.map(s => `<span class="track-meta-item"><span class="src-dot" data-s="${s}" aria-hidden="true"></span>${s}</span>`).join('')}
         </div>
       </div>
@@ -847,6 +881,12 @@ function render() {
 
 function escHtml(s) {
   return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function fmtViews(v) {
+  if (typeof v !== 'number' || !isFinite(v)) return '';
+  if (v >= 1e8) return (v/1e8).toFixed(1) + ' 億';
+  if (v >= 1e4) return Math.round(v/1e4) + ' 萬';
+  return v.toLocaleString();
 }
 function escAttr(s) {
   return String(s || '').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;').replace(/[\r\n]+/g,' ');
@@ -946,9 +986,10 @@ async function fetchAll() {
         id: (t.group + t.title + i).split('').reduce((h,c) => ((h<<5)-h+c.charCodeAt(0))|0, 0).toString(36).replace('-','n')
       }));
 
-      // 顯示 AI 摘要
-      if (result.summary) {
-        document.getElementById('ai-summary-text').textContent = result.summary;
+      // 顯示 AI 摘要（優先懶人包）
+      const sumText = result.digest || result.summary;
+      if (sumText) {
+        document.getElementById('ai-summary-text').textContent = sumText;
         document.getElementById('ai-card').classList.add('show');
       }
 
@@ -962,7 +1003,11 @@ async function fetchAll() {
         repoLink.href = 'https://github.com/' + (window.GITHUB_REPO || 'your-username/kpop-tracker');
       }
 
+      upcoming = result.upcoming || [];
+      birthdays = result.birthdays || [];
       updateStats();
+      renderUpcoming();
+      renderBirthdays();
       render();
     } else {
       throw new Error('no tracks returned');
@@ -982,6 +1027,7 @@ async function fetchAll() {
 
 /* ── Time filter change ── */
 document.getElementById('time-sel').addEventListener('change', render);
+document.getElementById('sort-sel').addEventListener('change', render);
 
 /* ── 搜尋框 ── */
 document.getElementById('search-box').addEventListener('input', e => {
