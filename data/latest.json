@@ -12,10 +12,11 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "知名女團",
+      "note": "確認女團",
       "yt_url": "https://www.youtube.com/watch?v=1jKnI_ib8c8",
       "yt_id": "1jKnI_ib8c8",
       "yt_title": "ITZY “Motto” M/V",
+      "yt_views": 14021035,
       "id": "951d1d3a5bd4"
     },
     {
@@ -30,10 +31,11 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "經典女團重組/回歸發行",
+      "note": "確認女團（重組/回歸活動）",
       "yt_url": "https://www.youtube.com/watch?v=Jxgbfc89hNI",
       "yt_id": "Jxgbfc89hNI",
       "yt_title": "아이오아이 (I.O.I) - 갑자기 (Suddenly) MV",
+      "yt_views": 5150371,
       "id": "9b1b75ed785f"
     },
     {
@@ -48,10 +50,11 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "Oh My Girl 現任成員 solo 發行",
+      "note": "Oh My Girl 現任成員 solo",
       "yt_url": "https://www.youtube.com/watch?v=FMXos3fDQ10",
       "yt_id": "FMXos3fDQ10",
       "yt_title": "[MV] HYOJUNG(효정) (OH MY GIRL(오마이걸)) _ Purple Note(나의 작은 청춘에게)",
+      "yt_views": 19008,
       "id": "4a7758741fc9"
     },
     {
@@ -66,15 +69,16 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "知名女團",
+      "note": "確認女團",
       "yt_url": "https://www.youtube.com/watch?v=V1Lr-_AxeR8",
       "yt_id": "V1Lr-_AxeR8",
       "yt_title": "LE SSERAFIM (르세라핌) 'BOOMPALA' OFFICIAL MV",
+      "yt_views": 14775122,
       "id": "7d401dca5188"
     },
     {
       "group": "Heart of Woman",
-      "group_kr": "",
+      "group_kr": "하트 오브 우먼",
       "title": "Heart Byte: Legacy",
       "album": "Heart Byte: Legacy",
       "date": "2026.05.28",
@@ -84,10 +88,11 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "本年度出道團清單收錄，Wikipedia 原始資料來源標題含「걸그룹」字樣暗示為女團（石션條目提及 나르샤等混聲，但 Heart of Woman 另條），需小心確認；保留收錄",
+      "note": "本年度出道新團，團名含 Woman 推測為女團，但尚待確認；namuwiki 無資料，待確認",
       "yt_url": "https://www.youtube.com/watch?v=h8HGbj0enmg",
       "yt_id": "h8HGbj0enmg",
       "yt_title": "HEART OF WOMAN 'How Not to Lose Myself (Lost in Proof)' MV",
+      "yt_views": 2623244,
       "id": "8adfe719f964"
     },
     {
@@ -102,10 +107,11 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女團",
+      "note": "確認女團",
       "yt_url": "https://www.youtube.com/watch?v=tqGcOmgTq_U",
       "yt_id": "tqGcOmgTq_U",
       "yt_title": "Queenz Eye  |  2nd Mini Album [PRISM EP.02] 'Y2K' MV",
+      "yt_views": 1707018,
       "id": "6f30e52783ec"
     },
     {
@@ -120,10 +126,11 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "知名女團",
+      "note": "確認女團",
       "yt_url": "https://www.youtube.com/watch?v=83C3TZ4Zm_o",
       "yt_id": "83C3TZ4Zm_o",
       "yt_title": "aespa 에스파 'LEMONADE' MV",
+      "yt_views": 20751948,
       "id": "a617a9a27d04"
     }
   ],
@@ -177,6 +184,8 @@
       "days_left": 9
     }
   ],
+  "birthdays": [],
   "summary": "本期收錄 7 首有官方 MV 的女團／前成員 solo 主打發行：Itzy、I.O.I、Hyojung、Le Sserafim、Heart of Woman、Queenz Eye、Aespa。（另有 1 筆查無官方 MV 未收錄）",
-  "fetched_at": "2026-05-31 19:10"
+  "digest": "本週女團市場超熱鬧！Aespa 的《Lemonade》以超過 2,000 萬次觀看數強勢領跑，Le Sserafim 的《Pureflow Pt. 1》也緊追在後突破 1,400 萬，兩團這週可說是互相較勁、火花四射。話題度同樣不低的還有 I.O.I 重組帶來的《I.O.I: Loop》，勾起了一堆老粉的回憶殺，而 OH MY GIRL 孝靜的個人單曲《Purple Note》雖然觀看數相對小眾，但溫柔的氛圍讓粉絲大喊療癒。接下來更不能鬆懈，TripleS、Meovv 和 Fifty Fifty 三組本週就要同日發行新作，Mamamoo 的《4ward》和 Izna 的《Set the Tempo》也即將陸續來襲，大家記得把行事曆排好！",
+  "fetched_at": "2026-05-31 19:20"
 }
