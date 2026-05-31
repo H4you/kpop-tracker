@@ -983,6 +983,12 @@ async function fetchAll() {
 /* ── Time filter change ── */
 document.getElementById('time-sel').addEventListener('change', render);
 
+/* ── 搜尋框 ── */
+document.getElementById('search-box').addEventListener('input', e => {
+  searchQuery = e.target.value.trim();
+  render();
+});
+
 /* ── ESC 關閉 MV 彈窗 ── */
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMV(); });
 
@@ -1005,7 +1011,9 @@ window.addEventListener('load', async () => {
     document.getElementById('sdot').className = 'status-dot ok';
     document.getElementById('stext').textContent = `已從 data/latest.json 載入 ${tracks.length} 首`;
     document.getElementById('stime').textContent = data.fetched_at || '';
+    upcoming = data.upcoming || [];
     updateStats();
+    renderUpcoming();
     render();
   }
 });
