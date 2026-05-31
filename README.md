@@ -5,10 +5,14 @@
 
 ## 資料來源
 
-- PTT koreanpop：[情報] 新曲貼文
-- Circle Chart：本週數位週榜
-- YouTube RSS：女團官方頻道新上傳（免 API key）
-- Melon：新曲排行
+- Wikipedia「{年} in South Korean music」發行列表：當期所有南韓發行（主來源，涵蓋剛出道 / 不知名女團）
+- PTT koreanpop：[情報] 新曲貼文（補強）
+- namuwiki（나무위키）：維基/AI 無法確認時，補強辨識是否為女團
+- YouTube：驗證該發行是否有官方 MV，並取得 MV 直連
+
+AI 篩出「女團」與「前/現任女團成員 solo」，全語言都收。**只收錄能找到官方 MV 的主打發行**（符合「只加主打歌 / 有 MV 的曲」習慣），每筆附官方 MV 直連，一鍵開啟。
+
+舊資料來源（已停用）：
 
 ## 運作方式
 
@@ -52,6 +56,6 @@
 
 ## 自訂
 
-- 新增追蹤女團：編輯 src/scraper.py 的 GIRLGROUP_YT_CHANNELS 與 GIRLGROUP_KEYWORDS
+- 調整抓取範圍：改 src/scraper.py 的 run_scraper(days_back=14) 天數（不需再維護女團白名單，AI 自動判斷）
 - 改執行時間：編輯 .github/workflows/daily.yml 的 cron
 - 改外觀：編輯 index.html 的 :root CSS 變數

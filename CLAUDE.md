@@ -14,9 +14,11 @@
 每天 09:00（台灣時間）
   └─ GitHub Actions 自動觸發 (.github/workflows/daily.yml)
        ├─ 1. 執行 src/scraper.py
-       │      爬 PTT koreanpop + Circle Chart + YouTube RSS + Melon
-       │      → Claude AI 篩選女團、去重、結構化
-       │      → 產生 data/latest.json
+       │      爬 Wikipedia「{年} in South Korean music」發行列表 + PTT koreanpop
+       │      → Claude AI 篩選女團 / 前女團成員 solo（全語言、含不知名團）
+       │      → 待確認團查 namuwiki 補強辨識
+       │      → YouTube 驗證官方 MV（嚴格：無 MV 不收），取得 MV 直連
+       │      → 產生 data/latest.json（yt_url 為官方 MV 直連）
        ├─ 2. 把 latest.json commit 回 repo
        └─ 3. 部署 GitHub Pages（index.html + latest.json）
 
@@ -107,4 +109,6 @@ kpop-tracker/
 
 - `gh` CLI（GitHub CLI）若使用者已安裝，許多步驟可自動化；若無，請給出網頁點擊步驟
 - 部署前確認 `data/latest.json` 存在，否則前端 fetch 會失敗（已在待辦 #2 處理）
-- 爬蟲的 PTT / Melon / Circle 爬取邏輯依賴對方網頁結構，若失效需更新 selector
+- 爬蟲依賴 Wikipedia 發行表格、PTT、namuwiki、YouTube 搜尋結果的網頁結構，若失效需更新解析邏輯
+- 嚴格模式：只收「能在 YouTube 找到官方 MV」的發行（使用者只把主打歌 / 有 MV 的曲加進清單）。要放寬就改 `run_scraper` 內 YouTube 驗證的處理
+- 舊版的 Circle Chart / Melon / 寫死 YouTube 頻道來源已於 2026-05 移除（對方網址全部 404）
