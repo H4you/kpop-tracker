@@ -52,21 +52,45 @@ MONTH_NAMES = ["", "January", "February", "March", "April", "May", "June",
 
 # ── 1. Wikipedia 發行列表 ──────────────────────────────────────────────────────
 
+_SECTIONS_CACHE: dict[str, list[dict]] = {}
+
+
+def _wiki_get(params: dict, retries: int = 4) -> dict:
+    """呼叫維基 API，遇 429 / 5xx 以指數退避重試。"""
+    delay = 2.0
+    last = None
+    for attempt in range(retries):
+        try:
+            r = requests.get(WIKI_API, params=params, headers=HEADERS, timeout=20)
+            if r.status_code in (429, 503) or r.status_code >= 500:
+                last = f"HTTP {r.status_code}"
+                wait = float(r.headers.get("Retry-After", delay))
+                log.warning(f"Wikipedia {last}，{wait:.0f}s 後重試 ({attempt+1}/{retries})")
+                time.sleep(wait)
+                delay *= 2
+                continue
+            r.raise_for_status()
+            return r.json()
+        except requests.RequestException as e:
+            last = str(e)
+            time.sleep(delay)
+            delay *= 2
+    raise RuntimeError(f"Wikipedia API 重試耗盡: {last}")
+
+
 def _wiki_sections(page: str) -> list[dict]:
-    r = requests.get(WIKI_API, params={
-        "action": "parse", "format": "json", "page": page, "prop": "sections",
-    }, headers=HEADERS, timeout=20)
-    r.raise_for_status()
-    return r.json().get("parse", {}).get("sections", [])
+    if page in _SECTIONS_CACHE:
+        return _SECTIONS_CACHE[page]
+    data = _wiki_get({"action": "parse", "format": "json", "page": page, "prop": "sections"})
+    secs = data.get("parse", {}).get("sections", [])
+    _SECTIONS_CACHE[page] = secs
+    return secs
 
 
 def _wiki_section_html(page: str, index: str) -> str:
-    r = requests.get(WIKI_API, params={
-        "action": "parse", "format": "json", "page": page,
-        "prop": "text", "section": index,
-    }, headers=HEADERS, timeout=20)
-    r.raise_for_status()
-    return r.json().get("parse", {}).get("text", {}).get("*", "")
+    data = _wiki_get({"action": "parse", "format": "json", "page": page,
+                      "prop": "text", "section": index})
+    return data.get("parse", {}).get("text", {}).get("*", "")
 
 
 def _parse_release_table(html: str, year: int, month: int) -> list[dict]:
