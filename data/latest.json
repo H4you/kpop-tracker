@@ -26,7 +26,7 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "前女團重組發行",
+      "note": "前女團再合體發行",
       "yt_url": "https://www.youtube.com/results?search_query=I.O.I+I.O.I%3A+Loop+MV",
       "is_new": false,
       "is_hot": false,
@@ -40,10 +40,9 @@
       "date": "2026.05.21",
       "is_solo": true,
       "sources": [
-        "Wikipedia",
-        "PTT"
+        "Wikipedia"
       ],
-      "note": "OH MY GIRL 成員個人 solo 發行",
+      "note": "OH MY GIRL 現任成員 solo 發行",
       "yt_url": "https://www.youtube.com/results?search_query=Hyojung+Purple+Note+MV",
       "is_new": false,
       "is_hot": false,
@@ -57,8 +56,7 @@
       "date": "2026.05.22",
       "is_solo": false,
       "sources": [
-        "Wikipedia",
-        "PTT"
+        "Wikipedia"
       ],
       "note": "",
       "yt_url": "https://www.youtube.com/results?search_query=Le+Sserafim+Pureflow+Pt.+1+MV",
@@ -76,7 +74,7 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "2026年出道團，出道清單中有列，性質待確認",
+      "note": "本年度出道清單內，性別待確認，傾向保留；待確認是否為女團",
       "yt_url": "https://www.youtube.com/results?search_query=Hiipe+Princess+17.7+MV",
       "is_new": true,
       "is_hot": false,
@@ -84,7 +82,7 @@
     },
     {
       "group": "Heart of Woman",
-      "group_kr": "하트 오브 우먼",
+      "group_kr": "",
       "title": "Heart Byte: Legacy",
       "album": "Heart Byte: Legacy",
       "date": "2026.05.28",
@@ -92,7 +90,7 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "2026年出道清單中有列，待確認為女團",
+      "note": "本年度出道清單內；團名含義及組成性別待確認，傾向保留",
       "yt_url": "https://www.youtube.com/results?search_query=Heart+of+Woman+Heart+Byte%3A+Legacy+MV",
       "is_new": true,
       "is_hot": false,
@@ -122,48 +120,15 @@
       "date": "2026.05.29",
       "is_solo": false,
       "sources": [
-        "Wikipedia",
-        "PTT"
+        "Wikipedia"
       ],
       "note": "",
       "yt_url": "https://www.youtube.com/results?search_query=Aespa+Lemonade+MV",
       "is_new": true,
       "is_hot": false,
       "id": "a617a9a27d04"
-    },
-    {
-      "group": "Krystal",
-      "group_kr": "크리스탈",
-      "title": "PWLT",
-      "album": "PWLT",
-      "date": "",
-      "is_solo": true,
-      "sources": [
-        "PTT"
-      ],
-      "note": "f(x) 前成員個人 solo 發行，PTT 情報貼文補充，確切日期未收錄於 Wikipedia 清單",
-      "yt_url": "https://www.youtube.com/results?search_query=Krystal+PWLT+MV",
-      "is_new": false,
-      "is_hot": false,
-      "id": "715d18daf662"
-    },
-    {
-      "group": "BIBI",
-      "group_kr": "비비",
-      "title": "BUMPA",
-      "album": "BUMPA",
-      "date": "",
-      "is_solo": true,
-      "sources": [
-        "PTT"
-      ],
-      "note": "女性 solo 藝人發行，PTT 情報貼文補充，確切日期未收錄於 Wikipedia 清單",
-      "yt_url": "https://www.youtube.com/results?search_query=BIBI+BUMPA+MV",
-      "is_new": false,
-      "is_hot": false,
-      "id": "b533808408a6"
     }
   ],
-  "summary": "本期共整理 10 筆女團／前女團成員相關發行，涵蓋 Itzy、I.O.I 重組、LE SSERAFIM、aespa 等主流女團，以及 Hyojung（OH MY GIRL）、Krystal（f(x)）、BIBI 等 solo 發行，另收錄 Hiipe Princess、Heart of Woman 等 2026 年新出道團待確認項目。",
-  "fetched_at": "2026-05-30 19:30"
+  "summary": "本期共整理 8 筆女團／前女團成員相關發行，涵蓋 Itzy、I.O.I 再合體、Hyojung solo、Le Sserafim、Queenz Eye、Aespa 等，另有 Hiipe Princess 與 Heart of Woman 兩團性別待確認已納入保留。",
+  "fetched_at": "2026-05-31 05:15"
 }
