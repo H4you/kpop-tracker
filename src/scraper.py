@@ -630,7 +630,13 @@ if __name__ == "__main__":
     # 新曲 = 這次出現、但執行前 archive 沒有的
     new_tracks = [t for t in data.get("tracks", []) if t.get("id") not in prev_ids]
     site_url = os.environ.get("SITE_URL", "").strip() or "https://h4you.github.io/kpop-tracker/"
-    notify_discord(new_tracks, site_url)
+
+    # 測試模式：手動觸發時勾選，強制把本期曲目當新曲發一次，驗證 webhook
+    if os.environ.get("TEST_NOTIFY", "").lower() == "true":
+        log.info("TEST_NOTIFY=true：強制發送測試通知")
+        notify_discord(data.get("tracks", []) or new_tracks, site_url)
+    else:
+        notify_discord(new_tracks, site_url)
 
     print(f"✅ 完成，本期 {len(data.get('tracks', []))} 筆 → latest.json；"
           f"歷史累積 {total} 筆 → archive.json；"

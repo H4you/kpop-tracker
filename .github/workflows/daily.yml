@@ -6,6 +6,11 @@ on:
     - cron: "0 1 * * *"
   # 也可以在 GitHub 手動觸發
   workflow_dispatch:
+    inputs:
+      test_notify:
+        description: "送一則 Discord 測試通知（驗證 webhook）"
+        type: boolean
+        default: false
 
 jobs:
   fetch-and-deploy:
@@ -31,6 +36,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           SITE_URL: "https://h4you.github.io/kpop-tracker/"
+          TEST_NOTIFY: ${{ github.event.inputs.test_notify }}
         run: python src/scraper.py
 
       # ── Step 2：把 latest.json commit 回 repo ──
