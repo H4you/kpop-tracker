@@ -231,10 +231,8 @@ header {
   transition: all .15s;
   font-family: var(--font-body);
 }
-.src-chip.on[data-s="PTT"]    { background: rgba(91,156,246,.12); border-color: rgba(91,156,246,.3); color: #a8c8fb; }
-.src-chip.on[data-s="Circle"] { background: rgba(46,196,160,.1);  border-color: rgba(46,196,160,.3); color: #7de8d0; }
-.src-chip.on[data-s="YouTube"]{ background: rgba(245,166,35,.1);  border-color: rgba(245,166,35,.3); color: #fac96a; }
-.src-chip.on[data-s="Melon"]  { background: rgba(232,83,124,.1);  border-color: rgba(232,83,124,.3); color: var(--pink-text); }
+.src-chip.on[data-s="Wikipedia"]{ background: rgba(46,196,160,.1);  border-color: rgba(46,196,160,.3); color: #7de8d0; }
+.src-chip.on[data-s="PTT"]      { background: rgba(91,156,246,.12); border-color: rgba(91,156,246,.3); color: #a8c8fb; }
 
 /* ── Track list ── */
 .track-list { display: flex; flex-direction: column; gap: 6px; }
@@ -323,10 +321,8 @@ header {
   width: 5px; height: 5px;
   border-radius: 50%;
 }
-.src-dot[data-s="PTT"]    { background: #5b9cf6; }
-.src-dot[data-s="Circle"] { background: var(--teal); }
-.src-dot[data-s="YouTube"]{ background: var(--amber); }
-.src-dot[data-s="Melon"]  { background: var(--pink); }
+.src-dot[data-s="Wikipedia"]{ background: var(--teal); }
+.src-dot[data-s="PTT"]      { background: #5b9cf6; }
 
 .track-actions {
   display: flex;
@@ -505,10 +501,8 @@ header {
 
   <div class="src-chips">
     <span class="src-label">來源篩選</span>
-    <span class="src-chip on" data-s="PTT"     onclick="toggleSrc(this)">PTT</span>
-    <span class="src-chip on" data-s="Circle"  onclick="toggleSrc(this)">Circle Chart</span>
-    <span class="src-chip on" data-s="YouTube" onclick="toggleSrc(this)">YouTube</span>
-    <span class="src-chip on" data-s="Melon"   onclick="toggleSrc(this)">Melon</span>
+    <span class="src-chip on" data-s="Wikipedia" onclick="toggleSrc(this)">Wikipedia</span>
+    <span class="src-chip on" data-s="PTT"       onclick="toggleSrc(this)">PTT</span>
   </div>
 
   <main class="track-list" id="tlist" aria-label="女團新曲清單">
@@ -531,7 +525,7 @@ header {
 /* ── State ── */
 let tracks = [];
 let curTab = 'all';
-let activeSrc = new Set(['PTT','Circle','YouTube','Melon']);
+let activeSrc = new Set(['Wikipedia','PTT']);
 let added = new Set(JSON.parse(localStorage.getItem('kpop_added_v3') || '[]'));
 
 /* ── Persist ── */
@@ -591,7 +585,7 @@ function getFiltered() {
   if (curTab === 'pending') list = list.filter(t => !added.has(t.id));
   else if (curTab === 'added') list = list.filter(t => added.has(t.id));
   else if (curTab === 'new') list = list.filter(t => t.is_new);
-  list = list.filter(t => (t.sources || ['PTT']).some(s => activeSrc.has(s)));
+  list = list.filter(t => (t.sources || ['Wikipedia']).some(s => activeSrc.has(s)));
   if (timeVal === 'new') list = list.filter(t => t.is_new);
   return list;
 }
@@ -612,7 +606,7 @@ function render() {
     const isAdded = added.has(t.id);
     const ytQ = encodeURIComponent(`${t.group} ${t.title} MV`);
     const ytHref = t.yt_url || `https://www.youtube.com/results?search_query=${ytQ}`;
-    const srcs = (t.sources || ['PTT']).filter(s => activeSrc.has(s));
+    const srcs = (t.sources || ['Wikipedia']).filter(s => activeSrc.has(s));
     return `<article class="track${isAdded ? ' added' : ''}" style="animation-delay:${i * 30}ms">
       <div class="track-rank" aria-hidden="true">${(i + 1).toString().padStart(2,'0')}</div>
       <div class="track-body">
@@ -741,7 +735,7 @@ async function fetchAll() {
       }
 
       sdot.className = 'status-dot ok';
-      stext.textContent = `已載入 ${tracks.length} 首 · 來源：PTT、Circle Chart、YouTube、Melon`;
+      stext.textContent = `已載入 ${tracks.length} 首 · 來源：Wikipedia、PTT`;
       document.getElementById('stime').textContent = result.fetched_at || new Date().toLocaleString('zh-TW');
 
       // 設定 GitHub repo 連結
