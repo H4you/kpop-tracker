@@ -1,25 +1,6 @@
 {
   "tracks": [
     {
-      "group": "TripleS",
-      "group_kr": "트리플에스",
-      "title": "Assemble26 Love & Pop Pt. 1 Love",
-      "album": "Assemble26 Love & Pop Pt. 1 Love",
-      "date": "2026.06.01",
-      "is_solo": false,
-      "is_new": true,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "女子團體",
-      "yt_url": "https://www.youtube.com/watch?v=6q8UMVXhXsE",
-      "yt_id": "6q8UMVXhXsE",
-      "yt_title": "tripleS 'Baby Flower' Official MV",
-      "yt_views": null,
-      "id": "ab4b828b2dc3"
-    },
-    {
       "group": "Meovv",
       "group_kr": "머브",
       "title": "Bite Now",
@@ -32,106 +13,11 @@
         "Wikipedia"
       ],
       "note": "女子團體",
-      "yt_url": "https://www.youtube.com/watch?v=hlULtigNNao",
-      "yt_id": "hlULtigNNao",
-      "yt_title": "MEOVV(미야오) - ‘BURNING UP’ M/V",
-      "yt_views": 51404712,
+      "yt_url": "https://www.youtube.com/watch?v=RdTHfbSdH24",
+      "yt_id": "RdTHfbSdH24",
+      "yt_title": "MEOVV(미야오) - ‘BITE NOW’ M/V",
+      "yt_views": 1422,
       "id": "64277dcb5b21"
-    },
-    {
-      "group": "Fifty Fifty",
-      "group_kr": "피프티피프티",
-      "title": "Imperfect-I'mperfect",
-      "album": "Imperfect-I'mperfect",
-      "date": "2026.06.01",
-      "is_solo": false,
-      "is_new": true,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "女子團體",
-      "yt_url": "https://www.youtube.com/watch?v=Qc7_zRjH808",
-      "yt_id": "Qc7_zRjH808",
-      "yt_title": "FIFTY FIFTY (피프티피프티) - 'Cupid'  Official MV",
-      "yt_views": 242028975,
-      "id": "a0eaf4d48e08"
-    },
-    {
-      "group": "Mamamoo",
-      "group_kr": "마마무",
-      "title": "4ward",
-      "album": "4ward",
-      "date": "2026.06.04",
-      "is_solo": false,
-      "is_new": true,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "女子團體",
-      "yt_url": "https://www.youtube.com/watch?v=3OG-id0W9gA",
-      "yt_id": "3OG-id0W9gA",
-      "yt_title": "마마무(Mamamoo) - 4SEASON (Official Music Video)",
-      "yt_views": 100822,
-      "id": "12cc4f37993b"
-    },
-    {
-      "group": "Izna",
-      "group_kr": "이즈나",
-      "title": "Set the Tempo",
-      "album": "Set the Tempo",
-      "date": "2026.06.08",
-      "is_solo": false,
-      "is_new": true,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "女子團體",
-      "yt_url": "https://www.youtube.com/watch?v=qhXognTK0Rg",
-      "yt_id": "qhXognTK0Rg",
-      "yt_title": "izna - Metronome mv",
-      "yt_views": 28,
-      "id": "9a82df54830c"
-    },
-    {
-      "group": "Yerin",
-      "group_kr": "예린",
-      "title": "Reach You",
-      "album": "Reach You",
-      "date": "2026.06.09",
-      "is_solo": true,
-      "is_new": true,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "前GFriend成員 solo",
-      "yt_url": "https://www.youtube.com/watch?v=z19ceDKYAlo",
-      "yt_id": "z19ceDKYAlo",
-      "yt_title": "백예린 (Yerin Baek) 'Hate you' M/V",
-      "yt_views": 1702827,
-      "id": "3cac8dd5f392"
-    },
-    {
-      "group": "Uspeer",
-      "group_kr": "",
-      "title": "Bite District",
-      "album": "Bite District",
-      "date": "2026.06.17",
-      "is_solo": false,
-      "is_new": true,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "性別/團體屬性不明，需確認；namuwiki 無資料，待確認",
-      "yt_url": "https://www.youtube.com/watch?v=7WSmAo7kSoo",
-      "yt_id": "7WSmAo7kSoo",
-      "yt_title": "USPEER (유스피어) 'ZOOM' MV",
-      "yt_views": 5535518,
-      "id": "df528c53394b"
     },
     {
       "group": "Itzy",
@@ -149,27 +35,8 @@
       "yt_url": "https://www.youtube.com/watch?v=1jKnI_ib8c8",
       "yt_id": "1jKnI_ib8c8",
       "yt_title": "ITZY “Motto” M/V",
-      "yt_views": 14059548,
+      "yt_views": 14060858,
       "id": "951d1d3a5bd4"
-    },
-    {
-      "group": "I.O.I",
-      "group_kr": "아이오아이",
-      "title": "I.O.I: Loop",
-      "album": "I.O.I: Loop",
-      "date": "2026.05.19",
-      "is_solo": false,
-      "is_new": false,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "女子團體（重組/特別活動）",
-      "yt_url": "https://www.youtube.com/watch?v=GdxvD7r58ng",
-      "yt_id": "GdxvD7r58ng",
-      "yt_title": "아이오아이 (I.O.I) - 너무너무너무 (Very Very Very) MV",
-      "yt_views": 62864177,
-      "id": "9b1b75ed785f"
     },
     {
       "group": "Hyojung",
@@ -183,31 +50,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "Oh My Girl成員 solo",
+      "note": "Oh My Girl 成員個人 Solo 發行",
       "yt_url": "https://www.youtube.com/watch?v=FMXos3fDQ10",
       "yt_id": "FMXos3fDQ10",
       "yt_title": "[MV] HYOJUNG(효정) (OH MY GIRL(오마이걸)) _ Purple Note(나의 작은 청춘에게)",
-      "yt_views": 19271,
+      "yt_views": 19288,
       "id": "4a7758741fc9"
-    },
-    {
-      "group": "Le Sserafim",
-      "group_kr": "르세라핌",
-      "title": "Pureflow Pt. 1",
-      "album": "Pureflow Pt. 1",
-      "date": "2026.05.22",
-      "is_solo": false,
-      "is_new": false,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "女子團體",
-      "yt_url": "https://www.youtube.com/watch?v=V1Lr-_AxeR8",
-      "yt_id": "V1Lr-_AxeR8",
-      "yt_title": "LE SSERAFIM (르세라핌) 'BOOMPALA' OFFICIAL MV",
-      "yt_views": 15001365,
-      "id": "7d401dca5188"
     },
     {
       "group": "Queenz Eye",
@@ -225,7 +73,7 @@
       "yt_url": "https://www.youtube.com/watch?v=tqGcOmgTq_U",
       "yt_id": "tqGcOmgTq_U",
       "yt_title": "Queenz Eye  |  2nd Mini Album [PRISM EP.02] 'Y2K' MV",
-      "yt_views": 2300164,
+      "yt_views": 2321765,
       "id": "6f30e52783ec"
     },
     {
@@ -244,7 +92,7 @@
       "yt_url": "https://www.youtube.com/watch?v=83C3TZ4Zm_o",
       "yt_id": "83C3TZ4Zm_o",
       "yt_title": "aespa 에스파 'LEMONADE' MV",
-      "yt_views": 21367636,
+      "yt_views": 21388134,
       "id": "a617a9a27d04"
     }
   ],
@@ -309,37 +157,13 @@
       },
       {
         "year": "2021",
-        "title": "Forever & Always",
+        "title": "Next Level",
         "type": "數位單曲"
       },
       {
         "year": "2020",
         "title": "Black Mamba",
         "type": "數位單曲"
-      }
-    ],
-    "Fifty Fifty": [
-      {
-        "year": "2023",
-        "title": "The Beginning: Cupid",
-        "type": "迷你"
-      },
-      {
-        "year": "2022",
-        "title": "The Beginning: Girl",
-        "type": "迷你"
-      }
-    ],
-    "I.O.I": [
-      {
-        "year": "2016",
-        "title": "Miss Me?",
-        "type": "迷你"
-      },
-      {
-        "year": "2016",
-        "title": "Chrysalis",
-        "type": "迷你"
       }
     ],
     "Itzy": [
@@ -350,7 +174,7 @@
       },
       {
         "year": "2023",
-        "title": "Kill My Doubt",
+        "title": "Cake",
         "type": "迷你"
       },
       {
@@ -360,7 +184,7 @@
       },
       {
         "year": "2022",
-        "title": "Rhythm & Blues",
+        "title": "Slot Machine",
         "type": "迷你"
       },
       {
@@ -375,51 +199,19 @@
       },
       {
         "year": "2020",
-        "title": "IT'z Me",
+        "title": "Guess Who",
         "type": "迷你"
       },
       {
         "year": "2019",
-        "title": "It'z Icy",
+        "title": "It'z Me",
         "type": "迷你"
       }
     ],
     "Izna": [
       {
         "year": "2024",
-        "title": "Crush on You",
-        "type": "迷你"
-      }
-    ],
-    "Le Sserafim": [
-      {
-        "year": "2024",
-        "title": "Crazy",
-        "type": "迷你"
-      },
-      {
-        "year": "2024",
-        "title": "Easy",
-        "type": "迷你"
-      },
-      {
-        "year": "2023",
-        "title": "Unforgiven",
-        "type": "正規"
-      },
-      {
-        "year": "2023",
-        "title": "Mmetamorphosis",
-        "type": "迷你"
-      },
-      {
-        "year": "2022",
-        "title": "Antifragile",
-        "type": "迷你"
-      },
-      {
-        "year": "2022",
-        "title": "Fearless",
+        "title": "Iz Na Now",
         "type": "迷你"
       }
     ],
@@ -431,7 +223,7 @@
       },
       {
         "year": "2022",
-        "title": "MIC ON",
+        "title": "MIC On",
         "type": "迷你"
       },
       {
@@ -442,7 +234,7 @@
       {
         "year": "2020",
         "title": "Travel",
-        "type": "正規"
+        "type": "迷你"
       },
       {
         "year": "2019",
@@ -451,7 +243,7 @@
       },
       {
         "year": "2018",
-        "title": "Red Moon",
+        "title": "Yellow Flower",
         "type": "迷你"
       },
       {
@@ -461,38 +253,31 @@
       },
       {
         "year": "2016",
-        "title": "Melting",
+        "title": "Memory",
         "type": "正規"
       }
     ],
     "Meovv": [
       {
         "year": "2024",
-        "title": "MEOW",
+        "title": "MEOVV",
         "type": "數位單曲"
-      }
-    ],
-    "TripleS": [
-      {
-        "year": "2024",
-        "title": "Assemble24",
-        "type": "正規"
-      },
-      {
-        "year": "2023",
-        "title": "Assemble",
-        "type": "迷你"
       }
     ],
     "Yerin": [
       {
         "year": "2023",
-        "title": "aria",
+        "title": "Simply Yerin",
+        "type": "迷你"
+      },
+      {
+        "year": "2022",
+        "title": "Aria",
         "type": "迷你"
       },
       {
         "year": "2021",
-        "title": "My Colorful Crayon",
+        "title": "Tip-Toe",
         "type": "迷你"
       },
       {
@@ -502,7 +287,7 @@
       }
     ]
   },
-  "summary": "本期收錄 13 首有官方 MV 的女團／前成員 solo 主打發行：TripleS、Meovv、Fifty Fifty、Mamamoo、Izna、Yerin、Uspeer、Itzy、I.O.I、Hyojung、Le Sserafim、Queenz Eye、Aespa。（另有 2 筆查無官方 MV 未收錄）",
-  "digest": "這週女團情報超豐富！首先話題度最高的絕對是 Fifty Fifty 的《Imperfect-I'mperfect》，MV 觀看數已經突破 2.4 億次，熱度完全沒在客氣；前 I.O.I 成員也集結回歸推出《I.O.I: Loop》，懷舊感直接拉滿，粉絲哭著追回來的不在少數。Meovv 的《Bite Now》也很猛，突破 5100 萬觀看，新生代的氣勢真的很穩。GFriend 前成員 Yerin 以個人名義發行《Reach You》，清甜風格讓老粉新粉都好評連連。接下來要關注的是 Mamamoo 的《4ward》再過 3 天就要來了，還有 IZNA 和 Yerin 也接連在下週回歸，接下來幾天排好行程、準備刷串流！",
-  "fetched_at": "2026-06-01 08:43"
+  "summary": "本期收錄 5 首有官方 MV 的女團／前成員 solo 主打發行：Meovv、Itzy、Hyojung、Queenz Eye、Aespa。（另有 6 筆查無官方 MV 未收錄）",
+  "digest": "本週最大亮點絕對是 Aespa 的新曲《Lemonade》，MV 上線沒多久觀看數就突破 2100 萬，熱度完全不輸人！Itzy 的《Motto》也表現亮眼，累積超過 1400 萬次觀看，兩團可說是本週女團界的雙強對決。另外 OH MY GIRL 孝靜推出個人單曲《Purple Note》，粉絲們別錯過前輩姐姐的清新 solo 作品。新生代的 Queenz Eye 帶來《Prism Ep.02》，230 萬觀看數對新人來說相當不俗，值得好好關注！接下來的話，Mamamoo 的《4ward》只剩 3 天就要發行，Izna 和 Yerin 的新曲也都在這週末前後接連登場，下週根本是女團回歸大爆發，大家準備好荷包和心臟了嗎？",
+  "fetched_at": "2026-06-01 09:05"
 }
