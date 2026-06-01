@@ -824,6 +824,37 @@ def ai_discographies(group_names: list[str]) -> dict:
     return {}
 
 
+def apply_members_override(members: dict, group_names: list[str]) -> dict:
+    """用 data/members_override.json（人工核對名單）覆蓋 AI 結果。
+    鍵名大小寫不敏感；只覆蓋本次有出現的團。namuwiki 在 CI 被封鎖，靠這份確保正確。"""
+    path = os.path.join(os.path.dirname(__file__), "..", "data", "members_override.json")
+    if not os.path.exists(path):
+        return members
+    try:
+        with open(path, encoding="utf-8") as f:
+            raw = json.load(f)
+    except Exception as e:
+        log.warning(f"members_override 讀取失敗: {e}")
+        return members
+    # 正規化鍵
+    ov = {}
+    for k, v in raw.items():
+        if k.startswith("_") or not isinstance(v, list):
+            continue
+        ov[re.sub(r"[^a-z0-9]", "", k.lower())] = v
+    if not ov:
+        return members
+    applied = 0
+    for g in group_names:
+        key = re.sub(r"[^a-z0-9]", "", g.lower())
+        if key in ov:
+            members[g] = ov[key]   # 覆蓋（或新增）
+            applied += 1
+    if applied:
+        log.info(f"成員修正檔：覆蓋 {applied} 團")
+    return members
+
+
 def ai_members(group_names: list[str]) -> dict:
     """成員資訊：抓每團 namuwiki 頁面文字，交給 AI 從「真實頁面內容」提取現役成員
     （以頁面為事實依據，避免 AI 憑記憶混團/捏造）。回傳 {團名: [{name,name_kr,birth,role}...]}。
@@ -1048,8 +1079,9 @@ def run_scraper(days_back: int = 14) -> dict:
     disco_names = sorted({t["group"] for t in tracks} | {u["group"] for u in upcoming})
     discographies = ai_discographies(disco_names)
 
-    # 各團成員資訊（僅團體，前端點團名展開）
+    # 各團成員資訊（僅團體，前端點團名展開）；人工修正檔覆蓋 AI 結果（CI 不依賴 namuwiki）
     members = ai_members(all_groups)
+    members = apply_members_override(members, all_groups)
 
     log.info(f"完成：收錄 {n} 筆，MV 即將上線 {len(pending_mv)} 筆，預告 {len(upcoming)} 筆")
     return {"tracks": tracks, "pending_mv": pending_mv,

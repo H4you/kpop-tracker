@@ -1,0 +1,18 @@
+{
+  "_comment": "人工核對的成員名單覆蓋檔。AI 對新/改組/冷門團會混團或捏造，這裡寫正確名單覆蓋之。鍵名大小寫不敏感比對。發現 AI 出錯的團就加進來。",
+  "MEOVV": [
+    {"name": "Gawon",  "name_kr": "가원", "birth": "", "role": ""},
+    {"name": "Narin",  "name_kr": "나린", "birth": "", "role": ""},
+    {"name": "Ella",   "name_kr": "엘라", "birth": "", "role": ""},
+    {"name": "Anna",   "name_kr": "안나", "birth": "", "role": ""},
+    {"name": "Sooin",  "name_kr": "수인", "birth": "", "role": "忙內"}
+  ],
+  "izna": [
+    {"name": "Koko",          "name_kr": "코코",   "birth": "", "role": ""},
+    {"name": "Mai",           "name_kr": "마이",   "birth": "", "role": ""},
+    {"name": "Bang Jimin",    "name_kr": "방지민", "birth": "", "role": ""},
+    {"name": "Choi Jeongeun", "name_kr": "최정은", "birth": "", "role": ""},
+    {"name": "Yoo Sarang",    "name_kr": "유사랑", "birth": "", "role": ""},
+    {"name": "Jeong Sebi",    "name_kr": "정세비", "birth": "", "role": "忙內"}
+  ]
+}
