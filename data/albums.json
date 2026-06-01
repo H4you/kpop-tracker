@@ -75,24 +75,6 @@
           "itunes_url": "https://music.apple.com/us/album/dumdi-dumdi-single/1525322098?uo=4"
         },
         {
-          "id": 1831861761,
-          "album": "THE BADDEST (feat. Bea Miller & League of Legends Music) - Single",
-          "artist": "K/DA, i-dle & Wolftyla",
-          "year": "2020",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/83/d3/23/83d323c8-758f-b3f7-b28e-e00fb35f797e/00198704643255_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/the-baddest-feat-bea-miller-league-of-legends-music-single/1831861761?uo=4"
-        },
-        {
-          "id": 1832564132,
-          "album": "MORE (feat. 刘柏辛Lexie, Jaira Burns, Seraphine & League of Legends Music) - Single",
-          "artist": "K/DA, Madison Beer & i-dle",
-          "year": "2020",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f8/cf/d7/f8cfd7ec-2b3d-0dd8-3a6e-4d04d3a8e2ae/00198704643330_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/more-feat-%E5%88%98%E6%9F%8F%E8%BE%9Blexie-jaira-burns-seraphine-league-of/1832564132?uo=4"
-        },
-        {
           "id": 1469336028,
           "album": "Uh-Oh - Single",
           "artist": "i-dle",
@@ -100,15 +82,6 @@
           "track_count": 1,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/00/ff/08/00ff08eb-af8a-f059-0356-eeedd9b43fbc/19UMGIM54474.rgb.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/uh-oh-single/1469336028?uo=4"
-        },
-        {
-          "id": 1831861471,
-          "album": "POP/STARS (feat. Jaira Burns & League of Legends Music) - Single",
-          "artist": "K/DA, Madison Beer & i-dle",
-          "year": "2018",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/93/f8/8a/93f88a32-342c-b650-ef1c-ebc1c9f804c3/00198704643309_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/pop-stars-feat-jaira-burns-league-of-legends-music-single/1831861471?uo=4"
         },
         {
           "id": 1426297548,
@@ -120,10 +93,20 @@
           "itunes_url": "https://music.apple.com/us/album/hann-alone-single/1426297548?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 7
     },
     "aespa": {
       "albums": [
+        {
+          "id": 6771565456,
+          "album": "LEMONADE - The 2nd Album",
+          "artist": "aespa",
+          "year": "2026",
+          "track_count": 11,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
+          "tracks": []
+        },
         {
           "id": 6772870169,
           "album": "LEMONADE - The 2nd Album (GISELLE Special Version)",
@@ -149,16 +132,6 @@
             "LEMONADE (Slowed Down Version)",
             "LEMONADE (Instrumental)"
           ]
-        },
-        {
-          "id": 6771565456,
-          "album": "LEMONADE - The 2nd Album",
-          "artist": "aespa",
-          "year": "2026",
-          "track_count": 11,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
-          "tracks": []
         },
         {
           "id": 6772869031,
@@ -429,18 +402,6 @@
           ]
         },
         {
-          "id": 1839847164,
-          "album": "<Love Poison> - Single",
-          "artist": "하슬",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/83/2b/1f/832b1fb2-b7d8-1447-c673-6f24a76d6a02/8804775401336.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/love-poison-single/1839847164?uo=4",
-          "tracks": [
-            "Love Poison"
-          ]
-        },
-        {
           "id": 1831682976,
           "album": "<Club Icarus> (Remix) - Single",
           "artist": "ARTMS",
@@ -461,16 +422,20 @@
           "year": "2024",
           "track_count": 11,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/36/f6/9a/36f69a0d-cf46-bd41-fdef-34379a8150e4/198391540189.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/dall/1737175222?uo=4"
-        },
-        {
-          "id": 1782069037,
-          "album": "Fragile Eyes - Single",
-          "artist": "하슬",
-          "year": "2024",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/16/9f/d1/169fd152-53c1-1cf4-e5f4-e886c42d036e/8804775370618.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/fragile-eyes-single/1782069037?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/dall/1737175222?uo=4",
+          "tracks": [
+            "url",
+            "Virtual Angel",
+            "Sparkle",
+            "The Hitchhiker’s Guide to the Galaxy",
+            "Flower Rhythm",
+            "Candy Crush",
+            "Air",
+            "Unf/Air",
+            "Distress",
+            "Butterfly Effect",
+            "Birth"
+          ]
         },
         {
           "id": 1737936773,
@@ -480,15 +445,6 @@
           "track_count": 2,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/1a/6d/9d/1a6d9d85-f7d4-cabf-9f4c-ff9ec6d89c6a/8804775300349.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/the-carol-3-0-single/1737936773?uo=4"
-        },
-        {
-          "id": 1737936149,
-          "album": "Plastic Candy - Single",
-          "artist": "하슬",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0c/07/2e/0c072ee1-0522-d483-825d-66ecb8aceb0b/8804775284113.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/plastic-candy-single/1737936149?uo=4"
         },
         {
           "id": 1737940719,
@@ -509,7 +465,7 @@
           "itunes_url": "https://music.apple.com/us/album/sweet-crazy-love-eng-ver-single/1737936092?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 7
     },
     "BABYMONSTER": {
       "albums": [
@@ -779,18 +735,6 @@
           ]
         },
         {
-          "id": 1773452219,
-          "album": "APT. - Single",
-          "artist": "ROSÉ & Bruno Mars",
-          "year": "2024",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/1a/7d/2d1a7d91-587e-0ceb-d434-327bd66d9e86/075679628312.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/apt-single/1773452219?uo=4",
-          "tracks": [
-            "APT."
-          ]
-        },
-        {
           "id": 1639174465,
           "album": "Pink Venom - Single",
           "artist": "BLACKPINK",
@@ -828,7 +772,8 @@
           "year": "2020",
           "track_count": 1,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/6b/8d/10/6b8d1099-2a26-bf3d-425e-136ed7db76aa/20UMGIM70903.rgb.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/ice-cream-single/1529336927?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/ice-cream-single/1529336927?uo=4",
+          "tracks": []
         },
         {
           "id": 1520233748,
@@ -876,7 +821,7 @@
           "itunes_url": "https://music.apple.com/us/album/square-two-ep/1313151079?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 9
     },
     "CSR": {
       "albums": [
@@ -963,15 +908,6 @@
           "itunes_url": "https://music.apple.com/us/album/sequence-17-single/1654727949?uo=4"
         },
         {
-          "id": 1438914222,
-          "album": "Csr - Single",
-          "artist": "Rainbow Chan",
-          "year": "2018",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/7a/d7/e7/7ad7e7f2-1994-3be4-3ee1-e1e3d396deef/artwork.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/csr-single/1438914222?uo=4"
-        },
-        {
           "id": 305932556,
           "album": "French Music Festival",
           "artist": "CSR Symphony Orchestra, Keith Clark & Ondrej Lenárd",
@@ -990,7 +926,7 @@
           "itunes_url": "https://music.apple.com/us/album/tchaikovsky-nutcracker-swan-lake-sleeping-beauty-highlights/19564470?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 9
     },
     "Dreamcatcher": {
       "albums": [
@@ -1274,18 +1210,6 @@
           ]
         },
         {
-          "id": 1822902489,
-          "album": "Fifty Fifty - Single",
-          "artist": "Nozomi Kitay",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b9/de/72/b9de722d-d94d-7b47-1083-d1a9d6b98344/4573623340656.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/fifty-fifty-single/1822902489?uo=4",
-          "tracks": [
-            "Fifty Fifty"
-          ]
-        },
-        {
           "id": 1702580851,
           "album": "Cupid – Twin Ver. (feat. Sabrina Carpenter) - Single",
           "artist": "FIFTY FIFTY",
@@ -1318,16 +1242,10 @@
           "year": "2023",
           "track_count": 1,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/cd/ed/5e/cded5e7e-193f-1744-bb30-02f0af2c3848/196872362800.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/cupid-twin-ver-fifty-fifty-sped-up-version-single/1762749292?uo=4"
-        },
-        {
-          "id": 1793046107,
-          "album": "Fifty Fifty - Single",
-          "artist": "Charli Brix",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/39/e3/95/39e395a4-9dbd-aa18-f029-0566474f77ba/3663729228246.png/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/fifty-fifty-single/1793046107?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/cupid-twin-ver-fifty-fifty-sped-up-version-single/1762749292?uo=4",
+          "tracks": [
+            "Cupid - Twin Ver. (FIFTY FIFTY) [Sped Up Version]"
+          ]
         },
         {
           "id": 1762532759,
@@ -1337,36 +1255,9 @@
           "track_count": 4,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/6f/25/68/6f256888-0fc9-c7aa-71aa-bc61606d9766/196872355420.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/the-fifty-ep/1762532759?uo=4"
-        },
-        {
-          "id": 1580770102,
-          "album": "Fifty Fifty - Single",
-          "artist": "Solara & Stylolive",
-          "year": "2020",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/19/74/49/1974493f-5bbc-1c65-35c4-2493e031a06f/0.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/fifty-fifty-single/1580770102?uo=4"
-        },
-        {
-          "id": 1358581774,
-          "album": "Fifty~Fifty",
-          "artist": "Megumi Hayashibara",
-          "year": "2018",
-          "track_count": 14,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/de/77/38/de77383f-0728-d54a-51b7-ca553d852bb3/KICS-3693_1400.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/fifty-fifty/1358581774?uo=4"
-        },
-        {
-          "id": 291028523,
-          "album": "Fifty-Fifty",
-          "artist": "Jackmove",
-          "year": "2004",
-          "track_count": 11,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/72/af/d7/mzi.ystwlsyn.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/fifty-fifty/291028523?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 5
     },
     "fromis_9": {
       "albums": [
@@ -1645,99 +1536,9 @@
             "One Beat",
             "Dive With Me"
           ]
-        },
-        {
-          "id": 1882549705,
-          "album": "Woman - Single",
-          "artist": "Kane Brown",
-          "year": "2026",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8a/70/3f/8a703f6a-1878-6e9f-6cfa-b01a97eac71c/196874109106.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/woman-single/1882549705?uo=4",
-          "tracks": [
-            "Woman"
-          ]
-        },
-        {
-          "id": 1832857842,
-          "album": "Heart Of A Woman (V-Mix) - Single",
-          "artist": "VEDO",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c9/2a/71/c92a71ab-05cd-c530-ecfd-054a652518b5/199999112709_cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/heart-of-a-woman-v-mix-single/1832857842?uo=4",
-          "tracks": [
-            "Heart Of A Woman (V-Mix)"
-          ]
-        },
-        {
-          "id": 1780170483,
-          "album": "Heart Of A Woman Bounce Mix (Radio Edit) - Single",
-          "artist": "Showboy Cj",
-          "year": "2024",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e6/f0/f0/e6f0f0aa-aaed-278f-cabe-cf3294577249/artwork.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/heart-of-a-woman-bounce-mix-radio-edit-single/1780170483?uo=4",
-          "tracks": [
-            "Heart Of A Woman Bounce Mix (Radio Edit)"
-          ]
-        },
-        {
-          "id": 1774544450,
-          "album": "Heart Of A Woman - Single",
-          "artist": "Summer Walker",
-          "year": "2024",
-          "track_count": 3,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c1/e3/d2/c1e3d24a-765c-4ba0-9fec-69b423512806/24UM1IM13081.rgb.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/heart-of-a-woman-single/1774544450?uo=4"
-        },
-        {
-          "id": 1578986656,
-          "album": "Cold Heart (PNAU Remix) - Single",
-          "artist": "Elton John & Dua Lipa",
-          "year": "2021",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/ec/2f/92/ec2f929f-e7ea-b291-42d7-75081bd808a1/21UMGIM68484.rgb.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/cold-heart-pnau-remix-single/1578986656?uo=4"
-        },
-        {
-          "id": 1439776261,
-          "album": "WOMAN - The 9th Album",
-          "artist": "BoA",
-          "year": "2018",
-          "track_count": 10,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/27/72/69/27726980-7846-8582-d6e2-b55a2c342d94/BoA-DIGITAL_COVER.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/woman-the-9th-album/1439776261?uo=4"
-        },
-        {
-          "id": 1418498665,
-          "album": "Woman (feat. Lana Del Rey) [Single Version] - Single",
-          "artist": "Cat Power",
-          "year": "2018",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/ac/e2/5f/ace25f90-e790-4e80-51c0-b0c15e88e94f/dj.snqatbni.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/woman-feat-lana-del-rey-single-version-single/1418498665?uo=4"
-        },
-        {
-          "id": 164127400,
-          "album": "Heart of a Woman",
-          "artist": "Etta James",
-          "year": "1999",
-          "track_count": 12,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/ad/80/79/mzi.xtqxvucq.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/heart-of-a-woman/164127400?uo=4"
-        },
-        {
-          "id": 1881122904,
-          "album": "From The Heart Of A Woman",
-          "artist": "Koko Taylor",
-          "year": "1981",
-          "track_count": 10,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/9e/1d/4e/9e1d4e97-51c8-d59e-e5bf-9e9c85723f12/110544.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/from-the-heart-of-a-woman/1881122904?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 1
     },
     "Hearts2Hearts": {
       "albums": [
@@ -1827,15 +1628,6 @@
           "itunes_url": "https://music.apple.com/us/album/pretty-please-single/1840090017?uo=4"
         },
         {
-          "id": 1844080286,
-          "album": "Pretty Please Hearts2hearts - Single",
-          "artist": "Revi Septiana",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e7/d1/b2/e7d1b259-b2be-65f9-6ecf-e501900ea425/859719347063_cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/pretty-please-hearts2hearts-single/1844080286?uo=4"
-        },
-        {
           "id": 1853487058,
           "album": "FOCUS (Remixes) - Single",
           "artist": "Hearts2Hearts",
@@ -1845,7 +1637,7 @@
           "itunes_url": "https://music.apple.com/us/album/focus-remixes-single/1853487058?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 9
     },
     "Hiipe Princess": {
       "albums": [
@@ -1942,96 +1734,16 @@
           ]
         },
         {
-          "id": 1578342059,
-          "album": "DUMB DUMB - Single",
-          "artist": "JEON SOMI",
-          "year": "2021",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/72/a4/35/72a435df-77ec-2d78-56ac-4880c5323a25/21UMGIM69672.rgb.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/dumb-dumb-single/1578342059?uo=4",
-          "tracks": [
-            "DUMB DUMB"
-          ]
-        },
-        {
-          "id": 1753820406,
-          "album": "Killing Me - Single",
-          "artist": "CHUNG HA",
-          "year": "2021",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4f/a5/14/4fa5143a-c419-ab2a-9aa2-cf8e1cc9c7ea/190296387449.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/killing-me-single/1753820406?uo=4",
-          "tracks": [
-            "Killing Me"
-          ]
-        },
-        {
-          "id": 1724874285,
-          "album": "Querencia",
-          "artist": "CHUNG HA",
-          "year": "2021",
-          "track_count": 21,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/96/03/f1/9603f1f8-7e07-1b4d-f2c2-6517c42f40cd/190296798658.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/querencia/1724874285?uo=4",
-          "tracks": [
-            "SIDE A (NOBLE)",
-            "Bicycle",
-            "Masquerade",
-            "Flying on Faith",
-            "Luce Sicut Stellae",
-            "SIDE B {SAVAGE}",
-            "Stay Tonight",
-            "Dream of You (with R3hab)",
-            "Bother Me",
-            "Chill",
-            "SIDE C {UNKNOWN}",
-            "PLAY (feat. Changmo)",
-            "Demente (feat. Guaynaa)",
-            "Lemon (feat. Colde)",
-            "BYULHARANG (160504 + 170607)",
-            "SIDE D {PLEASURES}",
-            "X",
-            "All Night Long",
-            "Everybody Has",
-            "Come N Goes",
-            "Querencia (Epilogue)"
-          ]
-        },
-        {
-          "id": 1523722876,
-          "album": "What You Waiting For - Single",
-          "artist": "JEON SOMI",
-          "year": "2020",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/28/6a/33/286a33e2-b9b7-38d9-4a1c-15274bc81ee1/20UMGIM60846.rgb.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/what-you-waiting-for-single/1523722876?uo=4"
-        },
-        {
-          "id": 1569281535,
-          "album": "Gotta Go - Single",
-          "artist": "CHUNG HA",
-          "year": "2019",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/11/4a/df/114adf21-6bc8-f41b-fd13-918ae4f48e81/8809603549129_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/gotta-go-single/1569281535?uo=4"
-        },
-        {
-          "id": 1467846641,
-          "album": "BIRTHDAY - Single",
-          "artist": "JEON SOMI",
-          "year": "2019",
-          "track_count": 2,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/67/46/02/67460269-6446-0eab-7df1-a01746c52751/SOMI-DS-F.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/birthday-single/1467846641?uo=4"
-        },
-        {
           "id": 1570376238,
           "album": "Downpour - Single",
           "artist": "I.O.I",
           "year": "2017",
           "track_count": 1,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/1b/f8/7d/1bf87d90-2c4c-19a4-aeef-923fd82d2ac6/8809603543592_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/downpour-single/1570376238?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/downpour-single/1570376238?uo=4",
+          "tracks": [
+            "Downpour"
+          ]
         },
         {
           "id": 1675219365,
@@ -2040,7 +1752,10 @@
           "year": "2016",
           "track_count": 1,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/7c/a7/f9/7ca7f9c2-742c-4188-7d01-e8d3775a909e/8809484113723_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/crush-from-produce-101-single/1675219365?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/crush-from-produce-101-single/1675219365?uo=4",
+          "tracks": [
+            "Crush (From PRODUCE 101)"
+          ]
         },
         {
           "id": 1605088537,
@@ -2049,10 +1764,13 @@
           "year": "2016",
           "track_count": 1,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/ab/33/d8/ab33d802-b45b-c524-64a8-dbd44d2823d9/8809603543608_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/whatta-man-good-man-single/1605088537?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/whatta-man-good-man-single/1605088537?uo=4",
+          "tracks": [
+            "Whatta Man (Good man)"
+          ]
         }
       ],
-      "album_count": 10
+      "album_count": 4
     },
     "ILLIT": {
       "albums": [
@@ -2448,18 +2166,6 @@
           ]
         },
         {
-          "id": 1891222242,
-          "album": "izna! - Single",
-          "artist": "Lil.Re:ver",
-          "year": "2026",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/bc/67/73/bc67734c-46e4-1184-3af3-c7b83d9bbe90/5063958985930.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/izna-single/1891222242?uo=4",
-          "tracks": [
-            "izna!"
-          ]
-        },
-        {
           "id": 1804309574,
           "album": "SIGN - Single",
           "artist": "izna",
@@ -2494,7 +2200,11 @@
           "year": "2025",
           "track_count": 2,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c4/18/43/c418430e-1157-0c09-6b25-7ac280477e83/198704527777_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/beep-single/1816101978?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/beep-single/1816101978?uo=4",
+          "tracks": [
+            "BEEP",
+            "BEEP (Japan Edition)"
+          ]
         },
         {
           "id": 1853513111,
@@ -2524,15 +2234,6 @@
           "itunes_url": "https://music.apple.com/us/album/n-a-ep/1779444219?uo=4"
         },
         {
-          "id": 1773670573,
-          "album": "Izna - Single",
-          "artist": "DVARA",
-          "year": "2024",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/29/4a/23/294a23fd-b43f-5090-52ae-4f6b8c7bb8c4/859795620869_cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/izna-single/1773670573?uo=4"
-        },
-        {
           "id": 406205950,
           "album": "Velga",
           "artist": "Dragon Guardian & IZNA",
@@ -2542,7 +2243,7 @@
           "itunes_url": "https://music.apple.com/us/album/velga/406205950?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 8
     },
     "Kep1er": {
       "albums": [
@@ -2675,40 +2376,6 @@
     "KISS OF LIFE": {
       "albums": [
         {
-          "id": 1784487322,
-          "album": "Kiss of Life - Single",
-          "artist": "Peace Control, Badbwoy & Kinder",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4d/0f/5c/4d0f5c1c-751f-6056-5f4c-6fbe5eb13d42/cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/kiss-of-life-single/1784487322?uo=4",
-          "tracks": []
-        },
-        {
-          "id": 1821294400,
-          "album": "Kiss of Life - Single",
-          "artist": "Micbeatz",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2c/0c/21/2c0c210b-6d0d-8144-daad-b4b5c1c57bf1/663918317334.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/kiss-of-life-single/1821294400?uo=4",
-          "tracks": [
-            "Kiss of Life"
-          ]
-        },
-        {
-          "id": 6775233960,
-          "album": "Kiss of Life - Single",
-          "artist": "vahel",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ff/86/4f/ff864f2d-b8c2-a6aa-9d9e-6f6a0af5d50e/0.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/kiss-of-life-single/6775233960?uo=4",
-          "tracks": [
-            "Kiss of Life"
-          ]
-        },
-        {
           "id": 1694699906,
           "album": "KISS OF LIFE - EP",
           "artist": "KISS OF LIFE",
@@ -2724,63 +2391,9 @@
             "Kitty Cat (JULIE Solo)",
             "Play Love Games (HANEUL Solo)"
           ]
-        },
-        {
-          "id": 1613449263,
-          "album": "Kiss of Life (Remix) [Remix] - Single",
-          "artist": "Gzesus Bless",
-          "year": "2022",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/8b/6c/f4/8b6cf4a6-4730-9296-7c05-3106b2af2fde/artwork.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/kiss-of-life-remix-remix-single/1613449263?uo=4"
-        },
-        {
-          "id": 1631381532,
-          "album": "Kiss of Life - Single",
-          "artist": "Lexa Hill & The Young Punx",
-          "year": "2022",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/30/3b/ad/303bad01-33e1-ae46-9a11-317971d33dcd/cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/kiss-of-life-single/1631381532?uo=4"
-        },
-        {
-          "id": 1445038443,
-          "album": "Kiss Of Life (feat. Giovanca & Benny Sings) - Single",
-          "artist": "Nujabes",
-          "year": "2009",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/9f/fb/f9/9ffbf991-b876-e032-b734-83964104bc66/00044002408747.rgb.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/kiss-of-life-feat-giovanca-benny-sings-single/1445038443?uo=4"
-        },
-        {
-          "id": 325573085,
-          "album": "Kiss of Life - Single",
-          "artist": "Friendly Fires",
-          "year": "2009",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/87/24/7c/87247c9a-1b56-973a-2860-7a853a822298/634904846268.png/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/kiss-of-life-single/325573085?uo=4"
-        },
-        {
-          "id": 731938661,
-          "album": "Kiss of Life",
-          "artist": "Gene Loves Jezebel",
-          "year": "1990",
-          "track_count": 18,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/0b/3a/aa/0b3aaaf9-790f-7aa2-b02f-d7f81fa499d7/607618201562.png/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/kiss-of-life/731938661?uo=4"
-        },
-        {
-          "id": 299546735,
-          "album": "Kiss of Life",
-          "artist": "Siedah Garrett",
-          "year": "1988",
-          "track_count": 9,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/dc/2c/ea/mzi.zxuhgbaq.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/kiss-of-life/299546735?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 1
     },
     "LE SSERAFIM": {
       "albums": [
@@ -3225,30 +2838,6 @@
     "NewJeans": {
       "albums": [
         {
-          "id": 1793830371,
-          "album": "NEWJEANS - Single",
-          "artist": "Turtlecommercial",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/74/1a/92/741a92a3-1d06-1b51-d3e8-8531f4a6f019/663918067246.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/newjeans-single/1793830371?uo=4",
-          "tracks": [
-            "NEWJEANS"
-          ]
-        },
-        {
-          "id": 1793828622,
-          "album": "NEWJEANS (Sped Up) - Single",
-          "artist": "Turtlecommercial",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ee/56/ad/ee56ad6d-9027-50f6-ec44-89b1ca9d2a19/663918067222.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/newjeans-sped-up-single/1793828622?uo=4",
-          "tracks": [
-            "NEWJEANS (Sped Up)"
-          ]
-        },
-        {
           "id": 1744448415,
           "album": "How Sweet - EP",
           "artist": "NewJeans",
@@ -3287,7 +2876,11 @@
           "year": "2023",
           "track_count": 2,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/48/96/08/4896085e-b550-cb0a-3e5b-1f203521cb82/196922265464_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/newjeans-omg-single/1659513441?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/newjeans-omg-single/1659513441?uo=4",
+          "tracks": [
+            "OMG",
+            "Ditto"
+          ]
         },
         {
           "id": 1692686264,
@@ -3296,7 +2889,11 @@
           "year": "2023",
           "track_count": 2,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/63/e5/e2/63e5e2e4-829b-924d-a1dc-8058a1d69bd4/196922462702_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/newjeans-super-shy-single/1692686264?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/newjeans-super-shy-single/1692686264?uo=4",
+          "tracks": [
+            "New Jeans",
+            "Super Shy"
+          ]
         },
         {
           "id": 1678545730,
@@ -3335,7 +2932,7 @@
           "itunes_url": "https://music.apple.com/us/album/ditto-single/1657231957?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 8
     },
     "NMIXX": {
       "albums": [
@@ -3468,18 +3065,6 @@
     "OH MY GIRL": {
       "albums": [
         {
-          "id": 1657988568,
-          "album": "Oh My Girl - Single",
-          "artist": "Freight Train Foxes",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/af/00/24/af002495-7677-6d3f-9c5d-258f0484ca70/76145.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/oh-my-girl-single/1657988568?uo=4",
-          "tracks": [
-            "Oh My Girl"
-          ]
-        },
-        {
           "id": 1738879835,
           "album": "Real Love",
           "artist": "OH MY GIRL",
@@ -3518,34 +3103,20 @@
           ]
         },
         {
-          "id": 1582243822,
-          "album": "Oh My Girl - Single",
-          "artist": "Scottie Chandler",
-          "year": "2021",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/bd/c3/c4/bdc3c4bd-604c-40c6-225c-b5bee92fe29c/artwork.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/oh-my-girl-single/1582243822?uo=4",
-          "tracks": [
-            "Oh My Girl"
-          ]
-        },
-        {
           "id": 1738879486,
           "album": "NONSTOP - EP",
           "artist": "OH MY GIRL",
           "year": "2020",
           "track_count": 5,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/02/06/55/02065564-03ec-1707-e9db-827e8887e6ab/cover_KM0019647_1.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/nonstop-ep/1738879486?uo=4"
-        },
-        {
-          "id": 1456259403,
-          "album": "Oh My Girl (feat. Antoine Villoutreix) - Single",
-          "artist": "Club des Belugas & Antoine Villoutreix",
-          "year": "2019",
-          "track_count": 2,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/68/f1/f1/68f1f183-8ae3-4b94-c848-cd7fb7a51691/cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/oh-my-girl-feat-antoine-villoutreix-single/1456259403?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/nonstop-ep/1738879486?uo=4",
+          "tracks": [
+            "Nonstop",
+            "Dolphin",
+            "Flower Tea",
+            "NEON",
+            "Krystal"
+          ]
         },
         {
           "id": 1733576973,
@@ -3554,7 +3125,14 @@
           "year": "2018",
           "track_count": 5,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/23/4c/97/234c97f5-0a02-1465-0c41-e4246229a371/cover_KM0007213_1.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/remember-me-ep/1733576973?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/remember-me-ep/1733576973?uo=4",
+          "tracks": [
+            "Remember Me",
+            "Echo",
+            "Twilight",
+            "Illusion",
+            "Our Story"
+          ]
         },
         {
           "id": 1738879102,
@@ -3573,18 +3151,9 @@
           "track_count": 4,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f4/11/fe/f411fe9c-4dbe-9e16-ab17-c06eb330bff3/cover_KM0003348_1.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/oh-my-girl-ep/1738878521?uo=4"
-        },
-        {
-          "id": 718630667,
-          "album": "Oh, My Girl",
-          "artist": "Jesse Sykes & The Sweet Hereafter",
-          "year": "2004",
-          "track_count": 10,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music4/v4/f3/6e/24/f36e2482-83d7-35e8-801e-8160b4e1aac8/655173103623.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/oh-my-girl/718630667?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 6
     },
     "Queenz Eye": {
       "albums": [
@@ -3634,26 +3203,26 @@
           ]
         },
         {
-          "id": 1775644331,
-          "album": "마피아 보스가 나에게 집착한다 (Original Webtoon Soundtrack) Pt. 25 - Single",
-          "artist": "Queenz Eye",
-          "year": "2024",
-          "track_count": 2,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/36/2a/b7/362ab778-d47b-a400-0546-4c8536de9830/8800280864598.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/%EB%A7%88%ED%94%BC%EC%95%84-%EB%B3%B4%EC%8A%A4%EA%B0%80-%EB%82%98%EC%97%90%EA%B2%8C-%EC%A7%91%EC%B0%A9%ED%95%9C%EB%8B%A4-original-webtoon-soundtrack-pt-25-single/1775644331?uo=4",
-          "tracks": [
-            "How Could You Know",
-            "How Could You Know (Instrumental)"
-          ]
-        },
-        {
           "id": 1819847907,
           "album": "죽이고 싶은 나의 전복 왕자님 (Original Television Soundtrack) Pt.25 - Single",
           "artist": "Queenz Eye",
           "year": "2024",
           "track_count": 2,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fc/a1/9f/fca19fc9-46e4-9289-2446-570541922521/8800284460031_cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/%EC%A3%BD%EC%9D%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-%EB%82%98%EC%9D%98-%EC%A0%84%EB%B3%B5-%EC%99%95%EC%9E%90%EB%8B%98-original-television-soundtrack-pt-25-single/1819847907?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/%EC%A3%BD%EC%9D%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-%EB%82%98%EC%9D%98-%EC%A0%84%EB%B3%B5-%EC%99%95%EC%9E%90%EB%8B%98-original-television-soundtrack-pt-25-single/1819847907?uo=4",
+          "tracks": [
+            "Can't you come back like the season",
+            "Can't you come back like the season (inst.)"
+          ]
+        },
+        {
+          "id": 1775644331,
+          "album": "마피아 보스가 나에게 집착한다 (Original Webtoon Soundtrack) Pt. 25 - Single",
+          "artist": "Queenz Eye",
+          "year": "2024",
+          "track_count": 2,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/36/2a/b7/362ab778-d47b-a400-0546-4c8536de9830/8800280864598.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/%EB%A7%88%ED%94%BC%EC%95%84-%EB%B3%B4%EC%8A%A4%EA%B0%80-%EB%82%98%EC%97%90%EA%B2%8C-%EC%A7%91%EC%B0%A9%ED%95%9C%EB%8B%A4-original-webtoon-soundtrack-pt-25-single/1775644331?uo=4"
         },
         {
           "id": 1695512709,
@@ -3804,30 +3373,6 @@
     "Red Velvet": {
       "albums": [
         {
-          "id": 1789639330,
-          "album": "Red Velvet (with Ari Abdul) - Single",
-          "artist": "Jutes",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/2b/45/c6/2b45c6b5-72bf-8faf-86da-8755667d755c/565792.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/red-velvet-with-ari-abdul-single/1789639330?uo=4",
-          "tracks": [
-            "Red Velvet (with Ari Abdul)"
-          ]
-        },
-        {
-          "id": 1815045393,
-          "album": "Red Velvet - Single",
-          "artist": "One True God",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/f3/cb/2df3cb4c-f31c-ece4-507f-c8a670d440d6/artwork.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/red-velvet-single/1815045393?uo=4",
-          "tracks": [
-            "Red Velvet"
-          ]
-        },
-        {
           "id": 1614179708,
           "album": "'The ReVe Festival 2022 - Feel My Rhythm' - EP",
           "artist": "Red Velvet",
@@ -3866,7 +3411,15 @@
           "year": "2019",
           "track_count": 7,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7a/d0/f5/7ad0f523-eda6-7b2a-1ff0-e58402cde920/RV_The_ReVe_Festival_Day1_COV.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/the-reve-festival-day-1-ep/1468948702?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/the-reve-festival-day-1-ep/1468948702?uo=4",
+          "tracks": [
+            "Zimzalabim",
+            "Sunny Side Up!",
+            "Milkshake",
+            "Bing Bing",
+            "Parade",
+            "LP"
+          ]
         },
         {
           "id": 1341259280,
@@ -3875,16 +3428,14 @@
           "year": "2018",
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/e2/36/4b/e2364b01-f3f9-c67f-7194-81854a14e540/dj.lcmtrdtw.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/the-perfect-red-velvet-the-2nd-album-repackage-ep/1341259280?uo=4"
-        },
-        {
-          "id": 1638118415,
-          "album": "Red Velvet",
-          "artist": "Waje",
-          "year": "2018",
-          "track_count": 10,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/13/78/c7/1378c799-f3e7-f87d-0f24-d157445e41e8/757572837052.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/red-velvet/1638118415?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/the-perfect-red-velvet-the-2nd-album-repackage-ep/1341259280?uo=4",
+          "tracks": [
+            "Bad Boy",
+            "All Right",
+            "Time To Love",
+            "Bad Boy (Instrumental)",
+            "Peek-A-Boo (Instrumental)"
+          ]
         },
         {
           "id": 1444409443,
@@ -3903,18 +3454,9 @@
           "track_count": 10,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/e5/43/f8/e543f849-b92d-9812-c7c8-0a2f16126d96/RV_02_DC.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/perfect-velvet-the-2nd-album/1314273377?uo=4"
-        },
-        {
-          "id": 1493610890,
-          "album": "Red Velvet - Single",
-          "artist": "monte booker",
-          "year": "2015",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/73/e0/dd/73e0ddf5-1ead-9b4a-7a75-38574ad42ac2/818010023564_cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/red-velvet-single/1493610890?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 6
     },
     "STAYC": {
       "albums": [
@@ -4177,43 +3719,6 @@
     "TWICE": {
       "albums": [
         {
-          "id": 1816313791,
-          "album": "Twice - Single",
-          "artist": "Carson Wallace",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/27/ac/a7/27aca795-384f-d238-c947-a03d42c78856/659459930224.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/twice-single/1816313791?uo=4",
-          "tracks": [
-            "Twice"
-          ]
-        },
-        {
-          "id": 1779564055,
-          "album": "Twice (feat. Shaylen) - Single",
-          "artist": "Canaan Cox",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d1/8b/18/d18b1897-80c6-b47a-a9a0-4cfdcea34433/197342085465.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/twice-feat-shaylen-single/1779564055?uo=4",
-          "tracks": [
-            "Twice (feat. Shaylen)"
-          ]
-        },
-        {
-          "id": 1779564180,
-          "album": "Twice (Ensemble Cut) - Single",
-          "artist": "Canaan Cox",
-          "year": "2023",
-          "track_count": 2,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/70/16/f8/7016f8ab-81c5-be3f-5d54-a3dd83dd591f/197342247030.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/twice-ensemble-cut-single/1779564180?uo=4",
-          "tracks": [
-            "Twice (Ensemble Cut)",
-            "Twice (feat. Shaylen)"
-          ]
-        },
-        {
           "id": 1660143942,
           "album": "MOONLIGHT SUNRISE - Single",
           "artist": "TWICE",
@@ -4232,7 +3737,25 @@
           "year": "2021",
           "track_count": 16,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/87/f5/e0/87f5e0de-c909-f4e6-9621-123565dfbc80/738676858440_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/formula-of-love-o-t-3/1591509653?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/formula-of-love-o-t-3/1591509653?uo=4",
+          "tracks": [
+            "SCIENTIST",
+            "MOONLIGHT",
+            "ICON",
+            "CRUEL",
+            "REAL YOU",
+            "F.I.L.A (Fall In Love Again)",
+            "LAST WALTZ",
+            "ESPRESSO",
+            "REWIND",
+            "CACTUS",
+            "PUSH & PULL",
+            "HELLO",
+            "1, 3, 2",
+            "CANDY",
+            "The Feels",
+            "SCIENTIST (R3HAB Remix)"
+          ]
         },
         {
           "id": 1535654236,
@@ -4241,7 +3764,22 @@
           "year": "2020",
           "track_count": 13,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/1f/46/44/1f46442a-ed5a-7cc8-c119-c6453b559ef7/192641580802_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/eyes-wide-open/1535654236?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/eyes-wide-open/1535654236?uo=4",
+          "tracks": [
+            "I CAN'T STOP ME",
+            "HELL IN HEAVEN",
+            "UP NO MORE",
+            "DO WHAT WE LIKE",
+            "BRING IT BACK",
+            "BELIEVER",
+            "QUEEN",
+            "GO HARD",
+            "SHOT CLOCK",
+            "HANDLE IT",
+            "DEPEND ON YOU",
+            "SAY SOMETHING",
+            "BEHIND THE MASK"
+          ]
         },
         {
           "id": 1544547831,
@@ -4250,7 +3788,10 @@
           "year": "2020",
           "track_count": 1,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/a5/7f/18/a57f181f-fa95-c7ce-4a62-2f1144d1ae3f/192641621130_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/cry-for-me-single/1544547831?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/cry-for-me-single/1544547831?uo=4",
+          "tracks": [
+            "CRY FOR ME"
+          ]
         },
         {
           "id": 1556087002,
@@ -4260,27 +3801,9 @@
           "track_count": 7,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/75/bb/cc/75bbcc8c-bc12-983b-196f-bb6e355cc978/00602508875281_Cover.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/feel-special/1556087002?uo=4"
-        },
-        {
-          "id": 1141301409,
-          "album": "Twice - Single",
-          "artist": "Swims",
-          "year": "2016",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music42/v4/66/79/1c/66791c9b-8888-8061-dad1-170706dae946/0885014605478.png/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/twice-single/1141301409?uo=4"
-        },
-        {
-          "id": 854519999,
-          "album": "Twice",
-          "artist": "Hollie Cook",
-          "year": "2014",
-          "track_count": 9,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/26/b3/74/26b37442-9277-43d7-5727-3ff44f8a4472/cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/twice/854519999?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 5
     },
     "UNIS": {
       "albums": [
@@ -4341,63 +3864,9 @@
             "Datin' Myself",
             "Poppin'"
           ]
-        },
-        {
-          "id": 1053742064,
-          "album": "Sound & Color",
-          "artist": "Alabama Shakes",
-          "year": "2015",
-          "track_count": 12,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music62/v4/6c/30/aa/6c30aa11-b842-105c-da48-d569c45604fc/mzm.rrxxfbbw.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/sound-color/1053742064?uo=4"
-        },
-        {
-          "id": 1887707089,
-          "album": "Metamodern Sounds in Country Music",
-          "artist": "Sturgill Simpson",
-          "year": "2014",
-          "track_count": 10,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/24/5c/b1/245cb120-748e-982d-2bb9-4c21523e1b67/886444551298.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/metamodern-sounds-in-country-music/1887707089?uo=4"
-        },
-        {
-          "id": 1813021356,
-          "album": "Firewater",
-          "artist": "Whiskey Myers",
-          "year": "2011",
-          "track_count": 13,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d0/cf/22/d0cf226c-607d-d97c-61d4-26eabde51f1d/886443002371_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/firewater/1813021356?uo=4"
-        },
-        {
-          "id": 892018539,
-          "album": "Wildflowers",
-          "artist": "Tom Petty",
-          "year": "1994",
-          "track_count": 15,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/a0/04/20/a004206c-6830-2f4d-a99d-595b4964666d/093624937456.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/wildflowers/892018539?uo=4"
-        },
-        {
-          "id": 1440825367,
-          "album": "Full Moon Fever",
-          "artist": "Tom Petty",
-          "year": "1989",
-          "track_count": 12,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/f3/71/47/f37147d5-d029-880b-bdc1-5929c907909a/06UMGIM04214.rgb.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/full-moon-fever/1440825367?uo=4"
-        },
-        {
-          "id": 1440838012,
-          "album": "Pronounced Leh-Nerd Skin-Nerd",
-          "artist": "Lynyrd Skynyrd",
-          "year": "1973",
-          "track_count": 8,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/57/00/f3/5700f331-2d06-7f5d-cb98-43970fd52874/14UMGIM00860.rgb.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/pronounced-leh-nerd-skin-nerd/1440838012?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 4
     },
     "Uspeer": {
       "albums": [
@@ -4786,19 +4255,6 @@
     "XG": {
       "albums": [
         {
-          "id": 1851676320,
-          "album": "PS118 - Single",
-          "artist": "JURIN ASAYA & Rapsody",
-          "year": "2025",
-          "track_count": 2,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/10/b5/95/10b5951e-3062-acca-ebc7-c1901526f64e/ANTCD-A0000018613.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/ps118-single/1851676320?uo=4",
-          "tracks": [
-            "PS118",
-            "PS118 (Instrumental)"
-          ]
-        },
-        {
           "id": 1742262122,
           "album": "WOKE UP - Single",
           "artist": "XG",
@@ -4842,22 +4298,17 @@
           ]
         },
         {
-          "id": 1685541784,
-          "album": "Xg - Single",
-          "artist": "Redeem/Revive",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/5d/78/d2/5d78d2ac-8dc4-5c07-399e-a5554e25692d/artwork.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/xg-single/1685541784?uo=4"
-        },
-        {
           "id": 1660487903,
           "album": "SHOOTING STAR - Single",
           "artist": "XG",
           "year": "2023",
           "track_count": 2,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/f8/4c/0a/f84c0abd-7bab-12ae-d7f0-0e8a9ad8079a/ANTCD-A0000009111.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/shooting-star-single/1660487903?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/shooting-star-single/1660487903?uo=4",
+          "tracks": [
+            "SHOOTING STAR",
+            "LEFT RIGHT"
+          ]
         },
         {
           "id": 1703356590,
@@ -4896,8 +4347,8 @@
           "itunes_url": "https://music.apple.com/us/album/tippy-toes-single/1609402380?uo=4"
         }
       ],
-      "album_count": 10
+      "album_count": 8
     }
   },
-  "updated_at": "2026-06-01 19:41"
+  "updated_at": "2026-06-01 19:55"
 }
