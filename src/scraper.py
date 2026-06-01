@@ -565,10 +565,18 @@ def youtube_find_mv(group: str, title: str,
             return True
         return False
 
-    # 核心邏輯（簡化）：YouTube 搜尋結果已按相關性排序，
-    # 取「第一支出自官方頻道的真正 MV」即為該發行的官方 MV。
-    # 排除 teaser/trailer/dance/打歌舞台/二創（_MV_NEG），只認 MV/M\\V（_MV_POS）。
-    # 不再用「曲名須對上專輯名」或「舊歌」假設——那會把正確 MV（如 DDI RO RI、Baby Flower）誤擋。
+    def is_recent(pub: str) -> bool:
+        # 近期上傳（hour/day/week，或 ≤1 month）→ 本期新歌的 MV；舊曲會回 False
+        p = (pub or "").lower()
+        if any(u in p for u in ("hour", "minute", "day", "week", "시간", "분", "일", "주")):
+            return True
+        mm = re.search(r"(\d+)\s*(month|개월|달)", p)
+        return bool(mm and int(mm.group(1)) <= 1)
+
+    # 核心邏輯：YouTube 搜尋結果已按相關性排序。
+    #  - 曲名吻合 → 直接採用（最佳，不限上傳時間，能抓到剛上的主打）
+    #  - 曲名不吻合（多半因 AI 沒給主打曲名）→ 只接受「近期上傳」的官方 MV 當後備，
+    #    避免抓到同團舊熱門曲（如 I.O.I 너무너무너무 2016、LE SSERAFIM CELEBRATION）。
     candidate = None
     for t, ch, vid, vc, pub in vids[:15]:
         up = t.upper()
@@ -600,11 +608,11 @@ def youtube_find_mv(group: str, title: str,
 
         result = {"title": t, "channel": ch, "vid": vid,
                   "url": f"https://www.youtube.com/watch?v={vid}", "views": parse_views(vc)}
-        # 曲名吻合 → 最佳匹配，直接回傳
+        # 曲名吻合 → 最佳匹配，直接回傳（不限上傳時間）
         if song_ok:
             return result
-        # 否則記住第一支可信 MV 作為候選（搜尋相關性最高者）
-        if candidate is None:
+        # 曲名不吻合的後備：須「近期上傳」才採用，擋掉同團舊曲
+        if candidate is None and is_recent(pub):
             candidate = result
     return candidate
 
