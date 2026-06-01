@@ -480,6 +480,37 @@ def ai_month_birthdays(group_names: list[str]) -> list[dict]:
     return []
 
 
+def ai_discographies(group_names: list[str]) -> dict:
+    """用 Claude 一次生成多個女團的代表作 discography。回傳 {團名: [{year,title,type}...]}。"""
+    if not AI_ENABLED or not group_names:
+        return {}
+    prompt = f"""為以下 KPop 女團/藝人，各列出其「代表性發行作品」的精簡 discography（每團最多 8 筆，由新到舊）。
+
+【清單】
+{json.dumps(group_names, ensure_ascii=False)}
+
+要求：
+- 只列你「有把握」的作品（正規專輯 EP 單曲），冷門或不確定的團就給空陣列，寧缺勿錯。
+- type 用：正規/迷你/單曲/數位單曲 其中之一。
+- 只輸出純 JSON：
+{{"discographies":{{"團名":[{{"year":"2024","title":"作品名","type":"迷你"}}]}}}}"""
+    try:
+        resp = ANTHROPIC_CLIENT.messages.create(
+            model=AI_MODEL, max_tokens=4000,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        text = next((b.text for b in resp.content if b.type == "text"), "")
+        mt = re.search(r"\{[\s\S]*\}", text)
+        if mt:
+            d = json.loads(mt.group()).get("discographies", {})
+            d = {k: v for k, v in d.items() if v}  # 去掉空的
+            log.info(f"AI discography：{len(d)} 團有資料")
+            return d
+    except Exception as e:
+        log.error(f"AI discography 失敗: {e}")
+    return {}
+
+
 def ai_pick_candidates(releases: list[dict], debuts: list[str], ptt: list[dict]) -> list[dict]:
     if not AI_ENABLED:
         log.warning("未設定 ANTHROPIC_API_KEY，跳過 AI 篩選（候選為空）")
@@ -614,8 +645,13 @@ def run_scraper(days_back: int = 14) -> dict:
                         | {u["group"] for u in upcoming if not u.get("is_solo")})
     birthdays = ai_month_birthdays(all_groups)
 
+    # 各團 discography（含 solo 藝人；前端點團名/藝人展開）
+    disco_names = sorted({t["group"] for t in tracks} | {u["group"] for u in upcoming})
+    discographies = ai_discographies(disco_names)
+
     log.info(f"完成：收錄 {n} 筆，略過無 MV {dropped_no_mv} 筆，預告 {len(upcoming)} 筆")
     return {"tracks": tracks, "upcoming": upcoming, "birthdays": birthdays,
+            "discographies": discographies,
             "summary": summary, "digest": digest, "fetched_at": now_str}
 
 
