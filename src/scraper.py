@@ -647,27 +647,38 @@ def ai_filter_upcoming(upcoming: list[dict], debuts: list[str]) -> list[dict]:
 
 
 def ai_filter_girlgroups(names: list[str]) -> set:
-    """用 Claude 判斷清單中哪些「不是女團」（男團/混聲/個人男性等），回傳應排除的名稱集合。
+    """用 Claude 逐一判斷每個團的類型，回傳「應排除（非女團/女性）」的名稱集合。
     用於專輯庫過濾 archive 來源、可能誤收的男團（namuwiki 在 CI 不可靠，改用 AI）。"""
     if not AI_ENABLED or not names:
         return set()
-    prompt = f"""以下是一批 KPop 團體/藝人名稱。請判斷每一個「是否為女子團體（girl group）或女性個人」。
+    prompt = f"""以下是一批 KPop 團體/藝人名稱。請**逐一**判斷每個的類型，不要略過任何一個。
 
 【名稱清單】
 {json.dumps(names, ensure_ascii=False)}
 
-請列出其中「**不是**女團、也不是女性藝人」者（例如：男子團體、男性個人、混聲團體）。
-不確定的不要列入排除（保守，寧可保留）。
-只輸出純 JSON：{{"exclude":["男團名","..."]}}"""
+對每個名稱，type 只能填下列其一：
+- "girlgroup"：女子團體
+- "female_solo"：女性個人藝人（含前女團成員）
+- "boygroup"：男子團體
+- "male_solo"：男性個人藝人
+- "coed"：混聲團體
+- "unknown"：你**完全無法判斷**（盡量少用；冷門團也請依名稱風格 / 你的知識盡力判斷）
+
+只輸出純 JSON（每個名稱都要有一筆）：
+{{"items":[{{"name":"原樣名稱","type":"girlgroup"}}]}}"""
     try:
         resp = ANTHROPIC_CLIENT.messages.create(
-            model=AI_MODEL, max_tokens=2000,
+            model=AI_MODEL, max_tokens=3000,
             messages=[{"role": "user", "content": prompt}],
         )
         text = next((b.text for b in resp.content if b.type == "text"), "")
         mt = re.search(r"\{[\s\S]*\}", text)
         if mt:
-            ex = set(json.loads(mt.group()).get("exclude", []))
+            items = json.loads(mt.group()).get("items", [])
+            # 排除明確非女團/女性者（boygroup / male_solo / coed）；unknown 保守保留
+            ex = {it.get("name") for it in items
+                  if it.get("type") in ("boygroup", "male_solo", "coed")}
+            ex.discard(None)
             log.info(f"AI 性別過濾：排除 {len(ex)} 個非女團 {sorted(ex)}")
             return ex
     except Exception as e:
@@ -1111,11 +1122,24 @@ if __name__ == "__main__":
             key = re.sub(r"[^a-z0-9]", "", name.lower())
             if key and key not in canon:
                 canon[key] = name
-        # 對「非種子清單」的團（來自 archive，可能含誤收的男團）用 AI 過濾掉男團
-        # （namuwiki 在 GitHub Actions 環境查詢不穩定，改用 AI 判斷）
+        # 對「非種子清單」的團（來自 archive，可能含誤收的男團）做雙重性別過濾：
+        # 1) AI 逐一判斷  2) namuwiki 男團偵測（第二道，CI 偶爾限流失敗但能補抓）
         non_seed = [name for key, name in canon.items() if key not in seed_keys]
-        exclude = ai_filter_girlgroups(non_seed) if non_seed else set()
-        excl_keys = {re.sub(r"[^a-z0-9]", "", e.lower()) for e in exclude}
+        excl_keys = set()
+        if non_seed:
+            for e in ai_filter_girlgroups(non_seed):
+                excl_keys.add(re.sub(r"[^a-z0-9]", "", e.lower()))
+            for name in non_seed:
+                k = re.sub(r"[^a-z0-9]", "", name.lower())
+                if k in excl_keys:
+                    continue
+                try:
+                    if namu_confirm_girlgroup(name).get("is_boygroup"):
+                        log.info(f"專輯庫排除（namuwiki 判定男團）: {name}")
+                        excl_keys.add(k)
+                    time.sleep(0.3)
+                except Exception:
+                    pass
         lib_groups = [name for key, name in sorted(canon.items(), key=lambda kv: kv[1].lower())
                       if key in seed_keys or key not in excl_keys]
         lib_total = build_album_library(lib_groups, data_dir)
