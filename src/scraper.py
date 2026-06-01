@@ -347,6 +347,7 @@ SEED_GIRLGROUPS = [
     "QWER", "Hearts2Hearts", "MEOVV", "izna", "Girls' Generation", "Apink",
     "OH MY GIRL", "WJSN", "Weeekly", "Dreamcatcher", "EVERGLOW", "LIGHTSUM",
     "FIFTY FIFTY", "XG", "UNIS", "ARTMS", "BABYMONSTER", "CSR", "EL7Z UP",
+    "Uspeer",
 ]
 
 # 人工黑名單：經確認「不是女團」但 AI/namuwiki 自動判斷漏抓的（多為極冷門新出道男團）。
