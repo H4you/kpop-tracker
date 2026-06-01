@@ -612,7 +612,7 @@ header {
       <div class="brand-icon" aria-hidden="true">🎀</div>
       <div>
         <div class="brand-name">GIRLGROUP TRACKER</div>
-        <div class="brand-sub">KPop · 自動情報整理 · 播放清單同步</div>
+        <div class="brand-sub">KPop · 自動情報整理 · 官方 MV 追蹤</div>
       </div>
     </div>
     <div class="header-actions">
@@ -663,24 +663,24 @@ header {
     </div>
     <div class="stat">
       <div class="stat-n" id="sn-added">0</div>
-      <div class="stat-l">已加入清單</div>
+      <div class="stat-l">已標記</div>
     </div>
     <div class="stat">
       <div class="stat-n" id="sn-pending">—</div>
-      <div class="stat-l">待加入</div>
+      <div class="stat-l">未標記</div>
     </div>
   </div>
 
   <div class="toolbar">
     <div class="tabs" role="tablist">
       <button class="tab active" role="tab" aria-selected="true"  data-tab="all"     onclick="setTab(this)">全部</button>
-      <button class="tab"        role="tab" aria-selected="false" data-tab="pending" onclick="setTab(this)">待加入</button>
-      <button class="tab"        role="tab" aria-selected="false" data-tab="added"   onclick="setTab(this)">已加入</button>
+      <button class="tab"        role="tab" aria-selected="false" data-tab="pending" onclick="setTab(this)">未標記</button>
+      <button class="tab"        role="tab" aria-selected="false" data-tab="added"   onclick="setTab(this)">已標記</button>
       <button class="tab"        role="tab" aria-selected="false" data-tab="new"     onclick="setTab(this)">本週新</button>
       <button class="tab"        role="tab" aria-selected="false" data-tab="history" onclick="setTab(this)">歷史</button>
     </div>
     <div class="toolbar-sep"></div>
-    <button class="btn-ghost" onclick="markAllAdded()" title="將所有顯示中的曲目標記為已加入">全部標記</button>
+    <button class="btn-ghost" onclick="markAllAdded()" title="將所有顯示中的曲目標記為已看過（個人記號，存在本機瀏覽器）">全部標記</button>
   </div>
 
   <div class="src-chips">
@@ -879,7 +879,7 @@ function updateStats() {
 function getFiltered() {
   let list;
   if (curTab === 'history') {
-    // 歷史分頁：顯示全部歸檔（僅套用來源篩選），不受時間 / 待加入等狀態影響
+    // 歷史分頁：顯示全部歸檔（僅套用來源篩選），不受時間 / 標記等狀態影響
     list = archiveTracks.filter(t => (t.sources || ['Wikipedia']).some(s => activeSrc.has(s)));
   } else {
     const timeVal = document.getElementById('time-sel').value;
@@ -1008,7 +1008,7 @@ function render() {
       <div class="track-actions">
         <button class="icon-btn check-btn${isAdded ? ' added' : ''}"
           onclick="toggleAdded('${t.id}')"
-          aria-label="${isAdded ? '取消標記已加入' : '標記為已加入播放清單'}">
+          aria-label="${isAdded ? '取消標記（個人記號）' : '標記為已看過 / 已處理（個人記號，存本機）'}">
           ${isAdded
             ? `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>`
             : `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`
