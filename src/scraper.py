@@ -373,18 +373,13 @@ def youtube_find_mv(group: str, title: str,
         mm = re.search(r"([\d,]+)", s or "")
         return int(mm.group(1).replace(",", "")) if mm else None
 
-    # 曲名關鍵字（去掉常見填充字，避免「專輯名」誤配到舊曲）
-    _STOP = {"the", "and", "pt", "part", "feat", "ver", "version", "album",
-             "mini", "single", "digital", "ep", "vol", "with", "for", "your",
-             "love", "girl", "girls", "time", "you", "baby", "dream", "day",
-             "night", "heart", "life", "world", "pop", "new", "first", "all"}
     song_norm = norm(song)
-    song_words = [w for w in re.split(r"[^a-z0-9가-힣]+", song.lower())
-                  if len(w) >= 3 and w not in _STOP]
 
     gtok = norm(group)
+    # 團名 token（≥4 字的單字），用於拼法差異大的團（如 "H//PE Princess" 取 "princess"）
+    gtokens = [norm(w) for w in re.split(r"[^a-z0-9가-힣]+", group.lower()) if len(norm(w)) >= 4]
     chan_norm = norm(yt_channel)
-    # 已知經銷 / 廠牌官方頻道關鍵字（不含「official」——假頻道常濫用該字）
+    # 已知經銷 / 廠牌官方頻道關鍵字（不含單字「official」——假搬運頻道常濫用該字）
     _DISTRIB = ["1thek", "stonemusic", "smtown", "jypentertainment", "hybe",
                 "ygentertainment", "starship", "swing", "blacklabel", "pledis",
                 "cube", "rbw", "woollim", "fnc", "ador", "wakeone", "kakao",
@@ -398,28 +393,22 @@ def youtube_find_mv(group: str, title: str,
         # b) 頻道名以團名開頭（團體自有官方頻道，如 "aespa"、"MEOVV"、"H//PE Princess"）
         if gtok and len(gtok) >= 4 and ch_norm.startswith(gtok[:5]):
             return True
-        # c) 已知經銷 / 廠牌頻道（1theK、Stone Music、HYBE…）
+        # c) 頻道名含團名（容忍 "tripleS official"、"FIFTY FIFTY Official"）
+        if gtok and len(gtok) >= 4 and gtok[:5] in ch_norm:
+            return True
+        # d) 頻道名含團名任一較長 token（容忍拼法差異，如 H//PE Princess → "princess"）
+        if any(tok in ch_norm for tok in gtokens):
+            return True
+        # e) 已知經銷 / 廠牌頻道（1theK、Stone Music、HYBE…）
         if any(k in ch_norm for k in _DISTRIB):
             return True
         return False
 
-    def is_recent(pub: str) -> bool:
-        # 近期上傳（hour/day/week，或 ≤1 month）→ 視為本期新歌的 MV
-        p = (pub or "").lower()
-        if any(u in p for u in ("hour", "minute", "day", "week", "시간", "분", "일", "주")):
-            return True
-        mm = re.search(r"(\d+)\s*(month|개월|달)", p)
-        if mm and int(mm.group(1)) <= 1:
-            return True
-        return False
-
-    def channel_matches_ai(ch_norm: str) -> bool:
-        # AI 明確給了官方頻道，且與此影片頻道相符（用來放寬團名拉丁化拼法差異）
-        return bool(chan_norm and len(chan_norm) >= 3
-                    and (chan_norm in ch_norm or ch_norm in chan_norm))
-
-    # 先把候選過濾成「正向 MV、非二創/teaser、官方頻道」；團名比對容許頻道吻合時跳過
-    pool = []
+    # 核心邏輯（簡化）：YouTube 搜尋結果已按相關性排序，
+    # 取「第一支出自官方頻道的真正 MV」即為該發行的官方 MV。
+    # 排除 teaser/trailer/dance/打歌舞台/二創（_MV_NEG），只認 MV/M\\V（_MV_POS）。
+    # 不再用「曲名須對上專輯名」或「舊歌」假設——那會把正確 MV（如 DDI RO RI、Baby Flower）誤擋。
+    candidate = None
     for t, ch, vid, vc, pub in vids[:15]:
         up = t.upper()
         if any(n in up for n in _MV_NEG):
@@ -428,31 +417,25 @@ def youtube_find_mv(group: str, title: str,
             continue
         vt = norm(t)
         ch_norm = norm(ch)
-        if not channel_official(ch_norm):                # 須官方頻道（擋假頻道）
+        if not channel_official(ch_norm):                # 須官方頻道（擋 SpaceN 等假頻道）
             continue
-        ai_ch = channel_matches_ai(ch_norm)
-        # 團名須出現在標題/頻道；但若 AI 官方頻道已吻合，容忍拼法差異(I.O.I↔아이오아이)跳過
-        if not ai_ch and not (gtok and gtok[:4] in (vt + ch_norm)):
+        # 團名須出現在標題或頻道（容忍 AI 官方頻道吻合 / 拼法差異）
+        ai_ch = bool(chan_norm and len(chan_norm) >= 3
+                     and (chan_norm in ch_norm or ch_norm in chan_norm))
+        hay = vt + ch_norm
+        name_ok = (gtok and gtok[:4] in hay) or any(tok in hay for tok in gtokens)
+        if not ai_ch and not name_ok:
             continue
-        song_ok = (len(song_norm) >= 3 and song_norm in vt) or \
-                  any(kw in vt for kw in song_words)
-        pool.append((song_ok, is_recent(pub), t, ch, vid, vc))
 
-    # Pass 1：官方頻道 + 曲名相符（最高信心，不限上傳時間）
-    for song_ok, recent, t, ch, vid, vc in pool:
-        if song_ok:
-            return {"title": t, "channel": ch, "vid": vid,
-                    "url": f"https://www.youtube.com/watch?v={vid}", "views": parse_views(vc)}
-
-    # Pass 2（後備）：官方頻道 + 近期上傳，但**只在 AI 未提供明確主打曲時**才啟用。
-    # 若 AI 已給主打曲(title_track)卻在 Pass 1 找不到 → 代表該曲 MV 尚未上線，
-    # 不可退而抓「同團其他近期 MV」（否則會像 MEOVV 給 Bite Now 卻抓到 DDI RO RI）。
-    if allow_fallback and not (title_track or "").strip():
-        for song_ok, recent, t, ch, vid, vc in pool:
-            if recent:
-                return {"title": t, "channel": ch, "vid": vid,
-                        "url": f"https://www.youtube.com/watch?v={vid}", "views": parse_views(vc)}
-    return None
+        result = {"title": t, "channel": ch, "vid": vid,
+                  "url": f"https://www.youtube.com/watch?v={vid}", "views": parse_views(vc)}
+        # 若有指定主打曲且該曲名出現在標題 → 最佳匹配，直接回傳
+        if song_norm and len(song_norm) >= 3 and song_norm in vt:
+            return result
+        # 否則記住第一支官方 MV 作為候選（搜尋相關性最高者）
+        if candidate is None:
+            candidate = result
+    return candidate
 
 
 def ai_resolve_title_tracks(items: list[dict]) -> dict:
@@ -715,7 +698,7 @@ def run_scraper(days_back: int = 14) -> dict:
             c["title_track"] = rv["title_track"]
         if rv.get("yt_channel") and not c.get("yt_channel"):
             c["yt_channel"] = rv["yt_channel"]
-        c["_has_mv"] = rv.get("has_mv", True)  # 預設 True（無查證資料時不阻擋）
+        # 註：不再用 has_mv 阻擋——改由「官方頻道 + 真正MV」直接判定，避免誤擋已上線 MV
 
     cutoff7 = (datetime.now().date() - timedelta(days=7)).strftime("%Y.%m.%d")
     tracks = []
@@ -753,12 +736,10 @@ def run_scraper(days_back: int = 14) -> dict:
             "id": hashlib.md5(raw_id.encode()).hexdigest()[:12],
         }
 
-        # YouTube 官方 MV 驗證（嚴格模式：須官方頻道 + 曲名相符）
-        # AI 判定 MV 尚未上線(_has_mv=False) → 關閉近期後備，避免誤抓同團舊曲
+        # YouTube 官方 MV 驗證：取第一支官方頻道的真正 MV（有主打曲名則優先精準匹配）
         mv = youtube_find_mv(group, title,
                              yt_channel=c.get("yt_channel", ""),
-                             title_track=c.get("title_track", ""),
-                             allow_fallback=c.get("_has_mv", True))
+                             title_track=c.get("title_track", ""))
         time.sleep(0.3)
         if not mv:
             # 找不到官方 MV → 歸入「MV 即將上線」，附 YouTube 搜尋連結方便手動確認
