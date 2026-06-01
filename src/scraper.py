@@ -168,8 +168,11 @@ def fetch_wikipedia_releases(days_back: int = 14) -> list[dict]:
         except Exception as e:
             log.warning(f"Wikipedia 抓取失敗 {page}/{MONTH_NAMES[month]}: {e}")
 
-    recent = [r for r in releases if r["_date_obj"] >= cutoff.isoformat()]
-    log.info(f"Wikipedia: 取得 {len(releases)} 筆發行，近 {days_back} 天 {len(recent)} 筆")
+    # 只收「已發行」：介於 cutoff ~ 今天之間（含今天）。未來日期屬於發行預告，不進主清單
+    today_iso = today.isoformat()
+    recent = [r for r in releases
+              if cutoff.isoformat() <= r["_date_obj"] <= today_iso]
+    log.info(f"Wikipedia: 取得 {len(releases)} 筆發行，近 {days_back} 天已發行 {len(recent)} 筆")
     return recent
 
 
@@ -299,7 +302,16 @@ _MV_NEG = ["DANCE PRACTICE", "DANCE VIDEO", "DANCE PERFORMANCE", "PERFORMANCE VI
            "CHALLENGE", "RELAY", "FANCAM", "직캠", "REACTION", "COVER", "LIVE",
            "SHOW!", "MUSIC CORE", "MUSIC BANK", "뮤직뱅크", "쇼!", "인기가요",
            "엠카운트다운", "M COUNTDOWN", "STAGE", "스페셜", "SPECIAL", "PLAYLIST",
-           "플레이리스트", "INKIGAYO", "쇼챔피언", "더쇼"]
+           "플레이리스트", "INKIGAYO", "쇼챔피언", "더쇼",
+           # 非官方 / 粉絲自製 / 二創
+           "FANMADE", "FAN MADE", "FAN-MADE", "CONCEPT", "FANMV", "FAN MV",
+           "AI ", "MASHUP", "REMIX", "FMV", "팬메이드", "EDIT", "COMPILATION",
+           "MEDLEY", "ALL MV", "PROFILE", "EXPLAINED", "REVIEW", "이론", "분석"]
+
+# 官方頻道線索（出現在頻道名時，可信度高，放寬曲名比對）
+_OFFICIAL_CH = ["entertainment", "official", "smtown", "jyp", "hybe", "yg",
+                "starship", "kakao", "1thek", "stone music", "label", "records",
+                "에듀", "엔터테인먼트", "오피셜"]
 
 
 def _yt_search_url(group: str, title: str) -> str:
@@ -353,17 +365,32 @@ def youtube_find_mv(group: str, title: str) -> dict | None:
         mm = re.search(r"([\d,]+)", s or "")
         return int(mm.group(1).replace(",", "")) if mm else None
 
+    # 曲名關鍵字（去掉常見填充字，避免「專輯名」誤配到舊曲）
+    _STOP = {"the", "and", "pt", "part", "feat", "ver", "version", "album",
+             "mini", "single", "digital", "ep", "vol", "with", "for", "your",
+             "love", "girl", "girls", "time", "you", "baby", "dream", "day",
+             "night", "heart", "life", "world", "pop", "new", "first", "all"}
+    title_norm = norm(title)
+    title_words = [w for w in re.split(r"[^a-z0-9가-힣]+", (title or "").lower())
+                   if len(w) >= 3 and w not in _STOP]
+
     gtok = norm(group)
-    ttok = norm(title)
     for t, ch, vid, vc in vids[:15]:
         up = t.upper()
         if any(n in up for n in _MV_NEG):
             continue
         if not any(p in up for p in _MV_POS):
             continue
-        hay = norm(t) + norm(ch)
-        rel = (gtok and gtok[:4] in hay) or (ttok and len(ttok) >= 3 and ttok[:4] in norm(t))
-        if not rel:
+        vt = norm(t)
+        hay = vt + norm(ch)
+        # 1) 團名必須匹配
+        if not (gtok and gtok[:4] in hay):
+            continue
+        # 2) 曲名也必須匹配（完整子字串，或任一關鍵字出現在影片標題）
+        #    避免新歌 MV 尚未上線時，誤抓同團的舊曲 / 熱門曲
+        title_ok = (len(title_norm) >= 3 and title_norm in vt) or \
+                   any(kw in vt for kw in title_words)
+        if not title_ok:
             continue
         return {"title": t, "channel": ch, "vid": vid,
                 "url": f"https://www.youtube.com/watch?v={vid}",
