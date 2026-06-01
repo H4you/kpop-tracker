@@ -102,15 +102,6 @@
           "itunes_url": "https://music.apple.com/us/album/uh-oh-single/1469336028?uo=4"
         },
         {
-          "id": 1831861471,
-          "album": "POP/STARS (feat. Jaira Burns & League of Legends Music) - Single",
-          "artist": "K/DA, Madison Beer & i-dle",
-          "year": "2018",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/93/f8/8a/93f88a32-342c-b650-ef1c-ebc1c9f804c3/00198704643309_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/pop-stars-feat-jaira-burns-league-of-legends-music-single/1831861471?uo=4"
-        },
-        {
           "id": 1426297548,
           "album": "HANN (Alone) - Single",
           "artist": "i-dle",
@@ -118,6 +109,15 @@
           "track_count": 1,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/ef/02/33/ef0233f1-2a15-5af4-1634-2ab68fc64dd9/cover-_DS.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/hann-alone-single/1426297548?uo=4"
+        },
+        {
+          "id": 1831861471,
+          "album": "POP/STARS (feat. Jaira Burns & League of Legends Music) - Single",
+          "artist": "K/DA, Madison Beer & i-dle",
+          "year": "2018",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/93/f8/8a/93f88a32-342c-b650-ef1c-ebc1c9f804c3/00198704643309_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/pop-stars-feat-jaira-burns-league-of-legends-music-single/1831861471?uo=4"
         }
       ],
       "album_count": 10
@@ -4899,5 +4899,5 @@
       "album_count": 10
     }
   },
-  "updated_at": "2026-06-01 16:31"
+  "updated_at": "2026-06-01 19:19"
 }
