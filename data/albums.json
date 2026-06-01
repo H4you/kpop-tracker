@@ -125,6 +125,16 @@
     "aespa": {
       "albums": [
         {
+          "id": 6771565456,
+          "album": "LEMONADE - The 2nd Album",
+          "artist": "aespa",
+          "year": "2026",
+          "track_count": 11,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
+          "tracks": []
+        },
+        {
           "id": 6772870169,
           "album": "LEMONADE - The 2nd Album (GISELLE Special Version)",
           "artist": "aespa",
@@ -149,16 +159,6 @@
             "LEMONADE (Slowed Down Version)",
             "LEMONADE (Instrumental)"
           ]
-        },
-        {
-          "id": 6771565456,
-          "album": "LEMONADE - The 2nd Album",
-          "artist": "aespa",
-          "year": "2026",
-          "track_count": 11,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
-          "tracks": []
         },
         {
           "id": 6772869031,
@@ -5127,5 +5127,5 @@
       "album_count": 9
     }
   },
-  "updated_at": "2026-06-01 14:05"
+  "updated_at": "2026-06-01 14:28"
 }
