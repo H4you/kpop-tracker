@@ -310,6 +310,28 @@ def namu_confirm_girlgroup(name: str) -> dict:
     return result
 
 
+def namu_page_text(name: str, limit: int = 2500) -> str:
+    """抓 namuwiki 頁面開頭純文字（含成員資訊段）。大小寫不敏感；查不到回空字串。"""
+    if not name:
+        return ""
+    for cand in dict.fromkeys([name, name.upper(), name.lower()]):
+        try:
+            url = "https://namu.wiki/w/" + quote(cand)
+            r = requests.get(url, headers=HEADERS, timeout=20)
+            if r.status_code != 200:
+                continue
+            soup = BeautifulSoup(r.text, "html.parser")
+            for s in soup(["script", "style"]):
+                s.decompose()
+            text = re.sub(r"\s+", " ", soup.get_text(" ", strip=True))
+            if "해당 문서를 찾을 수 없습니다" in text:
+                continue
+            return text[:limit]
+        except Exception as e:
+            log.warning(f"namuwiki 頁面抓取失敗 {name}: {e}")
+    return ""
+
+
 # ── 4. YouTube 官方 MV 驗證 ────────────────────────────────────────────────────
 
 _MV_POS = ["MV", "M/V", "MUSIC VIDEO", "뮤직비디오", "MUSICVIDEO"]
@@ -803,37 +825,59 @@ def ai_discographies(group_names: list[str]) -> dict:
 
 
 def ai_members(group_names: list[str]) -> dict:
-    """用 Claude 一次生成多個女團的成員資訊。回傳 {團名: [{name,name_kr,birth,role}...]}。"""
+    """成員資訊：抓每團 namuwiki 頁面文字，交給 AI 從「真實頁面內容」提取現役成員
+    （以頁面為事實依據，避免 AI 憑記憶混團/捏造）。回傳 {團名: [{name,name_kr,birth,role}...]}。
+    namuwiki 查不到、或頁面無成員資訊的團就略過（不顯示成員卡）。"""
     if not AI_ENABLED or not group_names:
         return {}
-    prompt = f"""為以下 KPop 女團，各列出「現役成員」名單。
+    # 1) 逐團抓 namuwiki 頁面文字
+    pages = {}
+    for g in group_names:
+        txt = namu_page_text(g)
+        if txt:
+            pages[g] = txt
+        time.sleep(0.3)
+    if not pages:
+        log.info("成員資訊：namuwiki 無任何可用頁面")
+        return {}
 
-【清單】
-{json.dumps(group_names, ensure_ascii=False)}
+    # 2) AI 從各團「真實頁面文字」中提取現役成員（逐團處理避免 prompt 過長）
+    out = {}
+    for g, txt in pages.items():
+        prompt = f"""以下是 KPop 女團「{g}」的 namuwiki 頁面文字。請**僅根據這段文字**，提取該團的「現役成員」。
 
-要求：
-- 只列你「有把握」的現役成員；冷門或不確定的團給空陣列，寧缺勿錯。
-- 個人 solo 藝人（非團體）給空陣列。
-- name：藝名（英文/羅馬拼音）；name_kr：韓文藝名（不知道填""）。
-- birth：生日 MM-DD（只知道月或完全不知就填""）。
-- role：隊長 / 忙內 / 主唱 / 主舞 / 隊內Rapper 等，多重用「、」分隔；不確定填""。
-- 只輸出純 JSON：
-{{"members":{{"團名":[{{"name":"","name_kr":"","birth":"","role":""}}]}}}}"""
-    try:
-        resp = ANTHROPIC_CLIENT.messages.create(
-            model=AI_MODEL, max_tokens=4000,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        text = next((b.text for b in resp.content if b.type == "text"), "")
-        mt = re.search(r"\{[\s\S]*\}", text)
-        if mt:
-            d = json.loads(mt.group()).get("members", {})
-            d = {k: v for k, v in d.items() if v}  # 去掉空的
-            log.info(f"AI 成員資訊：{len(d)} 團有資料")
-            return d
-    except Exception as e:
-        log.error(f"AI 成員資訊失敗: {e}")
-    return {}
+【namuwiki 頁面文字】
+{txt}
+
+規則（非常重要）：
+- 只列「현재 멤버 / 現役成員」，排除「전 멤버 / 前成員」、製作人、其他團體成員。
+- **只能根據上面文字提取**，不可憑你自己的記憶補充或新增頁面沒有的人。
+- 若文字中找不到明確的成員名單，members 給空陣列 []。
+- 每個成員：name_kr（頁面上的韓文名）、name（對應英文/羅馬拼音藝名，不確定就用韓文名）、
+  birth（生日 MM-DD，文字沒有就""）、role（隊長/忙內/主唱/主舞 等，沒有就""）。
+- 只輸出純 JSON：{{"members":[{{"name":"","name_kr":"","birth":"","role":""}}]}}"""
+        try:
+            resp = ANTHROPIC_CLIENT.messages.create(
+                model=AI_MODEL, max_tokens=1500,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            text = next((b.text for b in resp.content if b.type == "text"), "")
+            mt = re.search(r"\{[\s\S]*\}", text)
+            if not mt:
+                continue
+            members = json.loads(mt.group()).get("members", [])
+            members = [m for m in members if (m.get("name") or m.get("name_kr"))]
+            if 2 <= len(members) <= 13:     # 合理人數才採用
+                out[g] = [{
+                    "name": (m.get("name") or m.get("name_kr") or "").strip(),
+                    "name_kr": (m.get("name_kr") or "").strip(),
+                    "birth": (m.get("birth") or "").strip(),
+                    "role": (m.get("role") or "").strip(),
+                } for m in members]
+        except Exception as e:
+            log.warning(f"成員提取失敗 {g}: {e}")
+    log.info(f"成員資訊：{len(out)} 團（namuwiki 頁面 + AI 提取）")
+    return out
 
 
 def ai_pick_candidates(releases: list[dict], debuts: list[str], ptt: list[dict]) -> list[dict]:
