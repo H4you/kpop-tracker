@@ -545,7 +545,7 @@ def youtube_find_mv(group: str, title: str,
                 "ygentertainment", "starship", "swing", "blacklabel", "pledis",
                 "cube", "rbw", "woollim", "fnc", "ador", "wakeone", "kakao",
                 "mnetkpop", "genie", "kozent", "mystic", "bluebrown", "records",
-                "entertainment", "엔터테인먼트", "레코드"]
+                "banatv", "watchbana", "entertainment", "엔터테인먼트", "레코드"]
 
     def channel_official(ch_norm: str) -> bool:
         # a) AI 給的官方頻道名相符（雙向子字串）
@@ -578,8 +578,6 @@ def youtube_find_mv(group: str, title: str,
             continue
         vt = norm(t)
         ch_norm = norm(ch)
-        if not channel_official(ch_norm):                # 須官方頻道（擋 SpaceN 等假頻道）
-            continue
         # 團名須出現在標題或頻道（容忍 AI 官方頻道吻合 / 拼法差異）
         ai_ch = bool(chan_norm and len(chan_norm) >= 3
                      and (chan_norm in ch_norm or ch_norm in chan_norm))
@@ -587,13 +585,25 @@ def youtube_find_mv(group: str, title: str,
         name_ok = (gtok and gtok[:4] in hay) or any(tok in hay for tok in gtokens)
         if not ai_ch and not name_ok:
             continue
+        # 曲名是否吻合（標題含主打曲名）
+        song_ok = bool(song_norm and len(song_norm) >= 3 and song_norm in vt)
+        # 標題明確標 OFFICIAL（official mv / official music video）
+        title_official = "OFFICIAL" in up
+
+        # 可信來源判定：
+        #  A) 已知官方/廠牌頻道（擋 SpaceN 等仿冒）
+        #  B) 強訊號：標題標 OFFICIAL + 團名吻合 + 曲名吻合
+        #     → 涵蓋 BANATV 這類正規但不在清單的發行頻道；曲名+OFFICIAL 雙條件可擋假頻道
+        trusted = channel_official(ch_norm) or (title_official and name_ok and song_ok)
+        if not trusted:
+            continue
 
         result = {"title": t, "channel": ch, "vid": vid,
                   "url": f"https://www.youtube.com/watch?v={vid}", "views": parse_views(vc)}
-        # 若有指定主打曲且該曲名出現在標題 → 最佳匹配，直接回傳
-        if song_norm and len(song_norm) >= 3 and song_norm in vt:
+        # 曲名吻合 → 最佳匹配，直接回傳
+        if song_ok:
             return result
-        # 否則記住第一支官方 MV 作為候選（搜尋相關性最高者）
+        # 否則記住第一支可信 MV 作為候選（搜尋相關性最高者）
         if candidate is None:
             candidate = result
     return candidate
