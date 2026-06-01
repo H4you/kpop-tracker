@@ -319,9 +319,12 @@ def _yt_search_url(group: str, title: str) -> str:
     return f"https://www.youtube.com/results?search_query={q}"
 
 
-def youtube_find_mv(group: str, title: str) -> dict | None:
-    """在 YouTube 搜尋官方 MV。找到回傳 {title, channel, url}；找不到回傳 None。"""
-    q = f"{group} {title} MV".strip()
+def youtube_find_mv(group: str, title: str,
+                    yt_channel: str = "", title_track: str = "") -> dict | None:
+    """在 YouTube 搜尋官方 MV。嚴格驗證：須出自官方頻道 + 曲名相符。
+    優先用主打曲名(title_track)搜尋；找不到回傳 None（寧缺勿錯）。"""
+    song = (title_track or title or "").strip()
+    q = f"{group} {song} MV".strip()
     url = "https://www.youtube.com/results?search_query=" + quote(q)
     try:
         r = requests.get(url, headers=HEADERS, timeout=20)
@@ -370,11 +373,27 @@ def youtube_find_mv(group: str, title: str) -> dict | None:
              "mini", "single", "digital", "ep", "vol", "with", "for", "your",
              "love", "girl", "girls", "time", "you", "baby", "dream", "day",
              "night", "heart", "life", "world", "pop", "new", "first", "all"}
-    title_norm = norm(title)
-    title_words = [w for w in re.split(r"[^a-z0-9가-힣]+", (title or "").lower())
-                   if len(w) >= 3 and w not in _STOP]
+    song_norm = norm(song)
+    song_words = [w for w in re.split(r"[^a-z0-9가-힣]+", song.lower())
+                  if len(w) >= 3 and w not in _STOP]
 
     gtok = norm(group)
+    chan_norm = norm(yt_channel)
+
+    def is_official(ch_norm: str, video_title_norm: str) -> bool:
+        # a) AI 給的官方頻道名相符（雙向子字串，容忍語言差異）
+        if chan_norm and len(chan_norm) >= 3:
+            if chan_norm in ch_norm or ch_norm in chan_norm:
+                return True
+        # b) 頻道名含團名 + 官方關鍵字（Entertainment/Official/廠牌…）
+        if gtok and gtok[:4] in ch_norm and any(k in (yt_channel or "").lower() or k in ch_norm
+                                                for k in _OFFICIAL_CH):
+            return True
+        # c) 頻道名「以團名開頭」且短（多為團體官方頻道，如 "MEOVV"、"aespa"）
+        if gtok and len(gtok) >= 3 and ch_norm.startswith(gtok):
+            return True
+        return False
+
     for t, ch, vid, vc in vids[:15]:
         up = t.upper()
         if any(n in up for n in _MV_NEG):
@@ -382,15 +401,17 @@ def youtube_find_mv(group: str, title: str) -> dict | None:
         if not any(p in up for p in _MV_POS):
             continue
         vt = norm(t)
-        hay = vt + norm(ch)
-        # 1) 團名必須匹配
-        if not (gtok and gtok[:4] in hay):
+        ch_norm = norm(ch)
+        # 1) 團名必須出現在影片標題或頻道名
+        if not (gtok and gtok[:4] in (vt + ch_norm)):
             continue
-        # 2) 曲名也必須匹配（完整子字串，或任一關鍵字出現在影片標題）
-        #    避免新歌 MV 尚未上線時，誤抓同團的舊曲 / 熱門曲
-        title_ok = (len(title_norm) >= 3 and title_norm in vt) or \
-                   any(kw in vt for kw in title_words)
+        # 2) 曲名必須相符（完整子字串，或任一關鍵字出現在影片標題）
+        title_ok = (len(song_norm) >= 3 and song_norm in vt) or \
+                   any(kw in vt for kw in song_words)
         if not title_ok:
+            continue
+        # 3) 必須出自官方頻道（擋掉 SpaceN 這類搬運 / 粉絲頻道）
+        if not is_official(ch_norm, vt):
             continue
         return {"title": t, "channel": ch, "vid": vid,
                 "url": f"https://www.youtube.com/watch?v={vid}",
@@ -565,10 +586,13 @@ def ai_pick_candidates(releases: list[dict], debuts: list[str], ptt: list[dict])
 {json.dumps(ptt_min, ensure_ascii=False)[:3000]}
 
 【輸出規則】
-- 每個發行一筆；title 用主打曲名（若不確定主打曲，用專輯名）。
+- 每個發行一筆。
+- title_track：該張發行的「主打曲 / 先行曲」歌名（不是專輯名）。若你知道主打曲就填，不確定就留空字串 ""。
+- title：顯示用標題，優先用主打曲名，否則用專輯名。
+- yt_channel：該團/藝人的「官方 YouTube 頻道名稱」（如 "JYP Entertainment"、"SMTOWN"、"THEBLACKLABEL"、"@MEOVV_OFFICIAL"）。不確定就留空字串 ""。
 - needs_confirm：若你「不確定」這是不是女團（例如沒聽過、無法判斷），設 true，否則 false。
 - 只輸出純 JSON：
-{{"candidates":[{{"group":"團名(英文/羅馬拼音)","group_kr":"韓文團名或空字串","title":"主打曲或專輯名","album":"專輯名","date":"YYYY.MM.DD","is_solo":false,"needs_confirm":false,"note":""}}]}}"""
+{{"candidates":[{{"group":"團名(英文/羅馬拼音)","group_kr":"韓文團名或空字串","title":"顯示標題","title_track":"主打曲名或空","album":"專輯名","date":"YYYY.MM.DD","yt_channel":"官方頻道名或空","is_solo":false,"needs_confirm":false,"note":""}}]}}"""
 
     try:
         resp = ANTHROPIC_CLIENT.messages.create(
@@ -621,8 +645,10 @@ def run_scraper(days_back: int = 14) -> dict:
                 note = (note + "；namuwiki 無資料，待確認").strip("；")
             time.sleep(0.4)
 
-        # YouTube 官方 MV 驗證（嚴格模式：找不到就不收）
-        mv = youtube_find_mv(group, title)
+        # YouTube 官方 MV 驗證（嚴格模式：須官方頻道 + 曲名相符，否則不收）
+        mv = youtube_find_mv(group, title,
+                             yt_channel=c.get("yt_channel", ""),
+                             title_track=c.get("title_track", ""))
         if not mv:
             dropped_no_mv += 1
             log.info(f"略過（查無官方 MV）: {group} - {title}")
