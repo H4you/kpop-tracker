@@ -125,16 +125,6 @@
     "aespa": {
       "albums": [
         {
-          "id": 6771565456,
-          "album": "LEMONADE - The 2nd Album",
-          "artist": "aespa",
-          "year": "2026",
-          "track_count": 11,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
-          "tracks": []
-        },
-        {
           "id": 6772870169,
           "album": "LEMONADE - The 2nd Album (GISELLE Special Version)",
           "artist": "aespa",
@@ -159,6 +149,16 @@
             "LEMONADE (Slowed Down Version)",
             "LEMONADE (Instrumental)"
           ]
+        },
+        {
+          "id": 6771565456,
+          "album": "LEMONADE - The 2nd Album",
+          "artist": "aespa",
+          "year": "2026",
+          "track_count": 11,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
+          "tracks": []
         },
         {
           "id": 6772869031,
@@ -265,117 +265,6 @@
           "track_count": 1,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/1f/53/e2/1f53e291-df44-bb66-1c29-6e74c2b0eab0/aespa_BlackMamba_final.png/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/black-mamba-single/1540251303?uo=4"
-        }
-      ],
-      "album_count": 10
-    },
-    "And2ble": {
-      "albums": [
-        {
-          "id": 1895917256,
-          "album": "Sequence 01: Curiosity - EP",
-          "artist": "AND2BLE",
-          "year": "2026",
-          "track_count": 5,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e3/b3/a5/e3b3a561-e193-daca-f9bf-af041ce4eb8b/8804775437625.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/sequence-01-curiosity-ep/1895917256?uo=4",
-          "tracks": [
-            "Curious",
-            "Aura",
-            "Sugar Rush",
-            "Bed",
-            "Happy &"
-          ]
-        },
-        {
-          "id": 1804339523,
-          "album": "Tu Miradita - Single",
-          "artist": "Harryson, Melodiako, Ice Dilan & Heredia El 2ble AA",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/83/2f/6d/832f6d2b-629d-6296-ffe7-6e678c502445/8605020134975.png/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/tu-miradita-single/1804339523?uo=4",
-          "tracks": [
-            "Tu Miradita"
-          ]
-        },
-        {
-          "id": 1742883042,
-          "album": "Corte Lacoste - Single",
-          "artist": "Flayon La 2Ble F",
-          "year": "2024",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/29/b0/2d29b073-8900-bec3-f3a9-7bdb1da9e356/artwork.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/corte-lacoste-single/1742883042?uo=4",
-          "tracks": [
-            "Corte Lacoste"
-          ]
-        },
-        {
-          "id": 1732764096,
-          "album": "Mi Cañón 2 (Remix) [feat. Yali] - Single",
-          "artist": "King Lacho & Heredia El 2ble AA, EL YORDY DK & Dicelo Were",
-          "year": "2024",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0b/1d/9a/0b1d9aef-3686-9240-13d0-976734cdd183/0.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/mi-ca%C3%B1%C3%B3n-2-remix-feat-yali-single/1732764096?uo=4",
-          "tracks": [
-            "Mi Cañón 2 (feat. Yali) [Remix]"
-          ]
-        },
-        {
-          "id": 1764163515,
-          "album": "BONITA PERO LOCA - Single",
-          "artist": "King Lacho & Heredia El 2ble AA",
-          "year": "2024",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/25/79/d2/2579d286-ed6f-a4b8-be5f-5f4bacd2dc16/f50c3680-9cff-4792-b800-b9f02a11691a.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/bonita-pero-loca-single/1764163515?uo=4"
-        },
-        {
-          "id": 1774079707,
-          "album": "Vitamina - Single",
-          "artist": "King Lacho & Heredia El 2ble AA & Nesto",
-          "year": "2024",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b6/da/04/b6da047c-31be-f7d0-6661-00d6ea0d35ce/0.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/vitamina-single/1774079707?uo=4"
-        },
-        {
-          "id": 1667970699,
-          "album": "Merengue Con 2ble Sentido",
-          "artist": "Blas Durán & Jesus Martinez",
-          "year": "2023",
-          "track_count": 10,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/de/53/d5/de53d5db-e125-2d9d-952c-e43b6bb2a731/COVER_2.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/merengue-con-2ble-sentido/1667970699?uo=4"
-        },
-        {
-          "id": 1691887214,
-          "album": "Ella Baila Sola (Cover) - Single",
-          "artist": "La 2ble P & E Desarmado",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/04/65/9c/04659c3f-e8ab-b694-daef-357def8b67ac/0.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/ella-baila-sola-cover-single/1691887214?uo=4"
-        },
-        {
-          "id": 1693872746,
-          "album": "Mi Cañon (feat. King Lacho & Heredia 2bleAA) - Single",
-          "artist": "Melody Records International & El Menor & El Ironsene",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/66/bf/42/66bf4237-6348-a1b1-5697-40cbb6c0eacd/8720923041424.png/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/mi-ca%C3%B1on-feat-king-lacho-heredia-2bleaa-single/1693872746?uo=4"
-        },
-        {
-          "id": 1713998549,
-          "album": "Confieso (Remix) - Single",
-          "artist": "King Lacho & Heredia El 2ble AA, Naii Naii & El Bandolero",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/90/df/a6/90dfa6c3-10ed-582f-e205-a626878ac73e/0.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/confieso-remix-single/1713998549?uo=4"
         }
       ],
       "album_count": 10
@@ -5127,5 +5016,5 @@
       "album_count": 9
     }
   },
-  "updated_at": "2026-06-01 14:28"
+  "updated_at": "2026-06-01 14:35"
 }
