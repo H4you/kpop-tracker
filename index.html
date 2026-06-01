@@ -124,6 +124,24 @@ header {
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
 .status-right { margin-left: auto; font-size: 11px; color: var(--text3); }
 
+/* ── 我的播放清單列 ── */
+.pl-bar {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin: 10px 0 4px; padding: 10px 14px;
+  background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-lg);
+}
+.pl-label { font-size: 12px; color: var(--text2); flex-shrink: 0; }
+.pl-input {
+  flex: 1; min-width: 180px;
+  background: var(--surface2); border: 0.5px solid var(--border2);
+  border-radius: var(--radius); color: var(--text);
+  padding: 6px 10px; font-size: 12px; font-family: var(--font-body);
+}
+.pl-input:focus { outline: none; border-color: var(--pink); }
+.pl-hint { font-size: 11px; color: var(--text3); width: 100%; }
+.pl-hint.ok { color: var(--teal); }
+.pl-hint.err { color: var(--pink-text); }
+
 /* ── Progress ── */
 .progress {
   height: 2px;
@@ -616,6 +634,15 @@ header {
     <span class="status-right" id="stime"></span>
   </div>
 
+  <div class="pl-bar">
+    <span class="pl-label">🎵 我的播放清單</span>
+    <input id="pl-input" class="pl-input" type="text" spellcheck="false"
+           placeholder="貼上 YouTube 播放清單網址（含 list=...）" />
+    <button class="btn-ghost" id="pl-save" onclick="savePlaylist()">儲存</button>
+    <a class="btn-ghost" id="pl-open" href="#" target="_blank" rel="noopener" style="display:none">開啟清單 ↗</a>
+    <span class="pl-hint" id="pl-hint"></span>
+  </div>
+
   <div class="progress" id="prog">
     <div class="progress-fill" id="pfill"></div>
   </div>
@@ -751,10 +778,49 @@ let pendingMv = [];
 let discographies = {};
 let members = {};
 let searchQuery = '';
+let myPlaylistId = localStorage.getItem('kpop_playlist_id') || '';
 
 /* ── Persist ── */
 function saveAdded() {
   try { localStorage.setItem('kpop_added_v3', JSON.stringify([...added])); } catch(e) {}
+}
+
+/* ── 我的播放清單 ── */
+function parsePlaylistId(s) {
+  s = (s || '').trim();
+  if (!s) return '';
+  const m = s.match(/[?&]list=([A-Za-z0-9_-]+)/);   // 從網址抓 list=
+  if (m) return m[1];
+  if (/^PL[A-Za-z0-9_-]{10,}$/.test(s)) return s;    // 直接貼 ID
+  return '';
+}
+function applyPlaylistUI() {
+  const hint = document.getElementById('pl-hint');
+  const open = document.getElementById('pl-open');
+  if (myPlaylistId) {
+    hint.textContent = '已設定 ✓ 之後點 YouTube 會在你的清單情境開啟，按「儲存」即可加入';
+    hint.className = 'pl-hint ok';
+    open.style.display = '';
+    open.href = 'https://www.youtube.com/playlist?list=' + myPlaylistId;
+  } else {
+    hint.textContent = '尚未設定：設定後，點每首的 YouTube 鈕會直接帶出你的清單，少點幾步即可加入';
+    hint.className = 'pl-hint';
+    open.style.display = 'none';
+  }
+}
+function savePlaylist() {
+  const raw = document.getElementById('pl-input').value;
+  const id = parsePlaylistId(raw);
+  const hint = document.getElementById('pl-hint');
+  if (raw.trim() && !id) {
+    hint.textContent = '網址無法辨識，請貼含 list=... 的 YouTube 播放清單網址';
+    hint.className = 'pl-hint err';
+    return;
+  }
+  myPlaylistId = id;
+  try { localStorage.setItem('kpop_playlist_id', id); } catch(e) {}
+  applyPlaylistUI();
+  render();   // 重繪讓 YouTube 連結帶上清單
 }
 
 /* ── Tab ── */
@@ -906,7 +972,11 @@ function render() {
   el.innerHTML = list.map((t, i) => {
     const isAdded = added.has(t.id);
     const ytQ = encodeURIComponent(`${t.group} ${t.title} MV`);
-    const ytHref = t.yt_url || `https://www.youtube.com/results?search_query=${ytQ}`;
+    let ytHref = t.yt_url || `https://www.youtube.com/results?search_query=${ytQ}`;
+    // 若已設定我的播放清單，且是單支影片連結 → 帶上 &list=，開啟後右側直接顯示你的清單
+    if (myPlaylistId && t.yt_id) {
+      ytHref = `https://www.youtube.com/watch?v=${t.yt_id}&list=${myPlaylistId}`;
+    }
     const srcs = (t.sources || ['Wikipedia']).filter(s => activeSrc.has(s));
     const vid = t.yt_id || '';
     const thumb = vid
@@ -945,7 +1015,7 @@ function render() {
           }
         </button>
         <a class="icon-btn" href="${ytHref}" target="_blank" rel="noopener"
-          aria-label="在 YouTube 開啟 ${escHtml(t.group)} ${escHtml(t.title)} MV">
+          aria-label="${myPlaylistId ? '在你的播放清單情境開啟' : '在 YouTube 開啟'} ${escHtml(t.group)} ${escHtml(t.title)} MV">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
         </a>
         ${t.ptt_url ? `<a class="icon-btn" href="${t.ptt_url}" target="_blank" rel="noopener" aria-label="開啟 PTT 原文">
@@ -1156,6 +1226,9 @@ document.getElementById('search-box').addEventListener('input', e => {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMV(); closeDisco(); closeMem(); } });
 
 /* ── Init ── */
+if (myPlaylistId) document.getElementById('pl-input').value =
+  'https://www.youtube.com/playlist?list=' + myPlaylistId;
+applyPlaylistUI();
 updateStats();
 render();
 
