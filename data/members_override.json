@@ -14,5 +14,12 @@
     {"name": "Choi Jeongeun", "name_kr": "최정은", "birth": "", "role": ""},
     {"name": "Yoo Sarang",    "name_kr": "유사랑", "birth": "", "role": ""},
     {"name": "Jeong Sebi",    "name_kr": "정세비", "birth": "", "role": "忙內"}
+  ],
+  "FIFTY FIFTY": [
+    {"name": "Keena",       "name_kr": "키나",   "birth": "", "role": ""},
+    {"name": "Moon Chanel", "name_kr": "문샤넬", "birth": "", "role": ""},
+    {"name": "Yewon",       "name_kr": "예원",   "birth": "", "role": ""},
+    {"name": "Hana",        "name_kr": "하나",   "birth": "", "role": ""},
+    {"name": "Athena",      "name_kr": "아테나", "birth": "", "role": ""}
   ]
 }
