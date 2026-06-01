@@ -322,9 +322,11 @@ def _yt_search_url(group: str, title: str) -> str:
 
 
 def youtube_find_mv(group: str, title: str,
-                    yt_channel: str = "", title_track: str = "") -> dict | None:
+                    yt_channel: str = "", title_track: str = "",
+                    allow_fallback: bool = True) -> dict | None:
     """在 YouTube 搜尋官方 MV。嚴格驗證：須出自官方頻道 + 曲名相符。
-    優先用主打曲名(title_track)搜尋；找不到回傳 None（寧缺勿錯）。"""
+    優先用主打曲名(title_track)搜尋；找不到回傳 None（寧缺勿錯）。
+    allow_fallback=False 時關閉 Pass 2 近期後備（用於 AI 判定 MV 尚未上線者）。"""
     song = (title_track or title or "").strip()
     q = f"{group} {song} MV".strip()
     url = "https://www.youtube.com/results?search_query=" + quote(q)
@@ -445,12 +447,57 @@ def youtube_find_mv(group: str, title: str,
     # Pass 2（後備）：官方頻道 + 近期上傳，但**只在 AI 未提供明確主打曲時**才啟用。
     # 若 AI 已給主打曲(title_track)卻在 Pass 1 找不到 → 代表該曲 MV 尚未上線，
     # 不可退而抓「同團其他近期 MV」（否則會像 MEOVV 給 Bite Now 卻抓到 DDI RO RI）。
-    if not (title_track or "").strip():
+    if allow_fallback and not (title_track or "").strip():
         for song_ok, recent, t, ch, vid, vc in pool:
             if recent:
                 return {"title": t, "channel": ch, "vid": vid,
                         "url": f"https://www.youtube.com/watch?v={vid}", "views": parse_views(vc)}
     return None
+
+
+def ai_resolve_title_tracks(items: list[dict]) -> dict:
+    """專注查證：批量問 AI 每個發行的「真正主打曲名」與「官方 YouTube 頻道」。
+    回傳 {index: {title_track, yt_channel, has_mv}}。has_mv=False 代表官方 MV 尚未上線/不確定。"""
+    if not AI_ENABLED or not items:
+        return {}
+    listing = [{"i": i, "group": it.get("group"), "album": it.get("album") or it.get("title"),
+                "date": it.get("date")} for i, it in enumerate(items)]
+    prompt = f"""你是 KPop 資料查證專家。下列是各女團/藝人「本次發行」的清單（index/團名/專輯/日期）。
+請逐筆查證該「這次這張發行」的官方主打曲與官方 MV 狀態。
+
+【發行清單】
+{json.dumps(listing, ensure_ascii=False)}
+
+逐筆判斷並回答：
+- title_track：這張發行的主打曲（title track）正式歌名。注意是「這張、這次」的主打曲，不是該團的舊歌或成名曲。不確定就填 ""。
+- yt_channel：該團/藝人的官方 YouTube 頻道名稱（或經銷頻道如 1theK / Stone Music / HYBE LABELS）。不確定填 ""。
+- has_mv：你是否確信「這首主打曲的官方 MV 已經公開上線」。確信→true；不確定或可能還沒上→false。
+寧可保守：拿不準 title_track 或 has_mv 就填空 / false，不要用該團舊歌硬湊。
+
+只輸出純 JSON：
+{{"resolved":[{{"i":0,"title_track":"","yt_channel":"","has_mv":false}}]}}"""
+    try:
+        resp = ANTHROPIC_CLIENT.messages.create(
+            model=AI_MODEL, max_tokens=4000,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        text = next((b.text for b in resp.content if b.type == "text"), "")
+        mt = re.search(r"\{[\s\S]*\}", text)
+        if mt:
+            arr = json.loads(mt.group()).get("resolved", [])
+            out = {}
+            for r in arr:
+                try:
+                    out[int(r["i"])] = {"title_track": (r.get("title_track") or "").strip(),
+                                        "yt_channel": (r.get("yt_channel") or "").strip(),
+                                        "has_mv": bool(r.get("has_mv"))}
+                except Exception:
+                    continue
+            log.info(f"AI 主打曲查證：{len(out)} 筆")
+            return out
+    except Exception as e:
+        log.error(f"AI 主打曲查證失敗: {e}")
+    return {}
 
 
 # ── 5. AI 分析（pass 1：篩女團 / 前成員 solo 候選）──────────────────────────────
@@ -658,6 +705,18 @@ def run_scraper(days_back: int = 14) -> dict:
 
     candidates = ai_pick_candidates(releases, debuts, ptt)
 
+    # 專注查證每筆的「真正主打曲 / 官方頻道 / MV 是否已上」，覆蓋 pass1 的粗略值
+    resolved = ai_resolve_title_tracks(candidates)
+    for i, c in enumerate(candidates):
+        rv = resolved.get(i)
+        if not rv:
+            continue
+        if rv.get("title_track"):
+            c["title_track"] = rv["title_track"]
+        if rv.get("yt_channel") and not c.get("yt_channel"):
+            c["yt_channel"] = rv["yt_channel"]
+        c["_has_mv"] = rv.get("has_mv", True)  # 預設 True（無查證資料時不阻擋）
+
     cutoff7 = (datetime.now().date() - timedelta(days=7)).strftime("%Y.%m.%d")
     tracks = []
     pending_mv = []   # 已確認女團/solo、但官方 MV 尚未上線（MV 即將上線）
@@ -695,9 +754,11 @@ def run_scraper(days_back: int = 14) -> dict:
         }
 
         # YouTube 官方 MV 驗證（嚴格模式：須官方頻道 + 曲名相符）
+        # AI 判定 MV 尚未上線(_has_mv=False) → 關閉近期後備，避免誤抓同團舊曲
         mv = youtube_find_mv(group, title,
                              yt_channel=c.get("yt_channel", ""),
-                             title_track=c.get("title_track", ""))
+                             title_track=c.get("title_track", ""),
+                             allow_fallback=c.get("_has_mv", True))
         time.sleep(0.3)
         if not mv:
             # 找不到官方 MV → 歸入「MV 即將上線」，附 YouTube 搜尋連結方便手動確認
