@@ -406,24 +406,27 @@ def itunes_group_albums(group: str, limit: int = 12) -> list[dict]:
 def build_album_library(group_names: list[str], data_dir: str,
                         max_albums_per_group: int = 10,
                         max_track_albums: int = 4) -> int:
-    """為清單中的女團建立/更新專輯資料庫，合併進 data/albums.json。回傳總團數。
-    曲目只抓每團最新數張（max_track_albums），其餘專輯點開時前端再顯示基本資訊。"""
+    """為清單中的女團建立專輯資料庫 → data/albums.json。回傳總團數。
+    每次完整重抓 group_names（已去重），不保留舊鍵，避免大小寫重複殘留。
+    曲目只抓每團最新數張（max_track_albums），其餘專輯前端顯示基本資訊。
+    抓取失敗的團沿用上次的舊資料（避免暫時性錯誤造成資料消失）。"""
     lib_path = os.path.join(data_dir, "albums.json")
-    library = {"groups": {}, "updated_at": ""}
+    prev = {}
     if os.path.exists(lib_path):
         try:
             with open(lib_path, encoding="utf-8") as f:
-                library = json.load(f)
+                prev = json.load(f).get("groups", {})
         except Exception as e:
             log.warning(f"albums.json 讀取失敗，將重建: {e}")
-            library = {"groups": {}, "updated_at": ""}
-    groups = library.get("groups", {})
+    groups = {}
 
     for g in group_names:
         try:
             albums = itunes_group_albums(g, limit=max_albums_per_group)
             time.sleep(0.3)
             if not albums:
+                if g in prev:           # 抓不到就沿用舊資料
+                    groups[g] = prev[g]
                 continue
             # 依年份新到舊
             albums.sort(key=lambda a: a.get("year", ""), reverse=True)
@@ -436,6 +439,8 @@ def build_album_library(group_names: list[str], data_dir: str,
             log.info(f"專輯庫: {g} {len(albums)} 張")
         except Exception as e:
             log.warning(f"專輯庫抓取失敗 {g}: {e}")
+            if g in prev:               # 出錯沿用舊資料
+                groups[g] = prev[g]
 
     library = {"groups": groups,
                "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M")}
@@ -1065,12 +1070,18 @@ if __name__ == "__main__":
 
     # 專輯資料庫：種子女團清單 + 歷來追蹤過的非 solo 團（archive）
     try:
-        seen_groups = set()
+        seen_groups = []
         if os.path.exists(arc_path):
             with open(arc_path, encoding="utf-8") as f:
-                seen_groups = {t.get("group") for t in json.load(f).get("tracks", [])
-                               if t.get("group") and not t.get("is_solo")}
-        lib_groups = sorted(set(SEED_GIRLGROUPS) | seen_groups)
+                seen_groups = [t.get("group") for t in json.load(f).get("tracks", [])
+                               if t.get("group") and not t.get("is_solo")]
+        # 大小寫不敏感去重：種子清單優先（保留其標準拼法），避免 aespa/Aespa 重複
+        canon = {}
+        for name in list(SEED_GIRLGROUPS) + sorted(seen_groups):
+            key = re.sub(r"[^a-z0-9]", "", name.lower())
+            if key and key not in canon:
+                canon[key] = name
+        lib_groups = sorted(canon.values(), key=str.lower)
         lib_total = build_album_library(lib_groups, data_dir)
         log.info(f"專輯資料庫：{lib_total} 團 → albums.json")
     except Exception as e:
