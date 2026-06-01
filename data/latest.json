@@ -12,12 +12,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "多單元女團，本年度持續活動",
+      "note": "大型女團，成員可組成多種子單位",
       "id": "ab4b828b2dc3",
       "yt_url": "https://www.youtube.com/watch?v=6q8UMVXhXsE",
       "yt_id": "6q8UMVXhXsE",
       "yt_title": "tripleS 'Baby Flower' Official MV",
-      "yt_views": 639807
+      "yt_views": 664472
     },
     {
       "group": "Meovv",
@@ -36,26 +36,7 @@
       "yt_url": "https://www.youtube.com/watch?v=aHM2RKeMaeM",
       "yt_id": "aHM2RKeMaeM",
       "yt_title": "MEOVV(미야오) - ‘DDI RO RI’ M/V",
-      "yt_views": 1160331
-    },
-    {
-      "group": "Fifty Fifty",
-      "group_kr": "피프티피프티",
-      "title": "Imperfect-I'mperfect",
-      "album": "Imperfect-I'mperfect",
-      "date": "2026.06.01",
-      "is_solo": false,
-      "is_new": true,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "ATTRAKT 女團",
-      "id": "a0eaf4d48e08",
-      "yt_url": "https://www.youtube.com/watch?v=iZzpq5iqevg",
-      "yt_id": "iZzpq5iqevg",
-      "yt_title": "FIFTY FIFTY (피프티피프티) 'Like a Bubble' Official MV",
-      "yt_views": 525656
+      "yt_views": 1189274
     },
     {
       "group": "Itzy",
@@ -74,7 +55,7 @@
       "yt_url": "https://www.youtube.com/watch?v=1jKnI_ib8c8",
       "yt_id": "1jKnI_ib8c8",
       "yt_title": "ITZY “Motto” M/V",
-      "yt_views": 14100827
+      "yt_views": 14101708
     },
     {
       "group": "I.O.I",
@@ -88,12 +69,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "經典女團重聚/活動，成員皆為前/現任女團成員",
+      "note": "Produce 101 出身女團重聚/新作",
       "id": "9b1b75ed785f",
       "yt_url": "https://www.youtube.com/watch?v=Jxgbfc89hNI",
       "yt_id": "Jxgbfc89hNI",
       "yt_title": "아이오아이 (I.O.I) - 갑자기 (Suddenly) MV",
-      "yt_views": 5428063
+      "yt_views": 5429956
     },
     {
       "group": "Hyojung",
@@ -107,7 +88,7 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "Oh My Girl 成員 Hyojung 個人 Solo 發行",
+      "note": "Oh My Girl 成員 Hyojung 個人 solo 發行",
       "id": "4a7758741fc9",
       "yt_url": "https://www.youtube.com/watch?v=FMXos3fDQ10",
       "yt_id": "FMXos3fDQ10",
@@ -115,23 +96,23 @@
       "yt_views": 19579
     },
     {
-      "group": "Le Sserafim",
-      "group_kr": "르세라핌",
-      "title": "Pureflow Pt. 1",
-      "album": "Pureflow Pt. 1",
-      "date": "2026.05.22",
+      "group": "Hiipe Princess",
+      "group_kr": "",
+      "title": "17.7",
+      "album": "17.7",
+      "date": "2026.05.27",
       "is_solo": false,
-      "is_new": false,
+      "is_new": true,
       "is_hot": false,
       "sources": [
         "Wikipedia"
       ],
-      "note": "Source Music 女團",
-      "id": "7d401dca5188",
-      "yt_url": "https://www.youtube.com/watch?v=V1Lr-_AxeR8",
-      "yt_id": "V1Lr-_AxeR8",
-      "yt_title": "LE SSERAFIM (르세라핌) 'BOOMPALA' OFFICIAL MV",
-      "yt_views": 15229477
+      "note": "本年度出道團清單中出現，但性別/屬性待確認；namuwiki 無資料，待確認",
+      "id": "8def48e002d9",
+      "yt_url": "https://www.youtube.com/watch?v=4MmhtCroPEI",
+      "yt_id": "4MmhtCroPEI",
+      "yt_title": "H//PE Princess (하입프린세스) 'Stolen' MV",
+      "yt_views": 7354980
     },
     {
       "group": "Heart of Woman",
@@ -145,12 +126,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "本年度新出道團，清單內有此名，名稱疑似女團，資料不足，needs_confirm 設 true；namuwiki 無資料，待確認",
+      "note": "本年度出道團清單中出現（H.O.W），名稱含 'Woman' 但性別待確認；寧可多收；namuwiki 無資料，待確認",
       "id": "8adfe719f964",
-      "yt_url": "https://www.youtube.com/watch?v=h8HGbj0enmg",
-      "yt_id": "h8HGbj0enmg",
-      "yt_title": "HEART OF WOMAN 'How Not to Lose Myself (Lost in Proof)' MV",
-      "yt_views": 2903397
+      "yt_url": "https://www.youtube.com/watch?v=MB4F09i9Iwg",
+      "yt_id": "MB4F09i9Iwg",
+      "yt_title": "[MV] HEART OF WOMAN(하트오브우먼) _ Lost in Proof(나를 잃지 않는 방법)",
+      "yt_views": 36766
     },
     {
       "group": "Queenz Eye",
@@ -164,12 +145,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女團，持續活動中",
+      "note": "女團",
       "id": "6f30e52783ec",
       "yt_url": "https://www.youtube.com/watch?v=tqGcOmgTq_U",
       "yt_id": "tqGcOmgTq_U",
       "yt_title": "Queenz Eye  |  2nd Mini Album [PRISM EP.02] 'Y2K' MV",
-      "yt_views": 2812422
+      "yt_views": 2834248
     },
     {
       "group": "Aespa",
@@ -188,25 +169,41 @@
       "yt_url": "https://www.youtube.com/watch?v=83C3TZ4Zm_o",
       "yt_id": "83C3TZ4Zm_o",
       "yt_title": "aespa 에스파 'LEMONADE' MV",
-      "yt_views": 22045511
+      "yt_views": 22058784
     }
   ],
   "pending_mv": [
     {
-      "group": "Hiipe Princess",
-      "group_kr": "",
-      "title": "17.7",
-      "album": "17.7",
-      "date": "2026.05.27",
+      "group": "Fifty Fifty",
+      "group_kr": "피프티피프티",
+      "title": "Imperfect-I'mperfect",
+      "album": "Imperfect-I'mperfect",
+      "date": "2026.06.01",
       "is_solo": false,
       "is_new": true,
       "is_hot": false,
       "sources": [
         "Wikipedia"
       ],
-      "note": "本年度新出道團，出道團清單內有此名，但性別/屬性待確認；名稱含 'Princess' 疑似女團，needs_confirm 設 true；namuwiki 無資料，待確認",
-      "id": "8def48e002d9",
-      "yt_search": "https://www.youtube.com/results?search_query=Hiipe+Princess+17.7+MV"
+      "note": "ATTRAKT 女團",
+      "id": "a0eaf4d48e08",
+      "yt_search": "https://www.youtube.com/results?search_query=Fifty+Fifty+Imperfect-I%27mperfect+MV"
+    },
+    {
+      "group": "Le Sserafim",
+      "group_kr": "르세라핌",
+      "title": "Pureflow Pt. 1",
+      "album": "Pureflow Pt. 1",
+      "date": "2026.05.22",
+      "is_solo": false,
+      "is_new": false,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "SOURCE MUSIC 女團",
+      "id": "7d401dca5188",
+      "yt_search": "https://www.youtube.com/results?search_query=Le+Sserafim+Pureflow+Pt.+1+MV"
     }
   ],
   "upcoming": [
@@ -233,6 +230,14 @@
       "date": "2026.06.09",
       "is_solo": true,
       "days_left": 8
+    },
+    {
+      "group": "Uspeer",
+      "group_kr": "어스피어",
+      "title": "Bite District",
+      "date": "2026.06.17",
+      "is_solo": false,
+      "days_left": 16
     }
   ],
   "birthdays": [],
@@ -255,7 +260,7 @@
       },
       {
         "year": "2023",
-        "title": "Dreams Come True",
+        "title": "Drama",
         "type": "迷你"
       },
       {
@@ -279,23 +284,11 @@
         "type": "數位單曲"
       }
     ],
-    "Fifty Fifty": [
-      {
-        "year": "2023",
-        "title": "The Beginning: Cupid",
-        "type": "迷你"
-      },
-      {
-        "year": "2022",
-        "title": "The Beginning: Fifty Fifty",
-        "type": "迷你"
-      }
-    ],
     "I.O.I": [
       {
         "year": "2016",
         "title": "Miss Me?",
-        "type": "미니"
+        "type": "迷你"
       },
       {
         "year": "2016",
@@ -322,12 +315,12 @@
       {
         "year": "2022",
         "title": "Crazy in Love",
-        "type": "正規"
+        "type": "迷你"
       },
       {
         "year": "2021",
-        "title": "Guess Who",
-        "type": "迷你"
+        "title": "Crazy in Love",
+        "type": "正規"
       },
       {
         "year": "2020",
@@ -336,69 +329,37 @@
       },
       {
         "year": "2020",
-        "title": "IT'z ME",
+        "title": "It'z Me",
         "type": "迷你"
       },
       {
         "year": "2019",
-        "title": "IT'z ICY",
+        "title": "It'z Icy",
         "type": "迷你"
       }
     ],
     "Izna": [
       {
         "year": "2024",
-        "title": "Filled",
-        "type": "迷你"
-      }
-    ],
-    "Le Sserafim": [
-      {
-        "year": "2024",
-        "title": "Crazy",
-        "type": "迷你"
-      },
-      {
-        "year": "2024",
-        "title": "Easy",
-        "type": "迷你"
-      },
-      {
-        "year": "2023",
-        "title": "Unforgiven",
-        "type": "正規"
-      },
-      {
-        "year": "2023",
-        "title": "Muse",
-        "type": "迷你"
-      },
-      {
-        "year": "2023",
-        "title": "Antifragile",
-        "type": "迷你"
-      },
-      {
-        "year": "2022",
-        "title": "Fearless",
+        "title": "Izna",
         "type": "迷你"
       }
     ],
     "Mamamoo": [
       {
         "year": "2023",
-        "title": "MIC ON",
+        "title": "I Say Mamamoo: The Best",
         "type": "正規"
       },
       {
         "year": "2022",
-        "title": "Mammamoo+",
+        "title": "MIC ON",
         "type": "迷你"
       },
       {
         "year": "2021",
         "title": "WAW",
-        "type": "正規"
+        "type": "迷你"
       },
       {
         "year": "2020",
@@ -407,17 +368,17 @@
       },
       {
         "year": "2019",
-        "title": "White Wind",
-        "type": "迷你"
+        "title": "Reality in Black",
+        "type": "正規"
       },
       {
         "year": "2018",
         "title": "Yellow Flower",
-        "type": "正規"
+        "type": "迷你"
       },
       {
         "year": "2016",
-        "title": "Memory",
+        "title": "Purple",
         "type": "迷你"
       },
       {
@@ -430,30 +391,35 @@
       {
         "year": "2024",
         "title": "Meow",
-        "type": "單曲"
+        "type": "數位單曲"
       }
     ],
     "TripleS": [
       {
         "year": "2024",
-        "title": "Assemble24",
-        "type": "正規"
+        "title": "Girls Never Die",
+        "type": "迷你"
       },
       {
         "year": "2023",
-        "title": "Assemble",
+        "title": "ASSEMBLE24",
+        "type": "迷你"
+      },
+      {
+        "year": "2023",
+        "title": "ASSEMBLE",
         "type": "迷你"
       }
     ],
     "Yerin": [
       {
-        "year": "2023",
-        "title": "aria",
+        "year": "2021",
+        "title": ": Aria",
         "type": "迷你"
       },
       {
-        "year": "2021",
-        "title": "Ye-rin",
+        "year": "2020",
+        "title": "My Colorful Dreams",
         "type": "迷你"
       }
     ]
@@ -464,57 +430,25 @@
         "name": "Karina",
         "name_kr": "카리나",
         "birth": "04-11",
-        "role": "대장、주댄스"
+        "role": "隊長、主舞"
       },
       {
         "name": "Giselle",
         "name_kr": "지젤",
         "birth": "10-30",
-        "role": "래퍼"
+        "role": "隊內Rapper"
       },
       {
         "name": "Winter",
         "name_kr": "윈터",
         "birth": "01-01",
-        "role": "주보컬"
+        "role": "主唱"
       },
       {
         "name": "Ningning",
         "name_kr": "닝닝",
         "birth": "10-23",
-        "role": "주보컬、막내"
-      }
-    ],
-    "Fifty Fifty": [
-      {
-        "name": "Keena",
-        "name_kr": "키나",
-        "birth": "",
-        "role": ""
-      },
-      {
-        "name": "Moon Chanel",
-        "name_kr": "문샤넬",
-        "birth": "",
-        "role": ""
-      },
-      {
-        "name": "Yewon",
-        "name_kr": "예원",
-        "birth": "",
-        "role": ""
-      },
-      {
-        "name": "Hana",
-        "name_kr": "하나",
-        "birth": "",
-        "role": ""
-      },
-      {
-        "name": "Athena",
-        "name_kr": "아테나",
-        "birth": "",
-        "role": ""
+        "role": "主唱"
       }
     ],
     "Itzy": [
@@ -522,63 +456,31 @@
         "name": "Yeji",
         "name_kr": "예지",
         "birth": "05-26",
-        "role": "대장、주댄스"
+        "role": "隊長、主舞"
       },
       {
         "name": "Lia",
         "name_kr": "리아",
         "birth": "07-21",
-        "role": "주보컬"
+        "role": "主唱"
       },
       {
         "name": "Ryujin",
         "name_kr": "류진",
         "birth": "04-17",
-        "role": "래퍼、주댄스"
+        "role": "隊內Rapper、主舞"
       },
       {
         "name": "Chaeryeong",
         "name_kr": "채령",
         "birth": "06-05",
-        "role": "주댄스"
+        "role": "主舞"
       },
       {
         "name": "Yuna",
         "name_kr": "유나",
         "birth": "12-09",
-        "role": "막내"
-      }
-    ],
-    "Le Sserafim": [
-      {
-        "name": "Sakura",
-        "name_kr": "사쿠라",
-        "birth": "03-19",
-        "role": ""
-      },
-      {
-        "name": "Kim Chaewon",
-        "name_kr": "김채원",
-        "birth": "08-01",
-        "role": "대장、주보컬"
-      },
-      {
-        "name": "Huh Yunjin",
-        "name_kr": "허윤진",
-        "birth": "10-08",
-        "role": "주보컬"
-      },
-      {
-        "name": "Kazuha",
-        "name_kr": "카즈하",
-        "birth": "08-09",
-        "role": "주댄스"
-      },
-      {
-        "name": "Hong Eunchae",
-        "name_kr": "홍은채",
-        "birth": "11-26",
-        "role": "막내"
+        "role": "忙內"
       }
     ],
     "Mamamoo": [
@@ -586,25 +488,25 @@
         "name": "Solar",
         "name_kr": "솔라",
         "birth": "02-21",
-        "role": "대장、주보컬"
+        "role": "隊長、主唱"
       },
       {
         "name": "Moonbyul",
         "name_kr": "문별",
         "birth": "12-22",
-        "role": "래퍼、주댄스"
+        "role": "隊內Rapper、主舞"
       },
       {
         "name": "Wheein",
         "name_kr": "휘인",
         "birth": "04-17",
-        "role": "주보컬、주댄스"
+        "role": "主舞、主唱"
       },
       {
         "name": "Hwasa",
         "name_kr": "화사",
         "birth": "07-23",
-        "role": "래퍼、막내"
+        "role": "忙內、主唱"
       }
     ],
     "Izna": [
@@ -683,28 +585,34 @@
       "group": "AFuture",
       "group_kr": "에이퓨처",
       "agency": "",
-      "note": "2026年3月14日出道的女子團體，出道前已擁有67萬訂閱者。"
+      "note": "2026年3月14日出道，出道前已擁有67萬訂閱者的女子團體。"
     },
     {
       "group": "Keyveatz",
       "group_kr": "키비츠",
       "agency": "AOMG",
-      "note": "AOMG旗下首個女子嘻哈組合，5人組，相關影片累計700萬次觀看。"
+      "note": "AOMG旗下首個女子街舞團體，5人組，相關影片累計700萬次觀看。"
     },
     {
       "group": "Unchild",
       "group_kr": "",
       "agency": "High Up Entertainment",
-      "note": "High Up Entertainment旗下新女子團體，2026年出道。"
+      "note": "High Up Entertainment旗下新女團。"
     },
     {
       "group": "Heart of Woman",
       "group_kr": "",
       "agency": "",
-      "note": "團名暗示為女子團體（H.O.W）。"
+      "note": "團名暗示為女子團體。"
+    },
+    {
+      "group": "Hiipe Princess",
+      "group_kr": "",
+      "agency": "",
+      "note": "團名含「Princess」，推測為女子團體。"
     }
   ],
-  "summary": "本期收錄 10 首有官方 MV 的女團／前成員 solo 主打發行：TripleS、Meovv、Fifty Fifty、Itzy、I.O.I、Hyojung、Le Sserafim、Heart of Woman、Queenz Eye、Aespa。（另有 1 筆 MV 即將上線）",
-  "digest": "本週女團市場超熱鬧！觀看數最亮眼的是 Le Sserafim 的《Pureflow Pt. 1》和 Aespa 的《Lemonade》，兩首 MV 分別突破 1500 萬和 2200 萬次，完全是現象級的存在。Itzy 的《Motto》也不遑多讓，累積破 1400 萬次，三團同時在線真的很瘋。另外 I.O.I 以《I.O.I: Loop》回歸，讓一票老粉直接情懷炸裂，540 萬觀看數說明大家有多想念她們。這週也有幾組新曲齊發，包括 Meovv 的《Bite Now》、TripleS 的新輯單曲以及 Fifty Fifty 的《Imperfect-I'mperfect》，各家粉絲都在努力衝數字中！接下來更要鎖好日曆，Mamamoo 的《4ward》本週四就要回來了，Izna 和 Yerin 也緊接在後，下週根本是女團豐收週，建議先備好螢光棒心理準備好。",
-  "fetched_at": "2026-06-01 19:59"
+  "summary": "本期收錄 9 首有官方 MV 的女團／前成員 solo 主打發行：TripleS、Meovv、Itzy、I.O.I、Hyojung、Hiipe Princess、Heart of Woman、Queenz Eye、Aespa。（另有 2 筆 MV 即將上線）",
+  "digest": "本週最炸的絕對是 Aespa 的新曲《Lemonade》，MV 上線沒多久觀看數就破 2200 萬，氣勢完全不輸人！Itzy 的《Motto》也穩穩站上 1400 萬次，話題度持續發燒；另外 Hiipe Princess 的《17.7》以 735 萬次觀看空降，新人團的成績真的超亮眼，值得多關注一下。解散多年的 I.O.I 帶著《I.O.I: Loop》重新出現在大家眼前，542 萬次觀看證明情懷的力量還是很猛，Oh My Girl 成員孝定也悄悄推出個人單曲《Purple Note》，小品但很有質感。接下來 Mamamoo 三天後就要以《4ward》回歸、Izna 和 Yerin 也緊接在後，六月下旬還有 Uspeer 的《Bite District》要來，這個月根本排滿滿，建議大家先備好零食準備追！",
+  "fetched_at": "2026-06-01 20:20"
 }

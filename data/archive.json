@@ -92,12 +92,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "多單元女團，本年度持續活動",
+      "note": "大型女團，成員可組成多種子單位",
       "id": "ab4b828b2dc3",
       "yt_url": "https://www.youtube.com/watch?v=6q8UMVXhXsE",
       "yt_id": "6q8UMVXhXsE",
       "yt_title": "tripleS 'Baby Flower' Official MV",
-      "yt_views": 639807,
+      "yt_views": 664472,
       "first_seen": "2026-06-01"
     },
     {
@@ -117,7 +117,7 @@
       "yt_url": "https://www.youtube.com/watch?v=aHM2RKeMaeM",
       "yt_id": "aHM2RKeMaeM",
       "yt_title": "MEOVV(미야오) - ‘DDI RO RI’ M/V",
-      "yt_views": 1160331,
+      "yt_views": 1189274,
       "first_seen": "2026-06-01"
     },
     {
@@ -157,7 +157,7 @@
       "yt_url": "https://www.youtube.com/watch?v=83C3TZ4Zm_o",
       "yt_id": "83C3TZ4Zm_o",
       "yt_title": "aespa 에스파 'LEMONADE' MV",
-      "yt_views": 22045511,
+      "yt_views": 22058784,
       "first_seen": "2026-05-31"
     },
     {
@@ -172,12 +172,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "本年度新出道團，清單內有此名，名稱疑似女團，資料不足，needs_confirm 設 true；namuwiki 無資料，待確認",
+      "note": "本年度出道團清單中出現（H.O.W），名稱含 'Woman' 但性別待確認；寧可多收；namuwiki 無資料，待確認",
       "id": "8adfe719f964",
-      "yt_url": "https://www.youtube.com/watch?v=h8HGbj0enmg",
-      "yt_id": "h8HGbj0enmg",
-      "yt_title": "HEART OF WOMAN 'How Not to Lose Myself (Lost in Proof)' MV",
-      "yt_views": 2903397,
+      "yt_url": "https://www.youtube.com/watch?v=MB4F09i9Iwg",
+      "yt_id": "MB4F09i9Iwg",
+      "yt_title": "[MV] HEART OF WOMAN(하트오브우먼) _ Lost in Proof(나를 잃지 않는 방법)",
+      "yt_views": 36766,
       "first_seen": "2026-05-31"
     },
     {
@@ -192,12 +192,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女團，持續活動中",
+      "note": "女團",
       "id": "6f30e52783ec",
       "yt_url": "https://www.youtube.com/watch?v=tqGcOmgTq_U",
       "yt_id": "tqGcOmgTq_U",
       "yt_title": "Queenz Eye  |  2nd Mini Album [PRISM EP.02] 'Y2K' MV",
-      "yt_views": 2812422,
+      "yt_views": 2834248,
       "first_seen": "2026-05-31"
     },
     {
@@ -212,12 +212,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "列於本年度出道清單，但性別/類型不確定，需確認是否為女團；namuwiki 無資料，待確認",
+      "note": "本年度出道團清單中出現，但性別/屬性待確認；namuwiki 無資料，待確認",
       "id": "8def48e002d9",
       "yt_url": "https://www.youtube.com/watch?v=4MmhtCroPEI",
       "yt_id": "4MmhtCroPEI",
       "yt_title": "H//PE Princess (하입프린세스) 'Stolen' MV",
-      "yt_views": 7354912,
+      "yt_views": 7354980,
       "first_seen": "2026-06-01"
     },
     {
@@ -291,7 +291,7 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "Oh My Girl 成員 Hyojung 個人 Solo 發行",
+      "note": "Oh My Girl 成員 Hyojung 個人 solo 發行",
       "id": "4a7758741fc9",
       "yt_url": "https://www.youtube.com/watch?v=FMXos3fDQ10",
       "yt_id": "FMXos3fDQ10",
@@ -311,12 +311,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "經典女團重聚/活動，成員皆為前/現任女團成員",
+      "note": "Produce 101 出身女團重聚/新作",
       "id": "9b1b75ed785f",
       "yt_url": "https://www.youtube.com/watch?v=Jxgbfc89hNI",
       "yt_id": "Jxgbfc89hNI",
       "yt_title": "아이오아이 (I.O.I) - 갑자기 (Suddenly) MV",
-      "yt_views": 5428063,
+      "yt_views": 5429956,
       "first_seen": "2026-05-31"
     },
     {
@@ -336,7 +336,7 @@
       "yt_url": "https://www.youtube.com/watch?v=1jKnI_ib8c8",
       "yt_id": "1jKnI_ib8c8",
       "yt_title": "ITZY “Motto” M/V",
-      "yt_views": 14100827,
+      "yt_views": 14101708,
       "first_seen": "2026-05-31"
     },
     {
@@ -380,5 +380,5 @@
       "first_seen": "2026-06-01"
     }
   ],
-  "updated_at": "2026-06-01 20:01"
+  "updated_at": "2026-06-01 20:22"
 }
