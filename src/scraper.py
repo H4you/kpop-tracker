@@ -1075,13 +1075,25 @@ if __name__ == "__main__":
             with open(arc_path, encoding="utf-8") as f:
                 seen_groups = [t.get("group") for t in json.load(f).get("tracks", [])
                                if t.get("group") and not t.get("is_solo")]
+        seed_keys = {re.sub(r"[^a-z0-9]", "", s.lower()) for s in SEED_GIRLGROUPS}
         # 大小寫不敏感去重：種子清單優先（保留其標準拼法），避免 aespa/Aespa 重複
         canon = {}
         for name in list(SEED_GIRLGROUPS) + sorted(seen_groups):
             key = re.sub(r"[^a-z0-9]", "", name.lower())
             if key and key not in canon:
                 canon[key] = name
-        lib_groups = sorted(canon.values(), key=str.lower)
+        # 對「非種子清單」的團（來自 archive，可能含誤收的男團）做 namuwiki 男團過濾
+        lib_groups = []
+        for key, name in sorted(canon.items(), key=lambda kv: kv[1].lower()):
+            if key in seed_keys:
+                lib_groups.append(name)        # 種子清單人工審過，直接信任
+                continue
+            nm = namu_confirm_girlgroup(name)
+            if nm.get("is_boygroup"):
+                log.info(f"專輯庫排除（男團）: {name}")
+                continue
+            lib_groups.append(name)
+            time.sleep(0.3)
         lib_total = build_album_library(lib_groups, data_dir)
         log.info(f"專輯資料庫：{lib_total} 團 → albums.json")
     except Exception as e:
