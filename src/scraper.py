@@ -344,7 +344,9 @@ _MV_NEG = ["DANCE PRACTICE", "DANCE VIDEO", "DANCE PERFORMANCE", "PERFORMANCE VI
            # 非官方 / 粉絲自製 / 二創
            "FANMADE", "FAN MADE", "FAN-MADE", "CONCEPT", "FANMV", "FAN MV",
            "AI ", "MASHUP", "REMIX", "FMV", "팬메이드", "EDIT", "COMPILATION",
-           "MEDLEY", "ALL MV", "PROFILE", "EXPLAINED", "REVIEW", "이론", "분석"]
+           "MEDLEY", "ALL MV", "PROFILE", "EXPLAINED", "REVIEW", "이론", "분석",
+           "COMMENTARY", "INTRODUCTION", "수록곡", "HIGHLIGHT", "SHOWCASE", "쇼케이스",
+           "INTERVIEW", "UNBOXING", "언박싱", "RECAP", "PHOTOTIME", "포토타임"]
 
 # 官方頻道線索（出現在頻道名時，可信度高，放寬曲名比對）
 _OFFICIAL_CH = ["entertainment", "official", "smtown", "jyp", "hybe", "yg",
@@ -482,30 +484,33 @@ def build_album_library(group_names: list[str], data_dir: str,
     return len(groups)
 
 
-def youtube_find_mv(group: str, title: str,
-                    yt_channel: str = "", title_track: str = "",
-                    allow_fallback: bool = True) -> dict | None:
-    """在 YouTube 搜尋官方 MV。嚴格驗證：須出自官方頻道 + 曲名相符。
-    優先用主打曲名(title_track)搜尋；找不到回傳 None（寧缺勿錯）。
-    allow_fallback=False 時關閉 Pass 2 近期後備（用於 AI 判定 MV 尚未上線者）。"""
-    song = (title_track or title or "").strip()
-    q = f"{group} {song} MV".strip()
+def _youtube_search(q: str) -> list:
+    """搜尋 YouTube，回傳 [(title, channel, vid, viewCountText, publishedTimeText)...]。
+    CONSENT cookie 跳過同意頁（CI 資料中心 IP 常被導向同意頁），抓不到時退避重試。"""
     url = "https://www.youtube.com/results?search_query=" + quote(q)
-    try:
-        r = requests.get(url, headers=HEADERS, timeout=20)
-    except Exception as e:
-        log.warning(f"YouTube 搜尋失敗 {q}: {e}")
-        return None
-
-    m = re.search(r"var ytInitialData = (\{.*?\});</script>", r.text)
-    if not m:
-        return None
-    try:
-        data = json.loads(m.group(1))
-    except Exception:
-        return None
-
-    vids = []
+    yt_headers = {**HEADERS, "Cookie": "CONSENT=YES+cb.20210328-17-p0.en+FX+999",
+                  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
+    data = None
+    for attempt in range(3):
+        try:
+            r = requests.get(url, headers=yt_headers, timeout=20)
+        except Exception as e:
+            log.warning(f"YouTube 搜尋失敗 {q}: {e}")
+            time.sleep(1.5)
+            continue
+        m = re.search(r"ytInitialData\"?\s*=\s*(\{.*?\})\s*;\s*</script>", r.text) \
+            or re.search(r"var ytInitialData = (\{.*?\});</script>", r.text)
+        if m:
+            try:
+                data = json.loads(m.group(1))
+                break
+            except Exception:
+                pass
+        log.warning(f"YouTube 無 ytInitialData（attempt {attempt+1}）len={len(r.text)} q={q}")
+        time.sleep(2.0)
+    if data is None:
+        return []
+    out = []
 
     def walk(o):
         if isinstance(o, dict):
@@ -516,9 +521,9 @@ def youtube_find_mv(group: str, title: str,
                       or vr.get("longBylineText", {}).get("runs", [{}])[0].get("text", ""))
                 vid = vr.get("videoId", "")
                 vc = vr.get("viewCountText", {}).get("simpleText", "")
-                pub = vr.get("publishedTimeText", {}).get("simpleText", "")  # 如 "3 days ago"
+                pub = vr.get("publishedTimeText", {}).get("simpleText", "")
                 if t and vid:
-                    vids.append((t, ch, vid, vc, pub))
+                    out.append((t, ch, vid, vc, pub))
             for v in o.values():
                 walk(v)
         elif isinstance(o, list):
@@ -526,6 +531,31 @@ def youtube_find_mv(group: str, title: str,
                 walk(v)
 
     walk(data)
+    return out[:20]
+
+
+def youtube_find_mv(group: str, title: str,
+                    yt_channel: str = "", title_track: str = "",
+                    allow_fallback: bool = True) -> dict | None:
+    """在 YouTube 搜尋官方 MV。嚴格驗證：須出自官方頻道 + 曲名相符。
+    優先用主打曲名(title_track)搜尋；找不到回傳 None（寧缺勿錯）。
+    allow_fallback=False 時關閉 Pass 2 近期後備（用於 AI 判定 MV 尚未上線者）。"""
+    song = (title_track or title or "").strip()
+    # 用兩種查詢合併結果，抵抗 YouTube 對「極新影片」索引不穩 / 結果排序浮動：
+    #  1) 團名 + 主打曲/專輯 + MV（精準）
+    #  2) 團名 + MV（較廣，更易撈到該團最新官方 MV，如剛上幾小時的 Baby Flower）
+    queries = [f"{group} {song} MV".strip()]
+    if song:
+        queries.append(f"{group} MV".strip())
+    vids = []
+    seen_vids = set()
+    for q in queries:
+        for tup in _youtube_search(q):
+            if tup[2] not in seen_vids:
+                seen_vids.add(tup[2])
+                vids.append(tup)
+    if not vids:
+        return None
 
     def norm(s):
         return re.sub(r"[^a-z0-9가-힣]", "", (s or "").lower())
@@ -573,12 +603,11 @@ def youtube_find_mv(group: str, title: str,
         mm = re.search(r"(\d+)\s*(month|개월|달)", p)
         return bool(mm and int(mm.group(1)) <= 1)
 
-    # 核心邏輯：YouTube 搜尋結果已按相關性排序。
-    #  - 曲名吻合 → 直接採用（最佳，不限上傳時間，能抓到剛上的主打）
-    #  - 曲名不吻合（多半因 AI 沒給主打曲名）→ 只接受「近期上傳」的官方 MV 當後備，
-    #    避免抓到同團舊熱門曲（如 I.O.I 너무너무너무 2016、LE SSERAFIM CELEBRATION）。
-    candidate = None
-    for t, ch, vid, vc, pub in vids[:15]:
+    # 收集所有合格候選並評分，取最高分——比「取搜尋第一個」穩健，
+    # 不受 YouTube 結果排序浮動影響（同一搜尋多次請求順序會變）。
+    # 評分：曲名吻合(100) > 標題含 OFFICIAL(10) > 近期上傳(5)；同分取搜尋較前者。
+    scored = []
+    for idx, (t, ch, vid, vc, pub) in enumerate(vids[:30]):
         up = t.upper()
         if any(n in up for n in _MV_NEG):
             continue
@@ -586,35 +615,38 @@ def youtube_find_mv(group: str, title: str,
             continue
         vt = norm(t)
         ch_norm = norm(ch)
-        # 團名須出現在標題或頻道（容忍 AI 官方頻道吻合 / 拼法差異）
         ai_ch = bool(chan_norm and len(chan_norm) >= 3
                      and (chan_norm in ch_norm or ch_norm in chan_norm))
         hay = vt + ch_norm
         name_ok = (gtok and gtok[:4] in hay) or any(tok in hay for tok in gtokens)
         if not ai_ch and not name_ok:
             continue
-        # 曲名是否吻合（標題含主打曲名）
         song_ok = bool(song_norm and len(song_norm) >= 3 and song_norm in vt)
-        # 標題明確標 OFFICIAL（official mv / official music video）
         title_official = "OFFICIAL" in up
+        recent = is_recent(pub)
 
-        # 可信來源判定：
-        #  A) 已知官方/廠牌頻道（擋 SpaceN 等仿冒）
-        #  B) 強訊號：標題標 OFFICIAL + 團名吻合 + 曲名吻合
-        #     → 涵蓋 BANATV 這類正規但不在清單的發行頻道；曲名+OFFICIAL 雙條件可擋假頻道
+        # 可信來源：官方頻道，或（標題 OFFICIAL + 團名 + 曲名都吻合）
         trusted = channel_official(ch_norm) or (title_official and name_ok and song_ok)
         if not trusted:
             continue
+        # 曲名不吻合時，須「近期上傳」才當後備（擋同團舊熱門曲，如 너무너무너무 2016）
+        if not song_ok and not recent:
+            continue
 
-        result = {"title": t, "channel": ch, "vid": vid,
-                  "url": f"https://www.youtube.com/watch?v={vid}", "views": parse_views(vc)}
-        # 曲名吻合 → 最佳匹配，直接回傳（不限上傳時間）
-        if song_ok:
-            return result
-        # 曲名不吻合的後備：須「近期上傳」才採用，擋掉同團舊曲
-        if candidate is None and is_recent(pub):
-            candidate = result
-    return candidate
+        score = (100 if song_ok else 0) + (10 if title_official else 0) + (5 if recent else 0)
+        scored.append((score, -idx, {
+            "title": t, "channel": ch, "vid": vid,
+            "url": f"https://www.youtube.com/watch?v={vid}", "views": parse_views(vc)}))
+
+    if not scored:
+        if os.environ.get("MV_DEBUG"):
+            log.info(f"[MV_DEBUG] {group}/{song} → None")
+        return None
+    scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
+    best = scored[0][2]
+    if os.environ.get("MV_DEBUG"):
+        log.info(f"[MV_DEBUG] {group}/{song} → {best.get('title')} (cands={len(scored)})")
+    return best
 
 
 def ai_resolve_title_tracks(items: list[dict]) -> dict:
