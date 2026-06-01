@@ -574,20 +574,24 @@ def _youtube_search(q: str) -> list:
 
 def youtube_find_mv(group: str, title: str,
                     yt_channel: str = "", title_track: str = "",
-                    allow_fallback: bool = True) -> dict | None:
+                    group_kr: str = "", allow_fallback: bool = True) -> dict | None:
     """在 YouTube 搜尋官方 MV。嚴格驗證：須出自官方頻道 + 曲名相符。
     優先用主打曲名(title_track)搜尋；找不到回傳 None（寧缺勿錯）。
+    有韓文團名(group_kr)時多搜一輪韓文（拼法差異大的團如 Hiipe↔H//PE↔하입프린세스 更易命中）。
     allow_fallback=False 時關閉 Pass 2 近期後備（用於 AI 判定 MV 尚未上線者）。"""
     song = (title_track or title or "").strip()
-    # 用兩種查詢合併結果，抵抗 YouTube 對「極新影片」索引不穩 / 結果排序浮動：
-    #  1) 團名 + 主打曲/專輯 + MV（精準）
-    #  2) 團名 + MV（較廣，更易撈到該團最新官方 MV，如剛上幾小時的 Baby Flower）
+    gkr = (group_kr or "").strip()
+    # 多查詢合併，抵抗 YouTube 對「極新影片」索引不穩 / 結果排序浮動 / 拉丁拼法不符：
+    #  1) 英文團名+曲名  2) 英文團名  3) 韓文團名+曲名  4) 韓文團名（若有韓文名）
     queries = [f"{group} {song} MV".strip()]
     if song:
         queries.append(f"{group} MV".strip())
+    if gkr:
+        queries.append(f"{gkr} {song} MV".strip())
+        queries.append(f"{gkr} MV".strip())
     vids = []
     seen_vids = set()
-    for q in queries:
+    for q in dict.fromkeys(queries):     # 去重
         for tup in _youtube_search(q):
             if tup[2] not in seen_vids:
                 seen_vids.add(tup[2])
@@ -605,8 +609,11 @@ def youtube_find_mv(group: str, title: str,
     song_norm = norm(song)
 
     gtok = norm(group)
-    # 團名 token（≥4 字的單字），用於拼法差異大的團（如 "H//PE Princess" 取 "princess"）
+    gkr_norm = norm(gkr)
+    # 團名 token（≥4 字的單字 + 韓文團名），用於拼法差異大的團（如 "H//PE Princess"→"princess"、하입프린세스）
     gtokens = [norm(w) for w in re.split(r"[^a-z0-9가-힣]+", group.lower()) if len(norm(w)) >= 4]
+    if gkr_norm and len(gkr_norm) >= 2:
+        gtokens.append(gkr_norm)
     chan_norm = norm(yt_channel)
     # 已知經銷 / 廠牌官方頻道關鍵字（不含單字「official」——假搬運頻道常濫用該字）
     _DISTRIB = ["1thek", "stonemusic", "smtown", "jypentertainment", "hybe",
@@ -1143,7 +1150,8 @@ def run_scraper(days_back: int = 14) -> dict:
         # YouTube 官方 MV 驗證：取第一支官方頻道的真正 MV（有主打曲名則優先精準匹配）
         mv = youtube_find_mv(group, title,
                              yt_channel=c.get("yt_channel", ""),
-                             title_track=c.get("title_track", ""))
+                             title_track=c.get("title_track", ""),
+                             group_kr=c.get("group_kr", ""))
         time.sleep(0.3)
         if not mv:
             # 找不到官方 MV → 歸入「MV 即將上線」，附 YouTube 搜尋連結方便手動確認
