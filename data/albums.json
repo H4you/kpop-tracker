@@ -125,6 +125,16 @@
     "aespa": {
       "albums": [
         {
+          "id": 6771565456,
+          "album": "LEMONADE - The 2nd Album",
+          "artist": "aespa",
+          "year": "2026",
+          "track_count": 11,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
+          "tracks": []
+        },
+        {
           "id": 6772870169,
           "album": "LEMONADE - The 2nd Album (GISELLE Special Version)",
           "artist": "aespa",
@@ -149,16 +159,6 @@
             "LEMONADE (Slowed Down Version)",
             "LEMONADE (Instrumental)"
           ]
-        },
-        {
-          "id": 6771565456,
-          "album": "LEMONADE - The 2nd Album",
-          "artist": "aespa",
-          "year": "2026",
-          "track_count": 11,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
-          "tracks": []
         },
         {
           "id": 6772869031,
@@ -2073,18 +2073,6 @@
           ]
         },
         {
-          "id": 1885450328,
-          "album": "Bubee - Single",
-          "artist": "ILLIT",
-          "year": "2026",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7a/93/be/7a93beee-ea65-4371-e6b4-82d59ec46fe9/26UMGIM24509.rgb.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/bubee-single/1885450328?uo=4",
-          "tracks": [
-            "Bubee"
-          ]
-        },
-        {
           "id": 1861749531,
           "album": "Sunday Morning - Single",
           "artist": "ILLIT",
@@ -2094,6 +2082,18 @@
           "itunes_url": "https://music.apple.com/us/album/sunday-morning-single/1861749531?uo=4",
           "tracks": [
             "Sunday Morning"
+          ]
+        },
+        {
+          "id": 1885450328,
+          "album": "Bubee - Single",
+          "artist": "ILLIT",
+          "year": "2026",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7a/93/be/7a93beee-ea65-4371-e6b4-82d59ec46fe9/26UMGIM24509.rgb.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/bubee-single/1885450328?uo=4",
+          "tracks": [
+            "Bubee"
           ]
         },
         {
@@ -3634,26 +3634,26 @@
           ]
         },
         {
-          "id": 1775644331,
-          "album": "마피아 보스가 나에게 집착한다 (Original Webtoon Soundtrack) Pt. 25 - Single",
-          "artist": "Queenz Eye",
-          "year": "2024",
-          "track_count": 2,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/36/2a/b7/362ab778-d47b-a400-0546-4c8536de9830/8800280864598.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/%EB%A7%88%ED%94%BC%EC%95%84-%EB%B3%B4%EC%8A%A4%EA%B0%80-%EB%82%98%EC%97%90%EA%B2%8C-%EC%A7%91%EC%B0%A9%ED%95%9C%EB%8B%A4-original-webtoon-soundtrack-pt-25-single/1775644331?uo=4",
-          "tracks": [
-            "How Could You Know",
-            "How Could You Know (Instrumental)"
-          ]
-        },
-        {
           "id": 1819847907,
           "album": "죽이고 싶은 나의 전복 왕자님 (Original Television Soundtrack) Pt.25 - Single",
           "artist": "Queenz Eye",
           "year": "2024",
           "track_count": 2,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fc/a1/9f/fca19fc9-46e4-9289-2446-570541922521/8800284460031_cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/%EC%A3%BD%EC%9D%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-%EB%82%98%EC%9D%98-%EC%A0%84%EB%B3%B5-%EC%99%95%EC%9E%90%EB%8B%98-original-television-soundtrack-pt-25-single/1819847907?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/%EC%A3%BD%EC%9D%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-%EB%82%98%EC%9D%98-%EC%A0%84%EB%B3%B5-%EC%99%95%EC%9E%90%EB%8B%98-original-television-soundtrack-pt-25-single/1819847907?uo=4",
+          "tracks": [
+            "Can't you come back like the season",
+            "Can't you come back like the season (inst.)"
+          ]
+        },
+        {
+          "id": 1775644331,
+          "album": "마피아 보스가 나에게 집착한다 (Original Webtoon Soundtrack) Pt. 25 - Single",
+          "artist": "Queenz Eye",
+          "year": "2024",
+          "track_count": 2,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/36/2a/b7/362ab778-d47b-a400-0546-4c8536de9830/8800280864598.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/%EB%A7%88%ED%94%BC%EC%95%84-%EB%B3%B4%EC%8A%A4%EA%B0%80-%EB%82%98%EC%97%90%EA%B2%8C-%EC%A7%91%EC%B0%A9%ED%95%9C%EB%8B%A4-original-webtoon-soundtrack-pt-25-single/1775644331?uo=4"
         },
         {
           "id": 1695512709,
@@ -4899,5 +4899,5 @@
       "album_count": 10
     }
   },
-  "updated_at": "2026-06-01 15:36"
+  "updated_at": "2026-06-01 15:49"
 }
