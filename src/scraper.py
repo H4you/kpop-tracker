@@ -623,6 +623,40 @@ def ai_discographies(group_names: list[str]) -> dict:
     return {}
 
 
+def ai_members(group_names: list[str]) -> dict:
+    """用 Claude 一次生成多個女團的成員資訊。回傳 {團名: [{name,name_kr,birth,role}...]}。"""
+    if not AI_ENABLED or not group_names:
+        return {}
+    prompt = f"""為以下 KPop 女團，各列出「現役成員」名單。
+
+【清單】
+{json.dumps(group_names, ensure_ascii=False)}
+
+要求：
+- 只列你「有把握」的現役成員；冷門或不確定的團給空陣列，寧缺勿錯。
+- 個人 solo 藝人（非團體）給空陣列。
+- name：藝名（英文/羅馬拼音）；name_kr：韓文藝名（不知道填""）。
+- birth：生日 MM-DD（只知道月或完全不知就填""）。
+- role：隊長 / 忙內 / 主唱 / 主舞 / 隊內Rapper 等，多重用「、」分隔；不確定填""。
+- 只輸出純 JSON：
+{{"members":{{"團名":[{{"name":"","name_kr":"","birth":"","role":""}}]}}}}"""
+    try:
+        resp = ANTHROPIC_CLIENT.messages.create(
+            model=AI_MODEL, max_tokens=4000,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        text = next((b.text for b in resp.content if b.type == "text"), "")
+        mt = re.search(r"\{[\s\S]*\}", text)
+        if mt:
+            d = json.loads(mt.group()).get("members", {})
+            d = {k: v for k, v in d.items() if v}  # 去掉空的
+            log.info(f"AI 成員資訊：{len(d)} 團有資料")
+            return d
+    except Exception as e:
+        log.error(f"AI 成員資訊失敗: {e}")
+    return {}
+
+
 def ai_pick_candidates(releases: list[dict], debuts: list[str], ptt: list[dict]) -> list[dict]:
     if not AI_ENABLED:
         log.warning("未設定 ANTHROPIC_API_KEY，跳過 AI 篩選（候選為空）")
@@ -783,10 +817,13 @@ def run_scraper(days_back: int = 14) -> dict:
     disco_names = sorted({t["group"] for t in tracks} | {u["group"] for u in upcoming})
     discographies = ai_discographies(disco_names)
 
+    # 各團成員資訊（僅團體，前端點團名展開）
+    members = ai_members(all_groups)
+
     log.info(f"完成：收錄 {n} 筆，MV 即將上線 {len(pending_mv)} 筆，預告 {len(upcoming)} 筆")
     return {"tracks": tracks, "pending_mv": pending_mv,
             "upcoming": upcoming, "birthdays": birthdays,
-            "discographies": discographies,
+            "discographies": discographies, "members": members,
             "summary": summary, "digest": digest, "fetched_at": now_str}
 
 

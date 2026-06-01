@@ -304,6 +304,18 @@ header {
   background: var(--surface3); color: var(--text3); border: 0.5px solid var(--border);
 }
 .disco-empty { padding: 24px; text-align: center; color: var(--text3); font-size: 13px; }
+.mem-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: 8px;
+}
+.mem-item:hover { background: var(--surface2); }
+.mem-name { flex: 1; min-width: 0; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mem-name .kr { color: var(--text3); font-size: 12px; margin-left: 6px; }
+.mem-birth { font-size: 12px; color: var(--text3); flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.mem-role {
+  font-size: 10px; padding: 2px 8px; border-radius: 99px; flex-shrink: 0;
+  background: var(--pink-dim); color: var(--pink-text); border: 0.5px solid rgba(232,83,124,0.25);
+}
 .badge {
   font-size: 10px;
   padding: 2px 7px;
@@ -708,6 +720,16 @@ header {
   </div>
 </div>
 
+<div class="mv-modal" id="mem-modal" onclick="if(event.target===this)closeMem()">
+  <div class="mv-modal-box" style="background:var(--surface);max-width:520px">
+    <div class="mv-modal-head">
+      <span id="mem-title">成員</span>
+      <button class="mv-close" onclick="closeMem()" aria-label="關閉">×</button>
+    </div>
+    <div class="disco-list" id="mem-body"></div>
+  </div>
+</div>
+
 <div class="fab-wrap">
   <button class="fab" id="fab" onclick="fetchAll()" aria-label="抓取最新女團情報">
     <svg id="fab-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
@@ -727,6 +749,7 @@ let upcoming = [];
 let birthdays = [];
 let pendingMv = [];
 let discographies = {};
+let members = {};
 let searchQuery = '';
 
 /* ── Persist ── */
@@ -899,6 +922,7 @@ function render() {
       <div class="track-body">
         <div class="track-top-row">
           <span class="group-pill${discographies[t.group] ? ' clickable' : ''}"${discographies[t.group] ? ` onclick="openDisco('${escAttr(t.group)}')" title="查看 ${escHtml(t.group)} 歷年作品"` : ''}>${escHtml(t.group)}</span>
+          ${members[t.group] ? `<span class="badge clickable" style="cursor:pointer;background:var(--pink-dim);color:var(--pink-text);border:0.5px solid rgba(232,83,124,0.25)" onclick="openMembers('${escAttr(t.group)}')" title="查看 ${escHtml(t.group)} 成員">成員</span>` : ''}
           ${t.is_new ? '<span class="badge badge-new">NEW</span>' : ''}
           ${t.is_hot ? '<span class="badge badge-hot">HOT</span>' : ''}
           ${t.circle_rank ? `<span class="badge badge-rank">#${t.circle_rank}</span>` : ''}
@@ -975,6 +999,24 @@ function openDisco(group) {
 }
 function closeDisco() {
   document.getElementById('disco-modal').classList.remove('show');
+}
+
+/* ── 成員資訊彈窗 ── */
+function openMembers(group) {
+  const list = members[group] || [];
+  document.getElementById('mem-title').textContent = group + ' · 成員';
+  const box = document.getElementById('mem-body');
+  box.innerHTML = list.length
+    ? list.map(mb => `<div class="mem-item">
+        <span class="mem-name">${escHtml(mb.name||'')}${mb.name_kr ? `<span class="kr">${escHtml(mb.name_kr)}</span>` : ''}</span>
+        ${mb.birth ? `<span class="mem-birth">🎂 ${escHtml(mb.birth)}</span>` : ''}
+        ${mb.role ? `<span class="mem-role">${escHtml(mb.role)}</span>` : ''}
+      </div>`).join('')
+    : '<div class="disco-empty">查無資料</div>';
+  document.getElementById('mem-modal').classList.add('show');
+}
+function closeMem() {
+  document.getElementById('mem-modal').classList.remove('show');
 }
 
 /* ── Fetch from data/latest.json (produced by GitHub Actions) ── */
@@ -1078,6 +1120,7 @@ async function fetchAll() {
       birthdays = result.birthdays || [];
       pendingMv = result.pending_mv || [];
       discographies = result.discographies || {};
+      members = result.members || {};
       updateStats();
       renderUpcoming();
       renderBirthdays();
@@ -1110,7 +1153,7 @@ document.getElementById('search-box').addEventListener('input', e => {
 });
 
 /* ── ESC 關閉 MV 彈窗 ── */
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMV(); closeDisco(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMV(); closeDisco(); closeMem(); } });
 
 /* ── Init ── */
 updateStats();
@@ -1135,6 +1178,7 @@ window.addEventListener('load', async () => {
     birthdays = data.birthdays || [];
     pendingMv = data.pending_mv || [];
     discographies = data.discographies || {};
+    members = data.members || {};
     updateStats();
     renderUpcoming();
     renderBirthdays();
