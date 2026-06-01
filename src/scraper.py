@@ -351,7 +351,7 @@ SEED_GIRLGROUPS = [
 
 # 人工黑名單：經確認「不是女團」但 AI/namuwiki 自動判斷漏抓的（多為極冷門新出道男團）。
 # 大小寫不敏感比對。發現新的誤收就加進來。
-NOT_GIRLGROUPS = ["XLOV", "And2ble", "Uspeer", "Naze"]
+NOT_GIRLGROUPS = ["XLOV", "And2ble", "Naze"]
 _NOT_GG_KEYS = {re.sub(r"[^a-z0-9]", "", n.lower()) for n in NOT_GIRLGROUPS}
 
 
