@@ -626,7 +626,7 @@ def run_scraper(days_back: int = 14) -> dict:
 
     cutoff7 = (datetime.now().date() - timedelta(days=7)).strftime("%Y.%m.%d")
     tracks = []
-    dropped_no_mv = 0
+    pending_mv = []   # 已確認女團/solo、但官方 MV 尚未上線（MV 即將上線）
     for c in candidates:
         group = c.get("group", "")
         title = c.get("title", "") or c.get("album", "")
@@ -645,19 +645,8 @@ def run_scraper(days_back: int = 14) -> dict:
                 note = (note + "；namuwiki 無資料，待確認").strip("；")
             time.sleep(0.4)
 
-        # YouTube 官方 MV 驗證（嚴格模式：須官方頻道 + 曲名相符，否則不收）
-        mv = youtube_find_mv(group, title,
-                             yt_channel=c.get("yt_channel", ""),
-                             title_track=c.get("title_track", ""))
-        if not mv:
-            dropped_no_mv += 1
-            log.info(f"略過（查無官方 MV）: {group} - {title}")
-            time.sleep(0.3)
-            continue
-        time.sleep(0.3)
-
         raw_id = f"{group}{title}{c.get('date','')}"
-        tracks.append({
+        base = {
             "group": group,
             "group_kr": c.get("group_kr", ""),
             "title": title,
@@ -668,12 +657,28 @@ def run_scraper(days_back: int = 14) -> dict:
             "is_hot": False,
             "sources": ["Wikipedia"],
             "note": note,
+            "id": hashlib.md5(raw_id.encode()).hexdigest()[:12],
+        }
+
+        # YouTube 官方 MV 驗證（嚴格模式：須官方頻道 + 曲名相符）
+        mv = youtube_find_mv(group, title,
+                             yt_channel=c.get("yt_channel", ""),
+                             title_track=c.get("title_track", ""))
+        time.sleep(0.3)
+        if not mv:
+            # 找不到官方 MV → 歸入「MV 即將上線」，附 YouTube 搜尋連結方便手動確認
+            log.info(f"無官方 MV，歸入即將上線: {group} - {title}")
+            base["yt_search"] = _yt_search_url(group, c.get("title_track") or title)
+            pending_mv.append(base)
+            continue
+
+        base.update({
             "yt_url": mv["url"],            # 官方 MV 直連
             "yt_id": mv.get("vid", ""),     # YouTube 影片 ID（縮圖 / 內嵌播放用）
             "yt_title": mv["title"],
             "yt_views": mv.get("views"),    # MV 觀看數（int 或 None）
-            "id": hashlib.md5(raw_id.encode()).hexdigest()[:12],
         })
+        tracks.append(base)
 
     # 發行預告：AI 從未來發行清單篩出女團 / 前成員 solo
     upcoming = ai_filter_upcoming(upcoming_raw, debuts)
@@ -689,7 +694,7 @@ def run_scraper(days_back: int = 14) -> dict:
     groups = "、".join(dict.fromkeys(t["group"] for t in tracks))
     summary = (f"本期收錄 {n} 首有官方 MV 的女團／前成員 solo 主打發行"
                + (f"：{groups}。" if groups else "。")
-               + (f"（另有 {dropped_no_mv} 筆查無官方 MV 未收錄）" if dropped_no_mv else ""))
+               + (f"（另有 {len(pending_mv)} 筆 MV 即將上線）" if pending_mv else ""))
 
     digest = ai_weekly_digest(tracks, upcoming)
 
@@ -702,8 +707,9 @@ def run_scraper(days_back: int = 14) -> dict:
     disco_names = sorted({t["group"] for t in tracks} | {u["group"] for u in upcoming})
     discographies = ai_discographies(disco_names)
 
-    log.info(f"完成：收錄 {n} 筆，略過無 MV {dropped_no_mv} 筆，預告 {len(upcoming)} 筆")
-    return {"tracks": tracks, "upcoming": upcoming, "birthdays": birthdays,
+    log.info(f"完成：收錄 {n} 筆，MV 即將上線 {len(pending_mv)} 筆，預告 {len(upcoming)} 筆")
+    return {"tracks": tracks, "pending_mv": pending_mv,
+            "upcoming": upcoming, "birthdays": birthdays,
             "discographies": discographies,
             "summary": summary, "digest": digest, "fetched_at": now_str}
 

@@ -671,6 +671,14 @@ header {
     <div class="upcoming-list" id="bday-list"></div>
   </div>
 
+  <div class="upcoming-card" id="pending-card">
+    <div class="upcoming-head">
+      <span class="upcoming-title">⏳ MV 即將上線</span>
+      <span class="upcoming-sub">已發行但官方 MV 尚未找到，點擊到 YouTube 搜尋</span>
+    </div>
+    <div class="upcoming-list" id="pending-list"></div>
+  </div>
+
   <main class="track-list" id="tlist" aria-label="女團新曲清單">
     <div class="empty">
       <div class="empty-icon" aria-hidden="true">◈</div>
@@ -717,6 +725,7 @@ let archiveTracks = [];
 let archiveLoaded = false;
 let upcoming = [];
 let birthdays = [];
+let pendingMv = [];
 let discographies = {};
 let searchQuery = '';
 
@@ -839,6 +848,24 @@ function renderBirthdays() {
       <span class="up-main"><span class="up-group">${escHtml(b.member||'')}</span> <span class="up-title">${escHtml(b.group||'')}</span></span>
       ${b.is_today ? '<span class="up-badge">🎉 今天</span>' : ''}
     </div>`).join('');
+}
+
+/* ── MV 即將上線 ── */
+function renderPending() {
+  const card = document.getElementById('pending-card');
+  const list = document.getElementById('pending-list');
+  if (!card || !list) return;
+  if (!pendingMv.length) { card.classList.remove('show'); return; }
+  card.classList.add('show');
+  list.innerHTML = pendingMv.map(t => {
+    const tag = t.is_solo ? '🎤 solo' : '👯 女團';
+    const href = t.yt_search || `https://www.youtube.com/results?search_query=${encodeURIComponent((t.group||'')+' '+(t.title||'')+' MV')}`;
+    return `<a class="up-item" href="${href}" target="_blank" rel="noopener" title="到 YouTube 搜尋">
+      <span class="up-date">${escHtml(t.date||'')}</span>
+      <span class="up-main"><span class="up-group">${escHtml(t.group||'')}</span> <span class="up-title">${escHtml(t.title||'')}</span></span>
+      <span class="up-tag">${tag}</span>
+    </a>`;
+  }).join('');
 }
 
 /* ── Render ── */
@@ -1049,10 +1076,12 @@ async function fetchAll() {
 
       upcoming = result.upcoming || [];
       birthdays = result.birthdays || [];
+      pendingMv = result.pending_mv || [];
       discographies = result.discographies || {};
       updateStats();
       renderUpcoming();
       renderBirthdays();
+      renderPending();
       render();
     } else {
       throw new Error('no tracks returned');
@@ -1104,10 +1133,12 @@ window.addEventListener('load', async () => {
     document.getElementById('stime').textContent = data.fetched_at || '';
     upcoming = data.upcoming || [];
     birthdays = data.birthdays || [];
+    pendingMv = data.pending_mv || [];
     discographies = data.discographies || {};
     updateStats();
     renderUpcoming();
     renderBirthdays();
+    renderPending();
     render();
   }
 });
