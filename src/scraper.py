@@ -474,13 +474,30 @@ def build_album_library(group_names: list[str], data_dir: str,
             log.warning(f"albums.json 讀取失敗，將重建: {e}")
     groups = {}
 
+    def _clean_old(g, entry):
+        """沿用舊資料前，用現行藝人名規則重新過濾，清掉殘留的同名無關專輯。"""
+        gnorm = re.sub(r"[^a-z0-9]", "", g.lower())
+        def ok(artist):
+            an = re.sub(r"[^a-z0-9]", "", (artist or "").lower())
+            if not an or len(gnorm) < 2:
+                return False
+            if gnorm in an or an in gnorm:
+                return True
+            toks = [re.sub(r"[^a-z0-9]", "", w)
+                    for w in re.split(r"[,&xX×/]| feat| with", (artist or "").lower())]
+            return gnorm in [t for t in toks if t]
+        albs = [a for a in entry.get("albums", []) if ok(a.get("artist", ""))]
+        return {"albums": albs, "album_count": len(albs)} if albs else None
+
     for g in group_names:
         try:
             albums = itunes_group_albums(g, limit=max_albums_per_group)
             time.sleep(0.3)
             if not albums:
-                if g in prev:           # 抓不到就沿用舊資料
-                    groups[g] = prev[g]
+                if g in prev:           # 抓不到就沿用舊資料（但先重新過濾）
+                    cleaned = _clean_old(g, prev[g])
+                    if cleaned:
+                        groups[g] = cleaned
                 continue
             # 依年份新到舊
             albums.sort(key=lambda a: a.get("year", ""), reverse=True)
@@ -493,8 +510,10 @@ def build_album_library(group_names: list[str], data_dir: str,
             log.info(f"專輯庫: {g} {len(albums)} 張")
         except Exception as e:
             log.warning(f"專輯庫抓取失敗 {g}: {e}")
-            if g in prev:               # 出錯沿用舊資料
-                groups[g] = prev[g]
+            if g in prev:               # 出錯沿用舊資料（先重新過濾）
+                cleaned = _clean_old(g, prev[g])
+                if cleaned:
+                    groups[g] = cleaned
 
     library = {"groups": groups,
                "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M")}
