@@ -349,6 +349,16 @@ SEED_GIRLGROUPS = [
     "FIFTY FIFTY", "XG", "UNIS", "ARTMS", "BABYMONSTER", "CSR", "EL7Z UP",
 ]
 
+# 人工黑名單：經確認「不是女團」但 AI/namuwiki 自動判斷漏抓的（多為極冷門新出道男團）。
+# 大小寫不敏感比對。發現新的誤收就加進來。
+NOT_GIRLGROUPS = ["XLOV", "And2ble", "Uspeer", "Naze"]
+_NOT_GG_KEYS = {re.sub(r"[^a-z0-9]", "", n.lower()) for n in NOT_GIRLGROUPS}
+
+
+def is_blocklisted_group(name: str) -> bool:
+    return re.sub(r"[^a-z0-9]", "", (name or "").lower()) in _NOT_GG_KEYS
+
+
 _ITUNES = "https://itunes.apple.com"
 
 
@@ -910,6 +920,11 @@ def run_scraper(days_back: int = 14) -> dict:
         title = c.get("title", "") or c.get("album", "")
         note = c.get("note", "") or ""
 
+        # 人工黑名單：確認非女團者直接略過（AI/namuwiki 自動判斷漏抓的）
+        if is_blocklisted_group(group):
+            log.info(f"略過（人工黑名單，非女團）: {group}")
+            continue
+
         # namuwiki 補強：只對「待確認」且「非 solo」者查
         # （solo 是個人，其 namuwiki 頁面不會標「걸그룹」，不可用女團關鍵字否決）
         if c.get("needs_confirm") and not c.get("is_solo"):
@@ -1117,10 +1132,11 @@ if __name__ == "__main__":
                                if t.get("group") and not t.get("is_solo")]
         seed_keys = {re.sub(r"[^a-z0-9]", "", s.lower()) for s in SEED_GIRLGROUPS}
         # 大小寫不敏感去重：種子清單優先（保留其標準拼法），避免 aespa/Aespa 重複
+        # 同時剔除人工黑名單（確認非女團）
         canon = {}
         for name in list(SEED_GIRLGROUPS) + sorted(seen_groups):
             key = re.sub(r"[^a-z0-9]", "", name.lower())
-            if key and key not in canon:
+            if key and key not in canon and not is_blocklisted_group(name):
                 canon[key] = name
         # 對「非種子清單」的團（來自 archive，可能含誤收的男團）做雙重性別過濾：
         # 1) AI 逐一判斷  2) namuwiki 男團偵測（第二道，CI 偶爾限流失敗但能補抓）
