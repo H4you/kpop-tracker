@@ -856,59 +856,41 @@ def apply_members_override(members: dict, group_names: list[str]) -> dict:
 
 
 def ai_members(group_names: list[str]) -> dict:
-    """成員資訊：抓每團 namuwiki 頁面文字，交給 AI 從「真實頁面內容」提取現役成員
-    （以頁面為事實依據，避免 AI 憑記憶混團/捏造）。回傳 {團名: [{name,name_kr,birth,role}...]}。
-    namuwiki 查不到、或頁面無成員資訊的團就略過（不顯示成員卡）。"""
+    """成員資訊：用 AI 知識生成各女團現役成員（主流團準確）。回傳 {團名:[{name,name_kr,birth,role}]}。
+    新/改組/冷門團 AI 可能出錯，由 data/members_override.json 人工修正檔覆蓋
+    （namuwiki 在 CI 被封鎖，無法即時查證）。"""
     if not AI_ENABLED or not group_names:
         return {}
-    # 1) 逐團抓 namuwiki 頁面文字
-    pages = {}
-    for g in group_names:
-        txt = namu_page_text(g)
-        if txt:
-            pages[g] = txt
-        time.sleep(0.3)
-    if not pages:
-        log.info("成員資訊：namuwiki 無任何可用頁面")
-        return {}
+    prompt = f"""為以下 KPop 女團，各列出「現役成員」名單。
 
-    # 2) AI 從各團「真實頁面文字」中提取現役成員（逐團處理避免 prompt 過長）
-    out = {}
-    for g, txt in pages.items():
-        prompt = f"""以下是 KPop 女團「{g}」的 namuwiki 頁面文字。請**僅根據這段文字**，提取該團的「現役成員」。
+【清單】
+{json.dumps(group_names, ensure_ascii=False)}
 
-【namuwiki 頁面文字】
-{txt}
-
-規則（非常重要）：
-- 只列「현재 멤버 / 現役成員」，排除「전 멤버 / 前成員」、製作人、其他團體成員。
-- **只能根據上面文字提取**，不可憑你自己的記憶補充或新增頁面沒有的人。
-- 若文字中找不到明確的成員名單，members 給空陣列 []。
-- 每個成員：name_kr（頁面上的韓文名）、name（對應英文/羅馬拼音藝名，不確定就用韓文名）、
-  birth（生日 MM-DD，文字沒有就""）、role（隊長/忙內/主唱/主舞 等，沒有就""）。
-- 只輸出純 JSON：{{"members":[{{"name":"","name_kr":"","birth":"","role":""}}]}}"""
-        try:
-            resp = ANTHROPIC_CLIENT.messages.create(
-                model=AI_MODEL, max_tokens=1500,
-                messages=[{"role": "user", "content": prompt}],
-            )
-            text = next((b.text for b in resp.content if b.type == "text"), "")
-            mt = re.search(r"\{[\s\S]*\}", text)
-            if not mt:
-                continue
-            members = json.loads(mt.group()).get("members", [])
-            members = [m for m in members if (m.get("name") or m.get("name_kr"))]
-            if 2 <= len(members) <= 13:     # 合理人數才採用
-                out[g] = [{
-                    "name": (m.get("name") or m.get("name_kr") or "").strip(),
-                    "name_kr": (m.get("name_kr") or "").strip(),
-                    "birth": (m.get("birth") or "").strip(),
-                    "role": (m.get("role") or "").strip(),
-                } for m in members]
-        except Exception as e:
-            log.warning(f"成員提取失敗 {g}: {e}")
-    log.info(f"成員資訊：{len(out)} 團（namuwiki 頁面 + AI 提取）")
-    return out
+規則（很重要，寧缺勿錯）：
+- 只列你**非常有把握**的現役成員。對 2024 年後新出道、改組過、或你不熟的冷門團，
+  若沒有十足把握就給空陣列 []，**絕不要猜測或硬湊**。
+- **嚴禁把其他團的成員混進來**（這是最常見的錯誤，務必避免）。
+- 個人 solo 藝人（非團體）給空陣列。
+- name：藝名（英文/羅馬拼音）；name_kr：韓文藝名（不知道填""）。
+- birth：生日 MM-DD（不確定就填""，不要猜）。
+- role：隊長/忙內/主唱/主舞/隊內Rapper 等，多重用「、」分隔；不確定填""。
+- 只輸出純 JSON：
+{{"members":{{"團名":[{{"name":"","name_kr":"","birth":"","role":""}}]}}}}"""
+    try:
+        resp = ANTHROPIC_CLIENT.messages.create(
+            model=AI_MODEL, max_tokens=4000,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        text = next((b.text for b in resp.content if b.type == "text"), "")
+        mt = re.search(r"\{[\s\S]*\}", text)
+        if mt:
+            d = json.loads(mt.group()).get("members", {})
+            d = {k: v for k, v in d.items() if isinstance(v, list) and v}
+            log.info(f"AI 成員資訊：{len(d)} 團有資料")
+            return d
+    except Exception as e:
+        log.error(f"AI 成員資訊失敗: {e}")
+    return {}
 
 
 def ai_pick_candidates(releases: list[dict], debuts: list[str], ptt: list[dict]) -> list[dict]:
