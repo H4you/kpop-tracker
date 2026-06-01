@@ -414,22 +414,41 @@ def itunes_album_tracks(collection_id: int) -> list[str]:
             if x.get("wrapperType") == "track" and x.get("trackName")]
 
 
-def itunes_group_albums(group: str, limit: int = 12) -> list[dict]:
-    """抓某女團的專輯清單（含封面/年份/曲數）；過濾掉藝人名明顯不符者。"""
+def itunes_group_albums(group: str, limit: int = 25) -> list[dict]:
+    """抓某女團的專輯清單（含封面/年份/曲數）。
+    嚴格驗證藝人名須與團名相符——iTunes 用關鍵字搜會撈到「同名但無關藝人」的專輯
+    （如搜 EVERGLOW 撈到 Coldplay 的同名曲、搜 Love 撈到無關專輯），須剔除。"""
     d = _itunes_get("/search", {"term": group, "entity": "album",
                                 "media": "music", "limit": limit})
-    out, seen = [], set()
     gnorm = re.sub(r"[^a-z0-9]", "", group.lower())
+    if len(gnorm) < 2:
+        return []
+
+    def artist_matches(artist: str) -> bool:
+        an = re.sub(r"[^a-z0-9]", "", (artist or "").lower())
+        if not an:
+            return False
+        # a) 藝人名(去符號)直接含團名，或團名含藝人名（涵蓋 "K/DA...& i-dle" 含 idle）
+        if gnorm in an or an in gnorm:
+            return True
+        # b) 逐 token 比對（處理 "ROSÉ & Bruno Mars" 這類；team token 須完整出現）
+        tokens = [re.sub(r"[^a-z0-9]", "", w) for w in re.split(r"[,&xX×/]| feat| with", (artist or "").lower())]
+        return gnorm in [t for t in tokens if t]
+
+    out, seen = [], set()
     for a in d.get("results", []):
         cid = a.get("collectionId")
         name = a.get("collectionName", "")
+        artist = a.get("artistName", "")
         if not cid or cid in seen or not name:
+            continue
+        if not artist_matches(artist):     # 藝人名不符 → 剔除（擋同名無關專輯）
             continue
         seen.add(cid)
         out.append({
             "id": cid,
             "album": name,
-            "artist": a.get("artistName", ""),
+            "artist": artist,
             "year": (a.get("releaseDate") or "")[:4],
             "track_count": a.get("trackCount"),
             "art": _hi_res_art(a.get("artworkUrl100", "")),
