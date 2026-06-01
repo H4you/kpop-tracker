@@ -102,15 +102,6 @@
           "itunes_url": "https://music.apple.com/us/album/uh-oh-single/1469336028?uo=4"
         },
         {
-          "id": 1831861471,
-          "album": "POP/STARS (feat. Jaira Burns & League of Legends Music) - Single",
-          "artist": "K/DA, Madison Beer & i-dle",
-          "year": "2018",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/93/f8/8a/93f88a32-342c-b650-ef1c-ebc1c9f804c3/00198704643309_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/pop-stars-feat-jaira-burns-league-of-legends-music-single/1831861471?uo=4"
-        },
-        {
           "id": 1426297548,
           "album": "HANN (Alone) - Single",
           "artist": "i-dle",
@@ -118,22 +109,21 @@
           "track_count": 1,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/ef/02/33/ef0233f1-2a15-5af4-1634-2ab68fc64dd9/cover-_DS.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/hann-alone-single/1426297548?uo=4"
+        },
+        {
+          "id": 1831861471,
+          "album": "POP/STARS (feat. Jaira Burns & League of Legends Music) - Single",
+          "artist": "K/DA, Madison Beer & i-dle",
+          "year": "2018",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/93/f8/8a/93f88a32-342c-b650-ef1c-ebc1c9f804c3/00198704643309_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/pop-stars-feat-jaira-burns-league-of-legends-music-single/1831861471?uo=4"
         }
       ],
       "album_count": 10
     },
     "aespa": {
       "albums": [
-        {
-          "id": 6771565456,
-          "album": "LEMONADE - The 2nd Album",
-          "artist": "aespa",
-          "year": "2026",
-          "track_count": 11,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
-          "tracks": []
-        },
         {
           "id": 6772870169,
           "album": "LEMONADE - The 2nd Album (GISELLE Special Version)",
@@ -159,6 +149,16 @@
             "LEMONADE (Slowed Down Version)",
             "LEMONADE (Instrumental)"
           ]
+        },
+        {
+          "id": 6771565456,
+          "album": "LEMONADE - The 2nd Album",
+          "artist": "aespa",
+          "year": "2026",
+          "track_count": 11,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
+          "tracks": []
         },
         {
           "id": 6772869031,
@@ -482,15 +482,6 @@
           "itunes_url": "https://music.apple.com/us/album/the-carol-3-0-single/1737936773?uo=4"
         },
         {
-          "id": 1737936149,
-          "album": "Plastic Candy - Single",
-          "artist": "하슬",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0c/07/2e/0c072ee1-0522-d483-825d-66ecb8aceb0b/8804775284113.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/plastic-candy-single/1737936149?uo=4"
-        },
-        {
           "id": 1737940719,
           "album": "ODD EYE CIRCLE <Version Up> - EP",
           "artist": "ODD EYE CIRCLE (ARTMS)",
@@ -498,6 +489,15 @@
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/3f/01/41/3f01413b-6ceb-8be0-c4d4-0558a084ccc1/8804775297823.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/odd-eye-circle-version-up-ep/1737940719?uo=4"
+        },
+        {
+          "id": 1737936149,
+          "album": "Plastic Candy - Single",
+          "artist": "하슬",
+          "year": "2023",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0c/07/2e/0c072ee1-0522-d483-825d-66ecb8aceb0b/8804775284113.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/plastic-candy-single/1737936149?uo=4"
         },
         {
           "id": 1737936092,
@@ -2073,18 +2073,6 @@
           ]
         },
         {
-          "id": 1861749531,
-          "album": "Sunday Morning - Single",
-          "artist": "ILLIT",
-          "year": "2026",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/6f/3b/4d/6f3b4db5-0e18-09cc-a37c-2e1dc035d32e/25UM2IM03879.rgb.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/sunday-morning-single/1861749531?uo=4",
-          "tracks": [
-            "Sunday Morning"
-          ]
-        },
-        {
           "id": 1885450328,
           "album": "Bubee - Single",
           "artist": "ILLIT",
@@ -2094,6 +2082,18 @@
           "itunes_url": "https://music.apple.com/us/album/bubee-single/1885450328?uo=4",
           "tracks": [
             "Bubee"
+          ]
+        },
+        {
+          "id": 1861749531,
+          "album": "Sunday Morning - Single",
+          "artist": "ILLIT",
+          "year": "2026",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/6f/3b/4d/6f3b4db5-0e18-09cc-a37c-2e1dc035d32e/25UM2IM03879.rgb.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/sunday-morning-single/1861749531?uo=4",
+          "tracks": [
+            "Sunday Morning"
           ]
         },
         {
@@ -4881,5 +4881,5 @@
       "album_count": 10
     }
   },
-  "updated_at": "2026-06-01 14:52"
+  "updated_at": "2026-06-01 15:07"
 }
