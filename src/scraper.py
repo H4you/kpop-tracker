@@ -270,27 +270,43 @@ def fetch_ptt_posts(pages: int = 3) -> list[dict]:
 # ── 3. namuwiki 補充辨識 ───────────────────────────────────────────────────────
 
 def namu_confirm_girlgroup(name: str) -> dict:
-    """查 namuwiki 判斷是否為女團。回傳 {exists, is_girlgroup, snippet}。best-effort。"""
-    result = {"exists": False, "is_girlgroup": False, "snippet": ""}
+    """查 namuwiki 判斷是否為女團。回傳 {exists, is_girlgroup, is_boygroup, snippet}。best-effort。
+    大小寫不敏感（AI 常給 "Xlov" 但頁面是 "XLOV"）；同時偵測男團避免誤收。"""
+    result = {"exists": False, "is_girlgroup": False, "is_boygroup": False, "snippet": ""}
     if not name:
         return result
     name = str(name)
-    try:
-        url = "https://namu.wiki/w/" + quote(name)
-        r = requests.get(url, headers=HEADERS, timeout=20)
-        if r.status_code != 200:
+    # 嘗試原樣與全大寫兩種（namuwiki 對團名大小寫敏感）
+    tried = []
+    for cand in dict.fromkeys([name, name.upper()]):
+        try:
+            url = "https://namu.wiki/w/" + quote(cand)
+            r = requests.get(url, headers=HEADERS, timeout=20)
+            if r.status_code != 200:
+                continue
+            soup = BeautifulSoup(r.text, "html.parser")
+            for s in soup(["script", "style"]):
+                s.decompose()
+            text = re.sub(r"\s+", " ", soup.get_text(" ", strip=True))
+            if "해당 문서를 찾을 수 없습니다" in text:  # 找不到頁面
+                continue
+            head = text[:800]   # 頁面開頭的分類/簡介最能代表該團屬性
+            # 男團 / 女團判定：以「開頭出現的先後 + 是否含 보이그룹」為準，
+            # 避免「頁面某處提到別的女團」造成誤判（XLOV 是男團卻提到女團）
+            gi = head.find("걸그룹")   # 女團
+            bi = head.find("보이그룹")  # 男團
+            result["exists"] = True
+            result["snippet"] = head[:600]
+            if bi != -1 and (gi == -1 or bi < gi):
+                result["is_boygroup"] = True
+                result["is_girlgroup"] = False
+            elif gi != -1:
+                result["is_girlgroup"] = True
             return result
-        soup = BeautifulSoup(r.text, "html.parser")
-        for s in soup(["script", "style"]):
-            s.decompose()
-        text = re.sub(r"\s+", " ", soup.get_text(" ", strip=True))
-        if "해당 문서를 찾을 수 없습니다" in text:  # 找不到頁面
-            return result
-        result["exists"] = True
-        result["is_girlgroup"] = ("걸그룹" in text)  # 韓文「女團」
-        result["snippet"] = text[:600]
-    except Exception as e:
-        log.warning(f"namuwiki 查詢失敗 {name}: {e}")
+        except Exception as e:
+            tried.append(f"{cand}: {e}")
+    if tried:
+        log.warning(f"namuwiki 查詢失敗 {name}: {tried}")
     return result
 
 
@@ -746,10 +762,13 @@ def run_scraper(days_back: int = 14) -> dict:
         # （solo 是個人，其 namuwiki 頁面不會標「걸그룹」，不可用女團關鍵字否決）
         if c.get("needs_confirm") and not c.get("is_solo"):
             nm = namu_confirm_girlgroup(group)
+            if nm.get("is_boygroup"):
+                log.info(f"略過（namuwiki 判定為男團）: {group}")
+                continue
             if nm["exists"] and nm["is_girlgroup"]:
                 note = (note + "；namuwiki 確認為女團").strip("；")
             elif nm["exists"] and not nm["is_girlgroup"]:
-                log.info(f"略過（namuwiki 判定非女團）: {group}")
+                log.info(f"略過（namuwiki 顯示非女團）: {group}")
                 continue
             else:
                 note = (note + "；namuwiki 無資料，待確認").strip("；")
