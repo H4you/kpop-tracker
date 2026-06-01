@@ -337,6 +337,113 @@ def _yt_search_url(group: str, title: str) -> str:
     return f"https://www.youtube.com/results?search_query={q}"
 
 
+# ── 專輯資料庫（iTunes Search API：封面 + 曲目 + 年份）──────────────────────────
+
+# 種子女團清單（知名團，建立資料庫底；其餘由每日追蹤過的團累積）
+SEED_GIRLGROUPS = [
+    "aespa", "IVE", "NewJeans", "LE SSERAFIM", "ITZY", "(G)I-DLE", "NMIXX",
+    "BLACKPINK", "TWICE", "Red Velvet", "MAMAMOO", "STAYC", "Kep1er", "fromis_9",
+    "ILLIT", "BABYMONSTER", "KISS OF LIFE", "tripleS", "VIVIZ", "Billlie",
+    "QWER", "Hearts2Hearts", "MEOVV", "izna", "Girls' Generation", "Apink",
+    "OH MY GIRL", "WJSN", "Weeekly", "Dreamcatcher", "EVERGLOW", "LIGHTSUM",
+    "FIFTY FIFTY", "XG", "UNIS", "ARTMS", "BABYMONSTER", "CSR", "EL7Z UP",
+]
+
+_ITUNES = "https://itunes.apple.com"
+
+
+def _itunes_get(path: str, params: dict, retries: int = 3) -> dict:
+    delay = 1.5
+    for _ in range(retries):
+        try:
+            r = requests.get(f"{_ITUNES}{path}", params=params, headers=HEADERS, timeout=20)
+            if r.status_code == 200:
+                return r.json()
+            if r.status_code == 403:   # iTunes 限流
+                time.sleep(delay); delay *= 2; continue
+            return {}
+        except requests.RequestException:
+            time.sleep(delay); delay *= 2
+    return {}
+
+
+def _hi_res_art(url: str) -> str:
+    # 100x100 → 600x600 高解析封面
+    return (url or "").replace("100x100bb", "600x600bb").replace("/100x100", "/600x600")
+
+
+def itunes_album_tracks(collection_id: int) -> list[str]:
+    """抓某張專輯的曲目清單。"""
+    d = _itunes_get("/lookup", {"id": collection_id, "entity": "song", "limit": 40})
+    return [x.get("trackName") for x in d.get("results", [])
+            if x.get("wrapperType") == "track" and x.get("trackName")]
+
+
+def itunes_group_albums(group: str, limit: int = 12) -> list[dict]:
+    """抓某女團的專輯清單（含封面/年份/曲數）；過濾掉藝人名明顯不符者。"""
+    d = _itunes_get("/search", {"term": group, "entity": "album",
+                                "media": "music", "limit": limit})
+    out, seen = [], set()
+    gnorm = re.sub(r"[^a-z0-9]", "", group.lower())
+    for a in d.get("results", []):
+        cid = a.get("collectionId")
+        name = a.get("collectionName", "")
+        if not cid or cid in seen or not name:
+            continue
+        seen.add(cid)
+        out.append({
+            "id": cid,
+            "album": name,
+            "artist": a.get("artistName", ""),
+            "year": (a.get("releaseDate") or "")[:4],
+            "track_count": a.get("trackCount"),
+            "art": _hi_res_art(a.get("artworkUrl100", "")),
+            "itunes_url": a.get("collectionViewUrl", ""),
+        })
+    return out
+
+
+def build_album_library(group_names: list[str], data_dir: str,
+                        max_albums_per_group: int = 10,
+                        max_track_albums: int = 4) -> int:
+    """為清單中的女團建立/更新專輯資料庫，合併進 data/albums.json。回傳總團數。
+    曲目只抓每團最新數張（max_track_albums），其餘專輯點開時前端再顯示基本資訊。"""
+    lib_path = os.path.join(data_dir, "albums.json")
+    library = {"groups": {}, "updated_at": ""}
+    if os.path.exists(lib_path):
+        try:
+            with open(lib_path, encoding="utf-8") as f:
+                library = json.load(f)
+        except Exception as e:
+            log.warning(f"albums.json 讀取失敗，將重建: {e}")
+            library = {"groups": {}, "updated_at": ""}
+    groups = library.get("groups", {})
+
+    for g in group_names:
+        try:
+            albums = itunes_group_albums(g, limit=max_albums_per_group)
+            time.sleep(0.3)
+            if not albums:
+                continue
+            # 依年份新到舊
+            albums.sort(key=lambda a: a.get("year", ""), reverse=True)
+            # 為最新數張抓曲目
+            for a in albums[:max_track_albums]:
+                a["tracks"] = itunes_album_tracks(a["id"])
+                time.sleep(0.25)
+            groups[g] = {"albums": albums,
+                         "album_count": len(albums)}
+            log.info(f"專輯庫: {g} {len(albums)} 張")
+        except Exception as e:
+            log.warning(f"專輯庫抓取失敗 {g}: {e}")
+
+    library = {"groups": groups,
+               "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M")}
+    with open(lib_path, "w", encoding="utf-8") as f:
+        json.dump(library, f, ensure_ascii=False, indent=2)
+    return len(groups)
+
+
 def youtube_find_mv(group: str, title: str,
                     yt_channel: str = "", title_track: str = "",
                     allow_fallback: bool = True) -> dict | None:
@@ -955,6 +1062,19 @@ if __name__ == "__main__":
         json.dump(data, f, ensure_ascii=False, indent=2)
 
     total = update_archive(data_dir, data.get("tracks", []))
+
+    # 專輯資料庫：種子女團清單 + 歷來追蹤過的非 solo 團（archive）
+    try:
+        seen_groups = set()
+        if os.path.exists(arc_path):
+            with open(arc_path, encoding="utf-8") as f:
+                seen_groups = {t.get("group") for t in json.load(f).get("tracks", [])
+                               if t.get("group") and not t.get("is_solo")}
+        lib_groups = sorted(set(SEED_GIRLGROUPS) | seen_groups)
+        lib_total = build_album_library(lib_groups, data_dir)
+        log.info(f"專輯資料庫：{lib_total} 團 → albums.json")
+    except Exception as e:
+        log.warning(f"專輯資料庫建置失敗: {e}")
 
     # 新曲 = 這次出現、但執行前 archive 沒有的
     new_tracks = [t for t in data.get("tracks", []) if t.get("id") not in prev_ids]
