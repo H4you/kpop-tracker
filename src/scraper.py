@@ -311,7 +311,9 @@ _MV_NEG = ["DANCE PRACTICE", "DANCE VIDEO", "DANCE PERFORMANCE", "PERFORMANCE VI
 # 官方頻道線索（出現在頻道名時，可信度高，放寬曲名比對）
 _OFFICIAL_CH = ["entertainment", "official", "smtown", "jyp", "hybe", "yg",
                 "starship", "kakao", "1thek", "stone music", "label", "records",
-                "에듀", "엔터테인먼트", "오피셜"]
+                "swing", "blacklabel", "the black label", "pledis", "cube", "rbw",
+                "woollim", "fnc", "ador", "ist", "wm ", "mystic", "wakeone",
+                "music", "ent.", "에듀", "엔터테인먼트", "오피셜", "레코드", "뮤직"]
 
 
 def _yt_search_url(group: str, title: str) -> str:
@@ -351,8 +353,9 @@ def youtube_find_mv(group: str, title: str,
                       or vr.get("longBylineText", {}).get("runs", [{}])[0].get("text", ""))
                 vid = vr.get("videoId", "")
                 vc = vr.get("viewCountText", {}).get("simpleText", "")
+                pub = vr.get("publishedTimeText", {}).get("simpleText", "")  # 如 "3 days ago"
                 if t and vid:
-                    vids.append((t, ch, vid, vc))
+                    vids.append((t, ch, vid, vc, pub))
             for v in o.values():
                 walk(v)
         elif isinstance(o, list):
@@ -379,22 +382,43 @@ def youtube_find_mv(group: str, title: str,
 
     gtok = norm(group)
     chan_norm = norm(yt_channel)
+    # 已知經銷 / 廠牌官方頻道關鍵字（不含「official」——假頻道常濫用該字）
+    _DISTRIB = ["1thek", "stonemusic", "smtown", "jypentertainment", "hybe",
+                "ygentertainment", "starship", "swing", "blacklabel", "pledis",
+                "cube", "rbw", "woollim", "fnc", "ador", "wakeone", "kakao",
+                "mnetkpop", "genie", "kozent", "mystic", "bluebrown", "records",
+                "entertainment", "엔터테인먼트", "레코드"]
 
-    def is_official(ch_norm: str, video_title_norm: str) -> bool:
-        # a) AI 給的官方頻道名相符（雙向子字串，容忍語言差異）
-        if chan_norm and len(chan_norm) >= 3:
-            if chan_norm in ch_norm or ch_norm in chan_norm:
-                return True
-        # b) 頻道名含團名 + 官方關鍵字（Entertainment/Official/廠牌…）
-        if gtok and gtok[:4] in ch_norm and any(k in (yt_channel or "").lower() or k in ch_norm
-                                                for k in _OFFICIAL_CH):
+    def channel_official(ch_norm: str) -> bool:
+        # a) AI 給的官方頻道名相符（雙向子字串）
+        if chan_norm and len(chan_norm) >= 3 and (chan_norm in ch_norm or ch_norm in chan_norm):
             return True
-        # c) 頻道名「以團名開頭」且短（多為團體官方頻道，如 "MEOVV"、"aespa"）
-        if gtok and len(gtok) >= 3 and ch_norm.startswith(gtok):
+        # b) 頻道名以團名開頭（團體自有官方頻道，如 "aespa"、"MEOVV"、"H//PE Princess"）
+        if gtok and len(gtok) >= 4 and ch_norm.startswith(gtok[:5]):
+            return True
+        # c) 已知經銷 / 廠牌頻道（1theK、Stone Music、HYBE…）
+        if any(k in ch_norm for k in _DISTRIB):
             return True
         return False
 
-    for t, ch, vid, vc in vids[:15]:
+    def is_recent(pub: str) -> bool:
+        # 近期上傳（hour/day/week，或 ≤1 month）→ 視為本期新歌的 MV
+        p = (pub or "").lower()
+        if any(u in p for u in ("hour", "minute", "day", "week", "시간", "분", "일", "주")):
+            return True
+        mm = re.search(r"(\d+)\s*(month|개월|달)", p)
+        if mm and int(mm.group(1)) <= 1:
+            return True
+        return False
+
+    def channel_matches_ai(ch_norm: str) -> bool:
+        # AI 明確給了官方頻道，且與此影片頻道相符（用來放寬團名拉丁化拼法差異）
+        return bool(chan_norm and len(chan_norm) >= 3
+                    and (chan_norm in ch_norm or ch_norm in chan_norm))
+
+    # 先把候選過濾成「正向 MV、非二創/teaser、官方頻道」；團名比對容許頻道吻合時跳過
+    pool = []
+    for t, ch, vid, vc, pub in vids[:15]:
         up = t.upper()
         if any(n in up for n in _MV_NEG):
             continue
@@ -402,20 +426,30 @@ def youtube_find_mv(group: str, title: str,
             continue
         vt = norm(t)
         ch_norm = norm(ch)
-        # 1) 團名必須出現在影片標題或頻道名
-        if not (gtok and gtok[:4] in (vt + ch_norm)):
+        if not channel_official(ch_norm):                # 須官方頻道（擋假頻道）
             continue
-        # 2) 曲名必須相符（完整子字串，或任一關鍵字出現在影片標題）
-        title_ok = (len(song_norm) >= 3 and song_norm in vt) or \
-                   any(kw in vt for kw in song_words)
-        if not title_ok:
+        ai_ch = channel_matches_ai(ch_norm)
+        # 團名須出現在標題/頻道；但若 AI 官方頻道已吻合，容忍拼法差異(I.O.I↔아이오아이)跳過
+        if not ai_ch and not (gtok and gtok[:4] in (vt + ch_norm)):
             continue
-        # 3) 必須出自官方頻道（擋掉 SpaceN 這類搬運 / 粉絲頻道）
-        if not is_official(ch_norm, vt):
-            continue
-        return {"title": t, "channel": ch, "vid": vid,
-                "url": f"https://www.youtube.com/watch?v={vid}",
-                "views": parse_views(vc)}
+        song_ok = (len(song_norm) >= 3 and song_norm in vt) or \
+                  any(kw in vt for kw in song_words)
+        pool.append((song_ok, is_recent(pub), t, ch, vid, vc))
+
+    # Pass 1：官方頻道 + 曲名相符（最高信心，不限上傳時間）
+    for song_ok, recent, t, ch, vid, vc in pool:
+        if song_ok:
+            return {"title": t, "channel": ch, "vid": vid,
+                    "url": f"https://www.youtube.com/watch?v={vid}", "views": parse_views(vc)}
+
+    # Pass 2（後備）：官方頻道 + 近期上傳，但**只在 AI 未提供明確主打曲時**才啟用。
+    # 若 AI 已給主打曲(title_track)卻在 Pass 1 找不到 → 代表該曲 MV 尚未上線，
+    # 不可退而抓「同團其他近期 MV」（否則會像 MEOVV 給 Bite Now 卻抓到 DDI RO RI）。
+    if not (title_track or "").strip():
+        for song_ok, recent, t, ch, vid, vc in pool:
+            if recent:
+                return {"title": t, "channel": ch, "vid": vid,
+                        "url": f"https://www.youtube.com/watch?v={vid}", "views": parse_views(vc)}
     return None
 
 
