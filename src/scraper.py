@@ -811,6 +811,44 @@ def ai_month_birthdays(group_names: list[str]) -> list[dict]:
     return []
 
 
+def ai_debut_girlgroups(debut_names: list[str]) -> list[dict]:
+    """從維基「本年度出道團」清單(女團男團混)用 AI 篩出女團並結構化。
+    回傳 [{group, group_kr, agency, note}...]。男團/混聲/不確定者排除。"""
+    if not AI_ENABLED or not debut_names:
+        return []
+    # 去掉維基註腳 [ 1 ]
+    clean = [re.sub(r"\s*\[\s*\d+\s*\]\s*$", "", n).strip() for n in debut_names]
+    clean = [c for c in clean if c]
+    prompt = f"""以下是「{datetime.now().year} 年出道」的 KPop 團體名單（女團男團混在一起）。
+請只挑出其中的「女子團體」，排除男團、混聲團體、個人、企劃。
+
+【出道團名單】
+{json.dumps(clean, ensure_ascii=False)}
+
+規則：
+- 只列你判斷為「女團」者；不確定就不要列（寧缺勿錯，但別漏掉明顯的女團）。
+- group：團名(英文/羅馬拼音)；group_kr：韓文團名(不知道填"")；
+  agency：經紀公司(不知道填"")；note：一句話簡介(不知道填"")。
+- 只輸出純 JSON：
+{{"debuts":[{{"group":"","group_kr":"","agency":"","note":""}}]}}"""
+    try:
+        resp = ANTHROPIC_CLIENT.messages.create(
+            model=AI_MODEL, max_tokens=3000,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        text = next((b.text for b in resp.content if b.type == "text"), "")
+        mt = re.search(r"\{[\s\S]*\}", text)
+        if mt:
+            items = [d for d in json.loads(mt.group()).get("debuts", []) if d.get("group")]
+            # 套用人工黑名單（確認非女團者剔除）
+            items = [d for d in items if not is_blocklisted_group(d.get("group", ""))]
+            log.info(f"AI 新出道女團：{len(items)} 團")
+            return items
+    except Exception as e:
+        log.error(f"AI 新出道女團失敗: {e}")
+    return []
+
+
 def ai_discographies(group_names: list[str]) -> dict:
     """用 Claude 一次生成多個女團的代表作 discography。回傳 {團名: [{year,title,type}...]}。"""
     if not AI_ENABLED or not group_names:
@@ -1083,10 +1121,15 @@ def run_scraper(days_back: int = 14) -> dict:
     members = ai_members(all_groups)
     members = apply_members_override(members, all_groups)
 
-    log.info(f"完成：收錄 {n} 筆，MV 即將上線 {len(pending_mv)} 筆，預告 {len(upcoming)} 筆")
+    # 新出道女團專區（從維基出道團名單 AI 篩女團）
+    debut_girlgroups = ai_debut_girlgroups(debuts)
+
+    log.info(f"完成：收錄 {n} 筆，MV 即將上線 {len(pending_mv)} 筆，預告 {len(upcoming)} 筆，"
+             f"新出道 {len(debut_girlgroups)} 團")
     return {"tracks": tracks, "pending_mv": pending_mv,
             "upcoming": upcoming, "birthdays": birthdays,
             "discographies": discographies, "members": members,
+            "debut_girlgroups": debut_girlgroups,
             "summary": summary, "digest": digest, "fetched_at": now_str}
 
 
@@ -1178,6 +1221,36 @@ def notify_discord(new_tracks: list[dict], site_url: str, digest: str = "") -> N
         log.warning(f"Discord 通知例外: {e}")
 
 
+def notify_today_releases(upcoming: list[dict], site_url: str) -> None:
+    """回歸倒數：對「今天發行」(days_left==0) 的預告發 Discord 提醒。"""
+    webhook = os.environ.get("DISCORD_WEBHOOK_URL", "").strip()
+    today_items = [u for u in upcoming if u.get("days_left") == 0]
+    if not webhook or not today_items:
+        return
+    lines = []
+    for u in today_items[:15]:
+        tag = "🎤 solo" if u.get("is_solo") else "👯 女團"
+        q = quote_plus(f"{u.get('group','')} {u.get('title','')} MV")
+        lines.append(f"**{u.get('group','')}** – {u.get('title','')}（{tag}）\n"
+                     f"https://www.youtube.com/results?search_query={q}")
+    payload = {
+        "username": "GirlGroup Tracker",
+        "embeds": [{
+            "title": f"📅 今天發行！{len(today_items)} 組女團回歸/發行",
+            "description": "\n\n".join(lines)[:4000],
+            "url": site_url,
+            "color": 0x2EC4A0,
+            "footer": {"text": "KPop GirlGroup Tracker · 回歸倒數"},
+        }],
+    }
+    try:
+        r = requests.post(webhook, json=payload, timeout=15)
+        if r.status_code in (200, 204):
+            log.info(f"Discord 今日發行提醒已送出（{len(today_items)} 組）")
+    except Exception as e:
+        log.warning(f"今日發行提醒例外: {e}")
+
+
 if __name__ == "__main__":
     data_dir = os.path.join(os.path.dirname(__file__), "..", "data")
     os.makedirs(data_dir, exist_ok=True)
@@ -1251,6 +1324,9 @@ if __name__ == "__main__":
         notify_discord(data.get("tracks", []) or new_tracks, site_url, digest)
     else:
         notify_discord(new_tracks, site_url, digest)
+
+    # 回歸倒數：今天發行的女團預告，發 Discord 提醒
+    notify_today_releases(data.get("upcoming", []), site_url)
 
     print(f"✅ 完成，本期 {len(data.get('tracks', []))} 筆 → latest.json；"
           f"歷史累積 {total} 筆 → archive.json；"

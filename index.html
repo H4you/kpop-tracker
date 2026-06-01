@@ -509,6 +509,8 @@ header {
   font-size: 10px; padding: 2px 8px; border-radius: 99px; flex-shrink: 0;
   background: var(--pink-dim); border: 0.5px solid rgba(232,83,124,0.25); color: var(--pink-text);
 }
+.up-item.up-soon { background: rgba(46,196,160,.08); border-left: 2px solid var(--teal); }
+.up-badge-soon { background: var(--teal); color: #04201a; border-color: var(--teal); font-weight: 600; }
 .view-count { color: var(--amber) !important; font-variant-numeric: tabular-nums; }
 @media (max-width: 560px) {
   .up-date { width: 64px; }
@@ -719,6 +721,14 @@ header {
     <div class="upcoming-list" id="pending-list"></div>
   </div>
 
+  <div class="upcoming-card" id="debut-card">
+    <div class="upcoming-head">
+      <span class="upcoming-title">🌱 今年新出道女團</span>
+      <span class="upcoming-sub">點擊在 YouTube 認識新人團</span>
+    </div>
+    <div class="upcoming-list" id="debut-list"></div>
+  </div>
+
   <main class="track-list" id="tlist" aria-label="女團新曲清單">
     <div class="empty">
       <div class="empty-icon" aria-hidden="true">◈</div>
@@ -776,6 +786,7 @@ let archiveLoaded = false;
 let upcoming = [];
 let birthdays = [];
 let pendingMv = [];
+let debutGroups = [];
 let discographies = {};
 let members = {};
 let searchQuery = '';
@@ -911,16 +922,19 @@ function renderUpcoming() {
   if (!card || !list) return;
   if (!upcoming.length) { card.classList.remove('show'); return; }
   card.classList.add('show');
-  list.innerHTML = upcoming.map(u => {
+  // 今天/明天的排前面，醒目標示
+  const sorted = [...upcoming].sort((a,b) => (a.days_left ?? 999) - (b.days_left ?? 999));
+  list.innerHTML = sorted.map(u => {
     const d = (typeof u.days_left === 'number') ? u.days_left : null;
-    const badge = d === 0 ? '今天' : (d != null && d > 0 ? `${d} 天後` : '');
+    const soon = d === 0 || d === 1;
+    const badge = d === 0 ? '🔥 今天' : (d === 1 ? '⏰ 明天' : (d != null && d > 0 ? `${d} 天後` : ''));
     const tag = u.is_solo ? '🎤 solo' : '👯 女團';
     const q = encodeURIComponent(`${u.group||''} ${u.title||u.album||''} MV`);
-    return `<a class="up-item" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener" title="在 YouTube 搜尋">
+    return `<a class="up-item${soon ? ' up-soon' : ''}" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener" title="在 YouTube 搜尋">
       <span class="up-date">${escHtml(u.date||'')}</span>
       <span class="up-main"><span class="up-group">${escHtml(u.group||'')}</span> <span class="up-title">${escHtml(u.title||u.album||'')}</span></span>
       <span class="up-tag">${tag}</span>
-      ${badge ? `<span class="up-badge">${badge}</span>` : ''}
+      ${badge ? `<span class="up-badge${soon ? ' up-badge-soon' : ''}">${badge}</span>` : ''}
     </a>`;
   }).join('');
 }
@@ -954,6 +968,23 @@ function renderPending() {
       <span class="up-date">${escHtml(t.date||'')}</span>
       <span class="up-main"><span class="up-group">${escHtml(t.group||'')}</span> <span class="up-title">${escHtml(t.title||'')}</span></span>
       <span class="up-tag">${tag}</span>
+    </a>`;
+  }).join('');
+}
+
+/* ── 今年新出道女團 ── */
+function renderDebuts() {
+  const card = document.getElementById('debut-card');
+  const list = document.getElementById('debut-list');
+  if (!card || !list) return;
+  if (!debutGroups.length) { card.classList.remove('show'); return; }
+  card.classList.add('show');
+  list.innerHTML = debutGroups.map(d => {
+    const q = encodeURIComponent(`${d.group||''} ${d.group_kr||''} kpop`);
+    const sub = [d.group_kr, d.agency].filter(Boolean).join(' · ');
+    return `<a class="up-item" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener" title="在 YouTube 認識">
+      <span class="up-main"><span class="up-group">${escHtml(d.group||'')}</span>${sub ? ` <span class="up-title">${escHtml(sub)}</span>` : ''}</span>
+      ${d.note ? `<span class="up-tag" style="white-space:normal">${escHtml(d.note)}</span>` : ''}
     </a>`;
   }).join('');
 }
@@ -1190,12 +1221,14 @@ async function fetchAll() {
       upcoming = result.upcoming || [];
       birthdays = result.birthdays || [];
       pendingMv = result.pending_mv || [];
+      debutGroups = result.debut_girlgroups || [];
       discographies = result.discographies || {};
       members = result.members || {};
       updateStats();
       renderUpcoming();
       renderBirthdays();
       renderPending();
+      renderDebuts();
       render();
     } else {
       throw new Error('no tracks returned');
@@ -1251,12 +1284,14 @@ window.addEventListener('load', async () => {
     upcoming = data.upcoming || [];
     birthdays = data.birthdays || [];
     pendingMv = data.pending_mv || [];
+    debutGroups = data.debut_girlgroups || [];
     discographies = data.discographies || {};
     members = data.members || {};
     updateStats();
     renderUpcoming();
     renderBirthdays();
     renderPending();
+    renderDebuts();
     render();
   }
 });
