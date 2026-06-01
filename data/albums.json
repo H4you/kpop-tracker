@@ -102,15 +102,6 @@
           "itunes_url": "https://music.apple.com/us/album/uh-oh-single/1469336028?uo=4"
         },
         {
-          "id": 1831861471,
-          "album": "POP/STARS (feat. Jaira Burns & League of Legends Music) - Single",
-          "artist": "K/DA, Madison Beer & i-dle",
-          "year": "2018",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/93/f8/8a/93f88a32-342c-b650-ef1c-ebc1c9f804c3/00198704643309_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/pop-stars-feat-jaira-burns-league-of-legends-music-single/1831861471?uo=4"
-        },
-        {
           "id": 1426297548,
           "album": "HANN (Alone) - Single",
           "artist": "i-dle",
@@ -118,6 +109,15 @@
           "track_count": 1,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/ef/02/33/ef0233f1-2a15-5af4-1634-2ab68fc64dd9/cover-_DS.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/hann-alone-single/1426297548?uo=4"
+        },
+        {
+          "id": 1831861471,
+          "album": "POP/STARS (feat. Jaira Burns & League of Legends Music) - Single",
+          "artist": "K/DA, Madison Beer & i-dle",
+          "year": "2018",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/93/f8/8a/93f88a32-342c-b650-ef1c-ebc1c9f804c3/00198704643309_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/pop-stars-feat-jaira-burns-league-of-legends-music-single/1831861471?uo=4"
         }
       ],
       "album_count": 10
@@ -482,15 +482,6 @@
           "itunes_url": "https://music.apple.com/us/album/the-carol-3-0-single/1737936773?uo=4"
         },
         {
-          "id": 1737936149,
-          "album": "Plastic Candy - Single",
-          "artist": "하슬",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0c/07/2e/0c072ee1-0522-d483-825d-66ecb8aceb0b/8804775284113.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/plastic-candy-single/1737936149?uo=4"
-        },
-        {
           "id": 1737940719,
           "album": "ODD EYE CIRCLE <Version Up> - EP",
           "artist": "ODD EYE CIRCLE (ARTMS)",
@@ -498,6 +489,15 @@
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/3f/01/41/3f01413b-6ceb-8be0-c4d4-0558a084ccc1/8804775297823.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/odd-eye-circle-version-up-ep/1737940719?uo=4"
+        },
+        {
+          "id": 1737936149,
+          "album": "Plastic Candy - Single",
+          "artist": "하슬",
+          "year": "2023",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0c/07/2e/0c072ee1-0522-d483-825d-66ecb8aceb0b/8804775284113.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/plastic-candy-single/1737936149?uo=4"
         },
         {
           "id": 1737936092,
@@ -3113,6 +3113,18 @@
     "MEOVV": {
       "albums": [
         {
+          "id": 1845303555,
+          "album": "BURNING UP - Single",
+          "artist": "MEOVV",
+          "year": "2025",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/60/2f/c0/602fc061-da41-5911-f46f-1c217791f093/8800335179318_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/burning-up-single/1845303555?uo=4",
+          "tracks": [
+            "BURNING UP"
+          ]
+        },
+        {
           "id": 1808544400,
           "album": "HANDS UP - Single",
           "artist": "MEOVV",
@@ -3139,18 +3151,6 @@
             "BODY",
             "TOXIC",
             "LIT RIGHT NOW"
-          ]
-        },
-        {
-          "id": 1845303555,
-          "album": "BURNING UP - Single",
-          "artist": "MEOVV",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/60/2f/c0/602fc061-da41-5911-f46f-1c217791f093/8800335179318_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/burning-up-single/1845303555?uo=4",
-          "tracks": [
-            "BURNING UP"
           ]
         },
         {
@@ -3634,26 +3634,26 @@
           ]
         },
         {
-          "id": 1775644331,
-          "album": "마피아 보스가 나에게 집착한다 (Original Webtoon Soundtrack) Pt. 25 - Single",
-          "artist": "Queenz Eye",
-          "year": "2024",
-          "track_count": 2,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/36/2a/b7/362ab778-d47b-a400-0546-4c8536de9830/8800280864598.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/%EB%A7%88%ED%94%BC%EC%95%84-%EB%B3%B4%EC%8A%A4%EA%B0%80-%EB%82%98%EC%97%90%EA%B2%8C-%EC%A7%91%EC%B0%A9%ED%95%9C%EB%8B%A4-original-webtoon-soundtrack-pt-25-single/1775644331?uo=4",
-          "tracks": [
-            "How Could You Know",
-            "How Could You Know (Instrumental)"
-          ]
-        },
-        {
           "id": 1819847907,
           "album": "죽이고 싶은 나의 전복 왕자님 (Original Television Soundtrack) Pt.25 - Single",
           "artist": "Queenz Eye",
           "year": "2024",
           "track_count": 2,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fc/a1/9f/fca19fc9-46e4-9289-2446-570541922521/8800284460031_cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/%EC%A3%BD%EC%9D%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-%EB%82%98%EC%9D%98-%EC%A0%84%EB%B3%B5-%EC%99%95%EC%9E%90%EB%8B%98-original-television-soundtrack-pt-25-single/1819847907?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/%EC%A3%BD%EC%9D%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-%EB%82%98%EC%9D%98-%EC%A0%84%EB%B3%B5-%EC%99%95%EC%9E%90%EB%8B%98-original-television-soundtrack-pt-25-single/1819847907?uo=4",
+          "tracks": [
+            "Can't you come back like the season",
+            "Can't you come back like the season (inst.)"
+          ]
+        },
+        {
+          "id": 1775644331,
+          "album": "마피아 보스가 나에게 집착한다 (Original Webtoon Soundtrack) Pt. 25 - Single",
+          "artist": "Queenz Eye",
+          "year": "2024",
+          "track_count": 2,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/36/2a/b7/362ab778-d47b-a400-0546-4c8536de9830/8800280864598.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/%EB%A7%88%ED%94%BC%EC%95%84-%EB%B3%B4%EC%8A%A4%EA%B0%80-%EB%82%98%EC%97%90%EA%B2%8C-%EC%A7%91%EC%B0%A9%ED%95%9C%EB%8B%A4-original-webtoon-soundtrack-pt-25-single/1775644331?uo=4"
         },
         {
           "id": 1695512709,
@@ -4899,5 +4899,5 @@
       "album_count": 10
     }
   },
-  "updated_at": "2026-06-01 16:05"
+  "updated_at": "2026-06-01 16:24"
 }
