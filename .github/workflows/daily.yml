@@ -2,12 +2,9 @@ name: KPop Daily Tracker
 
 on:
   schedule:
-    # 一天多次，讓「剛上線幾小時的 MV」能在當天被補抓（不用等隔天）。
-    # 台灣時間 ≈ 09:00 / 15:00 / 21:00 / 03:00（UTC 01 / 07 / 13 / 19）
+    # 每天一次（台灣時間 09:00 = UTC 01:00），節省 Anthropic API 額度。
+    # 剛上線幾小時的 MV 會在隔天這次補抓；想當天補可手動觸發。
     - cron: "0 1 * * *"
-    - cron: "0 7 * * *"
-    - cron: "0 13 * * *"
-    - cron: "0 19 * * *"
   # 也可以在 GitHub 手動觸發
   workflow_dispatch:
     inputs:
