@@ -582,8 +582,12 @@ def youtube_find_mv(group: str, title: str,
     song = (title_track or title or "").strip()
     gkr = (group_kr or "").strip()
     # 多查詢合併，抵抗 YouTube 對「極新影片」索引不穩 / 結果排序浮動 / 拉丁拼法不符：
-    #  1) 英文團名+曲名  2) 英文團名  3) 韓文團名+曲名  4) 韓文團名（若有韓文名）
-    queries = [f"{group} {song} MV".strip()]
+    #  1) 團名+曲名+official MV（最精準，提高正解曲目被回傳機率，避免漏抓→錯抓同團別曲）
+    #  2) 英文團名+曲名  3) 英文團名  4) 韓文團名+曲名  5) 韓文團名（若有韓文名）
+    queries = []
+    if song:
+        queries.append(f"{group} {song} official MV".strip())
+    queries.append(f"{group} {song} MV".strip())
     if song:
         queries.append(f"{group} MV".strip())
     if gkr:
@@ -648,6 +652,12 @@ def youtube_find_mv(group: str, title: str,
         mm = re.search(r"(\d+)\s*(month|개월|달)", p)
         return bool(mm and int(mm.group(1)) <= 1)
 
+    def is_very_recent(pub: str) -> bool:
+        # 嚴格近期：僅 hour/day/week（≈2週內），排除「N 個月前」。
+        # 用於「曲名不吻合」的後備——避免抓到同團「幾個月前」的另一支 MV（如 aespa Whiplash）。
+        p = (pub or "").lower()
+        return any(u in p for u in ("hour", "minute", "day", "week", "시간", "분", "일", "주"))
+
     # 收集所有合格候選並評分，取最高分——比「取搜尋第一個」穩健，
     # 不受 YouTube 結果排序浮動影響（同一搜尋多次請求順序會變）。
     # 評分：曲名吻合(100) > 標題含 OFFICIAL(10) > 近期上傳(5)；同分取搜尋較前者。
@@ -674,8 +684,9 @@ def youtube_find_mv(group: str, title: str,
         trusted = channel_official(ch_norm) or (title_official and name_ok and song_ok)
         if not trusted:
             continue
-        # 曲名不吻合時，須「近期上傳」才當後備（擋同團舊熱門曲，如 너무너무너무 2016）
-        if not song_ok and not recent:
+        # 曲名不吻合時，須「嚴格近期(≈2週內)」才當後備——擋同團舊熱門曲(너무너무너무 2016)
+        # 及「幾個月前」的另一支 MV(aespa Whiplash)；當期主打通常是近兩週上傳。
+        if not song_ok and not is_very_recent(pub):
             continue
 
         score = (100 if song_ok else 0) + (10 if title_official else 0) + (5 if recent else 0)
