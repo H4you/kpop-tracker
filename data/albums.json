@@ -98,6 +98,16 @@
     "aespa": {
       "albums": [
         {
+          "id": 6771565456,
+          "album": "LEMONADE - The 2nd Album",
+          "artist": "aespa",
+          "year": "2026",
+          "track_count": 11,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
+          "tracks": []
+        },
+        {
           "id": 6772870169,
           "album": "LEMONADE - The 2nd Album (GISELLE Special Version)",
           "artist": "aespa",
@@ -122,16 +132,6 @@
             "LEMONADE (Slowed Down Version)",
             "LEMONADE (Instrumental)"
           ]
-        },
-        {
-          "id": 6771565456,
-          "album": "LEMONADE - The 2nd Album",
-          "artist": "aespa",
-          "year": "2026",
-          "track_count": 11,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
-          "tracks": []
         },
         {
           "id": 6772869031,
@@ -1726,6 +1726,23 @@
           ]
         },
         {
+          "id": 1846236584,
+          "album": "TUNNEL VISION - EP",
+          "artist": "ITZY",
+          "year": "2025",
+          "track_count": 6,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c2/9e/8b/c29e8be0-0898-86a0-11e7-927214dff34f/8809928954103_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/tunnel-vision-ep/1846236584?uo=4",
+          "tracks": [
+            "Focus",
+            "TUNNEL VISION",
+            "DYT",
+            "Flicker",
+            "Nocturne",
+            "8-BIT HEART"
+          ]
+        },
+        {
           "id": 1718647224,
           "album": "BORN TO BE",
           "artist": "ITZY",
@@ -1770,26 +1787,7 @@
           "year": "2021",
           "track_count": 18,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/e7/f3/d7/e7f3d7dc-4bf6-e15d-ca28-3105f713e693/192641938573_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/crazy-in-love/1608111697?uo=4",
-          "tracks": [
-            "LOCO",
-            "SWIPE",
-            "Sooo LUCKY",
-            "#Twenty",
-            "B[OO]M-BOXX",
-            "Gas Me Up",
-            "LOVE is",
-            "Chillin' Chillin'",
-            "Mirror",
-            "LOCO (English Version)",
-            "DALLA DALLA (Inst.)",
-            "ICY (Inst.)",
-            "WANNABE (Inst.)",
-            "Not Shy (Inst.)",
-            "In the morning (Inst.)",
-            "LOCO (Inst.)",
-            "Thanks to. (Voice track for MIDZY)"
-          ]
+          "itunes_url": "https://music.apple.com/us/album/crazy-in-love/1608111697?uo=4"
         },
         {
           "id": 1608247024,
@@ -1799,15 +1797,6 @@
           "track_count": 7,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/e8/41/c4/e841c413-9eab-b493-fd8e-3fe655b82387/192641939617_Cover.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/guess-who-ep/1608247024?uo=4"
-        },
-        {
-          "id": 1608256560,
-          "album": "In the morning (English Version) - Single",
-          "artist": "ITZY",
-          "year": "2021",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/85/33/3a/85333a81-5b9f-46c7-90ef-1cc89feb8ee8/738676858211_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/in-the-morning-english-version-single/1608256560?uo=4"
         },
         {
           "id": 1608253207,
@@ -2137,15 +2126,6 @@
           ]
         },
         {
-          "id": 1679270091,
-          "album": "LOVESTRUCK! - EP",
-          "artist": "Kep1er",
-          "year": "2023",
-          "track_count": 5,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/65/b2/ff/65b2ff78-b9cc-c6ff-fee3-e2fcc1653a9a/888272114973_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/lovestruck-ep/1679270091?uo=4"
-        },
-        {
           "id": 1706470349,
           "album": "Magic Hour - EP",
           "artist": "Kep1er",
@@ -2153,6 +2133,15 @@
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/f8/66/3f/f8663f14-ced2-b1cd-9a70-1e09f045f809/888272123371_Cover.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/magic-hour-ep/1706470349?uo=4"
+        },
+        {
+          "id": 1679270091,
+          "album": "LOVESTRUCK! - EP",
+          "artist": "Kep1er",
+          "year": "2023",
+          "track_count": 5,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/65/b2/ff/65b2ff78-b9cc-c6ff-fee3-e2fcc1653a9a/888272114973_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/lovestruck-ep/1679270091?uo=4"
         },
         {
           "id": 1600423424,
@@ -2546,6 +2535,18 @@
     "MEOVV": {
       "albums": [
         {
+          "id": 1845303555,
+          "album": "BURNING UP - Single",
+          "artist": "MEOVV",
+          "year": "2025",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/60/2f/c0/602fc061-da41-5911-f46f-1c217791f093/8800335179318_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/burning-up-single/1845303555?uo=4",
+          "tracks": [
+            "BURNING UP"
+          ]
+        },
+        {
           "id": 1808544400,
           "album": "HANDS UP - Single",
           "artist": "MEOVV",
@@ -2572,18 +2573,6 @@
             "BODY",
             "TOXIC",
             "LIT RIGHT NOW"
-          ]
-        },
-        {
-          "id": 1845303555,
-          "album": "BURNING UP - Single",
-          "artist": "MEOVV",
-          "year": "2025",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/60/2f/c0/602fc061-da41-5911-f46f-1c217791f093/8800335179318_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/burning-up-single/1845303555?uo=4",
-          "tracks": [
-            "BURNING UP"
           ]
         },
         {
@@ -3023,26 +3012,26 @@
           ]
         },
         {
-          "id": 1775644331,
-          "album": "마피아 보스가 나에게 집착한다 (Original Webtoon Soundtrack) Pt. 25 - Single",
-          "artist": "Queenz Eye",
-          "year": "2024",
-          "track_count": 2,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/36/2a/b7/362ab778-d47b-a400-0546-4c8536de9830/8800280864598.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/%EB%A7%88%ED%94%BC%EC%95%84-%EB%B3%B4%EC%8A%A4%EA%B0%80-%EB%82%98%EC%97%90%EA%B2%8C-%EC%A7%91%EC%B0%A9%ED%95%9C%EB%8B%A4-original-webtoon-soundtrack-pt-25-single/1775644331?uo=4",
-          "tracks": [
-            "How Could You Know",
-            "How Could You Know (Instrumental)"
-          ]
-        },
-        {
           "id": 1819847907,
           "album": "죽이고 싶은 나의 전복 왕자님 (Original Television Soundtrack) Pt.25 - Single",
           "artist": "Queenz Eye",
           "year": "2024",
           "track_count": 2,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fc/a1/9f/fca19fc9-46e4-9289-2446-570541922521/8800284460031_cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/%EC%A3%BD%EC%9D%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-%EB%82%98%EC%9D%98-%EC%A0%84%EB%B3%B5-%EC%99%95%EC%9E%90%EB%8B%98-original-television-soundtrack-pt-25-single/1819847907?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/%EC%A3%BD%EC%9D%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-%EB%82%98%EC%9D%98-%EC%A0%84%EB%B3%B5-%EC%99%95%EC%9E%90%EB%8B%98-original-television-soundtrack-pt-25-single/1819847907?uo=4",
+          "tracks": [
+            "Can't you come back like the season",
+            "Can't you come back like the season (inst.)"
+          ]
+        },
+        {
+          "id": 1775644331,
+          "album": "마피아 보스가 나에게 집착한다 (Original Webtoon Soundtrack) Pt. 25 - Single",
+          "artist": "Queenz Eye",
+          "year": "2024",
+          "track_count": 2,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/36/2a/b7/362ab778-d47b-a400-0546-4c8536de9830/8800280864598.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/%EB%A7%88%ED%94%BC%EC%95%84-%EB%B3%B4%EC%8A%A4%EA%B0%80-%EB%82%98%EC%97%90%EA%B2%8C-%EC%A7%91%EC%B0%A9%ED%95%9C%EB%8B%A4-original-webtoon-soundtrack-pt-25-single/1775644331?uo=4"
         },
         {
           "id": 1695512709,
@@ -3539,31 +3528,6 @@
     "TWICE": {
       "albums": [
         {
-          "id": 1813490993,
-          "album": "THIS IS FOR",
-          "artist": "TWICE",
-          "year": "2025",
-          "track_count": 15,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b3/a8/e2/b3a8e208-ebd1-831e-4d00-2bdddd99f54a/8809928955766_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/this-is-for/1813490993?uo=4",
-          "tracks": [
-            "FOUR",
-            "THIS IS FOR",
-            "OPTIONS",
-            "MARS",
-            "RIGHT HAND GIRL",
-            "PEACH GELATO",
-            "HI HELLO",
-            "BATTITUDE (NAYEON, JEONGYEON, MOMO, MINA)",
-            "DAT AHH DAT OOH (SANA, JIHYO, DAHYUN, CHAEYOUNG, TZUYU)",
-            "LET LOVE GO (JEONGYEON, MOMO, SANA, TZUYU)",
-            "G.O.A.T. (MINA, DAHYUN, CHAEYOUNG)",
-            "TALK (NAYEON, JIHYO)",
-            "SEESAW",
-            "HEARTBREAK AVENUE"
-          ]
-        },
-        {
           "id": 1660143942,
           "album": "MOONLIGHT SUNRISE - Single",
           "artist": "TWICE",
@@ -3573,6 +3537,33 @@
           "itunes_url": "https://music.apple.com/us/album/moonlight-sunrise-single/1660143942?uo=4",
           "tracks": [
             "MOONLIGHT SUNRISE"
+          ]
+        },
+        {
+          "id": 1591509653,
+          "album": "Formula of Love: O+T=<3",
+          "artist": "TWICE",
+          "year": "2021",
+          "track_count": 16,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/87/f5/e0/87f5e0de-c909-f4e6-9621-123565dfbc80/738676858440_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/formula-of-love-o-t-3/1591509653?uo=4",
+          "tracks": [
+            "SCIENTIST",
+            "MOONLIGHT",
+            "ICON",
+            "CRUEL",
+            "REAL YOU",
+            "F.I.L.A (Fall In Love Again)",
+            "LAST WALTZ",
+            "ESPRESSO",
+            "REWIND",
+            "CACTUS",
+            "PUSH & PULL",
+            "HELLO",
+            "1, 3, 2",
+            "CANDY",
+            "The Feels",
+            "SCIENTIST (R3HAB Remix)"
           ]
         },
         {
@@ -3610,9 +3601,18 @@
           "tracks": [
             "CRY FOR ME"
           ]
+        },
+        {
+          "id": 1556087002,
+          "album": "Feel Special",
+          "artist": "TWICE",
+          "year": "2019",
+          "track_count": 7,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/75/bb/cc/75bbcc8c-bc12-983b-196f-bb6e355cc978/00602508875281_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/feel-special/1556087002?uo=4"
         }
       ],
-      "album_count": 4
+      "album_count": 5
     },
     "UNIS": {
       "albums": [
@@ -4159,5 +4159,5 @@
       "album_count": 8
     }
   },
-  "updated_at": "2026-06-02 05:30"
+  "updated_at": "2026-06-02 06:04"
 }
