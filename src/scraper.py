@@ -19,6 +19,7 @@ KPop Girl Group Tracker — 多來源爬蟲模組（v3）
 """
 
 import os
+import sys
 import re
 import json
 import time
@@ -1357,6 +1358,13 @@ if __name__ == "__main__":
     data = run_scraper()
 
     out_path = os.path.join(data_dir, "latest.json")
+    # 保護：若本次抓到 0 筆（多半是 AI 額度用盡 / 來源全失敗），不要用空資料覆蓋舊的好資料，
+    # 避免網站變空白。只有抓到有效資料時才寫入。
+    if not data.get("tracks") and not data.get("pending_mv") and not data.get("upcoming"):
+        log.warning("本次抓取結果為空（可能 API 額度不足或來源失敗）→ 保留現有 latest.json，不覆蓋")
+        print("⚠️ 本次結果為空，已保留舊資料未覆蓋（請檢查 Anthropic API 額度）")
+        sys.exit(0)
+
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
