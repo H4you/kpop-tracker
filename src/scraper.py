@@ -1097,9 +1097,9 @@ def run_scraper(days_back: int = 14) -> dict:
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M")
 
     releases = fetch_wikipedia_releases(days_back=days_back)
-    debuts = fetch_wikipedia_debuts()
+    debuts = fetch_wikipedia_debuts()   # 仍用於 ai_pick_candidates 的判斷輔助
     ptt = fetch_ptt_posts(pages=3)
-    upcoming_raw = fetch_wikipedia_upcoming(days_ahead=45)
+    # 省額度模式：發行預告已停用，不再抓 upcoming（fetch_wikipedia_upcoming）
 
     candidates = ai_pick_candidates(releases, debuts, ptt)
 
@@ -1180,15 +1180,16 @@ def run_scraper(days_back: int = 14) -> dict:
         })
         tracks.append(base)
 
-    # 發行預告：AI 從未來發行清單篩出女團 / 前成員 solo
-    upcoming = ai_filter_upcoming(upcoming_raw, debuts)
-    today = datetime.now().date()
-    for u in upcoming:
-        try:
-            d = datetime.strptime(u.get("date", ""), "%Y.%m.%d").date()
-            u["days_left"] = (d - today).days
-        except Exception:
-            u["days_left"] = None
+    # ── 省額度模式：附加 AI 功能已停用，只保留核心（篩女團 + 主打曲 + MV）──
+    # 以下原本各需一次 AI 呼叫，為節省 Anthropic 額度而關閉：
+    #   發行預告篩選 / 每週懶人包 / 本月生日 / discography / 新出道女團
+    # 成員資訊改為「只用人工修正檔 members_override.json」（靜態、不花 AI）。
+    upcoming = []
+    digest = ""
+    birthdays = []
+    discographies = {}
+    debut_girlgroups = []
+    members = apply_members_override({}, sorted({t["group"] for t in tracks}))
 
     n = len(tracks)
     groups = "、".join(dict.fromkeys(t["group"] for t in tracks))
@@ -1196,26 +1197,7 @@ def run_scraper(days_back: int = 14) -> dict:
                + (f"：{groups}。" if groups else "。")
                + (f"（另有 {len(pending_mv)} 筆 MV 即將上線）" if pending_mv else ""))
 
-    digest = ai_weekly_digest(tracks, upcoming)
-
-    # 本月成員生日（限追蹤清單內的女團）
-    all_groups = sorted({t["group"] for t in tracks if not t.get("is_solo")}
-                        | {u["group"] for u in upcoming if not u.get("is_solo")})
-    birthdays = ai_month_birthdays(all_groups)
-
-    # 各團 discography（含 solo 藝人；前端點團名/藝人展開）
-    disco_names = sorted({t["group"] for t in tracks} | {u["group"] for u in upcoming})
-    discographies = ai_discographies(disco_names)
-
-    # 各團成員資訊（僅團體，前端點團名展開）；人工修正檔覆蓋 AI 結果（CI 不依賴 namuwiki）
-    members = ai_members(all_groups)
-    members = apply_members_override(members, all_groups)
-
-    # 新出道女團專區（從維基出道團名單 AI 篩女團）
-    debut_girlgroups = ai_debut_girlgroups(debuts)
-
-    log.info(f"完成：收錄 {n} 筆，MV 即將上線 {len(pending_mv)} 筆，預告 {len(upcoming)} 筆，"
-             f"新出道 {len(debut_girlgroups)} 團")
+    log.info(f"完成：收錄 {n} 筆，MV 即將上線 {len(pending_mv)} 筆（省額度模式）")
     return {"tracks": tracks, "pending_mv": pending_mv,
             "upcoming": upcoming, "birthdays": birthdays,
             "discographies": discographies, "members": members,
