@@ -12,12 +12,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女團，Modhaus旗下",
+      "note": "女團，SM旗下大型輪替制女團",
       "id": "ab4b828b2dc3",
       "yt_url": "https://www.youtube.com/watch?v=6q8UMVXhXsE",
       "yt_id": "6q8UMVXhXsE",
       "yt_title": "tripleS 'Baby Flower' Official MV",
-      "yt_views": 31698863
+      "yt_views": 31699287
     },
     {
       "group": "Meovv",
@@ -36,7 +36,26 @@
       "yt_url": "https://www.youtube.com/watch?v=aHM2RKeMaeM",
       "yt_id": "aHM2RKeMaeM",
       "yt_title": "MEOVV(미야오) - ‘DDI RO RI’ M/V",
-      "yt_views": 13437666
+      "yt_views": 13443770
+    },
+    {
+      "group": "Fifty Fifty",
+      "group_kr": "피프티피프티",
+      "title": "Imperfect-I'mperfect",
+      "album": "Imperfect-I'mperfect",
+      "date": "2026.06.01",
+      "is_solo": false,
+      "is_new": true,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "女團，ATTRAKT旗下",
+      "id": "a0eaf4d48e08",
+      "yt_url": "https://www.youtube.com/watch?v=iZzpq5iqevg",
+      "yt_id": "iZzpq5iqevg",
+      "yt_title": "FIFTY FIFTY (피프티피프티) 'Like a Bubble' Official MV",
+      "yt_views": 8255193
     },
     {
       "group": "Mamamoo",
@@ -52,14 +71,33 @@
       ],
       "note": "女團，RBW旗下",
       "id": "12cc4f37993b",
-      "yt_url": "https://www.youtube.com/watch?v=0MwTk4LQRy0",
-      "yt_id": "0MwTk4LQRy0",
-      "yt_title": "[MV] MAMAMOO(마마무) _ 4 Flowers",
-      "yt_views": 61690
+      "yt_url": "https://www.youtube.com/watch?v=PVzSI9PpkXc",
+      "yt_id": "PVzSI9PpkXc",
+      "yt_title": "MAMAMOO '4 Flowers' MV",
+      "yt_views": 5913875
+    },
+    {
+      "group": "Hiipe Princess",
+      "group_kr": "하입 프린세스",
+      "title": "17.7",
+      "album": "17.7",
+      "date": "2026.05.27",
+      "is_solo": false,
+      "is_new": false,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "名稱含Princess推測為女團，列於本年度出道團清單，資訊不足需確認；namuwiki 無資料，待確認",
+      "id": "8def48e002d9",
+      "yt_url": "https://www.youtube.com/watch?v=9sqgpi74u7w",
+      "yt_id": "9sqgpi74u7w",
+      "yt_title": "H//PE Princess (하입프린세스) 'One day' MV",
+      "yt_views": 4281451
     },
     {
       "group": "Heart of Woman",
-      "group_kr": "",
+      "group_kr": "하트 오브 우먼",
       "title": "Heart Byte: Legacy",
       "album": "Heart Byte: Legacy",
       "date": "2026.05.28",
@@ -69,12 +107,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "出道團清單中有此名稱，團名含Woman，疑似女團，需確認；namuwiki 無資料，待確認",
+      "note": "列於本年度出道團清單，名稱暗示女性相關，資訊不足需確認是否為女團；namuwiki 無資料，待確認",
       "id": "8adfe719f964",
-      "yt_url": "https://www.youtube.com/watch?v=MB4F09i9Iwg",
-      "yt_id": "MB4F09i9Iwg",
-      "yt_title": "[MV] HEART OF WOMAN(하트오브우먼) _ Lost in Proof(나를 잃지 않는 방법)",
-      "yt_views": 78709
+      "yt_url": "https://www.youtube.com/watch?v=h8HGbj0enmg",
+      "yt_id": "h8HGbj0enmg",
+      "yt_title": "HEART OF WOMAN 'How Not to Lose Myself (Lost in Proof)' MV",
+      "yt_views": 3568588
     },
     {
       "group": "Queenz Eye",
@@ -88,12 +126,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女團，Big Ocean ENM旗下",
+      "note": "女團，Bluedot Entertainment旗下",
       "id": "6f30e52783ec",
       "yt_url": "https://www.youtube.com/watch?v=tqGcOmgTq_U",
       "yt_id": "tqGcOmgTq_U",
       "yt_title": "Queenz Eye  |  2nd Mini Album [PRISM EP.02] 'Y2K' MV",
-      "yt_views": 5367396
+      "yt_views": 5367458
     },
     {
       "group": "Aespa",
@@ -112,43 +150,10 @@
       "yt_url": "https://www.youtube.com/watch?v=83C3TZ4Zm_o",
       "yt_id": "83C3TZ4Zm_o",
       "yt_title": "aespa 에스파 'LEMONADE' MV",
-      "yt_views": 28444154
+      "yt_views": 28451610
     }
   ],
-  "pending_mv": [
-    {
-      "group": "Fifty Fifty",
-      "group_kr": "피프티피프티",
-      "title": "Imperfect-I'mperfect",
-      "album": "Imperfect-I'mperfect",
-      "date": "2026.06.01",
-      "is_solo": false,
-      "is_new": true,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "女團，ATTRAKT旗下",
-      "id": "a0eaf4d48e08",
-      "yt_search": "https://www.youtube.com/results?search_query=Fifty+Fifty+Imperfect-I%27mperfect+MV"
-    },
-    {
-      "group": "Hiipe Princess",
-      "group_kr": "",
-      "title": "17.7",
-      "album": "17.7",
-      "date": "2026.05.27",
-      "is_solo": false,
-      "is_new": false,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "出道團清單中有此名稱，性質待確認（名稱含Princess，疑似女團）；namuwiki 無資料，待確認",
-      "id": "8def48e002d9",
-      "yt_search": "https://www.youtube.com/results?search_query=Hiipe+Princess+17.7+MV"
-    }
-  ],
+  "pending_mv": [],
   "upcoming": [
     {
       "group": "Izna",
@@ -175,6 +180,14 @@
       "days_left": 9
     },
     {
+      "group": "Uspeer",
+      "group_kr": "어스피어",
+      "title": "Bite District",
+      "date": "2026.06.17",
+      "is_solo": false,
+      "days_left": 10
+    },
+    {
       "group": "Hearts2Hearts",
       "group_kr": "하츠투하츠",
       "title": "Lemon Tang",
@@ -183,26 +196,7 @@
       "days_left": 15
     }
   ],
-  "birthdays": [
-    {
-      "group": "TripleS",
-      "member": "Joobin",
-      "date": "06-02",
-      "is_today": false
-    },
-    {
-      "group": "TripleS",
-      "member": "Chaeyeon",
-      "date": "06-09",
-      "is_today": false
-    },
-    {
-      "group": "TripleS",
-      "member": "Hyerin",
-      "date": "06-15",
-      "is_today": false
-    }
-  ],
+  "birthdays": [],
   "discographies": {
     "Aespa": [
       {
@@ -237,13 +231,25 @@
       },
       {
         "year": "2021",
-        "title": "Forever",
-        "type": "迷你"
+        "title": "Forever & Ever",
+        "type": "數位單曲"
       },
       {
         "year": "2020",
         "title": "Black Mamba",
         "type": "數位單曲"
+      }
+    ],
+    "Fifty Fifty": [
+      {
+        "year": "2023",
+        "title": "Cupid",
+        "type": "單曲"
+      },
+      {
+        "year": "2023",
+        "title": "The Beginning: Cupid",
+        "type": "迷你"
       }
     ],
     "Mamamoo": [
@@ -259,13 +265,13 @@
       },
       {
         "year": "2021",
-        "title": "Travel",
+        "title": "WAW",
         "type": "正規"
       },
       {
         "year": "2020",
-        "title": "WAW",
-        "type": "迷你"
+        "title": "Travel",
+        "type": "正規"
       },
       {
         "year": "2019",
@@ -279,8 +285,8 @@
       },
       {
         "year": "2016",
-        "title": "Memory",
-        "type": "正規"
+        "title": "Purple",
+        "type": "迷你"
       },
       {
         "year": "2015",
@@ -298,27 +304,54 @@
     "TripleS": [
       {
         "year": "2024",
-        "title": "ASSEMBLE24",
+        "title": "Assemble24",
         "type": "正規"
       },
       {
         "year": "2023",
-        "title": "ASSEMBLE",
+        "title": "Assemble",
         "type": "迷你"
       },
       {
         "year": "2023",
-        "title": "+(KR)ystal Eyes",
-        "type": "迷你"
-      },
-      {
-        "year": "2023",
-        "title": "Acid Angel from Asia",
+        "title": "AESTHETICS",
         "type": "迷你"
       }
     ]
   },
   "members": {
+    "Fifty Fifty": [
+      {
+        "name": "Keena",
+        "name_kr": "키나",
+        "birth": "",
+        "role": ""
+      },
+      {
+        "name": "Moon Chanel",
+        "name_kr": "문샤넬",
+        "birth": "",
+        "role": ""
+      },
+      {
+        "name": "Yewon",
+        "name_kr": "예원",
+        "birth": "",
+        "role": ""
+      },
+      {
+        "name": "Hana",
+        "name_kr": "하나",
+        "birth": "",
+        "role": ""
+      },
+      {
+        "name": "Athena",
+        "name_kr": "아테나",
+        "birth": "",
+        "role": ""
+      }
+    ],
     "Meovv": [
       {
         "name": "Gawon",
@@ -357,22 +390,28 @@
       "group": "AFuture",
       "group_kr": "에이퓨처",
       "agency": "",
-      "note": "擁有67萬訂閱者，2026年3月14日出道的女子團體"
+      "note": "2026年3月14日出道的女子團體，出道前已擁有約67萬訂閱者。"
     },
     {
       "group": "Keyveatz",
       "group_kr": "키비츠",
       "agency": "AOMG",
-      "note": "AOMG旗下首個女子街舞團體，5人組，影片累積700萬次觀看"
+      "note": "AOMG旗下首個女子嘻哈組合，5人組，相關影片累積逾700萬次觀看。"
     },
     {
       "group": "Unchild",
       "group_kr": "",
       "agency": "High Up Entertainment",
-      "note": "High Up Entertainment旗下新女子團體"
+      "note": "High Up Entertainment旗下新女子團體，2026年出道。"
+    },
+    {
+      "group": "Heart of Woman",
+      "group_kr": "",
+      "agency": "",
+      "note": "團名暗示為女子團體（縮寫H.O.W），詳細資料來源未完整定義。"
     }
   ],
-  "summary": "本期收錄 6 首有官方 MV 的女團／前成員 solo 主打發行：TripleS、Meovv、Mamamoo、Heart of Woman、Queenz Eye、Aespa。（另有 2 筆 MV 即將上線）",
+  "summary": "本期收錄 8 首有官方 MV 的女團／前成員 solo 主打發行：TripleS、Meovv、Fifty Fifty、Mamamoo、Hiipe Princess、Heart of Woman、Queenz Eye、Aespa。",
   "digest": "",
-  "fetched_at": "2026-06-07 20:12"
+  "fetched_at": "2026-06-07 20:29"
 }
