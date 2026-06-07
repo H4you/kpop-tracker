@@ -40,6 +40,40 @@ AI_ENABLED = bool(_API_KEY) and _API_KEY.lower() != "dummy"
 ANTHROPIC_CLIENT = Anthropic(api_key=_API_KEY) if AI_ENABLED else None
 AI_MODEL = "claude-sonnet-4-6"
 
+# ── 每日 API 花費上限保護 ───────────────────────────────────────────────────────
+# Anthropic 後台不支援「每日」上限，故在程式內自行控管：累計本次執行的 token 用量，
+# 換算估計成本，超過上限就停止後續 AI 呼叫（回空，由各功能 graceful 處理）。
+# 可用環境變數 DAILY_USD_LIMIT 覆蓋；預設 0.30 美元。
+DAILY_USD_LIMIT = float(os.environ.get("DAILY_USD_LIMIT", "0.30"))
+# Claude Sonnet 4.6 定價（USD / 百萬 token）
+_PRICE_IN, _PRICE_OUT = 3.0, 15.0
+_spent_usd = 0.0
+
+
+def _budget_ok() -> bool:
+    """是否還在每日花費上限內。"""
+    return _spent_usd < DAILY_USD_LIMIT
+
+
+def ai_create(**kwargs):
+    """統一的 AI 呼叫入口：先檢查每日花費上限，呼叫後累計成本。
+    超過上限回 None（各 AI 函式須處理 None）。"""
+    global _spent_usd
+    if not AI_ENABLED:
+        return None
+    if not _budget_ok():
+        log.warning(f"已達每日花費上限 ${DAILY_USD_LIMIT}（已花 ${_spent_usd:.3f}），跳過此次 AI 呼叫")
+        return None
+    resp = ANTHROPIC_CLIENT.messages.create(**kwargs)
+    try:
+        u = resp.usage
+        cost = (u.input_tokens * _PRICE_IN + u.output_tokens * _PRICE_OUT) / 1_000_000
+        _spent_usd += cost
+        log.info(f"AI 用量 +${cost:.4f}（累計 ${_spent_usd:.3f} / 上限 ${DAILY_USD_LIMIT}）")
+    except Exception:
+        pass
+    return resp
+
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                   "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36",
@@ -728,10 +762,12 @@ def ai_resolve_title_tracks(items: list[dict]) -> dict:
 只輸出純 JSON：
 {{"resolved":[{{"i":0,"title_track":"","yt_channel":"","has_mv":false}}]}}"""
     try:
-        resp = ANTHROPIC_CLIENT.messages.create(
+        resp = ai_create(
             model=AI_MODEL, max_tokens=4000,
             messages=[{"role": "user", "content": prompt}],
         )
+        if resp is None:        # 超過每日花費上限 / AI 未啟用
+            return {}
         text = next((b.text for b in resp.content if b.type == "text"), "")
         mt = re.search(r"\{[\s\S]*\}", text)
         if mt:
@@ -770,7 +806,7 @@ def ai_filter_upcoming(upcoming: list[dict], debuts: list[str]) -> list[dict]:
 只輸出純 JSON：
 {{"upcoming":[{{"group":"團名(英文/羅馬拼音)","group_kr":"韓文團名或空字串","title":"主打曲或專輯名","date":"YYYY.MM.DD","is_solo":false}}]}}"""
     try:
-        resp = ANTHROPIC_CLIENT.messages.create(
+        resp = ai_create(
             model=AI_MODEL, max_tokens=4000,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -807,7 +843,7 @@ def ai_filter_girlgroups(names: list[str]) -> set:
 只輸出純 JSON（每個名稱都要有一筆）：
 {{"items":[{{"name":"原樣名稱","type":"girlgroup"}}]}}"""
     try:
-        resp = ANTHROPIC_CLIENT.messages.create(
+        resp = ai_create(
             model=AI_MODEL, max_tokens=3000,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -849,7 +885,7 @@ def ai_weekly_digest(tracks: list[dict], upcoming: list[dict]) -> str:
 - 提一下接下來值得期待的回歸/發行。
 - 只輸出摘要文字本身，不要標題、不要 JSON、不要 markdown 符號。"""
     try:
-        resp = ANTHROPIC_CLIENT.messages.create(
+        resp = ai_create(
             model=AI_MODEL, max_tokens=1000,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -877,7 +913,7 @@ def ai_month_birthdays(group_names: list[str]) -> list[dict]:
 - 只輸出純 JSON：
 {{"birthdays":[{{"group":"團名","member":"成員名","date":"MM-DD"}}]}}"""
     try:
-        resp = ANTHROPIC_CLIENT.messages.create(
+        resp = ai_create(
             model=AI_MODEL, max_tokens=2000,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -921,7 +957,7 @@ def ai_debut_girlgroups(debut_names: list[str]) -> list[dict]:
 - 只輸出純 JSON：
 {{"debuts":[{{"group":"","group_kr":"","agency":"","note":""}}]}}"""
     try:
-        resp = ANTHROPIC_CLIENT.messages.create(
+        resp = ai_create(
             model=AI_MODEL, max_tokens=3000,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -953,7 +989,7 @@ def ai_discographies(group_names: list[str]) -> dict:
 - 只輸出純 JSON：
 {{"discographies":{{"團名":[{{"year":"2024","title":"作品名","type":"迷你"}}]}}}}"""
     try:
-        resp = ANTHROPIC_CLIENT.messages.create(
+        resp = ai_create(
             model=AI_MODEL, max_tokens=4000,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -1022,7 +1058,7 @@ def ai_members(group_names: list[str]) -> dict:
 - 只輸出純 JSON：
 {{"members":{{"團名":[{{"name":"","name_kr":"","birth":"","role":""}}]}}}}"""
     try:
-        resp = ANTHROPIC_CLIENT.messages.create(
+        resp = ai_create(
             model=AI_MODEL, max_tokens=4000,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -1074,10 +1110,13 @@ def ai_pick_candidates(releases: list[dict], debuts: list[str], ptt: list[dict])
 {{"candidates":[{{"group":"團名(英文/羅馬拼音)","group_kr":"韓文團名或空字串","title":"顯示標題","title_track":"主打曲名或空","album":"專輯名","date":"YYYY.MM.DD","yt_channel":"官方頻道名或空","is_solo":false,"needs_confirm":false,"note":""}}]}}"""
 
     try:
-        resp = ANTHROPIC_CLIENT.messages.create(
+        resp = ai_create(
             model=AI_MODEL, max_tokens=8000,
             messages=[{"role": "user", "content": prompt}],
         )
+        if resp is None:        # 超過每日花費上限 / AI 未啟用
+            log.warning("AI pass1 未執行（超過每日花費上限或 AI 未啟用）")
+            return []
         text = next((b.text for b in resp.content if b.type == "text"), "")
         m = re.search(r"\{[\s\S]*\}", text)
         if m:

@@ -38,6 +38,8 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           SITE_URL: "https://h4you.github.io/kpop-tracker/"
           TEST_NOTIFY: ${{ github.event.inputs.test_notify }}
+          # 每日 API 花費上限（美元）；程式累計 token 成本超過就停止後續 AI 呼叫
+          DAILY_USD_LIMIT: "0.30"
         run: python src/scraper.py
 
       # ── Step 2：把 latest.json commit 回 repo ──
