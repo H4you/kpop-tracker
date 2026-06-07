@@ -810,6 +810,8 @@ def ai_filter_upcoming(upcoming: list[dict], debuts: list[str]) -> list[dict]:
             model=AI_MODEL, max_tokens=4000,
             messages=[{"role": "user", "content": prompt}],
         )
+        if resp is None:        # 超過每日花費上限 / AI 未啟用
+            return []
         text = next((b.text for b in resp.content if b.type == "text"), "")
         m = re.search(r"\{[\s\S]*\}", text)
         if m:
@@ -917,6 +919,8 @@ def ai_month_birthdays(group_names: list[str]) -> list[dict]:
             model=AI_MODEL, max_tokens=2000,
             messages=[{"role": "user", "content": prompt}],
         )
+        if resp is None:        # 超過每日花費上限 / AI 未啟用
+            return []
         text = next((b.text for b in resp.content if b.type == "text"), "")
         mt = re.search(r"\{[\s\S]*\}", text)
         if mt:
@@ -961,6 +965,8 @@ def ai_debut_girlgroups(debut_names: list[str]) -> list[dict]:
             model=AI_MODEL, max_tokens=3000,
             messages=[{"role": "user", "content": prompt}],
         )
+        if resp is None:        # 超過每日花費上限 / AI 未啟用
+            return []
         text = next((b.text for b in resp.content if b.type == "text"), "")
         mt = re.search(r"\{[\s\S]*\}", text)
         if mt:
@@ -993,6 +999,8 @@ def ai_discographies(group_names: list[str]) -> dict:
             model=AI_MODEL, max_tokens=4000,
             messages=[{"role": "user", "content": prompt}],
         )
+        if resp is None:        # 超過每日花費上限 / AI 未啟用
+            return {}
         text = next((b.text for b in resp.content if b.type == "text"), "")
         mt = re.search(r"\{[\s\S]*\}", text)
         if mt:
@@ -1219,16 +1227,39 @@ def run_scraper(days_back: int = 14) -> dict:
         })
         tracks.append(base)
 
-    # ── 省額度模式：附加 AI 功能已停用，只保留核心（篩女團 + 主打曲 + MV）──
-    # 以下原本各需一次 AI 呼叫，為節省 Anthropic 額度而關閉：
-    #   發行預告篩選 / 每週懶人包 / 本月生日 / discography / 新出道女團
-    # 成員資訊改為「只用人工修正檔 members_override.json」（靜態、不花 AI）。
+    # ── 附加 AI 功能（已有每日花費上限 DAILY_USD_LIMIT 保護，超過會自動跳過）──
+    # 已重新啟用：發行預告+回歸倒數 / 本月生日 / discography / 新出道女團。
+    # 仍停用：每週懶人包(digest)；成員資訊只用人工修正檔 members_override.json。
+    group_names = sorted({t["group"] for t in tracks})
+
+    # 發行預告 + 回歸倒數：抓未來 45 天發行 → AI 篩女團 → 算 days_left
     upcoming = []
-    digest = ""
-    birthdays = []
-    discographies = {}
-    debut_girlgroups = []
-    members = apply_members_override({}, sorted({t["group"] for t in tracks}))
+    try:
+        raw_upcoming = fetch_wikipedia_upcoming(days_ahead=45)
+        upcoming = ai_filter_upcoming(raw_upcoming, debuts)
+        today = datetime.now().date()
+        for u in upcoming:
+            try:
+                d = datetime.strptime(u.get("date", ""), "%Y.%m.%d").date()
+                u["days_left"] = (d - today).days
+            except Exception:
+                u["days_left"] = None
+        # 只留今天(含)以後、或無法解析日期者；依倒數天數排序
+        upcoming = [u for u in upcoming
+                    if u.get("days_left") is None or u["days_left"] >= 0]
+        upcoming.sort(key=lambda x: (x.get("days_left") is None,
+                                     x.get("days_left", 9999)))
+        log.info(f"發行預告：{len(upcoming)} 筆")
+    except Exception as e:
+        log.warning(f"發行預告建置失敗: {e}")
+
+    # 本月成員生日 / 各團 discography / 新出道女團專區
+    birthdays = ai_month_birthdays(group_names)
+    discographies = ai_discographies(group_names)
+    debut_girlgroups = ai_debut_girlgroups(debuts)
+
+    digest = ""  # 每週懶人包仍停用
+    members = apply_members_override({}, group_names)
 
     n = len(tracks)
     groups = "、".join(dict.fromkeys(t["group"] for t in tracks))
@@ -1236,7 +1267,9 @@ def run_scraper(days_back: int = 14) -> dict:
                + (f"：{groups}。" if groups else "。")
                + (f"（另有 {len(pending_mv)} 筆 MV 即將上線）" if pending_mv else ""))
 
-    log.info(f"完成：收錄 {n} 筆，MV 即將上線 {len(pending_mv)} 筆（省額度模式）")
+    log.info(f"完成：收錄 {n} 筆，MV 即將上線 {len(pending_mv)} 筆，"
+             f"預告 {len(upcoming)} 筆，生日 {len(birthdays)} 筆，"
+             f"discography {len(discographies)} 團，新出道 {len(debut_girlgroups)} 團")
     return {"tracks": tracks, "pending_mv": pending_mv,
             "upcoming": upcoming, "birthdays": birthdays,
             "discographies": discographies, "members": members,
