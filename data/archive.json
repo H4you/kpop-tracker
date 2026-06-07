@@ -74,10 +74,10 @@
       ],
       "note": "女團，RBW旗下",
       "id": "12cc4f37993b",
-      "yt_url": "https://www.youtube.com/watch?v=0MwTk4LQRy0",
-      "yt_id": "0MwTk4LQRy0",
-      "yt_title": "[MV] MAMAMOO(마마무) _ 4 Flowers",
-      "yt_views": 61690,
+      "yt_url": "https://www.youtube.com/watch?v=PVzSI9PpkXc",
+      "yt_id": "PVzSI9PpkXc",
+      "yt_title": "MAMAMOO '4 Flowers' MV",
+      "yt_views": 5913875,
       "first_seen": "2026-06-01"
     },
     {
@@ -92,12 +92,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女團，Modhaus旗下",
+      "note": "女團，SM旗下大型輪替制女團",
       "id": "ab4b828b2dc3",
       "yt_url": "https://www.youtube.com/watch?v=6q8UMVXhXsE",
       "yt_id": "6q8UMVXhXsE",
       "yt_title": "tripleS 'Baby Flower' Official MV",
-      "yt_views": 31698863,
+      "yt_views": 31699287,
       "first_seen": "2026-06-01"
     },
     {
@@ -117,7 +117,7 @@
       "yt_url": "https://www.youtube.com/watch?v=aHM2RKeMaeM",
       "yt_id": "aHM2RKeMaeM",
       "yt_title": "MEOVV(미야오) - ‘DDI RO RI’ M/V",
-      "yt_views": 13437666,
+      "yt_views": 13443770,
       "first_seen": "2026-06-01"
     },
     {
@@ -137,7 +137,7 @@
       "yt_url": "https://www.youtube.com/watch?v=iZzpq5iqevg",
       "yt_id": "iZzpq5iqevg",
       "yt_title": "FIFTY FIFTY (피프티피프티) 'Like a Bubble' Official MV",
-      "yt_views": 8253921,
+      "yt_views": 8255193,
       "first_seen": "2026-06-01"
     },
     {
@@ -157,12 +157,12 @@
       "yt_url": "https://www.youtube.com/watch?v=83C3TZ4Zm_o",
       "yt_id": "83C3TZ4Zm_o",
       "yt_title": "aespa 에스파 'LEMONADE' MV",
-      "yt_views": 28444154,
+      "yt_views": 28451610,
       "first_seen": "2026-05-31"
     },
     {
       "group": "Heart of Woman",
-      "group_kr": "",
+      "group_kr": "하트 오브 우먼",
       "title": "Heart Byte: Legacy",
       "album": "Heart Byte: Legacy",
       "date": "2026.05.28",
@@ -172,12 +172,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "出道團清單中有此名稱，團名含Woman，疑似女團，需確認；namuwiki 無資料，待確認",
+      "note": "列於本年度出道團清單，名稱暗示女性相關，資訊不足需確認是否為女團；namuwiki 無資料，待確認",
       "id": "8adfe719f964",
-      "yt_url": "https://www.youtube.com/watch?v=MB4F09i9Iwg",
-      "yt_id": "MB4F09i9Iwg",
-      "yt_title": "[MV] HEART OF WOMAN(하트오브우먼) _ Lost in Proof(나를 잃지 않는 방법)",
-      "yt_views": 78709,
+      "yt_url": "https://www.youtube.com/watch?v=h8HGbj0enmg",
+      "yt_id": "h8HGbj0enmg",
+      "yt_title": "HEART OF WOMAN 'How Not to Lose Myself (Lost in Proof)' MV",
+      "yt_views": 3568588,
       "first_seen": "2026-05-31"
     },
     {
@@ -192,17 +192,17 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女團，Big Ocean ENM旗下",
+      "note": "女團，Bluedot Entertainment旗下",
       "id": "6f30e52783ec",
       "yt_url": "https://www.youtube.com/watch?v=tqGcOmgTq_U",
       "yt_id": "tqGcOmgTq_U",
       "yt_title": "Queenz Eye  |  2nd Mini Album [PRISM EP.02] 'Y2K' MV",
-      "yt_views": 5367396,
+      "yt_views": 5367458,
       "first_seen": "2026-05-31"
     },
     {
       "group": "Hiipe Princess",
-      "group_kr": "",
+      "group_kr": "하입 프린세스",
       "title": "17.7",
       "album": "17.7",
       "date": "2026.05.27",
@@ -212,12 +212,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "出道團清單中有此名稱，但性別/類型不明，需確認是否為女團；namuwiki 無資料，待確認",
+      "note": "名稱含Princess推測為女團，列於本年度出道團清單，資訊不足需確認；namuwiki 無資料，待確認",
       "id": "8def48e002d9",
       "yt_url": "https://www.youtube.com/watch?v=9sqgpi74u7w",
       "yt_id": "9sqgpi74u7w",
       "yt_title": "H//PE Princess (하입프린세스) 'One day' MV",
-      "yt_views": 4281158,
+      "yt_views": 4281451,
       "first_seen": "2026-06-01"
     },
     {
@@ -380,5 +380,5 @@
       "first_seen": "2026-06-01"
     }
   ],
-  "updated_at": "2026-06-07 20:14"
+  "updated_at": "2026-06-07 20:31"
 }
