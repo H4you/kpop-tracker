@@ -633,7 +633,7 @@ header {
 
   <div class="status-bar">
     <div class="status-dot" id="sdot"></div>
-    <span id="stext">點擊右下角按鈕載入今日情報</span>
+    <span id="stext">點擊右下角按鈕重新載入最新資料</span>
     <span class="status-right" id="stime"></span>
   </div>
 
@@ -733,7 +733,7 @@ header {
     <div class="empty">
       <div class="empty-icon" aria-hidden="true">◈</div>
       <div class="empty-title">尚無資料</div>
-      <div class="empty-sub">點擊右下角按鈕抓取今日情報</div>
+      <div class="empty-sub">點擊右下角按鈕重新載入最新資料</div>
     </div>
   </main>
 </div>
@@ -769,9 +769,9 @@ header {
 </div>
 
 <div class="fab-wrap">
-  <button class="fab" id="fab" onclick="fetchAll()" aria-label="抓取最新女團情報">
+  <button class="fab" id="fab" onclick="fetchAll()" aria-label="重新載入最新女團情報">
     <svg id="fab-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-    抓取今日情報
+    重新載入最新資料
   </button>
 </div>
 
@@ -1133,36 +1133,6 @@ async function loadFromRepo() {
   }
 }
 
-/* ── Fetch via Claude API + web search ── */
-async function fetchViaAI() {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1000,
-      tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-      system: `你是 KPop 女團情報整理助手。從 PTT koreanpop、Circle Chart、YouTube、Melon 搜尋最新女團（girl group）新曲。
-規則：只收女團，不收 OST 和男團，去除重複。
-每筆資料欄位：group（英文）、title、date（YYYY.MM.DD）、album、yt_url、ptt_url、circle_rank（數字或null）、is_new（7天內true）、is_hot（bool）、sources（陣列如["PTT","Circle"]）。
-只輸出純 JSON：{"tracks":[...],"summary":"...","fetched_at":"YYYY-MM-DD HH:MM"}`,
-      messages: [{
-        role: 'user',
-        content: `搜尋以下內容取得最新女團新曲資訊（今天是 ${new Date().toLocaleDateString('zh-TW')}）：
-1. PTT KoreanPop 板 [情報] 女團 2026
-2. circle chart gaon digital chart girl group 2026
-3. kpop girl group new single MV release 2026
-整理成 JSON 回傳。`
-      }]
-    })
-  });
-  const data = await res.json();
-  const txt = (data.content || []).filter(c => c.type === 'text').map(c => c.text).join('');
-  const m = txt.match(/\{[\s\S]*\}/);
-  if (!m) throw new Error('parse failed');
-  return JSON.parse(m[0]);
-}
-
 /* ── Main fetch orchestrator ── */
 async function fetchAll() {
   const fab   = document.getElementById('fab');
@@ -1182,15 +1152,10 @@ async function fetchAll() {
   const pi = setInterval(() => { p = Math.min(p + 5, 85); pfill.style.width = p + '%'; }, 400);
 
   try {
-    // 1. 先嘗試讀 GitHub Actions 已生成的 latest.json
+    // 讀取 GitHub Actions 每天自動生成的 latest.json
+    // （實際爬蟲/AI 由 GitHub Actions 每天 09:00 執行，這顆按鈕只是重新載入最新資料）
     stext.textContent = '讀取 data/latest.json...';
     let result = await loadFromRepo();
-
-    // 2. 若無本地資料，改用 AI 即時搜尋
-    if (!result || !result.tracks?.length) {
-      stext.textContent = 'AI 即時搜尋中（PTT + Circle + YouTube + Melon）...';
-      result = await fetchViaAI();
-    }
 
     clearInterval(pi); pfill.style.width = '100%';
 
@@ -1241,7 +1206,7 @@ async function fetchAll() {
     console.error(e);
   } finally {
     fab.classList.remove('busy');
-    fab.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> 抓取今日情報`;
+    fab.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> 重新載入最新資料`;
     setTimeout(() => { prog.style.display = 'none'; pfill.style.width = '0'; }, 700);
   }
 }
