@@ -72,12 +72,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女子團體，RBW旗下",
+      "note": "女團，RBW旗下",
       "id": "12cc4f37993b",
       "yt_url": "https://www.youtube.com/watch?v=PVzSI9PpkXc",
       "yt_id": "PVzSI9PpkXc",
       "yt_title": "MAMAMOO '4 Flowers' MV",
-      "yt_views": 5886394,
+      "yt_views": 5889845,
       "first_seen": "2026-06-01"
     },
     {
@@ -92,12 +92,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女子團體，Modhaus旗下大型女團",
+      "note": "女團，Modhaus旗下",
       "id": "ab4b828b2dc3",
       "yt_url": "https://www.youtube.com/watch?v=6q8UMVXhXsE",
       "yt_id": "6q8UMVXhXsE",
       "yt_title": "tripleS 'Baby Flower' Official MV",
-      "yt_views": 31698099,
+      "yt_views": 31698266,
       "first_seen": "2026-06-01"
     },
     {
@@ -112,12 +112,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女子團體，THE BLACK LABEL旗下",
+      "note": "女團，THE BLACK LABEL旗下",
       "id": "64277dcb5b21",
       "yt_url": "https://www.youtube.com/watch?v=aHM2RKeMaeM",
       "yt_id": "aHM2RKeMaeM",
       "yt_title": "MEOVV(미야오) - ‘DDI RO RI’ M/V",
-      "yt_views": 13428784,
+      "yt_views": 13429973,
       "first_seen": "2026-06-01"
     },
     {
@@ -132,12 +132,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女子團體，ATTRAKT旗下",
+      "note": "女團，ATTRAKT旗下",
       "id": "a0eaf4d48e08",
       "yt_url": "https://www.youtube.com/watch?v=iZzpq5iqevg",
       "yt_id": "iZzpq5iqevg",
       "yt_title": "FIFTY FIFTY (피프티피프티) 'Like a Bubble' Official MV",
-      "yt_views": 8253769,
+      "yt_views": 8253921,
       "first_seen": "2026-06-01"
     },
     {
@@ -152,17 +152,17 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女子團體，SM Entertainment旗下",
+      "note": "女團，SM Entertainment旗下",
       "id": "a617a9a27d04",
       "yt_url": "https://www.youtube.com/watch?v=83C3TZ4Zm_o",
       "yt_id": "83C3TZ4Zm_o",
       "yt_title": "aespa 에스파 'LEMONADE' MV",
-      "yt_views": 28432329,
+      "yt_views": 28434975,
       "first_seen": "2026-05-31"
     },
     {
       "group": "Heart of Woman",
-      "group_kr": "하트 오브 우먼",
+      "group_kr": "",
       "title": "Heart Byte: Legacy",
       "album": "Heart Byte: Legacy",
       "date": "2026.05.28",
@@ -172,12 +172,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "出道團清單有此名，名稱含『Woman』，推測為女團",
+      "note": "出道團清單中有此名稱（H.O.W），名稱含Woman但性別/構成不明，需確認；namuwiki 無資料，待確認",
       "id": "8adfe719f964",
       "yt_url": "https://www.youtube.com/watch?v=h8HGbj0enmg",
       "yt_id": "h8HGbj0enmg",
       "yt_title": "HEART OF WOMAN 'How Not to Lose Myself (Lost in Proof)' MV",
-      "yt_views": 3565640,
+      "yt_views": 3565941,
       "first_seen": "2026-05-31"
     },
     {
@@ -192,12 +192,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "女子團體，J&Star Company旗下",
+      "note": "女團，n.CH Entertainment旗下",
       "id": "6f30e52783ec",
       "yt_url": "https://www.youtube.com/watch?v=tqGcOmgTq_U",
       "yt_id": "tqGcOmgTq_U",
       "yt_title": "Queenz Eye  |  2nd Mini Album [PRISM EP.02] 'Y2K' MV",
-      "yt_views": 5367357,
+      "yt_views": 5367363,
       "first_seen": "2026-05-31"
     },
     {
@@ -212,12 +212,12 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "本年度出道團清單中名稱含『Princess』，推測為女團",
+      "note": "出道團清單中有此名稱，但性別/類型不明，需確認是否為女團；namuwiki 無資料，待確認",
       "id": "8def48e002d9",
       "yt_url": "https://www.youtube.com/watch?v=9sqgpi74u7w",
       "yt_id": "9sqgpi74u7w",
       "yt_title": "H//PE Princess (하입프린세스) 'One day' MV",
-      "yt_views": 4281120,
+      "yt_views": 4281158,
       "first_seen": "2026-06-01"
     },
     {
@@ -380,5 +380,5 @@
       "first_seen": "2026-06-01"
     }
   ],
-  "updated_at": "2026-06-07 19:49"
+  "updated_at": "2026-06-07 19:53"
 }
