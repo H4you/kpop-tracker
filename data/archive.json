@@ -1,0 +1,384 @@
+{
+  "tracks": [
+    {
+      "group": "Uspeer",
+      "group_kr": "",
+      "title": "Bite District",
+      "album": "Bite District",
+      "date": "2026.06.17",
+      "is_solo": false,
+      "is_new": true,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "性別/團體屬性不明，需確認；namuwiki 無資料，待確認",
+      "yt_url": "https://www.youtube.com/watch?v=7WSmAo7kSoo",
+      "yt_id": "7WSmAo7kSoo",
+      "yt_title": "USPEER (유스피어) 'ZOOM' MV",
+      "yt_views": 5535518,
+      "id": "df528c53394b",
+      "first_seen": "2026-06-01"
+    },
+    {
+      "group": "Yerin",
+      "group_kr": "예린",
+      "title": "Reach You",
+      "album": "Reach You",
+      "date": "2026.06.09",
+      "is_solo": true,
+      "is_new": true,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "前GFriend成員 solo",
+      "yt_url": "https://www.youtube.com/watch?v=z19ceDKYAlo",
+      "yt_id": "z19ceDKYAlo",
+      "yt_title": "백예린 (Yerin Baek) 'Hate you' M/V",
+      "yt_views": 1702827,
+      "id": "3cac8dd5f392",
+      "first_seen": "2026-06-01"
+    },
+    {
+      "group": "Izna",
+      "group_kr": "이즈나",
+      "title": "Set the Tempo",
+      "album": "Set the Tempo",
+      "date": "2026.06.08",
+      "is_solo": false,
+      "is_new": true,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "女子團體",
+      "yt_url": "https://www.youtube.com/watch?v=qhXognTK0Rg",
+      "yt_id": "qhXognTK0Rg",
+      "yt_title": "izna - Metronome mv",
+      "yt_views": 28,
+      "id": "9a82df54830c",
+      "first_seen": "2026-06-01"
+    },
+    {
+      "group": "Mamamoo",
+      "group_kr": "마마무",
+      "title": "4ward",
+      "album": "4ward",
+      "date": "2026.06.04",
+      "is_solo": false,
+      "is_new": true,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "女子團體",
+      "yt_url": "https://www.youtube.com/watch?v=3OG-id0W9gA",
+      "yt_id": "3OG-id0W9gA",
+      "yt_title": "마마무(Mamamoo) - 4SEASON (Official Music Video)",
+      "yt_views": 100822,
+      "id": "12cc4f37993b",
+      "first_seen": "2026-06-01"
+    },
+    {
+      "group": "TripleS",
+      "group_kr": "트리플에스",
+      "title": "Assemble26 Love & Pop Pt. 1 Love",
+      "album": "Assemble26 Love & Pop Pt. 1 Love",
+      "date": "2026.06.01",
+      "is_solo": false,
+      "is_new": true,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "大型女團集合體，旗下多個子單元",
+      "id": "ab4b828b2dc3",
+      "yt_url": "https://www.youtube.com/watch?v=6q8UMVXhXsE",
+      "yt_id": "6q8UMVXhXsE",
+      "yt_title": "tripleS 'Baby Flower' Official MV",
+      "yt_views": 31697483,
+      "first_seen": "2026-06-01"
+    },
+    {
+      "group": "Meovv",
+      "group_kr": "머브",
+      "title": "Bite Now",
+      "album": "Bite Now",
+      "date": "2026.06.01",
+      "is_solo": false,
+      "is_new": true,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "THE BLACK LABEL 旗下女團",
+      "id": "64277dcb5b21",
+      "yt_url": "https://www.youtube.com/watch?v=aHM2RKeMaeM",
+      "yt_id": "aHM2RKeMaeM",
+      "yt_title": "MEOVV(미야오) - ‘DDI RO RI’ M/V",
+      "yt_views": 13421033,
+      "first_seen": "2026-06-01"
+    },
+    {
+      "group": "Fifty Fifty",
+      "group_kr": "피프티피프티",
+      "title": "Imperfect-I'mperfect",
+      "album": "Imperfect-I'mperfect",
+      "date": "2026.06.01",
+      "is_solo": false,
+      "is_new": true,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "ATTRAKT 旗下女團",
+      "id": "a0eaf4d48e08",
+      "yt_url": "https://www.youtube.com/watch?v=iZzpq5iqevg",
+      "yt_id": "iZzpq5iqevg",
+      "yt_title": "FIFTY FIFTY (피프티피프티) 'Like a Bubble' Official MV",
+      "yt_views": 8253042,
+      "first_seen": "2026-06-01"
+    },
+    {
+      "group": "Aespa",
+      "group_kr": "에스파",
+      "title": "Lemonade",
+      "album": "Lemonade",
+      "date": "2026.05.29",
+      "is_solo": false,
+      "is_new": false,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "SM Entertainment 旗下女團",
+      "id": "a617a9a27d04",
+      "yt_url": "https://www.youtube.com/watch?v=83C3TZ4Zm_o",
+      "yt_id": "83C3TZ4Zm_o",
+      "yt_title": "aespa 에스파 'LEMONADE' MV",
+      "yt_views": 28421750,
+      "first_seen": "2026-05-31"
+    },
+    {
+      "group": "Heart of Woman",
+      "group_kr": "하트 오브 우먼",
+      "title": "Heart Byte: Legacy",
+      "album": "Heart Byte: Legacy",
+      "date": "2026.05.28",
+      "is_solo": false,
+      "is_new": false,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "本年度出道清單中有 Heart of Woman（H.O.W），團名強烈暗示女團，但細節資料不足，標記待確認；namuwiki 無資料，待確認",
+      "id": "8adfe719f964",
+      "yt_url": "https://www.youtube.com/watch?v=h8HGbj0enmg",
+      "yt_id": "h8HGbj0enmg",
+      "yt_title": "HEART OF WOMAN 'How Not to Lose Myself (Lost in Proof)' MV",
+      "yt_views": 3564230,
+      "first_seen": "2026-05-31"
+    },
+    {
+      "group": "Queenz Eye",
+      "group_kr": "퀸즈아이",
+      "title": "Prism Ep.02",
+      "album": "Prism Ep.02",
+      "date": "2026.05.28",
+      "is_solo": false,
+      "is_new": false,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "女團，旗下 n.CH Entertainment",
+      "id": "6f30e52783ec",
+      "yt_url": "https://www.youtube.com/watch?v=tqGcOmgTq_U",
+      "yt_id": "tqGcOmgTq_U",
+      "yt_title": "Queenz Eye  |  2nd Mini Album [PRISM EP.02] 'Y2K' MV",
+      "yt_views": 5367295,
+      "first_seen": "2026-05-31"
+    },
+    {
+      "group": "Hiipe Princess",
+      "group_kr": "하입 프린세스",
+      "title": "17.7",
+      "album": "17.7",
+      "date": "2026.05.27",
+      "is_solo": false,
+      "is_new": false,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "本年度出道清單中有 Hiipe Princess，但未確認是否為女團，名稱含 Princess 推測女團；資料有限；namuwiki 無資料，待確認",
+      "id": "8def48e002d9",
+      "yt_url": "https://www.youtube.com/watch?v=9sqgpi74u7w",
+      "yt_id": "9sqgpi74u7w",
+      "yt_title": "H//PE Princess (하입프린세스) 'One day' MV",
+      "yt_views": 4280949,
+      "first_seen": "2026-06-01"
+    },
+    {
+      "group": "Xlov",
+      "group_kr": "",
+      "title": "I,God",
+      "album": "I,God",
+      "date": "2026.05.27",
+      "is_solo": false,
+      "is_new": true,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "性別/團體組成不明，需確認是否為女團或含女團成員；namuwiki 無資料，待確認",
+      "id": "72107e6f376d",
+      "yt_url": "https://www.youtube.com/watch?v=1IzZezTfwE0",
+      "yt_id": "1IzZezTfwE0",
+      "yt_title": "XLOV 'SERVE' MV",
+      "yt_views": 1842037,
+      "first_seen": "2026-05-31"
+    },
+    {
+      "group": "And2ble",
+      "group_kr": "",
+      "title": "Sequence 01: Curiosity",
+      "album": "Sequence 01: Curiosity",
+      "date": "2026.05.26",
+      "is_solo": false,
+      "is_new": true,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "本年度出道團清單內，性別未能確認，需進一步確認是否為女團；namuwiki 無資料，待確認",
+      "yt_url": "https://www.youtube.com/watch?v=m6kmpiOsLVk",
+      "yt_id": "m6kmpiOsLVk",
+      "yt_title": "AND2BLE 'Curious' MV",
+      "id": "a5a3438908f2",
+      "first_seen": "2026-05-31"
+    },
+    {
+      "group": "Le Sserafim",
+      "group_kr": "르세라핌",
+      "title": "Pureflow Pt. 1",
+      "album": "Pureflow Pt. 1",
+      "date": "2026.05.22",
+      "is_solo": false,
+      "is_new": false,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "HYBE 旗下女團",
+      "id": "7d401dca5188",
+      "yt_url": "https://www.youtube.com/watch?v=V1Lr-_AxeR8",
+      "yt_id": "V1Lr-_AxeR8",
+      "yt_title": "LE SSERAFIM (르세라핌) 'BOOMPALA' OFFICIAL MV",
+      "yt_views": 15478099,
+      "first_seen": "2026-05-31"
+    },
+    {
+      "group": "Hyojung",
+      "group_kr": "효정",
+      "title": "Purple Note",
+      "album": "Purple Note",
+      "date": "2026.05.21",
+      "is_solo": true,
+      "is_new": false,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "Oh My Girl 成員 Hyojung 個人作品",
+      "id": "4a7758741fc9",
+      "yt_url": "https://www.youtube.com/watch?v=FMXos3fDQ10",
+      "yt_id": "FMXos3fDQ10",
+      "yt_title": "[MV] HYOJUNG(효정) (OH MY GIRL(오마이걸)) _ Purple Note(나의 작은 청춘에게)",
+      "yt_views": 20144,
+      "first_seen": "2026-05-31"
+    },
+    {
+      "group": "I.O.I",
+      "group_kr": "아이오아이",
+      "title": "I.O.I: Loop",
+      "album": "I.O.I: Loop",
+      "date": "2026.05.19",
+      "is_solo": false,
+      "is_new": false,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "原 I.O.I 為女團，但此發行是否為重組/企劃專輯需確認；寧可收入；namuwiki 無資料，待確認",
+      "id": "9b1b75ed785f",
+      "yt_url": "https://www.youtube.com/watch?v=Jxgbfc89hNI",
+      "yt_id": "Jxgbfc89hNI",
+      "yt_title": "아이오아이 (I.O.I) - 갑자기 (Suddenly) MV",
+      "yt_views": 5603831,
+      "first_seen": "2026-05-31"
+    },
+    {
+      "group": "Itzy",
+      "group_kr": "있지",
+      "title": "Motto",
+      "album": "Motto",
+      "date": "2026.05.18",
+      "is_solo": false,
+      "is_new": false,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "JYP 女團",
+      "id": "951d1d3a5bd4",
+      "yt_url": "https://www.youtube.com/watch?v=1jKnI_ib8c8",
+      "yt_id": "1jKnI_ib8c8",
+      "yt_title": "ITZY “Motto” M/V",
+      "yt_views": 14101708,
+      "first_seen": "2026-05-31"
+    },
+    {
+      "group": "Krystal",
+      "group_kr": "크리스탈",
+      "title": "PWLT",
+      "album": "PWLT",
+      "date": "",
+      "is_solo": true,
+      "is_new": false,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "前f(x)成員 solo；僅見於PTT標題，發行日期待確認",
+      "yt_url": "https://www.youtube.com/watch?v=6wHI_rLQiSc",
+      "yt_id": "6wHI_rLQiSc",
+      "yt_title": "Krystal 🦢 PWLT (Official Music Video)",
+      "yt_views": 197847,
+      "id": "715d18daf662",
+      "first_seen": "2026-06-01"
+    },
+    {
+      "group": "BIBI",
+      "group_kr": "비비",
+      "title": "BUMPA",
+      "album": "BUMPA",
+      "date": "",
+      "is_solo": true,
+      "is_new": false,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "女性solo歌手，PTT情報補充，日期不確定",
+      "id": "b533808408a6",
+      "yt_url": "https://www.youtube.com/watch?v=VoTuH7UHWLI",
+      "yt_id": "VoTuH7UHWLI",
+      "yt_title": "BIBI - BUMPA Official M/V",
+      "yt_views": 1193765,
+      "first_seen": "2026-06-01"
+    }
+  ],
+  "updated_at": "2026-06-07 19:28"
+}
