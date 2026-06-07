@@ -942,15 +942,19 @@ def ai_month_birthdays(group_names: list[str]) -> list[dict]:
         if obj is not None:
             items = obj.get("birthdays", [])
             today = datetime.now()
+            kept = []
             for b in items:
                 try:
                     mm, dd = b["date"].split("-")
+                    if int(mm) != month:      # AI 偶爾回非本月生日，過濾掉
+                        continue
                     b["is_today"] = (int(mm) == today.month and int(dd) == today.day)
                 except Exception:
-                    b["is_today"] = False
-            items.sort(key=lambda x: x.get("date", ""))
-            log.info(f"AI 本月生日：{len(items)} 位成員")
-            return items
+                    continue
+                kept.append(b)
+            kept.sort(key=lambda x: x.get("date", ""))
+            log.info(f"AI 本月生日：{len(kept)} 位成員（過濾非本月後）")
+            return kept
     except Exception as e:
         log.error(f"AI 生日查詢失敗: {e}")
     return []
