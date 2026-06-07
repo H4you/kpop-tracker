@@ -74,6 +74,23 @@ def ai_create(**kwargs):
         pass
     return resp
 
+
+def _extract_json(text: str):
+    """從 AI 回應文字中穩健抽出第一個 JSON 物件。
+    比貪婪正則 \\{[\\s\\S]*\\} 安全：用 raw_decode 只解析第一個完整物件，
+    忽略後面多出來的說明文字（避免 'Extra data' 解析錯誤）。失敗回 None。"""
+    if not text:
+        return None
+    start = text.find("{")
+    while start != -1:
+        try:
+            obj, _ = json.JSONDecoder().raw_decode(text[start:])
+            return obj
+        except json.JSONDecodeError:
+            start = text.find("{", start + 1)
+    return None
+
+
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                   "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36",
@@ -769,9 +786,9 @@ def ai_resolve_title_tracks(items: list[dict]) -> dict:
         if resp is None:        # 超過每日花費上限 / AI 未啟用
             return {}
         text = next((b.text for b in resp.content if b.type == "text"), "")
-        mt = re.search(r"\{[\s\S]*\}", text)
-        if mt:
-            arr = json.loads(mt.group()).get("resolved", [])
+        obj = _extract_json(text)
+        if obj is not None:
+            arr = obj.get("resolved", [])
             out = {}
             for r in arr:
                 try:
@@ -813,9 +830,8 @@ def ai_filter_upcoming(upcoming: list[dict], debuts: list[str]) -> list[dict]:
         if resp is None:        # 超過每日花費上限 / AI 未啟用
             return []
         text = next((b.text for b in resp.content if b.type == "text"), "")
-        m = re.search(r"\{[\s\S]*\}", text)
-        if m:
-            data = json.loads(m.group())
+        data = _extract_json(text)
+        if data is not None:
             items = data.get("upcoming", [])
             log.info(f"AI 預告篩選：{len(items)} 筆女團/前成員 solo")
             return items
@@ -850,9 +866,9 @@ def ai_filter_girlgroups(names: list[str]) -> set:
             messages=[{"role": "user", "content": prompt}],
         )
         text = next((b.text for b in resp.content if b.type == "text"), "")
-        mt = re.search(r"\{[\s\S]*\}", text)
-        if mt:
-            items = json.loads(mt.group()).get("items", [])
+        obj = _extract_json(text)
+        if obj is not None:
+            items = obj.get("items", [])
             # 排除明確非女團/女性者（boygroup / male_solo / coed）；unknown 保守保留
             ex = {it.get("name") for it in items
                   if it.get("type") in ("boygroup", "male_solo", "coed")}
@@ -922,9 +938,9 @@ def ai_month_birthdays(group_names: list[str]) -> list[dict]:
         if resp is None:        # 超過每日花費上限 / AI 未啟用
             return []
         text = next((b.text for b in resp.content if b.type == "text"), "")
-        mt = re.search(r"\{[\s\S]*\}", text)
-        if mt:
-            items = json.loads(mt.group()).get("birthdays", [])
+        obj = _extract_json(text)
+        if obj is not None:
+            items = obj.get("birthdays", [])
             today = datetime.now()
             for b in items:
                 try:
@@ -968,9 +984,9 @@ def ai_debut_girlgroups(debut_names: list[str]) -> list[dict]:
         if resp is None:        # 超過每日花費上限 / AI 未啟用
             return []
         text = next((b.text for b in resp.content if b.type == "text"), "")
-        mt = re.search(r"\{[\s\S]*\}", text)
-        if mt:
-            items = [d for d in json.loads(mt.group()).get("debuts", []) if d.get("group")]
+        obj = _extract_json(text)
+        if obj is not None:
+            items = [d for d in obj.get("debuts", []) if d.get("group")]
             # 套用人工黑名單（確認非女團者剔除）
             items = [d for d in items if not is_blocklisted_group(d.get("group", ""))]
             log.info(f"AI 新出道女團：{len(items)} 團")
@@ -1002,9 +1018,9 @@ def ai_discographies(group_names: list[str]) -> dict:
         if resp is None:        # 超過每日花費上限 / AI 未啟用
             return {}
         text = next((b.text for b in resp.content if b.type == "text"), "")
-        mt = re.search(r"\{[\s\S]*\}", text)
-        if mt:
-            d = json.loads(mt.group()).get("discographies", {})
+        obj = _extract_json(text)
+        if obj is not None:
+            d = obj.get("discographies", {})
             d = {k: v for k, v in d.items() if v}  # 去掉空的
             log.info(f"AI discography：{len(d)} 團有資料")
             return d
@@ -1071,9 +1087,9 @@ def ai_members(group_names: list[str]) -> dict:
             messages=[{"role": "user", "content": prompt}],
         )
         text = next((b.text for b in resp.content if b.type == "text"), "")
-        mt = re.search(r"\{[\s\S]*\}", text)
-        if mt:
-            d = json.loads(mt.group()).get("members", {})
+        obj = _extract_json(text)
+        if obj is not None:
+            d = obj.get("members", {})
             d = {k: v for k, v in d.items() if isinstance(v, list) and v}
             log.info(f"AI 成員資訊：{len(d)} 團有資料")
             return d
@@ -1126,9 +1142,8 @@ def ai_pick_candidates(releases: list[dict], debuts: list[str], ptt: list[dict])
             log.warning("AI pass1 未執行（超過每日花費上限或 AI 未啟用）")
             return []
         text = next((b.text for b in resp.content if b.type == "text"), "")
-        m = re.search(r"\{[\s\S]*\}", text)
-        if m:
-            data = json.loads(m.group())
+        data = _extract_json(text)
+        if data is not None:
             cands = data.get("candidates", [])
             log.info(f"AI pass1：候選 {len(cands)} 筆")
             return cands
