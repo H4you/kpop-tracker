@@ -1219,9 +1219,11 @@ def spotify_token() -> str:
         j = r.json()
         _spotify_tok["token"] = j.get("access_token", "")
         _spotify_tok["exp"] = time.time() + j.get("expires_in", 3600) - 60
+        log.info(f"Spotify token OK（長度 {len(_spotify_tok['token'])}）")
         return _spotify_tok["token"]
     except Exception as e:
-        log.warning(f"Spotify token 取得失敗: {e}")
+        body = getattr(getattr(e, "response", None), "text", "")
+        log.warning(f"Spotify token 取得失敗: {e} {body[:120]}")
         return ""
 
 
@@ -1242,7 +1244,12 @@ def spotify_artist(group: str) -> dict:
     try:
         r = requests.get("https://api.spotify.com/v1/search",
                          params={"q": group, "type": "artist", "limit": 5},
-                         headers={"Authorization": "Bearer " + tok}, timeout=12)
+                         headers={"Authorization": "Bearer " + tok,
+                                  "Accept": "application/json"}, timeout=12)
+        if r.status_code != 200 or not r.text.strip():
+            log.warning(f"Spotify search HTTP {r.status_code} len={len(r.text)} for {group}: {r.text[:120]}")
+            _spotify_cache[key] = {}
+            return {}
         items = r.json().get("artists", {}).get("items", [])
         best = next((a for a in items if _norm(a.get("name", "")) == key), None) or (items[0] if items else None)
         if best:
