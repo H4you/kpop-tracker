@@ -1,0 +1,16 @@
+{
+  "name": "女團情報板 · KPop Girl Group Tracker",
+  "short_name": "女團情報板",
+  "description": "KPop 女團新曲與官方 MV 自動追蹤儀表板",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0812",
+  "theme_color": "#0a0812",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
