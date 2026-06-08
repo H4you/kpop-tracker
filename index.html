@@ -246,6 +246,22 @@ header {
 .src-chip.on[data-s="Wikipedia"]{ background: rgba(52,211,153,.14); border-color: rgba(52,211,153,.5); color: var(--green); }
 .src-chip.on[data-s="PTT"]      { background: rgba(124,192,255,.14); border-color: rgba(124,192,255,.5); color: var(--blue); }
 .milestone { color: var(--gold) !important; }
+.lyrics { white-space: pre-wrap; line-height: 1.9; font-size: 14px; color: var(--text2); padding: 4px 2px 8px; }
+
+/* ── 回歸月曆視圖 ── */
+.cal-month { padding: 8px 12px 14px; }
+.cal-mtitle { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--text); margin: 8px 2px 10px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.cal-wd { text-align: center; font-size: 10px; color: var(--text3); padding: 2px 0; }
+.cal-cell { min-height: 46px; border-radius: 8px; padding: 4px 5px; background: rgba(255,255,255,.03); border: 1px solid transparent; position: relative; overflow: hidden; }
+.cal-cell.empty { background: none; }
+.cal-cell.has { background: var(--accent-soft); border-color: var(--pink-glow); }
+.cal-cell.today { outline: 1.5px solid var(--accent); outline-offset: -1px; }
+.cal-d { font-size: 11px; color: var(--text3); font-variant-numeric: tabular-nums; }
+.cal-cell.has .cal-d { color: var(--accent2); font-weight: 600; }
+.cal-dot { position: absolute; top: 4px; right: 5px; font-size: 9px; background: var(--accent); color: #fff; border-radius: 99px; padding: 0 5px; line-height: 15px; min-width: 15px; text-align: center; }
+.cal-names { font-size: 9.5px; color: var(--text2); margin-top: 2px; line-height: 1.25; max-height: 26px; overflow: hidden; }
+@media (max-width: 560px) { .cal-cell { min-height: 40px; } .cal-names { display: none; } }
 
 /* ── Track list (glass cards) ── */
 .track-list { display: flex; flex-direction: column; gap: 10px; }
@@ -702,7 +718,8 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
     <div class="upcoming-head">
       <span class="upcoming-title">🔔 發行預告</span>
       <span class="upcoming-sub">未來 45 天內的女團 / 前成員 solo 發行</span>
-      <a class="ics-link" href="data/upcoming.ics" download="kpop-comebacks.ics" title="下載 .ics，可匯入 Google 日曆 / Apple 行事曆 自動提醒回歸">📅 訂閱行事曆</a>
+      <button class="ics-link" id="up-view-toggle" onclick="switchUpcomingView()" title="切換 清單 / 月曆">📅 月曆</button>
+      <a class="ics-link" href="data/upcoming.ics" download="kpop-comebacks.ics" title="下載 .ics，可匯入 Google 日曆 / Apple 行事曆 自動提醒回歸">訂閱</a>
     </div>
     <div class="upcoming-list" id="upcoming-list"></div>
   </div>
@@ -790,6 +807,16 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
   </div>
 </div>
 
+<div class="mv-modal" id="lyr-modal" onclick="if(event.target===this)closeLyrics()">
+  <div class="mv-modal-box" style="background:var(--surface);max-width:560px">
+    <div class="mv-modal-head">
+      <span id="lyr-title">歌詞</span>
+      <button class="mv-close" onclick="closeLyrics()" aria-label="關閉">×</button>
+    </div>
+    <div class="stats-body"><div class="lyrics" id="lyr-body"></div></div>
+  </div>
+</div>
+
 <div class="fab-wrap">
   <button class="fab" id="fab" onclick="fetchAll()" aria-label="重新載入最新女團情報">
     <svg id="fab-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
@@ -821,6 +848,7 @@ let ratings = JSON.parse(localStorage.getItem('kpop_ratings_v1') || '{}');  // {
 let newSinceVisit = new Set();   // 自上次造訪新增的 track id
 let typeFilter = 'all';          // all | group | solo
 let onlyPreview = false;         // 只看有試聽
+let upcomingView = 'list';       // list | calendar（發行預告）
 
 /* ── Persist ── */
 function saveAdded() {
@@ -1032,6 +1060,16 @@ function openProfile(group) {
 }
 function closeProfile() { document.getElementById('prof-modal').classList.remove('show'); }
 
+/* ── 歌詞（LRCLIB，爬蟲端抓好存 t.lyrics）── */
+function openLyrics(id) {
+  const t = tracks.concat(archiveTracks).find(x => x.id === id);
+  if (!t || !t.lyrics) return;
+  document.getElementById('lyr-title').textContent = `${t.group} – ${t.title}`;
+  document.getElementById('lyr-body').textContent = t.lyrics;
+  document.getElementById('lyr-modal').classList.add('show');
+}
+function closeLyrics() { document.getElementById('lyr-modal').classList.remove('show'); }
+
 /* ── 一鍵分享卡（Canvas 生成，純文字+漸層，避免跨網域汙染）── */
 function shareCard(id) {
   const t = tracks.concat(archiveTracks).find(x => x.id === id);
@@ -1149,6 +1187,9 @@ function renderUpcoming() {
   if (!card || !list) return;
   if (!upcoming.length) { card.classList.remove('show'); return; }
   card.classList.add('show');
+  const tgl = document.getElementById('up-view-toggle');
+  if (tgl) tgl.textContent = upcomingView === 'calendar' ? '☰ 清單' : '📅 月曆';
+  if (upcomingView === 'calendar') { renderUpcomingCalendar(list); return; }
   // 今天/明天的排前面，醒目標示
   const sorted = [...upcoming].sort((a,b) => (a.days_left ?? 999) - (b.days_left ?? 999));
   list.innerHTML = sorted.map(u => {
@@ -1164,6 +1205,46 @@ function renderUpcoming() {
       ${badge ? `<span class="up-badge${soon ? ' up-badge-soon' : ''}">${badge}</span>` : ''}
     </a>`;
   }).join('');
+}
+function switchUpcomingView() {
+  upcomingView = upcomingView === 'calendar' ? 'list' : 'calendar';
+  renderUpcoming();
+}
+function renderUpcomingCalendar(list) {
+  // 依日期分組
+  const byDate = {};
+  upcoming.forEach(u => {
+    const m = String(u.date || '').match(/(\d{4})[.\-/](\d{1,2})[.\-/](\d{1,2})/);
+    if (!m) return;
+    const key = `${m[1]}-${String(+m[2]).padStart(2,'0')}-${String(+m[3]).padStart(2,'0')}`;
+    (byDate[key] = byDate[key] || []).push(u);
+  });
+  const today = new Date(); today.setHours(0,0,0,0);
+  const todayKey = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+  // 顯示本月起最多 2 個月
+  const wd = ['日','一','二','三','四','五','六'];
+  let html = '';
+  for (let mo = 0; mo < 2; mo++) {
+    const base = new Date(today.getFullYear(), today.getMonth() + mo, 1);
+    const y = base.getFullYear(), m = base.getMonth();
+    const first = new Date(y, m, 1).getDay();
+    const days = new Date(y, m + 1, 0).getDate();
+    html += `<div class="cal-month"><div class="cal-mtitle">${y} 年 ${m+1} 月</div><div class="cal-grid">`;
+    html += wd.map(d => `<div class="cal-wd">${d}</div>`).join('');
+    for (let i = 0; i < first; i++) html += `<div class="cal-cell empty"></div>`;
+    for (let d = 1; d <= days; d++) {
+      const key = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const items = byDate[key] || [];
+      const has = items.length > 0;
+      const tip = has ? items.map(u => `${u.group} - ${u.title||u.album||''}`).join('\n') : '';
+      html += `<div class="cal-cell${has ? ' has' : ''}${key===todayKey ? ' today' : ''}" title="${escHtml(tip)}">
+        <span class="cal-d">${d}</span>
+        ${has ? `<span class="cal-dot">${items.length}</span><div class="cal-names">${items.map(u=>escHtml(u.group)).join('、')}</div>` : ''}
+      </div>`;
+    }
+    html += `</div></div>`;
+  }
+  list.innerHTML = html;
 }
 
 /* ── 本月成員生日 ── */
@@ -1282,6 +1363,7 @@ function render() {
           ${newSinceVisit.has(t.id) ? '<span class="badge badge-fresh" title="自上次造訪新增">🆕 新</span>' : ''}
           ${profiles[t.group] ? `<span class="badge clickable" style="cursor:pointer" onclick="openProfile('${escAttr(t.group)}')" title="${escHtml(t.group)} 小檔案">檔案</span>` : ''}
           ${members[t.group] ? `<span class="badge clickable" style="cursor:pointer;background:var(--pink-dim);color:var(--accent2);border:1px solid var(--pink-glow)" onclick="openMembers('${escAttr(t.group)}')" title="查看 ${escHtml(t.group)} 成員">成員</span>` : ''}
+          ${t.lyrics ? `<span class="badge clickable" style="cursor:pointer" onclick="openLyrics('${t.id}')" title="看歌詞">歌詞</span>` : ''}
           ${t.is_new ? '<span class="badge badge-new">NEW</span>' : ''}
           ${t.is_hot ? '<span class="badge badge-hot">HOT</span>' : ''}
           ${t.circle_rank ? `<span class="badge badge-rank">#${t.circle_rank}</span>` : ''}
@@ -1606,7 +1688,7 @@ document.getElementById('search-box').addEventListener('input', e => {
 });
 
 /* ── ESC 關閉 MV 彈窗 ── */
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMV(); closeDisco(); closeMem(); closeStats(); closeProfile(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMV(); closeDisco(); closeMem(); closeStats(); closeProfile(); closeLyrics(); } });
 
 /* ── Init ── */
 if (myPlaylistId) document.getElementById('pl-input').value =
