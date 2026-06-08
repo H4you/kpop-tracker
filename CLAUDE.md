@@ -58,7 +58,9 @@ kpop-tracker/
 ```
 
 前端：MV 縮圖（`i.ytimg.com`）+ 內嵌彈窗播放（`youtube.com/embed`）；分頁
-全部/♥最愛/未標記/已標記/本週新/歷史；搜尋、來源/時間篩選；排序 日期/熱度/成長。
+全部/♥最愛/未標記/已標記/本週新/歷史；搜尋、來源/時間/進階篩選（女團/solo/有試聽）；
+排序 日期/熱度/成長/按讚/粉絲；觀看數里程碑、一鍵分享卡（Canvas，純文字避免跨域汙染）。
+藝人小檔案簡介為繁中（`wikipedia_summary(lang="zh")` 優先，英文經 `translate_to_zh` MyMemory 翻譯）。
 個人化存 localStorage：`kpop_added_v3`(標記)、`kpop_fav_groups`(最愛)、
 `kpop_ratings_v1`(評分)、`kpop_seen_ids`(未讀)、`kpop_playlist_id`(播放清單)。
 
