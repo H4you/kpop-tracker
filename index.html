@@ -242,8 +242,10 @@ header {
   border: 1px solid var(--brd2); color: var(--text3); cursor: pointer;
   transition: all .15s; font-family: var(--font-body); letter-spacing: .03em;
 }
+.src-chip.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent2); }
 .src-chip.on[data-s="Wikipedia"]{ background: rgba(52,211,153,.14); border-color: rgba(52,211,153,.5); color: var(--green); }
 .src-chip.on[data-s="PTT"]      { background: rgba(124,192,255,.14); border-color: rgba(124,192,255,.5); color: var(--blue); }
+.milestone { color: var(--gold) !important; }
 
 /* ── Track list (glass cards) ── */
 .track-list { display: flex; flex-direction: column; gap: 10px; }
@@ -600,6 +602,8 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
         <option value="date">依日期</option>
         <option value="views">依熱度</option>
         <option value="growth">依成長</option>
+        <option value="likes">依按讚</option>
+        <option value="fans">依粉絲</option>
       </select>
       <select class="btn-ghost" id="time-sel" style="cursor:pointer" title="依發行日期過濾">
         <option value="all">全部（近2週）</option>
@@ -669,6 +673,14 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
     <span class="src-label">來源篩選</span>
     <span class="src-chip on" data-s="Wikipedia" onclick="toggleSrc(this)">Wikipedia</span>
     <span class="src-chip on" data-s="PTT"       onclick="toggleSrc(this)">PTT</span>
+  </div>
+
+  <div class="src-chips">
+    <span class="src-label">進階篩選</span>
+    <span class="src-chip on" id="tf-all"   onclick="setType('all')">全部</span>
+    <span class="src-chip"    id="tf-group" onclick="setType('group')">👯 女團</span>
+    <span class="src-chip"    id="tf-solo"  onclick="setType('solo')">🎤 solo</span>
+    <span class="src-chip"    id="cf-prev"  onclick="togglePreviewFilter()">🔊 有試聽</span>
   </div>
 
   <div class="newbar" id="newbar" style="display:none"></div>
@@ -807,6 +819,8 @@ let topTracks = {};      // { group: [{title,preview,album,cover}] }
 let profiles = {};       // { group: {bio,genre,formed,country,banner,thumb} }
 let ratings = JSON.parse(localStorage.getItem('kpop_ratings_v1') || '{}');  // { "group|title": 1-5 }
 let newSinceVisit = new Set();   // 自上次造訪新增的 track id
+let typeFilter = 'all';          // all | group | solo
+let onlyPreview = false;         // 只看有試聽
 
 /* ── Persist ── */
 function saveAdded() {
@@ -890,6 +904,31 @@ function toggleAdded(id) {
 function markAllAdded() {
   getFiltered().forEach(t => added.add(t.id));
   saveAdded(); updateStats(); render();
+}
+
+/* ── 進階篩選：類型 / 有試聽 ── */
+function setType(v) {
+  typeFilter = v;
+  ['all', 'group', 'solo'].forEach(k => document.getElementById('tf-' + k).classList.toggle('on', k === v));
+  render();
+}
+function togglePreviewFilter() {
+  onlyPreview = !onlyPreview;
+  document.getElementById('cf-prev').classList.toggle('on', onlyPreview);
+  render();
+}
+
+/* ── 觀看數里程碑 ── */
+function nextMilestone(views) {
+  if (typeof views !== 'number' || views <= 0) return null;
+  const steps = [
+    [1e7, '千萬'], [3e7, '3千萬'], [5e7, '5千萬'],
+    [1e8, '1 億'], [2e8, '2 億'], [3e8, '3 億'], [5e8, '5 億'], [1e9, '10 億'],
+  ];
+  for (const [n, label] of steps) {
+    if (views < n) return { label, remaining: n - views };
+  }
+  return null;
 }
 
 /* ── 追蹤最愛團 ── */
@@ -993,6 +1032,61 @@ function openProfile(group) {
 }
 function closeProfile() { document.getElementById('prof-modal').classList.remove('show'); }
 
+/* ── 一鍵分享卡（Canvas 生成，純文字+漸層，避免跨網域汙染）── */
+function shareCard(id) {
+  const t = tracks.concat(archiveTracks).find(x => x.id === id);
+  if (!t) return;
+  const W = 1080, H = 1080, c = document.createElement('canvas');
+  c.width = W; c.height = H;
+  const x = c.getContext('2d');
+  const g = x.createLinearGradient(0, 0, W, H);
+  g.addColorStop(0, '#ff5c93'); g.addColorStop(0.55, '#d81b60'); g.addColorStop(1, '#0a0812');
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  // 裝飾光暈
+  const rg = x.createRadialGradient(W * 0.8, H * 0.15, 40, W * 0.8, H * 0.15, 600);
+  rg.addColorStop(0, 'rgba(255,255,255,.18)'); rg.addColorStop(1, 'rgba(255,255,255,0)');
+  x.fillStyle = rg; x.fillRect(0, 0, W, H);
+  x.fillStyle = '#fff';
+  x.textBaseline = 'alphabetic';
+  // 團名（強調色 eyebrow）
+  x.font = '700 42px "Space Grotesk","Noto Sans TC",sans-serif';
+  x.fillStyle = 'rgba(255,255,255,.92)';
+  x.fillText((t.group || '').toUpperCase().slice(0, 28), 90, 250);
+  // 歌名（大字，自動換行）
+  x.font = '700 96px "Space Grotesk","Noto Sans TC",sans-serif';
+  x.fillStyle = '#fff';
+  const words = String(t.title || '').split(/(?<=.)/);   // 逐字以支援中韓
+  let line = '', yy = 380; const maxW = W - 180, lh = 116; let lines = 0;
+  for (const ch of words) {
+    if (x.measureText(line + ch).width > maxW) { x.fillText(line, 90, yy); yy += lh; line = ch; if (++lines >= 3) break; }
+    else line += ch;
+  }
+  if (lines < 3 && line) x.fillText(line, 90, yy);
+  // meta
+  x.font = '400 38px "Outfit","Noto Sans TC",sans-serif';
+  x.fillStyle = 'rgba(255,255,255,.9)';
+  const meta = [t.date, fmtViews(t.yt_views) ? '▶ ' + fmtViews(t.yt_views) : '', t.is_solo ? 'solo' : '女團'].filter(Boolean).join('   ');
+  x.fillText(meta, 90, 980);
+  // footer 品牌
+  x.font = '600 30px "Space Grotesk",sans-serif';
+  x.fillStyle = 'rgba(255,255,255,.7)';
+  x.fillText('🎀 GIRLGROUP TRACKER', 90, 1030);
+  c.toBlob((blob) => {
+    if (!blob) return;
+    const file = new File([blob], `${t.group}-${t.title}.png`, { type: 'image/png' });
+    const text = `${t.group} – ${t.title}` + (t.yt_url ? '\n' + t.yt_url : '');
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: t.group, text }).catch(() => {});
+    } else {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${t.group}-${t.title}.png`.replace(/[\\/:*?"<>|]/g, '_');
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    }
+  }, 'image/png');
+}
+
 /* ── Stats ── */
 function updateStats() {
   const total = tracks.length;
@@ -1029,6 +1123,10 @@ function getFiltered() {
     const win = timeVal === 'week' ? 7 : (timeVal === '3d' ? 3 : 0);
     if (win) list = list.filter(t => withinDays(t.date, win));
   }
+  // 進階篩選：類型（女團/solo）、有試聽
+  if (typeFilter === 'group') list = list.filter(t => !t.is_solo);
+  else if (typeFilter === 'solo') list = list.filter(t => t.is_solo);
+  if (onlyPreview) list = list.filter(t => t.preview_url);
   if (searchQuery) {
     const q = searchQuery.toLowerCase();
     list = list.filter(t =>
@@ -1036,11 +1134,11 @@ function getFiltered() {
         .toLowerCase().includes(q));
   }
   const sortEl = document.getElementById('sort-sel');
-  if (sortEl && sortEl.value === 'views') {
-    list = [...list].sort((a, b) => (b.yt_views || 0) - (a.yt_views || 0));
-  } else if (sortEl && sortEl.value === 'growth') {
-    list = [...list].sort((a, b) => ((getGrowth(b.yt_id)?.delta || 0) - (getGrowth(a.yt_id)?.delta || 0)));
-  }
+  const sv = sortEl ? sortEl.value : 'date';
+  if (sv === 'views') list = [...list].sort((a, b) => (b.yt_views || 0) - (a.yt_views || 0));
+  else if (sv === 'growth') list = [...list].sort((a, b) => ((getGrowth(b.yt_id)?.delta || 0) - (getGrowth(a.yt_id)?.delta || 0)));
+  else if (sv === 'likes') list = [...list].sort((a, b) => (b.yt_likes || 0) - (a.yt_likes || 0));
+  else if (sv === 'fans')  list = [...list].sort((a, b) => (b.fans || 0) - (a.fans || 0));
   return list;
 }
 
@@ -1195,6 +1293,7 @@ function render() {
           ${fmtViews(t.yt_views) ? `<span class="track-meta-item view-count" title="MV 觀看數">▶ ${fmtViews(t.yt_views)}</span>` : ''}
           ${typeof t.yt_likes === 'number' && t.yt_likes > 0 ? `<span class="track-meta-item" title="MV 按讚數">👍 ${fmtViews(t.yt_likes)}</span>` : ''}
           ${g && g.delta > 0 ? `<span class="track-meta-item growth-up" title="近 ${g.days} 天觀看數成長">▲ ${fmtViews(g.delta)} ${sparkline(g.points, 50, 16)}</span>` : ''}
+          ${(() => { const ms = nextMilestone(t.yt_views); if (!ms) return ''; const gg = getGrowth(t.yt_id); const perDay = gg && gg.days > 0 ? gg.delta / gg.days : 0; const eta = perDay > 0 ? `，約 ${Math.max(1, Math.ceil(ms.remaining / perDay))} 天` : ''; return `<span class="track-meta-item milestone" title="距下一個里程碑${eta}">🏆 距 ${ms.label} 還差 ${fmtViews(ms.remaining)}</span>`; })()}
           ${(() => { if (!t.yt_published) return ''; const dd = Math.floor((Date.now() - new Date(t.yt_published)) / 864e5); return dd >= 0 && dd <= 60 ? `<span class="track-meta-item" title="MV 上線於 ${t.yt_published}">🆙 上線 ${dd} 天</span>` : ''; })()}
           ${typeof t.fans === 'number' && t.fans > 0 ? `<span class="track-meta-item pop-tag" title="Deezer 粉絲數">👥 ${fmtViews(t.fans)}</span>` : ''}
           ${(t.agency || t.debut_year) ? `<span class="track-meta-item" title="經紀公司 / 出道年">🏢 ${escHtml([t.agency, t.debut_year ? t.debut_year + ' 出道' : ''].filter(Boolean).join(' · '))}</span>` : ''}
@@ -1203,6 +1302,9 @@ function render() {
         </div>
       </div>
       <div class="track-actions">
+        <button class="icon-btn" onclick="shareCard('${t.id}')" aria-label="分享 ${escHtml(t.group)} ${escHtml(t.title)}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
+        </button>
         ${t.preview_url ? `<button class="icon-btn prev-btn" data-url="${escAttr(t.preview_url)}" onclick="togglePreview(this.dataset.url)" aria-label="試聽 30 秒 ${escHtml(t.title)}">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.06A4.5 4.5 0 0 0 16.5 12z"/></svg>
         </button>` : ''}

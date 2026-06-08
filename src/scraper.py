@@ -1627,25 +1627,59 @@ def musicbrainz_members(group: str) -> list[dict]:
         return []
 
 
-def wikipedia_summary(group: str, group_kr: str = "") -> str:
-    """Wikipedia REST 摘要當簡介備援（TheAudioDB 對 K-pop 常缺英文簡介）。"""
+def wikipedia_summary(group: str, group_kr: str = "", lang: str = "en") -> str:
+    """Wikipedia REST 摘要當簡介。lang='zh' 取繁體中文維基（Accept-Language: zh-tw）。"""
+    headers = dict(HEADERS)
+    if lang == "zh":
+        headers["Accept-Language"] = "zh-tw"
     for name in [group, group_kr]:
         if not name:
             continue
         try:
-            url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + quote(name.replace(" ", "_"))
-            r = requests.get(url, headers=HEADERS, timeout=12)
+            url = f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/" + quote(name.replace(" ", "_"))
+            r = requests.get(url, headers=headers, timeout=12)
             if r.status_code != 200:
                 continue
             j = r.json()
             if j.get("type") == "disambiguation":
                 continue
             ex = (j.get("extract") or "").strip()
-            if ex and len(ex) > 40:
+            if ex and len(ex) > 30:
                 return ex[:700].rsplit(" ", 1)[0] + ("…" if len(ex) > 700 else "")
         except Exception:
             continue
     return ""
+
+
+def translate_to_zh(text: str) -> str:
+    """用 MyMemory 免費翻譯把英文簡介轉繁中（分段，每段 ≤450 字，最多 2 段）。失敗回空。"""
+    text = (text or "").strip()
+    if not text:
+        return ""
+    chunks, buf = [], ""
+    for sent in re.split(r"(?<=[.!?])\s+", text):
+        if len(buf) + len(sent) + 1 <= 450:
+            buf = (buf + " " + sent).strip()
+        else:
+            if buf:
+                chunks.append(buf)
+            buf = sent
+    if buf:
+        chunks.append(buf)
+    out = []
+    for c in chunks[:2]:
+        try:
+            r = requests.get("https://api.mymemory.translated.net/get",
+                             params={"q": c, "langpair": "en|zh-TW"}, timeout=12)
+            tr = (r.json().get("responseData", {}) or {}).get("translatedText", "")
+            if tr and "MYMEMORY WARNING" not in tr.upper():
+                out.append(tr)
+            else:
+                return ""
+        except Exception as e:
+            log.warning(f"翻譯失敗: {e}")
+            return ""
+    return "".join(out).strip()
 
 
 def audiodb_profile(group: str, group_kr: str = "") -> dict:
@@ -1665,13 +1699,18 @@ def audiodb_profile(group: str, group_kr: str = "") -> dict:
     if arts:
         gk = _norm(group)
         a = next((x for x in arts if _norm(x.get("strArtist", "")) == gk), None) or arts[0]
-    bio = ""
-    if a:
-        bio = (a.get("strBiographyEN") or a.get("strBiographyCN") or "").strip()
-        if len(bio) > 700:
-            bio = bio[:700].rsplit(" ", 1)[0] + "…"
+    # 簡介：優先繁中維基 → 否則英文(維基/TheAudioDB)用免費翻譯轉繁中 → 再不行給英文原文
+    bio = wikipedia_summary(group, group_kr, lang="zh")
     if not bio:
-        bio = wikipedia_summary(group, group_kr)   # 備援：維基摘要
+        en = ""
+        if a:
+            en = (a.get("strBiographyEN") or "").strip()
+            if len(en) > 700:
+                en = en[:700].rsplit(" ", 1)[0] + "…"
+        if not en:
+            en = wikipedia_summary(group, group_kr, lang="en")
+        if en:
+            bio = translate_to_zh(en) or en   # 翻不動就先給英文，至少有內容
     out = {
         "bio": bio,
         "genre": (a.get("strGenre") or a.get("strStyle") or "").strip() if a else "",
