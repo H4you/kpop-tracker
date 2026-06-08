@@ -147,6 +147,16 @@
           ]
         },
         {
+          "id": 6771565456,
+          "album": "LEMONADE - The 2nd Album",
+          "artist": "aespa",
+          "year": "2026",
+          "track_count": 11,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
+          "tracks": []
+        },
+        {
           "id": 1895001305,
           "album": "WDA (Whole Different Animal) [feat. G-DRAGON] - Single",
           "artist": "aespa",
@@ -159,25 +169,6 @@
           ]
         },
         {
-          "id": 6771565456,
-          "album": "LEMONADE - The 2nd Album",
-          "artist": "aespa",
-          "year": "2026",
-          "track_count": 11,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b0/9c/54/b09c5415-5a07-11df-6497-a887a642dacb/888735955242_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/lemonade-the-2nd-album/6771565456?uo=4",
-          "tracks": []
-        },
-        {
-          "id": 6773878061,
-          "album": "LEMONADE (2Spade Remix) - Single",
-          "artist": "aespa",
-          "year": "2026",
-          "track_count": 2,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f8/f0/c4/f8f0c454-b632-f29c-3f59-30682eaeaed3/888735955860_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/lemonade-2spade-remix-single/6773878061?uo=4"
-        },
-        {
           "id": 1772214980,
           "album": "Whiplash - The 5th Mini Album - EP",
           "artist": "aespa",
@@ -185,6 +176,15 @@
           "track_count": 7,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d5/c1/f5/d5c1f505-f588-775f-df05-c672a8ec22e9/888735949562_Cover.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/whiplash-the-5th-mini-album-ep/1772214980?uo=4"
+        },
+        {
+          "id": 1773694541,
+          "album": "Armageddon - The 1st Album",
+          "artist": "aespa",
+          "year": "2024",
+          "track_count": 11,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/50/7e/e0/507ee09f-ccfd-1e3c-af90-ca5e92b1221b/00888735949869_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/armageddon-the-1st-album/1773694541?uo=4"
         },
         {
           "id": 1781140573,
@@ -4124,5 +4124,5 @@
       "album_count": 8
     }
   },
-  "updated_at": "2026-06-08 08:38"
+  "updated_at": "2026-06-08 08:58"
 }
