@@ -582,10 +582,10 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
         <option value="views">依熱度</option>
         <option value="growth">依成長</option>
       </select>
-      <select class="btn-ghost" id="time-sel" style="cursor:pointer">
-        <option value="all">全部</option>
-        <option value="week" selected>本週</option>
-        <option value="new">7天內</option>
+      <select class="btn-ghost" id="time-sel" style="cursor:pointer" title="依發行日期過濾">
+        <option value="all">全部（近2週）</option>
+        <option value="week" selected>近 7 天</option>
+        <option value="3d">近 3 天</option>
       </select>
     </div>
   </header>
@@ -922,6 +922,14 @@ function updateStats() {
   document.getElementById('sn-pending').textContent = total ? total - a : '·';
 }
 
+/* 發行日期是否在近 n 天內（含當天/未來）。日期格式 YYYY.MM.DD / YYYY-MM-DD */
+function withinDays(dateStr, n) {
+  const m = String(dateStr || '').match(/(\d{4})[.\-/](\d{1,2})[.\-/](\d{1,2})/);
+  if (!m) return true;   // 無法解析就不過濾掉
+  const d = new Date(+m[1], +m[2] - 1, +m[3]);
+  return (Date.now() - d.getTime()) <= n * 864e5;
+}
+
 /* ── Filter ── */
 function getFiltered() {
   let list;
@@ -936,7 +944,8 @@ function getFiltered() {
     else if (curTab === 'fav') list = list.filter(t => favGroups.has(t.group));
     else if (curTab === 'new') list = list.filter(t => t.is_new);
     list = list.filter(t => (t.sources || ['Wikipedia']).some(s => activeSrc.has(s)));
-    if (timeVal === 'new') list = list.filter(t => t.is_new);
+    const win = timeVal === 'week' ? 7 : (timeVal === '3d' ? 3 : 0);
+    if (win) list = list.filter(t => withinDays(t.date, win));
   }
   if (searchQuery) {
     const q = searchQuery.toLowerCase();

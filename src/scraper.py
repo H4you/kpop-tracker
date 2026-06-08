@@ -810,7 +810,11 @@ def youtube_find_mv(group: str, title: str,
         if not song_ok and not is_very_recent(pub):
             continue
 
-        score = (100 if song_ok else 0) + (10 if title_official else 0) + (5 if recent else 0)
+        # 「強官方」：AI 指定頻道 / 已知廠牌經銷頻道——優先於「只是頻道名含團名」
+        # （粉絲頻道也常叫團名，故 bare group-name 不算強），避免抓到粉絲搬運 MV
+        strong_official = ai_ch or any(k in ch_norm for k in _DISTRIB)
+        score = ((100 if song_ok else 0) + (40 if strong_official else 0)
+                 + (10 if title_official else 0) + (5 if recent else 0))
         scored.append((score, -idx, {
             "title": t, "channel": ch, "vid": vid,
             "url": f"https://www.youtube.com/watch?v={vid}", "views": parse_views(vc)}))
@@ -1501,42 +1505,54 @@ def youtube_api_channel_subs(channel_ids: list[str]) -> dict:
 
 def youtube_api_search_mv(group: str, title: str, group_kr: str = "") -> dict | None:
     """官方 API 搜尋 fallback：爬蟲找不到 MV 時，用 Data API 找官方 MV。
-    回 {url, vid, title} 或 None。search 每次 100 units，只在必要時呼叫。"""
+    嚴格：標題須含 MV 字樣、不得是 medley/teaser/preview/audio 等(_MV_NEG)、
+    曲名相符、且出自官方頻道；多筆合格時取觀看數最高者。回 {url,vid,title} 或 None。"""
     if not YT_API_KEY or not group or not title:
         return None
     queries = [f"{group} {title} official MV", f"{group} {title} MV"]
     if group_kr:
         queries.append(f"{group_kr} {title} MV")
     song = _norm(title)
+    gtok = _norm(group)
+    cands = {}   # vid -> {title, channel}
     for q in queries:
         try:
             r = requests.get("https://www.googleapis.com/youtube/v3/search",
                              params={"part": "snippet", "q": q, "type": "video",
-                                     "maxResults": 8, "key": YT_API_KEY}, timeout=15)
-            items = r.json().get("items", [])
-            best = None
-            for it in items:
-                sn = it.get("snippet", {})
-                vtitle = sn.get("title", "")
-                ch = sn.get("channelTitle", "")
-                nt = _norm(vtitle)
-                # 歌名要對得上；偏好官方頻道（含團名 / Official / VEVO / Entertainment）
-                if song and song not in nt:
-                    continue
-                official = any(k in _norm(ch) for k in [_norm(group), "official", "vevo", "entertainment", "smtown", "jype", "hybe"])
-                if official:
-                    best = it
-                    break
-                best = best or it
-            if best:
-                vid = best.get("id", {}).get("videoId", "")
-                if vid:
-                    return {"url": f"https://youtu.be/{vid}", "vid": vid,
-                            "title": best.get("snippet", {}).get("title", "")}
+                                     "maxResults": 10, "key": YT_API_KEY}, timeout=15)
         except Exception as e:
             log.warning(f"YouTube API 搜尋失敗: {e}")
             break
-    return None
+        for it in r.json().get("items", []):
+            sn = it.get("snippet", {})
+            vtitle = sn.get("title", "")
+            ch = sn.get("channelTitle", "")
+            vid = it.get("id", {}).get("videoId", "")
+            if not vid:
+                continue
+            up = vtitle.upper()
+            # 必須像「正式 MV」：含 MV 字樣、且不是 medley/teaser/preview/audio/live…
+            if any(n in up for n in _MV_NEG):
+                continue
+            if not any(p in up for p in _MV_POS):
+                continue
+            # 曲名要對得上
+            if song and song not in _norm(vtitle):
+                continue
+            # 官方頻道：頻道名含團名，或已知廠牌/經銷（不採信單字 official，假頻道常濫用）
+            cn = _norm(ch)
+            official = (gtok and len(gtok) >= 4 and gtok[:5] in cn) or \
+                       any(k in cn for k in _DISTRIB) or "vevo" in cn
+            if not official:
+                continue
+            cands.setdefault(vid, {"title": vtitle, "channel": ch})
+    if not cands:
+        return None
+    # 多筆合格 → 用觀看數挑最高（正式官方 MV 通常遠高於其他）
+    det = youtube_api_video_details(list(cands.keys()))
+    best_vid = max(cands.keys(), key=lambda v: (det.get(v, {}).get("views") or 0))
+    return {"url": f"https://youtu.be/{best_vid}", "vid": best_vid,
+            "title": cands[best_vid]["title"]}
 
 
 def youtube_api_discover(days: int = 21) -> list[dict]:
