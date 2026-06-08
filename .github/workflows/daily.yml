@@ -39,6 +39,8 @@ jobs:
           SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
           SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
           SITE_URL: "https://h4you.github.io/kpop-tracker/"
           TEST_NOTIFY: ${{ github.event.inputs.test_notify }}
           # 每日 API 花費上限（美元）；程式累計 token 成本超過就停止後續 AI 呼叫

@@ -45,6 +45,9 @@ AI_MODEL = "claude-sonnet-4-6"
 SPOTIFY_ID = os.environ.get("SPOTIFY_CLIENT_ID", "").strip()
 SPOTIFY_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", "").strip()
 YT_API_KEY = os.environ.get("YOUTUBE_API_KEY", "").strip()
+REDDIT_ID = os.environ.get("REDDIT_CLIENT_ID", "").strip()
+REDDIT_SECRET = os.environ.get("REDDIT_CLIENT_SECRET", "").strip()
+REDDIT_UA = "kpop-tracker/1.0 (girl group release tracker)"
 
 # ── 每日 API 花費上限保護 ───────────────────────────────────────────────────────
 # Anthropic 後台不支援「每日」上限，故在程式內自行控管：累計本次執行的 token 用量，
@@ -325,24 +328,48 @@ def fetch_ptt_posts(pages: int = 3) -> list[dict]:
     return posts
 
 
+def reddit_token() -> str:
+    """Reddit application-only OAuth（client_credentials）token。
+    沒設 REDDIT_CLIENT_ID/SECRET 回空字串（改走公開端點，但雲端常被擋）。"""
+    if not (REDDIT_ID and REDDIT_SECRET):
+        return ""
+    try:
+        r = requests.post("https://www.reddit.com/api/v1/access_token",
+                          data={"grant_type": "client_credentials"},
+                          auth=(REDDIT_ID, REDDIT_SECRET),
+                          headers={"User-Agent": REDDIT_UA}, timeout=15)
+        r.raise_for_status()
+        return r.json().get("access_token", "")
+    except Exception as e:
+        body = getattr(getattr(e, "response", None), "text", "")
+        log.warning(f"Reddit token 取得失敗: {e} {body[:120]}")
+        return ""
+
+
 def fetch_reddit_posts(limit: int = 60) -> list[dict]:
     """從 r/kpop 抓近期貼文標題（[Comeback]/[MV]/[Teaser] 等），作為 AI 篩選的補充線索。
-    用公開 .json 端點；雲端 IP 偶爾被限流（403/429），失敗即略過不影響主流程。"""
-    posts = []
-    urls = [
-        "https://www.reddit.com/r/kpop/new.json?limit=" + str(limit),
-        "https://www.reddit.com/r/kpop/search.json?q=flair%3AComeback&restrict_sr=1&sort=new&limit=40",
-    ]
-    ua = {"User-Agent": "kpop-tracker/1.0 (girl group release tracker)"}
-    seen = set()
-    for url in urls:
+    優先用官方 OAuth（oauth.reddit.com，雲端 IP 可正常存取）；沒金鑰才退回公開 .json。"""
+    tok = reddit_token()
+    if tok:
+        base = "https://oauth.reddit.com"
+        headers = {"Authorization": "Bearer " + tok, "User-Agent": REDDIT_UA}
+        paths = [f"/r/kpop/new?limit={limit}",
+                 "/r/kpop/search?q=flair%3AComeback&restrict_sr=1&sort=new&limit=40"]
+        mode = "OAuth"
+    else:
+        base = "https://www.reddit.com"
+        headers = {"User-Agent": REDDIT_UA}
+        paths = [f"/r/kpop/new.json?limit={limit}",
+                 "/r/kpop/search.json?q=flair%3AComeback&restrict_sr=1&sort=new&limit=40"]
+        mode = "公開"
+    posts, seen = [], set()
+    for p in paths:
         try:
-            r = requests.get(url, headers=ua, timeout=12)
+            r = requests.get(base + p, headers=headers, timeout=12)
             if r.status_code != 200:
                 log.warning(f"Reddit 取得失敗 HTTP {r.status_code}")
                 continue
-            children = r.json().get("data", {}).get("children", [])
-            for c in children:
+            for c in r.json().get("data", {}).get("children", []):
                 d = c.get("data", {})
                 title = (d.get("title") or "").strip()
                 if not title or title in seen:
@@ -353,7 +380,7 @@ def fetch_reddit_posts(limit: int = 60) -> list[dict]:
             time.sleep(0.6)
         except Exception as e:
             log.warning(f"Reddit 抓取失敗: {e}")
-    log.info(f"Reddit: 取得 {len(posts)} 篇 r/kpop 貼文")
+    log.info(f"Reddit（{mode}）：取得 {len(posts)} 篇 r/kpop 貼文")
     return posts
 
 
@@ -1285,35 +1312,55 @@ def itunes_preview(group: str, title: str) -> dict:
     return {}
 
 
-def deezer_lookup(group: str, title: str) -> dict:
-    """Deezer 公開 API（免金鑰、不需 Premium）：取藝人照片、30 秒試聽、粉絲數。
-    回 {artist_img, preview_url, fans}。失敗回 {}。"""
+def _deezer_find_artist(name: str) -> dict | None:
+    """用 Deezer 藝人搜尋找最相符的藝人物件（精準比對團名，避免抓錯團）。"""
+    if not name:
+        return None
+    try:
+        r = requests.get("https://api.deezer.com/search/artist",
+                         params={"q": name, "limit": 10}, timeout=12)
+        data = r.json().get("data", [])
+    except Exception as e:
+        log.warning(f"Deezer 藝人搜尋失敗 {name}: {e}")
+        return None
+    if not data:
+        return None
+    nk = _norm(name)
+    # 1) 完全相符  2) 互為包含（FIFTY FIFTY / fiftyfifty 等）  3) 粉絲數最高者
+    exact = next((a for a in data if _norm(a.get("name", "")) == nk), None)
+    if exact:
+        return exact
+    contains = [a for a in data if nk and (nk in _norm(a.get("name", "")) or _norm(a.get("name", "")) in nk)]
+    if contains:
+        return max(contains, key=lambda a: a.get("nb_fan", 0))
+    return None  # 不相符寧可不給，避免放錯團的照片
+
+
+def deezer_lookup(group: str, title: str, group_kr: str = "") -> dict:
+    """Deezer 公開 API（免金鑰、不需 Premium）：藝人照片、30 秒試聽、粉絲數。
+    先用「藝人搜尋」精準鎖定團，再用該團 id 找試聽，避免被歌名干擾。回 {} 表示沒對到。"""
     if not group:
         return {}
     out = {}
+    artist = _deezer_find_artist(group) or (_deezer_find_artist(group_kr) if group_kr else None)
+    if not artist:
+        return {}
+    aid = artist.get("id")
+    out["artist_img"] = artist.get("picture_xl") or artist.get("picture_big") or artist.get("picture_medium") or ""
+    if isinstance(artist.get("nb_fan"), int):
+        out["fans"] = artist["nb_fan"]
+    # 試聽：限定該藝人 + 歌名
     try:
-        q = f"{group} {title}".strip()
-        r = requests.get("https://api.deezer.com/search", params={"q": q, "limit": 6}, timeout=12)
+        time.sleep(0.1)
+        q = f'artist:"{artist.get("name","")}" track:"{title}"' if title else f'artist:"{artist.get("name","")}"'
+        r = requests.get("https://api.deezer.com/search", params={"q": q, "limit": 8}, timeout=12)
         data = r.json().get("data", [])
-        gk = _norm(group)
-        pick = next((d for d in data if gk and gk in _norm((d.get("artist") or {}).get("name", ""))), None)
-        pick = pick or (data[0] if data else None)
-        if pick:
-            art = pick.get("artist") or {}
-            out["artist_img"] = art.get("picture_medium") or art.get("picture_big") or ""
-            if pick.get("preview"):
-                out["preview_url"] = pick["preview"]
-            # 取粉絲數 + 大張藝人照（需再打 artist 端點）
-            aid = art.get("id")
-            if aid:
-                time.sleep(0.1)
-                ar = requests.get(f"https://api.deezer.com/artist/{aid}", timeout=12).json()
-                if isinstance(ar.get("nb_fan"), int):
-                    out["fans"] = ar["nb_fan"]
-                if ar.get("picture_xl") or ar.get("picture_big"):
-                    out["artist_img"] = ar.get("picture_xl") or ar.get("picture_big")
+        pick = next((d for d in data if d.get("preview") and (d.get("artist") or {}).get("id") == aid), None)
+        pick = pick or next((d for d in data if d.get("preview")), None)
+        if pick and pick.get("preview"):
+            out["preview_url"] = pick["preview"]
     except Exception as e:
-        log.warning(f"Deezer 失敗 {group}-{title}: {e}")
+        log.warning(f"Deezer 試聽搜尋失敗 {group}-{title}: {e}")
     return out
 
 
@@ -1420,7 +1467,7 @@ def enrich_external(tracks: list[dict]) -> None:
         return
     n_img = n_prev = n_fan = 0
     for t in tracks:
-        dz = deezer_lookup(t.get("group", ""), t.get("title", ""))
+        dz = deezer_lookup(t.get("group", ""), t.get("title", ""), t.get("group_kr", ""))
         if dz.get("artist_img"):
             t["artist_img"] = dz["artist_img"]; n_img += 1
         if dz.get("fans") is not None:
