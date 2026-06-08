@@ -1627,6 +1627,37 @@ def musicbrainz_members(group: str) -> list[dict]:
         return []
 
 
+def audiodb_profile(group: str, group_kr: str = "") -> dict:
+    """TheAudioDB（免費）：取團體簡介、類型、成立年、橫幅/大圖。回 {} 表示查無。"""
+    if not group:
+        return {}
+    def _query(name):
+        try:
+            r = requests.get("https://www.theaudiodb.com/api/v1/json/2/search.php",
+                             params={"s": name}, timeout=12)
+            return r.json().get("artists") or []
+        except Exception as e:
+            log.warning(f"TheAudioDB 失敗 {name}: {e}")
+            return []
+    arts = _query(group) or (_query(group_kr) if group_kr else [])
+    if not arts:
+        return {}
+    gk = _norm(group)
+    a = next((x for x in arts if _norm(x.get("strArtist", "")) == gk), None) or arts[0]
+    bio = (a.get("strBiographyEN") or a.get("strBiographyCN") or "").strip()
+    if len(bio) > 700:
+        bio = bio[:700].rsplit(" ", 1)[0] + "…"
+    out = {
+        "bio": bio,
+        "genre": (a.get("strGenre") or a.get("strStyle") or "").strip(),
+        "formed": (a.get("intFormedYear") or "").strip(),
+        "country": (a.get("strCountry") or "").strip(),
+        "banner": (a.get("strArtistBanner") or a.get("strArtistFanart") or "").strip(),
+        "thumb": (a.get("strArtistThumb") or "").strip(),
+    }
+    return out if (out["bio"] or out["banner"] or out["genre"]) else {}
+
+
 def enrich_external(tracks: list[dict]) -> None:
     """就地強化 tracks：Deezer 藝人照片/粉絲數/試聽（免金鑰）+ iTunes 試聽備援。
     註：Spotify 2025 起非 Premium 開發者帳號的 Web API 會回 403，故改用 Deezer。"""
@@ -1781,8 +1812,9 @@ def run_scraper(days_back: int = 14) -> dict:
     except Exception as e:
         log.warning(f"外部強化失敗: {e}")
 
-    # ── 經紀公司 + 出道年份（Wikidata）+ 每團熱門曲（Deezer，可試聽）──
+    # ── 經紀公司+出道(Wikidata) + 每團熱門曲(Deezer) + 藝人小檔案(TheAudioDB) ──
     top_tracks: dict = {}
+    profiles: dict = {}
     try:
         ginfo = {}
         for gname in sorted({t["group"] for t in tracks}):
@@ -1793,6 +1825,9 @@ def run_scraper(days_back: int = 14) -> dict:
             tt = deezer_top_tracks(gname, gkr)
             if tt:
                 top_tracks[gname] = tt
+            pr = audiodb_profile(gname, gkr)
+            if pr:
+                profiles[gname] = pr
             time.sleep(0.2)
         for t in tracks:
             gi = ginfo.get(t["group"], {})
@@ -1800,9 +1835,10 @@ def run_scraper(days_back: int = 14) -> dict:
                 t["agency"] = gi["agency"]
             if gi.get("debut_year"):
                 t["debut_year"] = gi["debut_year"]
-        log.info(f"Wikidata 公司/出道：{len(ginfo)} 團；Deezer 熱門曲：{len(top_tracks)} 團")
+        log.info(f"Wikidata 公司/出道：{len(ginfo)} 團；Deezer 熱門曲：{len(top_tracks)} 團；"
+                 f"TheAudioDB 小檔案：{len(profiles)} 團")
     except Exception as e:
-        log.warning(f"公司/出道/熱門曲建置失敗: {e}")
+        log.warning(f"公司/出道/熱門曲/小檔案建置失敗: {e}")
 
     # ── 附加 AI 功能（已有每日花費上限 DAILY_USD_LIMIT 保護，超過會自動跳過）──
     # 已重新啟用：發行預告+回歸倒數 / 本月生日 / discography / 新出道女團。
@@ -1862,6 +1898,7 @@ def run_scraper(days_back: int = 14) -> dict:
             "upcoming": upcoming, "birthdays": birthdays,
             "discographies": discographies, "members": members,
             "debut_girlgroups": debut_girlgroups, "top_tracks": top_tracks,
+            "profiles": profiles,
             "summary": summary, "digest": digest, "fetched_at": now_str}
 
 
