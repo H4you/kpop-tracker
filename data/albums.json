@@ -332,15 +332,6 @@
           "itunes_url": "https://music.apple.com/us/album/pink-blossom/854849858?uo=4"
         },
         {
-          "id": 944845614,
-          "album": "Pink LUV - EP",
-          "artist": "Apink",
-          "year": "2014",
-          "track_count": 6,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music3/v4/ae/01/65/ae01650f-08d2-ccb6-7cae-8f01649872f9/KM0003041-_-1124.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/pink-luv-ep/944845614?uo=4"
-        },
-        {
           "id": 1078504175,
           "album": "Secret Garden - EP",
           "artist": "Apink",
@@ -348,6 +339,15 @@
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music69/v4/d6/0d/1b/d60d1b15-5690-1c70-1474-34ec29e277ee/COVER-_RGB.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/secret-garden-ep/1078504175?uo=4"
+        },
+        {
+          "id": 1075705682,
+          "album": "Une Annee",
+          "artist": "Apink",
+          "year": "2012",
+          "track_count": 9,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/17/13/32/17133296-7f5e-bb0a-5b9b-3363537ccf3b/COVER-.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/une-annee/1075705682?uo=4"
         }
       ],
       "album_count": 10
@@ -589,20 +589,6 @@
           ]
         },
         {
-          "id": 1871359631,
-          "album": "cloud palace ~ false awakening - Single",
-          "artist": "Billlie",
-          "year": "2026",
-          "track_count": 3,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d3/3a/ff/d33affd8-8107-90fe-7c9d-435c6a950a4b/191953511689.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/cloud-palace-false-awakening-single/1871359631?uo=4",
-          "tracks": [
-            "cloud palace",
-            "cloud palace (Before moonset mix)",
-            "cloud palace (Before moonrise mix)"
-          ]
-        },
-        {
           "id": 1773736254,
           "album": "Of All We Have Lost - EP",
           "artist": "Billlie",
@@ -638,7 +624,15 @@
           "year": "2023",
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ee/93/1e/ee931e0b-bced-61e2-eed4-80bb7a59040c/8804775284625.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/the-billage-of-perception-chapter-three-ep/1787519876?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/the-billage-of-perception-chapter-three-ep/1787519876?uo=4",
+          "tracks": [
+            "enchanted night ~ white night",
+            "lionheart (the real me)",
+            "EUNOIA",
+            "various and precious (moment of inertia)",
+            "extra-ordinary",
+            "nevertheless"
+          ]
         },
         {
           "id": 1787521814,
@@ -666,6 +660,15 @@
           "track_count": 5,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/bf/21/44/bf214451-82f3-bf65-93ca-7a5cc8566c36/8804775224881.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/the-collective-soul-and-unconscious-chapter-one-ep/1788004242?uo=4"
+        },
+        {
+          "id": 1787408767,
+          "album": "track by YOON: Patbingsu - Single",
+          "artist": "Billlie & Yoon Jong Shin",
+          "year": "2022",
+          "track_count": 2,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/07/40/dc/0740dc52-cecd-1ebb-ec93-d4e2ab0b3866/8804775268472.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/track-by-yoon-patbingsu-single/1787408767?uo=4"
         },
         {
           "id": 1787527177,
@@ -876,13 +879,13 @@
           "itunes_url": "https://music.apple.com/us/album/sequence-17-single/1654727949?uo=4"
         },
         {
-          "id": 456810961,
-          "album": "Strauss Ii - Lehar - Tchaikovsky: Great Waltzes",
-          "artist": "Andrew Mogrelia, Philharmonia Cassovia, Ondrej Lenárd, Strauss Festival Orchestra, Alfred Walter, Slovak State Philharmonic Orchestra, Kosice, Michael Dittrich, Slovak Radio Symphony Orchestra, CSR Symphony Orchestra, István Bogár, Budapest Strauss Ensemble, Enrique Bátiz, Mexico Festival Orchestra & Andre Lenard",
-          "year": "2007",
-          "track_count": 10,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/11/fb/e4/11fbe4d6-1e05-b863-6d60-bd5f12270efc/mzi.wlafucxq.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/strauss-ii-lehar-tchaikovsky-great-waltzes/456810961?uo=4"
+          "id": 364281242,
+          "album": "Famous Waltzes",
+          "artist": "Andrew Mogrelia, Philharmonia Cassovia, Ondrej Lenárd, CSR Symphony Orchestra & Johannes Wildner",
+          "year": "1999",
+          "track_count": 9,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/b9/f8/69/mzi.wgqvxege.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/famous-waltzes/364281242?uo=4"
         },
         {
           "id": 19564470,
@@ -1761,31 +1764,21 @@
           ]
         },
         {
-          "id": 1627524248,
-          "album": "CHECKMATE",
-          "artist": "ITZY",
-          "year": "2022",
-          "track_count": 7,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/65/86/05/658605e1-1057-c6b7-fdc1-825ae50e6e2c/738676858761_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/checkmate/1627524248?uo=4",
-          "tracks": [
-            "SNEAKERS",
-            "RACER",
-            "WHAT I WANT",
-            "Free Fall",
-            "365",
-            "DOMINO",
-            "SNEAKERS (English Ver.)"
-          ]
-        },
-        {
           "id": 1608247024,
           "album": "GUESS WHO - EP",
           "artist": "ITZY",
           "year": "2021",
           "track_count": 7,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/e8/41/c4/e841c413-9eab-b493-fd8e-3fe655b82387/192641939617_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/guess-who-ep/1608247024?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/guess-who-ep/1608247024?uo=4",
+          "tracks": [
+            "In the Morning",
+            "Sorry Not Sorry",
+            "KIDDING ME",
+            "Wild Wild West",
+            "SHOOT!",
+            "TENNIS (0:0)"
+          ]
         },
         {
           "id": 1608111697,
@@ -1795,6 +1788,15 @@
           "track_count": 18,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/e7/f3/d7/e7f3d7dc-4bf6-e15d-ca28-3105f713e693/192641938573_Cover.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/crazy-in-love/1608111697?uo=4"
+        },
+        {
+          "id": 1608256560,
+          "album": "In the morning (English Version) - Single",
+          "artist": "ITZY",
+          "year": "2021",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/85/33/3a/85333a81-5b9f-46c7-90ef-1cc89feb8ee8/738676858211_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/in-the-morning-english-version-single/1608256560?uo=4"
         },
         {
           "id": 1608253207,
@@ -2443,6 +2445,22 @@
           ]
         },
         {
+          "id": 1538554407,
+          "album": "Travel - EP",
+          "artist": "MAMAMOO",
+          "year": "2020",
+          "track_count": 5,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/fc/9d/37/fc9d37ac-f872-343a-5625-1825a37280e9/cover_-.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/travel-ep/1538554407?uo=4",
+          "tracks": [
+            "Travel",
+            "Aya",
+            "Chuck",
+            "Diamond",
+            "Good Night"
+          ]
+        },
+        {
           "id": 1610953738,
           "album": "Queendom <Cover Contest>, Pt. 1 - Single",
           "artist": "MAMAMOO, AOA & Park Bom",
@@ -2463,20 +2481,7 @@
           "year": "2019",
           "track_count": 11,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/b3/c4/73/b3c4730c-c41e-68e4-8161-d557b510bf68/cover_-.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/reality-in-black/1487928105?uo=4",
-          "tracks": [
-            "Destiny",
-            "Universe",
-            "Ten Nights",
-            "HIP",
-            "4X4ever",
-            "Better",
-            "Hello Mama",
-            "ZzZz",
-            "rEALITY",
-            "High Tension",
-            "I’m Your Fan"
-          ]
+          "itunes_url": "https://music.apple.com/us/album/reality-in-black/1487928105?uo=4"
         },
         {
           "id": 1456233895,
@@ -2504,15 +2509,6 @@
           "track_count": 7,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/53/01/ad/5301ada5-1529-9c87-0cc4-be17434f385b/cover_KM0006618_1.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/yellow-flower/1676209346?uo=4"
-        },
-        {
-          "id": 1444996256,
-          "album": "BLUE;S - EP",
-          "artist": "MAMAMOO",
-          "year": "2018",
-          "track_count": 6,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/66/52/20/665220cb-5cd1-d7a8-b50b-c4c796928305/cover-_Mamamoo.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/blue-s-ep/1444996256?uo=4"
         },
         {
           "id": 1888604291,
@@ -3870,15 +3866,6 @@
           "itunes_url": "https://music.apple.com/us/album/we-play-ep/1558430429?uo=4"
         },
         {
-          "id": 1569174650,
-          "album": "7days Tension - Single",
-          "artist": "Weeekly",
-          "year": "2021",
-          "track_count": 2,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e5/e9/ac/e5e9ac99-7341-1f8f-3a43-ee918bc306d6/3.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/7days-tension-single/1569174650?uo=4"
-        },
-        {
           "id": 1578842456,
           "album": "Play Game : Holiday - EP",
           "artist": "Weeekly",
@@ -3904,6 +3891,15 @@
           "track_count": 5,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/93/f2/cc/93f2cca8-c02b-42a6-61dc-3908f72eb6a8/cover_-.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/we-are-ep/1520356230?uo=4"
+        },
+        {
+          "id": 1533405870,
+          "album": "Wanna Be Ryan (Original Soundtrack) - Single",
+          "artist": "Weeekly",
+          "year": "2020",
+          "track_count": 2,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/c7/40/42/c7404285-d0ab-0aca-ab8e-3872be2516c8/cover_-_OST.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/wanna-be-ryan-original-soundtrack-single/1533405870?uo=4"
         }
       ],
       "album_count": 10
@@ -4015,13 +4011,13 @@
           "itunes_url": "https://music.apple.com/us/album/from-wjsn-ep/1191680412?uo=4"
         },
         {
-          "id": 1144767453,
-          "album": "The Secret",
+          "id": 1245569324,
+          "album": "Happy Moment",
           "artist": "WJSN",
-          "year": "2016",
-          "track_count": 7,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/94/a2/6e/94a26e08-085a-ff53-500e-b14c508aae5c/COVER-.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/the-secret/1144767453?uo=4"
+          "year": "2017",
+          "track_count": 10,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/2a/38/2b/2a382b49-11ef-a409-fa35-3e4261328792/cover-.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/happy-moment/1245569324?uo=4"
         }
       ],
       "album_count": 10
@@ -4124,5 +4120,5 @@
       "album_count": 8
     }
   },
-  "updated_at": "2026-06-08 07:17"
+  "updated_at": "2026-06-08 07:41"
 }
