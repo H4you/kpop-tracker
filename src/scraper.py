@@ -1285,6 +1285,38 @@ def itunes_preview(group: str, title: str) -> dict:
     return {}
 
 
+def deezer_lookup(group: str, title: str) -> dict:
+    """Deezer 公開 API（免金鑰、不需 Premium）：取藝人照片、30 秒試聽、粉絲數。
+    回 {artist_img, preview_url, fans}。失敗回 {}。"""
+    if not group:
+        return {}
+    out = {}
+    try:
+        q = f"{group} {title}".strip()
+        r = requests.get("https://api.deezer.com/search", params={"q": q, "limit": 6}, timeout=12)
+        data = r.json().get("data", [])
+        gk = _norm(group)
+        pick = next((d for d in data if gk and gk in _norm((d.get("artist") or {}).get("name", ""))), None)
+        pick = pick or (data[0] if data else None)
+        if pick:
+            art = pick.get("artist") or {}
+            out["artist_img"] = art.get("picture_medium") or art.get("picture_big") or ""
+            if pick.get("preview"):
+                out["preview_url"] = pick["preview"]
+            # 取粉絲數 + 大張藝人照（需再打 artist 端點）
+            aid = art.get("id")
+            if aid:
+                time.sleep(0.1)
+                ar = requests.get(f"https://api.deezer.com/artist/{aid}", timeout=12).json()
+                if isinstance(ar.get("nb_fan"), int):
+                    out["fans"] = ar["nb_fan"]
+                if ar.get("picture_xl") or ar.get("picture_big"):
+                    out["artist_img"] = ar.get("picture_xl") or ar.get("picture_big")
+    except Exception as e:
+        log.warning(f"Deezer 失敗 {group}-{title}: {e}")
+    return out
+
+
 def youtube_api_view_counts(vids: list[str]) -> dict:
     """用 YouTube Data API 取精確觀看數（statistics，1 unit/批，最多 50 id/批）。"""
     if not YT_API_KEY or not vids:
@@ -1382,23 +1414,25 @@ def musicbrainz_members(group: str) -> list[dict]:
 
 
 def enrich_external(tracks: list[dict]) -> None:
-    """就地強化 tracks：Spotify 藝人照/人氣/連結 + iTunes 30 秒試聽。"""
+    """就地強化 tracks：Deezer 藝人照片/粉絲數/試聽（免金鑰）+ iTunes 試聽備援。
+    註：Spotify 2025 起非 Premium 開發者帳號的 Web API 會回 403，故改用 Deezer。"""
     if not tracks:
         return
-    n_img = n_prev = 0
+    n_img = n_prev = n_fan = 0
     for t in tracks:
-        sp = spotify_artist(t.get("group", ""))
-        if sp.get("artist_img"):
-            t["artist_img"] = sp["artist_img"]; n_img += 1
-        if sp.get("spotify_url"):
-            t["spotify_url"] = sp["spotify_url"]
-        if sp.get("popularity") is not None:
-            t["popularity"] = sp["popularity"]
-        pv = itunes_preview(t.get("group", ""), t.get("title", ""))
-        if pv.get("preview_url"):
-            t["preview_url"] = pv["preview_url"]; n_prev += 1
+        dz = deezer_lookup(t.get("group", ""), t.get("title", ""))
+        if dz.get("artist_img"):
+            t["artist_img"] = dz["artist_img"]; n_img += 1
+        if dz.get("fans") is not None:
+            t["fans"] = dz["fans"]; n_fan += 1
+        if dz.get("preview_url"):
+            t["preview_url"] = dz["preview_url"]; n_prev += 1
+        else:
+            pv = itunes_preview(t.get("group", ""), t.get("title", ""))
+            if pv.get("preview_url"):
+                t["preview_url"] = pv["preview_url"]; n_prev += 1
         time.sleep(0.15)
-    log.info(f"外部強化：Spotify 照片 {n_img} 筆、iTunes 試聽 {n_prev} 筆")
+    log.info(f"外部強化（Deezer）：藝人照 {n_img}、粉絲數 {n_fan}、試聽 {n_prev}")
 
 
 # ── 6. 主執行流程 ─────────────────────────────────────────────────────────────
@@ -1406,9 +1440,8 @@ def enrich_external(tracks: list[dict]) -> None:
 def run_scraper(days_back: int = 14) -> dict:
     log.info("=== KPop Tracker 爬蟲啟動 (v3) ===")
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M")
-    log.info(f"資料源金鑰：Spotify={'Y' if (SPOTIFY_ID and SPOTIFY_SECRET) else 'N'}"
-             f"（id 長度 {len(SPOTIFY_ID)} / secret 長度 {len(SPOTIFY_SECRET)}）, "
-             f"YouTube={'Y' if YT_API_KEY else 'N'}")
+    log.info(f"資料源：Deezer(藝人照/試聽,免金鑰)、MusicBrainz(成員,免金鑰)、"
+             f"YouTube API={'Y' if YT_API_KEY else 'N'}")
 
     releases = fetch_wikipedia_releases(days_back=days_back)
     debuts = fetch_wikipedia_debuts()   # 仍用於 ai_pick_candidates 的判斷輔助

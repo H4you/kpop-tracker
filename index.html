@@ -1095,7 +1095,7 @@ function render() {
           ${t.album ? `<span class="track-meta-item" style="color:var(--ink3)">${escHtml(t.album)}</span>` : ''}
           ${fmtViews(t.yt_views) ? `<span class="track-meta-item view-count" title="MV 觀看數">▶ ${fmtViews(t.yt_views)}</span>` : ''}
           ${g && g.delta > 0 ? `<span class="track-meta-item growth-up" title="近 ${g.days} 天觀看數成長">▲ ${fmtViews(g.delta)} ${sparkline(g.points, 50, 16)}</span>` : ''}
-          ${typeof t.popularity === 'number' ? `<span class="track-meta-item pop-tag" title="Spotify 人氣值（0-100）">🔥 ${t.popularity}</span>` : ''}
+          ${typeof t.fans === 'number' && t.fans > 0 ? `<span class="track-meta-item pop-tag" title="Deezer 粉絲數">👥 ${fmtViews(t.fans)}</span>` : ''}
           ${srcs.map(s => `<span class="track-meta-item"><span class="src-dot" data-s="${s}" aria-hidden="true"></span>${s}</span>`).join('')}
         </div>
       </div>
