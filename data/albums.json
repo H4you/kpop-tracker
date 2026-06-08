@@ -589,20 +589,6 @@
           ]
         },
         {
-          "id": 1871359631,
-          "album": "cloud palace ~ false awakening - Single",
-          "artist": "Billlie",
-          "year": "2026",
-          "track_count": 3,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d3/3a/ff/d33affd8-8107-90fe-7c9d-435c6a950a4b/191953511689.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/cloud-palace-false-awakening-single/1871359631?uo=4",
-          "tracks": [
-            "cloud palace",
-            "cloud palace (Before moonset mix)",
-            "cloud palace (Before moonrise mix)"
-          ]
-        },
-        {
           "id": 1773736254,
           "album": "Of All We Have Lost - EP",
           "artist": "Billlie",
@@ -638,7 +624,15 @@
           "year": "2023",
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ee/93/1e/ee931e0b-bced-61e2-eed4-80bb7a59040c/8804775284625.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/the-billage-of-perception-chapter-three-ep/1787519876?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/the-billage-of-perception-chapter-three-ep/1787519876?uo=4",
+          "tracks": [
+            "enchanted night ~ white night",
+            "lionheart (the real me)",
+            "EUNOIA",
+            "various and precious (moment of inertia)",
+            "extra-ordinary",
+            "nevertheless"
+          ]
         },
         {
           "id": 1787521814,
@@ -666,6 +660,15 @@
           "track_count": 5,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/bf/21/44/bf214451-82f3-bf65-93ca-7a5cc8566c36/8804775224881.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/the-collective-soul-and-unconscious-chapter-one-ep/1788004242?uo=4"
+        },
+        {
+          "id": 1787408767,
+          "album": "track by YOON: Patbingsu - Single",
+          "artist": "Billlie & Yoon Jong Shin",
+          "year": "2022",
+          "track_count": 2,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/07/40/dc/0740dc52-cecd-1ebb-ec93-d4e2ab0b3866/8804775268472.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/track-by-yoon-patbingsu-single/1787408767?uo=4"
         },
         {
           "id": 1787527177,
@@ -899,22 +902,6 @@
     "Dreamcatcher": {
       "albums": [
         {
-          "id": 1891931143,
-          "album": "[VillainS] - EP",
-          "artist": "Dreamcatcher",
-          "year": "2023",
-          "track_count": 5,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/91/97/7a/91977ae2-ae29-4d64-3532-069f031c2eba/8804775306983.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/villains-ep/1891931143?uo=4",
-          "tracks": [
-            "Intro : This My Fashion",
-            "OOTD",
-            "Rising",
-            "Shatter",
-            "We Are Young"
-          ]
-        },
-        {
           "id": 1891558230,
           "album": "[Apocalypse : From us] - EP",
           "artist": "Dreamcatcher",
@@ -972,7 +959,15 @@
           "year": "2019",
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/74/35/e6/7435e686-f790-665d-b6b6-9f32b8e68fab/8804775321733.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/the-end-of-nightmare-ep/1891302368?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/the-end-of-nightmare-ep/1891302368?uo=4",
+          "tracks": [
+            "Intro",
+            "PIRI",
+            "Diamond",
+            "And there was no one",
+            "Daydream",
+            "PIRI (Instrumental)"
+          ]
         },
         {
           "id": 1891296827,
@@ -1002,7 +997,7 @@
           "itunes_url": "https://music.apple.com/us/album/prequel-ep/6767425156?uo=4"
         }
       ],
-      "album_count": 8
+      "album_count": 7
     },
     "EL7Z UP": {
       "albums": [
@@ -1293,20 +1288,26 @@
           ]
         },
         {
-          "id": 826334410,
-          "album": "Girls' Generation 4th Mini Album 'Mr. Mr.' - EP",
+          "id": 1031478656,
+          "album": "Lion Heart - The 5th Album",
           "artist": "Girls' Generation",
-          "year": "2014",
-          "track_count": 6,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Features6/v4/d7/cb/c3/d7cbc3d5-7005-b8a8-ebef-65cfec0337cd/dj.uojgpvio.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/girls-generation-4th-mini-album-mr-mr-ep/826334410?uo=4",
+          "year": "2015",
+          "track_count": 12,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/86/47/89/86478949-fa9e-6b47-b4cc-b18f0405e351/mzm.qyuynwzk.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/lion-heart-the-5th-album/1031478656?uo=4",
           "tracks": [
-            "Mr.Mr.",
-            "Goodbye",
-            "Europa",
-            "Wait a Minute",
-            "Back Hug",
-            "Soul"
+            "Lion Heart",
+            "You Think",
+            "PARTY",
+            "One Afternoon",
+            "Show Girls",
+            "Fire Alarm",
+            "Talk Talk",
+            "Green Light",
+            "Paradise",
+            "Check",
+            "Sign",
+            "예감 Bump It"
           ]
         },
         {
@@ -1355,15 +1356,6 @@
           ]
         },
         {
-          "id": 1442908755,
-          "album": "Love & Peace",
-          "artist": "Girls' Generation",
-          "year": "2013",
-          "track_count": 12,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/eb/06/93/eb069309-d65a-26be-b46e-ef18cdfe0493/00600406387158.rgb.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/love-peace/1442908755?uo=4"
-        },
-        {
           "id": 905850557,
           "album": "The 4th Album 'I Got a Boy'",
           "artist": "Girls' Generation",
@@ -1373,15 +1365,6 @@
           "itunes_url": "https://music.apple.com/us/album/the-4th-album-i-got-a-boy/905850557?uo=4"
         },
         {
-          "id": 1679266955,
-          "album": "The Boys - The 3rd Album",
-          "artist": "Girls' Generation",
-          "year": "2011",
-          "track_count": 13,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/46/35/eb/4635eb60-b3df-ce45-2e40-6ff8ba3fa0a5/cover.png/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/the-boys-the-3rd-album/1679266955?uo=4"
-        },
-        {
           "id": 854890807,
           "album": "Run Devil Run",
           "artist": "Girls' Generation",
@@ -1389,6 +1372,24 @@
           "track_count": 15,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/a4/82/8c/a4828c50-11fa-50f1-f158-7ce923fd2e37/asset.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/run-devil-run/854890807?uo=4"
+        },
+        {
+          "id": 854890642,
+          "album": "Oh!",
+          "artist": "Girls' Generation",
+          "year": "2010",
+          "track_count": 11,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/b0/6e/a3/b06ea3f3-54c3-d637-3572-19b8c14817ef/asset.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/oh/854890642?uo=4"
+        },
+        {
+          "id": 854911623,
+          "album": "Gee - EP",
+          "artist": "Girls' Generation",
+          "year": "2009",
+          "track_count": 5,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/18/6e/c6/186ec634-8a11-959d-12f5-47ac99f551ce/asset.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/gee-ep/854911623?uo=4"
         },
         {
           "id": 854885986,
@@ -2712,6 +2713,15 @@
           ]
         },
         {
+          "id": 1678545730,
+          "album": "Zero - Single",
+          "artist": "NewJeans",
+          "year": "2023",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/6c/5a/04/6c5a04e7-436d-d4d5-bf7e-fdd01d033eb9/196922401121_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/zero-single/1678545730?uo=4"
+        },
+        {
           "id": 1833057824,
           "album": "GODS - Single",
           "artist": "League of Legends Music & NewJeans",
@@ -2739,7 +2749,7 @@
           "itunes_url": "https://music.apple.com/us/album/ditto-single/1657231957?uo=4"
         }
       ],
-      "album_count": 7
+      "album_count": 8
     },
     "NMIXX": {
       "albums": [
@@ -4124,5 +4134,5 @@
       "album_count": 8
     }
   },
-  "updated_at": "2026-06-08 10:07"
+  "updated_at": "2026-06-08 10:13"
 }
