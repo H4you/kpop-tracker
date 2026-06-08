@@ -495,6 +495,25 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
 .disco-cover { width: 34px; height: 34px; border-radius: 6px; object-fit: cover; border: 1px solid var(--brd2); flex-shrink: 0; }
 .disco-item .prev-btn { width: 30px; height: 30px; margin-left: auto; }
 
+/* ── 新曲未讀提示 ── */
+.newbar {
+  margin: 0 0 16px; padding: 10px 15px; border-radius: var(--radius-lg);
+  background: var(--accent-soft); border: 1px solid var(--pink-glow);
+  color: var(--accent2); font-size: 13px; font-weight: 600; letter-spacing: .02em;
+}
+.badge-fresh { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* ── 我的評分（星）── */
+.stars { display: inline-flex; gap: 1px; }
+.star { color: var(--text3); font-size: 13px; cursor: pointer; transition: color .12s, transform .1s; opacity: .55; }
+.star:hover { transform: scale(1.2); }
+.star.on { color: #fcd34d; opacity: 1; }
+
+/* ── 藝人小檔案 ── */
+.prof-banner { width: 100%; border-radius: 10px; margin-bottom: 12px; display: block; object-fit: cover; max-height: 200px; }
+.prof-meta { font-size: 12px; color: var(--accent2); letter-spacing: .04em; margin-bottom: 10px; }
+.prof-bio { font-size: 13.5px; color: var(--text2); line-height: 1.7; white-space: pre-line; }
+
 /* ── 行事曆訂閱連結 ── */
 .ics-link {
   margin-left: auto; font-size: 11px; color: var(--accent2);
@@ -652,6 +671,8 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
     <span class="src-chip on" data-s="PTT"       onclick="toggleSrc(this)">PTT</span>
   </div>
 
+  <div class="newbar" id="newbar" style="display:none"></div>
+
   <div class="search-row">
     <svg class="search-ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
     <input type="search" id="search-box" placeholder="搜尋團名或歌名…" aria-label="搜尋團名或歌名" autocomplete="off">
@@ -747,6 +768,16 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
   </div>
 </div>
 
+<div class="mv-modal" id="prof-modal" onclick="if(event.target===this)closeProfile()">
+  <div class="mv-modal-box" style="background:var(--surface);max-width:560px">
+    <div class="mv-modal-head">
+      <span id="prof-title">藝人小檔案</span>
+      <button class="mv-close" onclick="closeProfile()" aria-label="關閉">×</button>
+    </div>
+    <div class="stats-body" id="prof-body"></div>
+  </div>
+</div>
+
 <div class="fab-wrap">
   <button class="fab" id="fab" onclick="fetchAll()" aria-label="重新載入最新女團情報">
     <svg id="fab-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
@@ -773,6 +804,9 @@ let myPlaylistId = localStorage.getItem('kpop_playlist_id') || '';
 let favGroups = new Set(JSON.parse(localStorage.getItem('kpop_fav_groups') || '[]'));
 let viewsHistory = {};   // { yt_id: {group,title,points:[[date,views],...]} }
 let topTracks = {};      // { group: [{title,preview,album,cover}] }
+let profiles = {};       // { group: {bio,genre,formed,country,banner,thumb} }
+let ratings = JSON.parse(localStorage.getItem('kpop_ratings_v1') || '{}');  // { "group|title": 1-5 }
+let newSinceVisit = new Set();   // 自上次造訪新增的 track id
 
 /* ── Persist ── */
 function saveAdded() {
@@ -910,6 +944,54 @@ function sparkline(vals, w = 64, h = 20) {
     <polyline points="${pts}" fill="none" stroke="#4ade80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
   </svg></span>`;
 }
+
+/* ── 我的評分（打星，存本機）── */
+function songKey(t) { return (t.group || '') + '|' + (t.title || ''); }
+function saveRatings() { try { localStorage.setItem('kpop_ratings_v1', JSON.stringify(ratings)); } catch(e) {} }
+function setRating(key, n, ev) {
+  if (ev) ev.stopPropagation();
+  if (ratings[key] === n) delete ratings[key]; else ratings[key] = n;   // 點同一顆 → 取消
+  saveRatings();
+  render();
+}
+function starWidget(key) {
+  const r = ratings[key] || 0;
+  let s = '<span class="stars" title="我的評分（點星評分，再點同顆取消）">';
+  for (let i = 1; i <= 5; i++) {
+    s += `<span class="star${i <= r ? ' on' : ''}" onclick="setRating('${key.replace(/'/g, "\\'")}', ${i}, event)">★</span>`;
+  }
+  return s + '</span>';
+}
+
+/* ── 新曲未讀提示（自上次造訪）── */
+function computeNewSinceVisit() {
+  let seen = [];
+  try { seen = JSON.parse(localStorage.getItem('kpop_seen_ids') || '[]'); } catch(e) {}
+  const cur = tracks.map(t => t.id);
+  newSinceVisit = new Set(seen.length ? cur.filter(id => !seen.includes(id)) : []);  // 首訪不全標新
+  try { localStorage.setItem('kpop_seen_ids', JSON.stringify(cur)); } catch(e) {}
+  const bar = document.getElementById('newbar');
+  if (bar) {
+    if (newSinceVisit.size) {
+      bar.textContent = `✨ 自上次造訪新增 ${newSinceVisit.size} 首`;
+      bar.style.display = '';
+    } else { bar.style.display = 'none'; }
+  }
+}
+
+/* ── 藝人小檔案（TheAudioDB）── */
+function openProfile(group) {
+  const p = profiles[group];
+  if (!p) return;
+  document.getElementById('prof-title').textContent = group;
+  const meta = [p.genre, p.formed ? p.formed + ' 成立' : '', p.country].filter(Boolean).join(' · ');
+  document.getElementById('prof-body').innerHTML = `
+    ${p.banner ? `<img class="prof-banner" src="${escAttr(p.banner)}" alt="">` : (p.thumb ? `<img class="prof-banner" src="${escAttr(p.thumb)}" alt="">` : '')}
+    ${meta ? `<div class="prof-meta">${escHtml(meta)}</div>` : ''}
+    ${p.bio ? `<div class="prof-bio">${escHtml(p.bio)}</div>` : '<div class="disco-empty">查無簡介</div>'}`;
+  document.getElementById('prof-modal').classList.add('show');
+}
+function closeProfile() { document.getElementById('prof-modal').classList.remove('show'); }
 
 /* ── Stats ── */
 function updateStats() {
@@ -1096,9 +1178,11 @@ function render() {
       ${thumb}
       <div class="track-body">
         <div class="track-top-row">
-          ${t.artist_img ? `<img class="artist-av" loading="lazy" src="${escAttr(t.artist_img)}" alt="" aria-hidden="true">` : ''}
+          ${t.artist_img ? `<img class="artist-av${profiles[t.group] ? ' clickable' : ''}" loading="lazy" src="${escAttr(t.artist_img)}" alt=""${profiles[t.group] ? ` onclick="openProfile('${escAttr(t.group)}')" title="${escHtml(t.group)} 小檔案"` : ' aria-hidden="true"'}>` : ''}
           <span class="group-pill${(discographies[t.group] || topTracks[t.group]) ? ' clickable' : ''}"${(discographies[t.group] || topTracks[t.group]) ? ` onclick="openDisco('${escAttr(t.group)}')" title="查看 ${escHtml(t.group)} 作品 / 熱門曲"` : ''}>${escHtml(t.group)}</span>
           ${isFav(t.group) ? '<span class="fav-star" title="已追蹤">♥</span>' : ''}
+          ${newSinceVisit.has(t.id) ? '<span class="badge badge-fresh" title="自上次造訪新增">🆕 新</span>' : ''}
+          ${profiles[t.group] ? `<span class="badge clickable" style="cursor:pointer" onclick="openProfile('${escAttr(t.group)}')" title="${escHtml(t.group)} 小檔案">檔案</span>` : ''}
           ${members[t.group] ? `<span class="badge clickable" style="cursor:pointer;background:var(--pink-dim);color:var(--accent2);border:1px solid var(--pink-glow)" onclick="openMembers('${escAttr(t.group)}')" title="查看 ${escHtml(t.group)} 成員">成員</span>` : ''}
           ${t.is_new ? '<span class="badge badge-new">NEW</span>' : ''}
           ${t.is_hot ? '<span class="badge badge-hot">HOT</span>' : ''}
@@ -1115,6 +1199,7 @@ function render() {
           ${typeof t.fans === 'number' && t.fans > 0 ? `<span class="track-meta-item pop-tag" title="Deezer 粉絲數">👥 ${fmtViews(t.fans)}</span>` : ''}
           ${(t.agency || t.debut_year) ? `<span class="track-meta-item" title="經紀公司 / 出道年">🏢 ${escHtml([t.agency, t.debut_year ? t.debut_year + ' 出道' : ''].filter(Boolean).join(' · '))}</span>` : ''}
           ${srcs.map(s => `<span class="track-meta-item"><span class="src-dot" data-s="${s}" aria-hidden="true"></span>${s}</span>`).join('')}
+          <span class="track-meta-item">${starWidget(songKey(t))}</span>
         </div>
       </div>
       <div class="track-actions">
@@ -1250,12 +1335,21 @@ async function openStats() {
   const topGroups = Object.entries(cnt).sort((a, b) => b[1] - a[1]).slice(0, 8);
   const soloN = all.filter(t => t.is_solo).length;
 
+  // 我的年度最愛（依評分；同分用觀看數），對應到曲目資料
+  const byKey = {};
+  all.forEach(t => { byKey[songKey(t)] = t; });
+  const rated = Object.entries(ratings)
+    .map(([k, n]) => ({ k, n, t: byKey[k] }))
+    .filter(x => x.t || x.k.includes('|'))
+    .sort((a, b) => b.n - a.n || ((b.t && b.t.yt_views || 0) - (a.t && a.t.yt_views || 0)))
+    .slice(0, 10);
+
   const cards = [
     { n: yr.length, l: `${year} 年發行` },
     { n: new Set(all.map(t => t.group)).size, l: '追過的團' },
     { n: all.length, l: '歷史總曲數' },
     { n: favGroups.size, l: '我的最愛團' },
-    { n: added.size, l: '我標記過' },
+    { n: Object.keys(ratings).length, l: '我評分過' },
     { n: soloN, l: 'solo 發行' },
   ];
   body.innerHTML = `
@@ -1279,6 +1373,18 @@ async function openStats() {
         <span class="top-name">${escHtml(g[0])}${favGroups.has(g[0]) ? ' <span class="fav-star">♥</span>' : ''}</span>
         <span class="top-n">${g[1]} 次</span>
       </div>`).join('') : '<div class="disco-empty">尚無資料</div>'}
+    </div>
+    <div class="stats-sec">
+      <div class="stats-sec-title">我的年度最愛（依評分）</div>
+      ${rated.length ? rated.map((x, i) => {
+        const g = x.t ? x.t.group : x.k.split('|')[0];
+        const ti = x.t ? x.t.title : x.k.split('|')[1];
+        return `<div class="top-row">
+          <span class="top-rank">${i + 1}</span>
+          <span class="top-name">${escHtml(g)} <span style="color:var(--text3)">${escHtml(ti)}</span></span>
+          <span class="top-n">${'★'.repeat(x.n)}</span>
+        </div>`;
+      }).join('') : '<div class="disco-empty">還沒評分任何歌曲（在每首右下角點星）</div>'}
     </div>`;
 }
 function closeStats() {
@@ -1361,7 +1467,9 @@ async function fetchAll() {
       discographies = result.discographies || {};
       members = result.members || {};
       topTracks = result.top_tracks || {};
+      profiles = result.profiles || {};
       await loadViewsHistory();
+      computeNewSinceVisit();
       updateStats();
       renderUpcoming();
       renderBirthdays();
@@ -1396,7 +1504,7 @@ document.getElementById('search-box').addEventListener('input', e => {
 });
 
 /* ── ESC 關閉 MV 彈窗 ── */
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMV(); closeDisco(); closeMem(); closeStats(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMV(); closeDisco(); closeMem(); closeStats(); closeProfile(); } });
 
 /* ── Init ── */
 if (myPlaylistId) document.getElementById('pl-input').value =
@@ -1427,7 +1535,9 @@ window.addEventListener('load', async () => {
     discographies = data.discographies || {};
     members = data.members || {};
     topTracks = data.top_tracks || {};
+    profiles = data.profiles || {};
     await loadViewsHistory();
+    computeNewSinceVisit();
     updateStats();
     renderUpcoming();
     renderBirthdays();
