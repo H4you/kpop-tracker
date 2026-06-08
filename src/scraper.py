@@ -1177,7 +1177,7 @@ def ai_pick_candidates(releases: list[dict], debuts: list[str], ptt: list[dict])
         return []
     releases_min = [{"date": r["date"], "album": r["album"], "artist": r["artist"]}
                     for r in releases]
-    ptt_min = [{"title": p["title"]} for p in ptt][:40]
+    ptt_min = [{"title": p["title"]} for p in ptt][:60]   # ptt 參數實為 PTT+YouTube 等合併線索
 
     prompt = f"""你是 KPop 女團情報整理助手。以下是近兩週南韓樂壇「所有」新發行清單（維基百科），以及 PTT 情報標題。請篩出符合條件者。
 
@@ -1429,6 +1429,43 @@ def youtube_api_search_mv(group: str, title: str, group_kr: str = "") -> dict | 
     return None
 
 
+def youtube_api_discover(days: int = 21) -> list[dict]:
+    """用 YouTube Data API 搜尋近期女團 comeback/MV 上傳，當作額外發掘來源
+    （補 Wikipedia 表格沒收錄的新團/新曲）。回 [{source,title}]，丟給 AI 篩選。
+    每條 query 100 units；2~3 條/天，免費額度（1萬/日）內。"""
+    if not YT_API_KEY:
+        return []
+    after = (datetime.utcnow() - timedelta(days=days)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    queries = ["kpop girl group comeback MV", "걸그룹 신곡 MV", "kpop girl group debut MV"]
+    posts, seen = [], set()
+    for q in queries:
+        try:
+            r = requests.get("https://www.googleapis.com/youtube/v3/search",
+                             params={"part": "snippet", "q": q, "type": "video",
+                                     "order": "date", "publishedAfter": after,
+                                     "maxResults": 25, "key": YT_API_KEY}, timeout=15)
+            for it in r.json().get("items", []):
+                sn = it.get("snippet", {})
+                vtitle = (sn.get("title") or "").strip()
+                ch = (sn.get("channelTitle") or "").strip()
+                if not vtitle:
+                    continue
+                low = vtitle.lower()
+                # 只留像官方 MV 的（含 MV / official / 뮤직비디오），減少雜訊
+                if not any(k in low for k in ["mv", "official", "m/v"]) and "뮤직비디오" not in vtitle:
+                    continue
+                key = _norm(vtitle)
+                if key in seen:
+                    continue
+                seen.add(key)
+                posts.append({"source": "YouTube", "title": f"{ch}: {vtitle}"})
+        except Exception as e:
+            log.warning(f"YouTube 發掘搜尋失敗: {e}")
+            break
+    log.info(f"YouTube 發掘：取得 {len(posts)} 支近期女團 MV 線索")
+    return posts
+
+
 def musicbrainz_members(group: str) -> list[dict]:
     """從 MusicBrainz 取團體現任成員（免金鑰；遵守 1 req/sec + User-Agent）。
     回 [{name,name_kr,birth,role}]；查無回 []。"""
@@ -1497,8 +1534,9 @@ def run_scraper(days_back: int = 14) -> dict:
     releases = fetch_wikipedia_releases(days_back=days_back)
     debuts = fetch_wikipedia_debuts()   # 仍用於 ai_pick_candidates 的判斷輔助
     ptt = fetch_ptt_posts(pages=3)
-    reddit = fetch_reddit_posts()       # r/kpop 補充線索（雲端 IP 被限流就略過）
-    clues = ptt + reddit                # 合併情報標題餵給 AI 篩選
+    reddit = fetch_reddit_posts()       # r/kpop 補充線索（需 OAuth 金鑰，否則略過）
+    yt_clues = youtube_api_discover()   # YouTube 近期女團 MV 發掘（有 YT 金鑰才跑）
+    clues = ptt + reddit + yt_clues     # 合併情報標題餵給 AI 篩選
 
     candidates = ai_pick_candidates(releases, debuts, clues)
 
