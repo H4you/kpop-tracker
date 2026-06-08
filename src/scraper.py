@@ -349,6 +349,10 @@ def reddit_token() -> str:
 def fetch_reddit_posts(limit: int = 60) -> list[dict]:
     """從 r/kpop 抓近期貼文標題（[Comeback]/[MV]/[Teaser] 等），作為 AI 篩選的補充線索。
     優先用官方 OAuth（oauth.reddit.com，雲端 IP 可正常存取）；沒金鑰才退回公開 .json。"""
+    # Reddit 公開端點在雲端 IP 一律 403，故未設 OAuth 金鑰時直接略過（不打、不洗 log）
+    if not (REDDIT_ID and REDDIT_SECRET):
+        log.info("Reddit 略過（未設 REDDIT_CLIENT_ID/SECRET；公開端點在雲端會被擋）")
+        return []
     tok = reddit_token()
     if tok:
         base = "https://oauth.reddit.com"
