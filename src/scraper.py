@@ -319,6 +319,38 @@ def fetch_ptt_posts(pages: int = 3) -> list[dict]:
     return posts
 
 
+def fetch_reddit_posts(limit: int = 60) -> list[dict]:
+    """從 r/kpop 抓近期貼文標題（[Comeback]/[MV]/[Teaser] 等），作為 AI 篩選的補充線索。
+    用公開 .json 端點；雲端 IP 偶爾被限流（403/429），失敗即略過不影響主流程。"""
+    posts = []
+    urls = [
+        "https://www.reddit.com/r/kpop/new.json?limit=" + str(limit),
+        "https://www.reddit.com/r/kpop/search.json?q=flair%3AComeback&restrict_sr=1&sort=new&limit=40",
+    ]
+    ua = {"User-Agent": "kpop-tracker/1.0 (girl group release tracker)"}
+    seen = set()
+    for url in urls:
+        try:
+            r = requests.get(url, headers=ua, timeout=12)
+            if r.status_code != 200:
+                log.warning(f"Reddit 取得失敗 HTTP {r.status_code}")
+                continue
+            children = r.json().get("data", {}).get("children", [])
+            for c in children:
+                d = c.get("data", {})
+                title = (d.get("title") or "").strip()
+                if not title or title in seen:
+                    continue
+                seen.add(title)
+                posts.append({"source": "Reddit", "title": title,
+                              "url": "https://www.reddit.com" + (d.get("permalink") or "")})
+            time.sleep(0.6)
+        except Exception as e:
+            log.warning(f"Reddit 抓取失敗: {e}")
+    log.info(f"Reddit: 取得 {len(posts)} 篇 r/kpop 貼文")
+    return posts
+
+
 # ── 3. namuwiki 補充辨識 ───────────────────────────────────────────────────────
 
 def namu_confirm_girlgroup(name: str) -> dict:
@@ -1165,9 +1197,10 @@ def run_scraper(days_back: int = 14) -> dict:
     releases = fetch_wikipedia_releases(days_back=days_back)
     debuts = fetch_wikipedia_debuts()   # 仍用於 ai_pick_candidates 的判斷輔助
     ptt = fetch_ptt_posts(pages=3)
-    # 省額度模式：發行預告已停用，不再抓 upcoming（fetch_wikipedia_upcoming）
+    reddit = fetch_reddit_posts()       # r/kpop 補充線索（雲端 IP 被限流就略過）
+    clues = ptt + reddit                # 合併情報標題餵給 AI 篩選
 
-    candidates = ai_pick_candidates(releases, debuts, ptt)
+    candidates = ai_pick_candidates(releases, debuts, clues)
 
     # 專注查證每筆的「真正主打曲 / 官方頻道 / MV 是否已上」，覆蓋 pass1 的粗略值
     resolved = ai_resolve_title_tracks(candidates)
@@ -1367,6 +1400,48 @@ def update_views_history(data_dir: str, tracks: list[dict], keep_days: int = 30)
     return len(series)
 
 
+def _ics_escape(s: str) -> str:
+    return (str(s or "").replace("\\", "\\\\").replace(";", "\\;")
+            .replace(",", "\\,").replace("\n", "\\n"))
+
+
+def write_upcoming_ics(data_dir: str, upcoming: list[dict]) -> int:
+    """把發行預告寫成 iCalendar (.ics) → data/upcoming.ics，使用者可訂閱到手機日曆。
+    每筆 = 一個全天事件（發行日當天）。回傳事件數。"""
+    path = os.path.join(data_dir, "upcoming.ics")
+    lines = ["BEGIN:VCALENDAR", "VERSION:2.0",
+             "PRODID:-//KPop GirlGroup Tracker//TW//ZH",
+             "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+             "X-WR-CALNAME:KPop 女團回歸行事曆",
+             "X-WR-CALDESC:女團 / 前成員 solo 發行預告"]
+    stamp = datetime.now().strftime("%Y%m%dT%H%M%SZ")
+    n = 0
+    for u in upcoming or []:
+        raw = (u.get("date") or "").replace("-", ".").strip()
+        m = re.match(r"(\d{4})\.(\d{1,2})\.(\d{1,2})", raw)
+        if not m:
+            continue
+        y, mo, d = (int(x) for x in m.groups())
+        dt = f"{y:04d}{mo:02d}{d:02d}"
+        group = u.get("group", "")
+        title = u.get("title") or u.get("album") or ""
+        tag = "🎤 solo" if u.get("is_solo") else "👯 女團"
+        summary = f"{group} – {title}".strip(" –")
+        uid = hashlib.md5(f"{group}{title}{dt}".encode()).hexdigest()[:16] + "@kpop-tracker"
+        q = quote_plus(f"{group} {title} MV")
+        url = f"https://www.youtube.com/results?search_query={q}"
+        lines += ["BEGIN:VEVENT", f"UID:{uid}", f"DTSTAMP:{stamp}",
+                  f"DTSTART;VALUE=DATE:{dt}", f"DTEND;VALUE=DATE:{dt}",
+                  f"SUMMARY:{_ics_escape('🎀 ' + summary)}",
+                  f"DESCRIPTION:{_ics_escape(tag + ' 發行 · ' + url)}",
+                  f"URL:{url}", "TRANSP:TRANSPARENT", "END:VEVENT"]
+        n += 1
+    lines.append("END:VCALENDAR")
+    with open(path, "w", encoding="utf-8") as f:
+        f.write("\r\n".join(lines) + "\r\n")
+    return n
+
+
 def _fmt_views(v) -> str:
     """觀看數整數 → 易讀字串（73061587 → 7306 萬次）。"""
     if not isinstance(v, int):
@@ -1485,6 +1560,13 @@ if __name__ == "__main__":
         log.info(f"觀看數歷史：{n_series} 支 MV → views_history.json")
     except Exception as e:
         log.warning(f"觀看數歷史更新失敗: {e}")
+
+    # 回歸行事曆：把發行預告寫成 .ics 供訂閱
+    try:
+        n_ics = write_upcoming_ics(data_dir, data.get("upcoming", []))
+        log.info(f"回歸行事曆：{n_ics} 個事件 → upcoming.ics")
+    except Exception as e:
+        log.warning(f"行事曆 .ics 產生失敗: {e}")
 
     # 專輯資料庫：種子女團清單 + 歷來追蹤過的非 solo 團（archive）
     try:
