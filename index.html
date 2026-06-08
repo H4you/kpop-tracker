@@ -490,6 +490,10 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
 }
 .icon-btn.prev-btn.on { background: var(--accent); color: #fff; border-color: var(--accent); }
 .pop-tag { color: var(--accent2) !important; }
+.disco-sec-title { font-size: 10.5px; color: var(--text3); letter-spacing: .14em; text-transform: uppercase; margin: 6px 8px 8px; }
+.disco-item + .disco-sec-title { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--brd); }
+.disco-cover { width: 34px; height: 34px; border-radius: 6px; object-fit: cover; border: 1px solid var(--brd2); flex-shrink: 0; }
+.disco-item .prev-btn { width: 30px; height: 30px; margin-left: auto; }
 
 /* ── 行事曆訂閱連結 ── */
 .ics-link {
@@ -768,6 +772,7 @@ let searchQuery = '';
 let myPlaylistId = localStorage.getItem('kpop_playlist_id') || '';
 let favGroups = new Set(JSON.parse(localStorage.getItem('kpop_fav_groups') || '[]'));
 let viewsHistory = {};   // { yt_id: {group,title,points:[[date,views],...]} }
+let topTracks = {};      // { group: [{title,preview,album,cover}] }
 
 /* ── Persist ── */
 function saveAdded() {
@@ -1068,8 +1073,9 @@ function render() {
     }
     const srcs = (t.sources || ['Wikipedia']).filter(s => activeSrc.has(s));
     const vid = t.yt_id || '';
+    const mvSub = [t.yt_channel_title, (typeof t.yt_channel_subs === 'number' ? fmtViews(t.yt_channel_subs) + ' 訂閱' : '')].filter(Boolean).join(' · ');
     const thumb = vid
-      ? `<div class="track-thumb" onclick="openMV('${vid}', '${escAttr(t.group)} - ${escAttr(t.title)}')" title="播放 MV">
+      ? `<div class="track-thumb" onclick="openMV('${vid}', '${escAttr(t.group)} - ${escAttr(t.title)}', '${escAttr(mvSub)}')" title="播放 MV">
           <img loading="lazy" src="https://i.ytimg.com/vi/${vid}/mqdefault.jpg" alt="${escHtml(t.group)} ${escHtml(t.title)} MV 縮圖"
                onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${vid}/hqdefault.jpg'">
           <span class="play-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
@@ -1082,7 +1088,7 @@ function render() {
       <div class="track-body">
         <div class="track-top-row">
           ${t.artist_img ? `<img class="artist-av" loading="lazy" src="${escAttr(t.artist_img)}" alt="" aria-hidden="true">` : ''}
-          <span class="group-pill${discographies[t.group] ? ' clickable' : ''}"${discographies[t.group] ? ` onclick="openDisco('${escAttr(t.group)}')" title="查看 ${escHtml(t.group)} 歷年作品"` : ''}>${escHtml(t.group)}</span>
+          <span class="group-pill${(discographies[t.group] || topTracks[t.group]) ? ' clickable' : ''}"${(discographies[t.group] || topTracks[t.group]) ? ` onclick="openDisco('${escAttr(t.group)}')" title="查看 ${escHtml(t.group)} 作品 / 熱門曲"` : ''}>${escHtml(t.group)}</span>
           ${isFav(t.group) ? '<span class="fav-star" title="已追蹤">♥</span>' : ''}
           ${members[t.group] ? `<span class="badge clickable" style="cursor:pointer;background:var(--pink-dim);color:var(--accent2);border:1px solid var(--pink-glow)" onclick="openMembers('${escAttr(t.group)}')" title="查看 ${escHtml(t.group)} 成員">成員</span>` : ''}
           ${t.is_new ? '<span class="badge badge-new">NEW</span>' : ''}
@@ -1094,8 +1100,11 @@ function render() {
           ${t.date ? `<span class="track-meta-item">${escHtml(t.date)}</span>` : ''}
           ${t.album ? `<span class="track-meta-item" style="color:var(--ink3)">${escHtml(t.album)}</span>` : ''}
           ${fmtViews(t.yt_views) ? `<span class="track-meta-item view-count" title="MV 觀看數">▶ ${fmtViews(t.yt_views)}</span>` : ''}
+          ${typeof t.yt_likes === 'number' && t.yt_likes > 0 ? `<span class="track-meta-item" title="MV 按讚數">👍 ${fmtViews(t.yt_likes)}</span>` : ''}
           ${g && g.delta > 0 ? `<span class="track-meta-item growth-up" title="近 ${g.days} 天觀看數成長">▲ ${fmtViews(g.delta)} ${sparkline(g.points, 50, 16)}</span>` : ''}
+          ${(() => { if (!t.yt_published) return ''; const dd = Math.floor((Date.now() - new Date(t.yt_published)) / 864e5); return dd >= 0 && dd <= 60 ? `<span class="track-meta-item" title="MV 上線於 ${t.yt_published}">🆙 上線 ${dd} 天</span>` : ''; })()}
           ${typeof t.fans === 'number' && t.fans > 0 ? `<span class="track-meta-item pop-tag" title="Deezer 粉絲數">👥 ${fmtViews(t.fans)}</span>` : ''}
+          ${(t.agency || t.debut_year) ? `<span class="track-meta-item" title="經紀公司 / 出道年">🏢 ${escHtml([t.agency, t.debut_year ? t.debut_year + ' 出道' : ''].filter(Boolean).join(' · '))}</span>` : ''}
           ${srcs.map(s => `<span class="track-meta-item"><span class="src-dot" data-s="${s}" aria-hidden="true"></span>${s}</span>`).join('')}
         </div>
       </div>
@@ -1142,12 +1151,12 @@ function escAttr(s) {
 }
 
 /* ── MV 內嵌播放 ── */
-function openMV(vid, label) {
+function openMV(vid, label, sub) {
   if (!vid) return;
   const m = document.getElementById('mv-modal');
   document.getElementById('mv-frame').innerHTML =
     `<iframe src="https://www.youtube.com/embed/${vid}?autoplay=1&rel=0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
-  document.getElementById('mv-title').textContent = label || 'MV';
+  document.getElementById('mv-title').textContent = (label || 'MV') + (sub ? '　·　' + sub : '');
   if (_audio) { try { _audio.pause(); } catch(e) {} _audio = null; _playingUrl = ''; updatePreviewBtns(); }
   m.classList.add('show');
 }
@@ -1159,15 +1168,26 @@ function closeMV() {
 /* ── Discography 彈窗 ── */
 function openDisco(group) {
   const list = discographies[group] || [];
-  document.getElementById('disco-title').textContent = group + ' · 歷年作品';
+  const tops = topTracks[group] || [];
+  document.getElementById('disco-title').textContent = group + ' · 作品';
   const box = document.getElementById('disco-body');
-  box.innerHTML = list.length
-    ? list.map(d => `<div class="disco-item">
+  const discoHtml = list.length
+    ? `<div class="disco-sec-title">歷年代表作</div>` + list.map(d => `<div class="disco-item">
         <span class="disco-year">${escHtml(d.year||'')}</span>
         <span class="disco-title">${escHtml(d.title||'')}</span>
         ${d.type ? `<span class="disco-type">${escHtml(d.type)}</span>` : ''}
       </div>`).join('')
-    : '<div class="disco-empty">查無資料</div>';
+    : '';
+  const topHtml = tops.length
+    ? `<div class="disco-sec-title">熱門曲（可試聽）</div>` + tops.map(tt => `<div class="disco-item">
+        ${tt.cover ? `<img class="disco-cover" loading="lazy" src="${escAttr(tt.cover)}" alt="">` : ''}
+        <span class="disco-title">${escHtml(tt.title||'')}</span>
+        ${tt.preview ? `<button class="icon-btn prev-btn" data-url="${escAttr(tt.preview)}" onclick="togglePreview(this.dataset.url)" aria-label="試聽 ${escHtml(tt.title||'')}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.06A4.5 4.5 0 0 0 16.5 12z"/></svg>
+        </button>` : ''}
+      </div>`).join('')
+    : '';
+  box.innerHTML = (discoHtml + topHtml) || '<div class="disco-empty">查無資料</div>';
   document.getElementById('disco-modal').classList.add('show');
 }
 function closeDisco() {
@@ -1331,6 +1351,7 @@ async function fetchAll() {
       debutGroups = result.debut_girlgroups || [];
       discographies = result.discographies || {};
       members = result.members || {};
+      topTracks = result.top_tracks || {};
       await loadViewsHistory();
       updateStats();
       renderUpcoming();
@@ -1396,6 +1417,7 @@ window.addEventListener('load', async () => {
     debutGroups = data.debut_girlgroups || [];
     discographies = data.discographies || {};
     members = data.members || {};
+    topTracks = data.top_tracks || {};
     await loadViewsHistory();
     updateStats();
     renderUpcoming();
