@@ -1206,6 +1206,7 @@ _spotify_tok = {"token": "", "exp": 0.0}
 def spotify_token() -> str:
     """Spotify client-credentials token（快取到過期前）。沒設金鑰回空字串。"""
     if not (SPOTIFY_ID and SPOTIFY_SECRET):
+        log.warning("Spotify 金鑰為空（SPOTIFY_CLIENT_ID/SECRET），跳過藝人照片")
         return ""
     if _spotify_tok["token"] and _spotify_tok["exp"] > time.time():
         return _spotify_tok["token"]
@@ -1398,6 +1399,9 @@ def enrich_external(tracks: list[dict]) -> None:
 def run_scraper(days_back: int = 14) -> dict:
     log.info("=== KPop Tracker 爬蟲啟動 (v3) ===")
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M")
+    log.info(f"資料源金鑰：Spotify={'Y' if (SPOTIFY_ID and SPOTIFY_SECRET) else 'N'}"
+             f"（id 長度 {len(SPOTIFY_ID)} / secret 長度 {len(SPOTIFY_SECRET)}）, "
+             f"YouTube={'Y' if YT_API_KEY else 'N'}")
 
     releases = fetch_wikipedia_releases(days_back=days_back)
     debuts = fetch_wikipedia_debuts()   # 仍用於 ai_pick_candidates 的判斷輔助
