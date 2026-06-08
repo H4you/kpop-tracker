@@ -23,6 +23,7 @@ import sys
 import re
 import json
 import time
+import base64
 import hashlib
 import logging
 from urllib.parse import quote_plus, quote
@@ -39,6 +40,11 @@ _API_KEY = os.environ.get("ANTHROPIC_API_KEY", "").strip()
 AI_ENABLED = bool(_API_KEY) and _API_KEY.lower() != "dummy"
 ANTHROPIC_CLIENT = Anthropic(api_key=_API_KEY) if AI_ENABLED else None
 AI_MODEL = "claude-sonnet-4-6"
+
+# ── 外部資料源金鑰（皆可選；沒設就略過該來源）──
+SPOTIFY_ID = os.environ.get("SPOTIFY_CLIENT_ID", "").strip()
+SPOTIFY_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", "").strip()
+YT_API_KEY = os.environ.get("YOUTUBE_API_KEY", "").strip()
 
 # ── 每日 API 花費上限保護 ───────────────────────────────────────────────────────
 # Anthropic 後台不支援「每日」上限，故在程式內自行控管：累計本次執行的 token 用量，
@@ -1188,6 +1194,205 @@ def ai_pick_candidates(releases: list[dict], debuts: list[str], ptt: list[dict])
     return []
 
 
+# ── 5b. 外部資料源強化（Spotify / iTunes / YouTube API / MusicBrainz）───────────
+
+def _norm(s: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", str(s or "").lower())
+
+
+_spotify_tok = {"token": "", "exp": 0.0}
+
+
+def spotify_token() -> str:
+    """Spotify client-credentials token（快取到過期前）。沒設金鑰回空字串。"""
+    if not (SPOTIFY_ID and SPOTIFY_SECRET):
+        return ""
+    if _spotify_tok["token"] and _spotify_tok["exp"] > time.time():
+        return _spotify_tok["token"]
+    try:
+        auth = base64.b64encode(f"{SPOTIFY_ID}:{SPOTIFY_SECRET}".encode()).decode()
+        r = requests.post("https://accounts.spotify.com/api/token",
+                          data={"grant_type": "client_credentials"},
+                          headers={"Authorization": "Basic " + auth}, timeout=15)
+        r.raise_for_status()
+        j = r.json()
+        _spotify_tok["token"] = j.get("access_token", "")
+        _spotify_tok["exp"] = time.time() + j.get("expires_in", 3600) - 60
+        return _spotify_tok["token"]
+    except Exception as e:
+        log.warning(f"Spotify token 取得失敗: {e}")
+        return ""
+
+
+_spotify_cache: dict = {}
+
+
+def spotify_artist(group: str) -> dict:
+    """查 Spotify 藝人：回 {artist_img, popularity, spotify_url}。失敗回 {}。"""
+    if not group:
+        return {}
+    key = _norm(group)
+    if key in _spotify_cache:
+        return _spotify_cache[key]
+    tok = spotify_token()
+    if not tok:
+        return {}
+    info = {}
+    try:
+        r = requests.get("https://api.spotify.com/v1/search",
+                         params={"q": group, "type": "artist", "limit": 5},
+                         headers={"Authorization": "Bearer " + tok}, timeout=12)
+        items = r.json().get("artists", {}).get("items", [])
+        best = next((a for a in items if _norm(a.get("name", "")) == key), None) or (items[0] if items else None)
+        if best:
+            imgs = best.get("images") or []
+            info = {"artist_img": imgs[0]["url"] if imgs else "",
+                    "popularity": best.get("popularity"),
+                    "spotify_url": best.get("external_urls", {}).get("spotify", "")}
+    except Exception as e:
+        log.warning(f"Spotify artist 失敗 {group}: {e}")
+    _spotify_cache[key] = info
+    return info
+
+
+def itunes_preview(group: str, title: str) -> dict:
+    """用 iTunes Search 取該曲 30 秒試聽連結（Spotify preview 多已失效，改用 iTunes）。"""
+    if not (group and title):
+        return {}
+    try:
+        r = requests.get("https://itunes.apple.com/search",
+                         params={"term": f"{group} {title}", "media": "music",
+                                 "entity": "song", "limit": 8, "country": "US"}, timeout=12)
+        results = r.json().get("results", [])
+        gk = _norm(group)
+        # 先找藝人名相符且有 preview 的，否則退而求其次取第一個有 preview 的
+        for it in results:
+            if it.get("previewUrl") and gk and gk in _norm(it.get("artistName", "")):
+                return {"preview_url": it["previewUrl"]}
+        for it in results:
+            if it.get("previewUrl"):
+                return {"preview_url": it["previewUrl"]}
+    except Exception as e:
+        log.warning(f"iTunes preview 失敗 {group}-{title}: {e}")
+    return {}
+
+
+def youtube_api_view_counts(vids: list[str]) -> dict:
+    """用 YouTube Data API 取精確觀看數（statistics，1 unit/批，最多 50 id/批）。"""
+    if not YT_API_KEY or not vids:
+        return {}
+    out = {}
+    vids = [v for v in dict.fromkeys(vids) if v]
+    for i in range(0, len(vids), 50):
+        chunk = vids[i:i + 50]
+        try:
+            r = requests.get("https://www.googleapis.com/youtube/v3/videos",
+                             params={"part": "statistics", "id": ",".join(chunk),
+                                     "key": YT_API_KEY}, timeout=15)
+            for it in r.json().get("items", []):
+                vc = it.get("statistics", {}).get("viewCount")
+                if vc is not None:
+                    out[it["id"]] = int(vc)
+        except Exception as e:
+            log.warning(f"YouTube API 觀看數失敗: {e}")
+    return out
+
+
+def youtube_api_search_mv(group: str, title: str, group_kr: str = "") -> dict | None:
+    """官方 API 搜尋 fallback：爬蟲找不到 MV 時，用 Data API 找官方 MV。
+    回 {url, vid, title} 或 None。search 每次 100 units，只在必要時呼叫。"""
+    if not YT_API_KEY or not group or not title:
+        return None
+    queries = [f"{group} {title} official MV", f"{group} {title} MV"]
+    if group_kr:
+        queries.append(f"{group_kr} {title} MV")
+    song = _norm(title)
+    for q in queries:
+        try:
+            r = requests.get("https://www.googleapis.com/youtube/v3/search",
+                             params={"part": "snippet", "q": q, "type": "video",
+                                     "maxResults": 8, "key": YT_API_KEY}, timeout=15)
+            items = r.json().get("items", [])
+            best = None
+            for it in items:
+                sn = it.get("snippet", {})
+                vtitle = sn.get("title", "")
+                ch = sn.get("channelTitle", "")
+                nt = _norm(vtitle)
+                # 歌名要對得上；偏好官方頻道（含團名 / Official / VEVO / Entertainment）
+                if song and song not in nt:
+                    continue
+                official = any(k in _norm(ch) for k in [_norm(group), "official", "vevo", "entertainment", "smtown", "jype", "hybe"])
+                if official:
+                    best = it
+                    break
+                best = best or it
+            if best:
+                vid = best.get("id", {}).get("videoId", "")
+                if vid:
+                    return {"url": f"https://youtu.be/{vid}", "vid": vid,
+                            "title": best.get("snippet", {}).get("title", "")}
+        except Exception as e:
+            log.warning(f"YouTube API 搜尋失敗: {e}")
+            break
+    return None
+
+
+def musicbrainz_members(group: str) -> list[dict]:
+    """從 MusicBrainz 取團體現任成員（免金鑰；遵守 1 req/sec + User-Agent）。
+    回 [{name,name_kr,birth,role}]；查無回 []。"""
+    if not group:
+        return []
+    ua = {"User-Agent": "kpop-tracker/1.0 (https://h4you.github.io/kpop-tracker)"}
+    try:
+        r = requests.get("https://musicbrainz.org/ws/2/artist",
+                         params={"query": f'artist:"{group}" AND type:group',
+                                 "fmt": "json", "limit": 3}, headers=ua, timeout=15)
+        arts = r.json().get("artists", [])
+        if not arts:
+            return []
+        gk = _norm(group)
+        best = next((a for a in arts if _norm(a.get("name", "")) == gk), None) or arts[0]
+        mbid = best.get("id")
+        if not mbid:
+            return []
+        time.sleep(1.1)
+        r2 = requests.get(f"https://musicbrainz.org/ws/2/artist/{mbid}",
+                          params={"inc": "artist-rels", "fmt": "json"}, headers=ua, timeout=15)
+        rels = r2.json().get("relations", [])
+        out, seen = [], set()
+        for rel in rels:
+            if rel.get("type") == "member of band" and not rel.get("ended"):
+                nm = (rel.get("artist") or {}).get("name", "")
+                if nm and nm not in seen:
+                    seen.add(nm)
+                    out.append({"name": nm, "name_kr": "", "birth": "", "role": ""})
+        return out
+    except Exception as e:
+        log.warning(f"MusicBrainz 成員失敗 {group}: {e}")
+        return []
+
+
+def enrich_external(tracks: list[dict]) -> None:
+    """就地強化 tracks：Spotify 藝人照/人氣/連結 + iTunes 30 秒試聽。"""
+    if not tracks:
+        return
+    n_img = n_prev = 0
+    for t in tracks:
+        sp = spotify_artist(t.get("group", ""))
+        if sp.get("artist_img"):
+            t["artist_img"] = sp["artist_img"]; n_img += 1
+        if sp.get("spotify_url"):
+            t["spotify_url"] = sp["spotify_url"]
+        if sp.get("popularity") is not None:
+            t["popularity"] = sp["popularity"]
+        pv = itunes_preview(t.get("group", ""), t.get("title", ""))
+        if pv.get("preview_url"):
+            t["preview_url"] = pv["preview_url"]; n_prev += 1
+        time.sleep(0.15)
+    log.info(f"外部強化：Spotify 照片 {n_img} 筆、iTunes 試聽 {n_prev} 筆")
+
+
 # ── 6. 主執行流程 ─────────────────────────────────────────────────────────────
 
 def run_scraper(days_back: int = 14) -> dict:
@@ -1279,6 +1484,32 @@ def run_scraper(days_back: int = 14) -> dict:
         })
         tracks.append(base)
 
+    # ── YouTube 官方 API：對找不到 MV 者做官方搜尋 fallback + 補正所有觀看數 ──
+    if YT_API_KEY:
+        still_pending = []
+        for b in pending_mv:
+            found = youtube_api_search_mv(b.get("group", ""), b.get("title", ""), b.get("group_kr", ""))
+            if found:
+                b.update({"yt_url": found["url"], "yt_id": found["vid"], "yt_title": found["title"]})
+                b.pop("yt_search", None)
+                log.info(f"YouTube API 找到官方 MV: {b.get('group')} - {b.get('title')}")
+                tracks.append(b)
+            else:
+                still_pending.append(b)
+        pending_mv = still_pending
+        vc = youtube_api_view_counts([t.get("yt_id") for t in tracks if t.get("yt_id")])
+        fixed = 0
+        for t in tracks:
+            if t.get("yt_id") in vc:
+                t["yt_views"] = vc[t["yt_id"]]; fixed += 1
+        log.info(f"YouTube API：官方觀看數校正 {fixed} 支")
+
+    # ── 外部資料源強化：Spotify 藝人照/人氣 + iTunes 30 秒試聽 ──
+    try:
+        enrich_external(tracks)
+    except Exception as e:
+        log.warning(f"外部強化失敗: {e}")
+
     # ── 附加 AI 功能（已有每日花費上限 DAILY_USD_LIMIT 保護，超過會自動跳過）──
     # 已重新啟用：發行預告+回歸倒數 / 本月生日 / discography / 新出道女團。
     # 仍停用：每週懶人包(digest)；成員資訊只用人工修正檔 members_override.json。
@@ -1312,6 +1543,17 @@ def run_scraper(days_back: int = 14) -> dict:
 
     digest = ""  # 每週懶人包仍停用
     members = apply_members_override({}, group_names)
+    # MusicBrainz 補成員：人工修正檔沒有的團，免金鑰補抓（遵守 1 req/sec）
+    mb_filled = 0
+    for g in group_names:
+        if members.get(g):
+            continue
+        mb = musicbrainz_members(g)
+        if mb:
+            members[g] = mb; mb_filled += 1
+        time.sleep(1.1)
+    if mb_filled:
+        log.info(f"MusicBrainz 成員補強：{mb_filled} 團")
 
     n = len(tracks)
     groups = "、".join(dict.fromkeys(t["group"] for t in tracks))

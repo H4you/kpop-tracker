@@ -483,6 +483,14 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
 .gr-spark { flex-shrink: 0; }
 .gr-delta { font-size: 12px; flex-shrink: 0; }
 
+/* ── 藝人照片 + 試聽 (Spotify / iTunes) ── */
+.artist-av {
+  width: 18px; height: 18px; border-radius: 50%; object-fit: cover;
+  border: 1px solid var(--brd2); flex-shrink: 0; vertical-align: middle;
+}
+.icon-btn.prev-btn.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+.pop-tag { color: var(--accent2) !important; }
+
 /* ── 行事曆訂閱連結 ── */
 .ics-link {
   margin-left: auto; font-size: 11px; color: var(--accent2);
@@ -857,6 +865,23 @@ function toggleFav(group) {
   render();
 }
 
+/* ── 30 秒試聽 (iTunes preview) ── */
+let _audio = null, _playingUrl = '';
+function togglePreview(url) {
+  if (!url) return;
+  if (_audio && _playingUrl === url && !_audio.paused) {   // 同一首再按 → 停
+    _audio.pause(); _audio = null; _playingUrl = ''; updatePreviewBtns(); return;
+  }
+  if (_audio) { try { _audio.pause(); } catch(e) {} }
+  _audio = new Audio(url); _playingUrl = url;
+  _audio.play().catch(() => { _playingUrl = ''; updatePreviewBtns(); });
+  _audio.onended = () => { _playingUrl = ''; _audio = null; updatePreviewBtns(); };
+  updatePreviewBtns();
+}
+function updatePreviewBtns() {
+  document.querySelectorAll('.prev-btn').forEach(b => b.classList.toggle('on', b.dataset.url === _playingUrl));
+}
+
 /* ── 觀看數成長：取某 MV 近 N 天的成長量 ── */
 function getGrowth(vid, windowDays = 7) {
   const s = viewsHistory[vid];
@@ -1056,6 +1081,7 @@ function render() {
       ${thumb}
       <div class="track-body">
         <div class="track-top-row">
+          ${t.artist_img ? `<img class="artist-av" loading="lazy" src="${escAttr(t.artist_img)}" alt="" aria-hidden="true">` : ''}
           <span class="group-pill${discographies[t.group] ? ' clickable' : ''}"${discographies[t.group] ? ` onclick="openDisco('${escAttr(t.group)}')" title="查看 ${escHtml(t.group)} 歷年作品"` : ''}>${escHtml(t.group)}</span>
           ${isFav(t.group) ? '<span class="fav-star" title="已追蹤">♥</span>' : ''}
           ${members[t.group] ? `<span class="badge clickable" style="cursor:pointer;background:var(--pink-dim);color:var(--accent2);border:1px solid var(--pink-glow)" onclick="openMembers('${escAttr(t.group)}')" title="查看 ${escHtml(t.group)} 成員">成員</span>` : ''}
@@ -1069,10 +1095,14 @@ function render() {
           ${t.album ? `<span class="track-meta-item" style="color:var(--ink3)">${escHtml(t.album)}</span>` : ''}
           ${fmtViews(t.yt_views) ? `<span class="track-meta-item view-count" title="MV 觀看數">▶ ${fmtViews(t.yt_views)}</span>` : ''}
           ${g && g.delta > 0 ? `<span class="track-meta-item growth-up" title="近 ${g.days} 天觀看數成長">▲ ${fmtViews(g.delta)} ${sparkline(g.points, 50, 16)}</span>` : ''}
+          ${typeof t.popularity === 'number' ? `<span class="track-meta-item pop-tag" title="Spotify 人氣值（0-100）">🔥 ${t.popularity}</span>` : ''}
           ${srcs.map(s => `<span class="track-meta-item"><span class="src-dot" data-s="${s}" aria-hidden="true"></span>${s}</span>`).join('')}
         </div>
       </div>
       <div class="track-actions">
+        ${t.preview_url ? `<button class="icon-btn prev-btn" data-url="${escAttr(t.preview_url)}" onclick="togglePreview(this.dataset.url)" aria-label="試聽 30 秒 ${escHtml(t.title)}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.06A4.5 4.5 0 0 0 16.5 12z"/></svg>
+        </button>` : ''}
         <button class="icon-btn fav-btn${isFav(t.group) ? ' on' : ''}"
           onclick="toggleFav('${escAttr(t.group)}')"
           aria-label="${isFav(t.group) ? '取消追蹤' : '追蹤'} ${escHtml(t.group)}">
@@ -1118,6 +1148,7 @@ function openMV(vid, label) {
   document.getElementById('mv-frame').innerHTML =
     `<iframe src="https://www.youtube.com/embed/${vid}?autoplay=1&rel=0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
   document.getElementById('mv-title').textContent = label || 'MV';
+  if (_audio) { try { _audio.pause(); } catch(e) {} _audio = null; _playingUrl = ''; updatePreviewBtns(); }
   m.classList.add('show');
 }
 function closeMV() {
@@ -1148,13 +1179,15 @@ function openMembers(group) {
   const list = members[group] || [];
   document.getElementById('mem-title').textContent = group + ' · 成員';
   const box = document.getElementById('mem-body');
-  box.innerHTML = list.length
+  const img = (tracks.find(t => t.group === group) || {}).artist_img || (archiveTracks.find(t => t.group === group) || {}).artist_img;
+  const header = img ? `<div style="text-align:center;padding:6px 0 14px"><img src="${escAttr(img)}" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover;border:1px solid var(--brd2)"></div>` : '';
+  box.innerHTML = header + (list.length
     ? list.map(mb => `<div class="mem-item">
         <span class="mem-name">${escHtml(mb.name||'')}${mb.name_kr ? `<span class="kr">${escHtml(mb.name_kr)}</span>` : ''}</span>
         ${mb.birth ? `<span class="mem-birth">🎂 ${escHtml(mb.birth)}</span>` : ''}
         ${mb.role ? `<span class="mem-role">${escHtml(mb.role)}</span>` : ''}
       </div>`).join('')
-    : '<div class="disco-empty">查無資料</div>';
+    : '<div class="disco-empty">查無資料</div>');
   document.getElementById('mem-modal').classList.add('show');
 }
 function closeMem() {
