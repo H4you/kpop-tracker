@@ -1316,28 +1316,107 @@ def itunes_preview(group: str, title: str) -> dict:
     return {}
 
 
+_deezer_artist_cache: dict = {}
+
+
 def _deezer_find_artist(name: str) -> dict | None:
-    """用 Deezer 藝人搜尋找最相符的藝人物件（精準比對團名，避免抓錯團）。"""
+    """用 Deezer 藝人搜尋找最相符的藝人物件（精準比對團名，避免抓錯團）。有快取。"""
     if not name:
         return None
+    ck = _norm(name)
+    if ck in _deezer_artist_cache:
+        return _deezer_artist_cache[ck]
+    res = None
     try:
         r = requests.get("https://api.deezer.com/search/artist",
                          params={"q": name, "limit": 10}, timeout=12)
         data = r.json().get("data", [])
+        if data:
+            nk = ck
+            # 1) 完全相符  2) 互為包含（FIFTY FIFTY / fiftyfifty 等）  3) 粉絲數最高者
+            exact = next((a for a in data if _norm(a.get("name", "")) == nk), None)
+            if exact:
+                res = exact
+            else:
+                contains = [a for a in data if nk and (nk in _norm(a.get("name", "")) or _norm(a.get("name", "")) in nk)]
+                res = max(contains, key=lambda a: a.get("nb_fan", 0)) if contains else None
     except Exception as e:
         log.warning(f"Deezer 藝人搜尋失敗 {name}: {e}")
-        return None
-    if not data:
-        return None
-    nk = _norm(name)
-    # 1) 完全相符  2) 互為包含（FIFTY FIFTY / fiftyfifty 等）  3) 粉絲數最高者
-    exact = next((a for a in data if _norm(a.get("name", "")) == nk), None)
-    if exact:
-        return exact
-    contains = [a for a in data if nk and (nk in _norm(a.get("name", "")) or _norm(a.get("name", "")) in nk)]
-    if contains:
-        return max(contains, key=lambda a: a.get("nb_fan", 0))
-    return None  # 不相符寧可不給，避免放錯團的照片
+    _deezer_artist_cache[ck] = res   # 不相符寧可不給（None 也快取），避免放錯團
+    return res
+
+
+def deezer_top_tracks(group: str, group_kr: str = "", limit: int = 6) -> list[dict]:
+    """取某團在 Deezer 的熱門曲（可試聽）。回 [{title, preview, album, cover}]。"""
+    if not group:
+        return []
+    artist = _deezer_find_artist(group) or (_deezer_find_artist(group_kr) if group_kr else None)
+    if not artist or not artist.get("id"):
+        return []
+    try:
+        r = requests.get(f"https://api.deezer.com/artist/{artist['id']}/top",
+                         params={"limit": limit}, timeout=12)
+        out = []
+        for t in r.json().get("data", []):
+            out.append({"title": t.get("title", ""),
+                        "preview": t.get("preview", ""),
+                        "album": (t.get("album") or {}).get("title", ""),
+                        "cover": (t.get("album") or {}).get("cover_medium", "")})
+        return out
+    except Exception as e:
+        log.warning(f"Deezer 熱門曲失敗 {group}: {e}")
+        return []
+
+
+def wikidata_group_info(group: str) -> dict:
+    """從 Wikidata 取經紀公司（唱片公司）+ 出道/成軍年份。回 {agency, debut_year}。免金鑰。"""
+    if not group:
+        return {}
+    api = "https://www.wikidata.org/w/api.php"
+    ua = {"User-Agent": "kpop-tracker/1.0 (https://h4you.github.io/kpop-tracker)"}
+    try:
+        r = requests.get(api, params={"action": "wbsearchentities", "search": group,
+                                      "language": "en", "type": "item", "limit": 5,
+                                      "format": "json"}, headers=ua, timeout=12)
+        hits = r.json().get("search", [])
+        # 偏好描述像團體/女團/樂團者
+        cand = next((h for h in hits if any(k in (h.get("description", "") or "").lower()
+                    for k in ["group", "band", "girl", "duo", "idol"])), None) or (hits[0] if hits else None)
+        if not cand:
+            return {}
+        qid = cand["id"]
+        r2 = requests.get(api, params={"action": "wbgetentities", "ids": qid,
+                                       "props": "claims", "format": "json"}, headers=ua, timeout=12)
+        claims = r2.json().get("entities", {}).get(qid, {}).get("claims", {})
+        info = {}
+        # 出道/成軍年份：P571 inception
+        try:
+            t = claims["P571"][0]["mainsnak"]["datavalue"]["value"]["time"]  # +2020-00-00T..
+            yr = t[1:5]
+            if yr.isdigit():
+                info["debut_year"] = yr
+        except Exception:
+            pass
+        # 經紀公司：P264 record label（K-pop 多等同經紀公司），備援 P749 owned by
+        label_qid = ""
+        for prop in ("P264", "P749"):
+            try:
+                label_qid = claims[prop][0]["mainsnak"]["datavalue"]["value"]["id"]
+                if label_qid:
+                    break
+            except Exception:
+                continue
+        if label_qid:
+            r3 = requests.get(api, params={"action": "wbgetentities", "ids": label_qid,
+                                           "props": "labels", "languages": "en",
+                                           "format": "json"}, headers=ua, timeout=12)
+            nm = r3.json().get("entities", {}).get(label_qid, {}).get("labels", {}).get("en", {}).get("value", "")
+            if nm:
+                info["agency"] = nm
+        return info
+    except Exception as e:
+        log.warning(f"Wikidata 查詢失敗 {group}: {e}")
+        return {}
 
 
 def deezer_lookup(group: str, title: str, group_kr: str = "") -> dict:
@@ -1368,8 +1447,9 @@ def deezer_lookup(group: str, title: str, group_kr: str = "") -> dict:
     return out
 
 
-def youtube_api_view_counts(vids: list[str]) -> dict:
-    """用 YouTube Data API 取精確觀看數（statistics，1 unit/批，最多 50 id/批）。"""
+def youtube_api_video_details(vids: list[str]) -> dict:
+    """用 YouTube Data API 取每支 MV 的詳細數據：觀看數、按讚數、上線日期、官方頻道。
+    回 {vid: {views, likes, published, channel_id, channel_title}}。"""
     if not YT_API_KEY or not vids:
         return {}
     out = {}
@@ -1378,14 +1458,44 @@ def youtube_api_view_counts(vids: list[str]) -> dict:
         chunk = vids[i:i + 50]
         try:
             r = requests.get("https://www.googleapis.com/youtube/v3/videos",
+                             params={"part": "statistics,snippet", "id": ",".join(chunk),
+                                     "key": YT_API_KEY}, timeout=15)
+            for it in r.json().get("items", []):
+                st = it.get("statistics", {})
+                sn = it.get("snippet", {})
+                d = {}
+                if st.get("viewCount") is not None:
+                    d["views"] = int(st["viewCount"])
+                if st.get("likeCount") is not None:
+                    d["likes"] = int(st["likeCount"])
+                if sn.get("publishedAt"):
+                    d["published"] = sn["publishedAt"][:10]   # YYYY-MM-DD
+                d["channel_id"] = sn.get("channelId", "")
+                d["channel_title"] = sn.get("channelTitle", "")
+                out[it["id"]] = d
+        except Exception as e:
+            log.warning(f"YouTube API 影片詳情失敗: {e}")
+    return out
+
+
+def youtube_api_channel_subs(channel_ids: list[str]) -> dict:
+    """取頻道訂閱數。回 {channel_id: subscriberCount}。"""
+    if not YT_API_KEY or not channel_ids:
+        return {}
+    out = {}
+    ids = [c for c in dict.fromkeys(channel_ids) if c]
+    for i in range(0, len(ids), 50):
+        chunk = ids[i:i + 50]
+        try:
+            r = requests.get("https://www.googleapis.com/youtube/v3/channels",
                              params={"part": "statistics", "id": ",".join(chunk),
                                      "key": YT_API_KEY}, timeout=15)
             for it in r.json().get("items", []):
-                vc = it.get("statistics", {}).get("viewCount")
-                if vc is not None:
-                    out[it["id"]] = int(vc)
+                sc = it.get("statistics", {})
+                if not sc.get("hiddenSubscriberCount") and sc.get("subscriberCount") is not None:
+                    out[it["id"]] = int(sc["subscriberCount"])
         except Exception as e:
-            log.warning(f"YouTube API 觀看數失敗: {e}")
+            log.warning(f"YouTube API 頻道訂閱數失敗: {e}")
     return out
 
 
@@ -1630,18 +1740,53 @@ def run_scraper(days_back: int = 14) -> dict:
             else:
                 still_pending.append(b)
         pending_mv = still_pending
-        vc = youtube_api_view_counts([t.get("yt_id") for t in tracks if t.get("yt_id")])
+        det = youtube_api_video_details([t.get("yt_id") for t in tracks if t.get("yt_id")])
+        subs = youtube_api_channel_subs([d.get("channel_id") for d in det.values() if d.get("channel_id")])
         fixed = 0
         for t in tracks:
-            if t.get("yt_id") in vc:
-                t["yt_views"] = vc[t["yt_id"]]; fixed += 1
-        log.info(f"YouTube API：官方觀看數校正 {fixed} 支")
+            d = det.get(t.get("yt_id"))
+            if not d:
+                continue
+            if d.get("views") is not None:
+                t["yt_views"] = d["views"]; fixed += 1
+            if d.get("likes") is not None:
+                t["yt_likes"] = d["likes"]
+            if d.get("published"):
+                t["yt_published"] = d["published"]
+            if d.get("channel_title"):
+                t["yt_channel_title"] = d["channel_title"]
+            if d.get("channel_id") in subs:
+                t["yt_channel_subs"] = subs[d["channel_id"]]
+        log.info(f"YouTube API：官方詳情校正 {fixed} 支（觀看/按讚/上線日/頻道訂閱）")
 
-    # ── 外部資料源強化：Spotify 藝人照/人氣 + iTunes 30 秒試聽 ──
+    # ── 外部資料源強化：Deezer 藝人照/粉絲/試聽 + iTunes 備援 ──
     try:
         enrich_external(tracks)
     except Exception as e:
         log.warning(f"外部強化失敗: {e}")
+
+    # ── 經紀公司 + 出道年份（Wikidata）+ 每團熱門曲（Deezer，可試聽）──
+    top_tracks: dict = {}
+    try:
+        ginfo = {}
+        for gname in sorted({t["group"] for t in tracks}):
+            gkr = next((t.get("group_kr", "") for t in tracks if t["group"] == gname), "")
+            wi = wikidata_group_info(gname)
+            if wi:
+                ginfo[gname] = wi
+            tt = deezer_top_tracks(gname, gkr)
+            if tt:
+                top_tracks[gname] = tt
+            time.sleep(0.2)
+        for t in tracks:
+            gi = ginfo.get(t["group"], {})
+            if gi.get("agency"):
+                t["agency"] = gi["agency"]
+            if gi.get("debut_year"):
+                t["debut_year"] = gi["debut_year"]
+        log.info(f"Wikidata 公司/出道：{len(ginfo)} 團；Deezer 熱門曲：{len(top_tracks)} 團")
+    except Exception as e:
+        log.warning(f"公司/出道/熱門曲建置失敗: {e}")
 
     # ── 附加 AI 功能（已有每日花費上限 DAILY_USD_LIMIT 保護，超過會自動跳過）──
     # 已重新啟用：發行預告+回歸倒數 / 本月生日 / discography / 新出道女團。
@@ -1700,7 +1845,7 @@ def run_scraper(days_back: int = 14) -> dict:
     return {"tracks": tracks, "pending_mv": pending_mv,
             "upcoming": upcoming, "birthdays": birthdays,
             "discographies": discographies, "members": members,
-            "debut_girlgroups": debut_girlgroups,
+            "debut_girlgroups": debut_girlgroups, "top_tracks": top_tracks,
             "summary": summary, "digest": digest, "fetched_at": now_str}
 
 
