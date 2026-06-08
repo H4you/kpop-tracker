@@ -1331,6 +1331,42 @@ def update_archive(data_dir: str, tracks: list[dict]) -> int:
     return len(merged)
 
 
+def update_views_history(data_dir: str, tracks: list[dict], keep_days: int = 30) -> int:
+    """每天記錄每支 MV 的觀看數快照 → data/views_history.json，供前端「觀看數成長榜」用。
+    以 yt_id 為鍵；每個 id 最多保留 keep_days 個資料點（每天一點，同日覆蓋）。"""
+    path = os.path.join(data_dir, "views_history.json")
+    hist = {"series": {}, "updated_at": ""}
+    if os.path.exists(path):
+        try:
+            with open(path, encoding="utf-8") as f:
+                hist = json.load(f)
+        except Exception as e:
+            log.warning(f"views_history.json 讀取失敗，將重建: {e}")
+            hist = {"series": {}, "updated_at": ""}
+    series = hist.get("series", {})
+    today = datetime.now().strftime("%Y-%m-%d")
+    for t in tracks:
+        vid = t.get("yt_id")
+        views = t.get("yt_views")
+        if not vid or not isinstance(views, int):
+            continue
+        s = series.get(vid) or {"group": t.get("group", ""), "title": t.get("title", ""), "points": []}
+        s["group"] = t.get("group", s.get("group", ""))
+        s["title"] = t.get("title", s.get("title", ""))
+        pts = [p for p in s.get("points", []) if p and p[0] != today]  # 同日覆蓋
+        pts.append([today, views])
+        s["points"] = pts[-keep_days:]
+        series[vid] = s
+    # 清掉太久沒更新（最後一點超過 keep_days 天）的序列，避免無限長大
+    cutoff = (datetime.now().date() - timedelta(days=keep_days)).strftime("%Y-%m-%d")
+    series = {k: v for k, v in series.items()
+              if v.get("points") and v["points"][-1][0] >= cutoff}
+    hist = {"series": series, "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M")}
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(hist, f, ensure_ascii=False, indent=2)
+    return len(series)
+
+
 def _fmt_views(v) -> str:
     """觀看數整數 → 易讀字串（73061587 → 7306 萬次）。"""
     if not isinstance(v, int):
@@ -1442,6 +1478,13 @@ if __name__ == "__main__":
         json.dump(data, f, ensure_ascii=False, indent=2)
 
     total = update_archive(data_dir, data.get("tracks", []))
+
+    # 觀看數成長榜：記錄今天各 MV 觀看數快照（每天一點，前端算成長）
+    try:
+        n_series = update_views_history(data_dir, data.get("tracks", []))
+        log.info(f"觀看數歷史：{n_series} 支 MV → views_history.json")
+    except Exception as e:
+        log.warning(f"觀看數歷史更新失敗: {e}")
 
     # 專輯資料庫：種子女團清單 + 歷來追蹤過的非 solo 團（archive）
     try:

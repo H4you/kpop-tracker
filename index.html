@@ -7,6 +7,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<!-- PWA：可安裝 App + 離線快取 -->
+<meta name="theme-color" content="#0a0812">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="女團情報板">
 <style>
 /* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -456,6 +464,25 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
 }
 .repo-link:hover { color: var(--accent); }
 
+/* ── Favorites (追蹤最愛團) ── */
+.tabs { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.icon-btn.fav-btn.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.icon-btn.fav-btn.on:hover { background: var(--accent); color: #fff; }
+.fav-star { color: var(--accent); font-size: 11px; margin-left: 1px; }
+.track.fav { border-color: rgba(255,92,147,.4); }
+
+/* ── 觀看數成長榜 + 迷你趨勢圖 ── */
+.spark { display: inline-flex; align-items: center; vertical-align: middle; }
+.spark svg { display: block; }
+.growth-up { color: #4ade80 !important; font-weight: 600; font-variant-numeric: tabular-nums; }
+.gr-rank {
+  font-family: var(--font-display); font-size: 15px; font-weight: 700;
+  color: var(--accent); width: 22px; flex-shrink: 0; text-align: center; opacity: .85;
+}
+.gr-spark { flex-shrink: 0; }
+.gr-delta { font-size: 12px; flex-shrink: 0; }
+
 /* ── Animations ── */
 @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 .spin { animation: spin .8s linear infinite; }
@@ -509,6 +536,7 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
       <select class="btn-ghost" id="sort-sel" style="cursor:pointer" title="排序方式">
         <option value="date">依日期</option>
         <option value="views">依熱度</option>
+        <option value="growth">依成長</option>
       </select>
       <select class="btn-ghost" id="time-sel" style="cursor:pointer">
         <option value="all">全部</option>
@@ -564,6 +592,7 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
   <div class="toolbar">
     <div class="tabs" role="tablist">
       <button class="tab active" role="tab" aria-selected="true"  data-tab="all"     onclick="setTab(this)">全部</button>
+      <button class="tab"        role="tab" aria-selected="false" data-tab="fav"     onclick="setTab(this)">♥ 最愛</button>
       <button class="tab"        role="tab" aria-selected="false" data-tab="pending" onclick="setTab(this)">未標記</button>
       <button class="tab"        role="tab" aria-selected="false" data-tab="added"   onclick="setTab(this)">已標記</button>
       <button class="tab"        role="tab" aria-selected="false" data-tab="new"     onclick="setTab(this)">本週新</button>
@@ -582,6 +611,14 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
   <div class="search-row">
     <svg class="search-ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
     <input type="search" id="search-box" placeholder="搜尋團名或歌名…" aria-label="搜尋團名或歌名" autocomplete="off">
+  </div>
+
+  <div class="upcoming-card" id="growth-card">
+    <div class="upcoming-head">
+      <span class="upcoming-title">📈 觀看數成長榜</span>
+      <span class="upcoming-sub">近 7 天 MV 觀看數衝最快</span>
+    </div>
+    <div class="upcoming-list" id="growth-list"></div>
   </div>
 
   <div class="upcoming-card" id="upcoming-card">
@@ -678,6 +715,8 @@ let discographies = {};
 let members = {};
 let searchQuery = '';
 let myPlaylistId = localStorage.getItem('kpop_playlist_id') || '';
+let favGroups = new Set(JSON.parse(localStorage.getItem('kpop_fav_groups') || '[]'));
+let viewsHistory = {};   // { yt_id: {group,title,points:[[date,views],...]} }
 
 /* ── Persist ── */
 function saveAdded() {
@@ -763,6 +802,42 @@ function markAllAdded() {
   saveAdded(); updateStats(); render();
 }
 
+/* ── 追蹤最愛團 ── */
+function saveFavs() {
+  try { localStorage.setItem('kpop_fav_groups', JSON.stringify([...favGroups])); } catch(e) {}
+}
+function isFav(group) { return favGroups.has(group); }
+function toggleFav(group) {
+  if (!group) return;
+  if (favGroups.has(group)) favGroups.delete(group); else favGroups.add(group);
+  saveFavs();
+  render();
+}
+
+/* ── 觀看數成長：取某 MV 近 N 天的成長量 ── */
+function getGrowth(vid, windowDays = 7) {
+  const s = viewsHistory[vid];
+  if (!s || !Array.isArray(s.points) || s.points.length < 2) return null;
+  const pts = s.points.slice(-windowDays);
+  if (pts.length < 2) return null;
+  const first = pts[0][1], last = pts[pts.length - 1][1];
+  const delta = last - first;
+  return { delta, days: pts.length - 1, points: pts.map(p => p[1]) };
+}
+/* 迷你趨勢圖（inline SVG polyline）*/
+function sparkline(vals, w = 64, h = 20) {
+  if (!vals || vals.length < 2) return '';
+  const min = Math.min(...vals), max = Math.max(...vals), span = (max - min) || 1;
+  const pts = vals.map((v, i) => {
+    const x = (i / (vals.length - 1)) * (w - 2) + 1;
+    const y = h - 1 - ((v - min) / span) * (h - 2);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  return `<span class="spark"><svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true">
+    <polyline points="${pts}" fill="none" stroke="#4ade80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg></span>`;
+}
+
 /* ── Stats ── */
 function updateStats() {
   const total = tracks.length;
@@ -785,6 +860,7 @@ function getFiltered() {
     list = tracks;
     if (curTab === 'pending') list = list.filter(t => !added.has(t.id));
     else if (curTab === 'added') list = list.filter(t => added.has(t.id));
+    else if (curTab === 'fav') list = list.filter(t => favGroups.has(t.group));
     else if (curTab === 'new') list = list.filter(t => t.is_new);
     list = list.filter(t => (t.sources || ['Wikipedia']).some(s => activeSrc.has(s)));
     if (timeVal === 'new') list = list.filter(t => t.is_new);
@@ -798,6 +874,8 @@ function getFiltered() {
   const sortEl = document.getElementById('sort-sel');
   if (sortEl && sortEl.value === 'views') {
     list = [...list].sort((a, b) => (b.yt_views || 0) - (a.yt_views || 0));
+  } else if (sortEl && sortEl.value === 'growth') {
+    list = [...list].sort((a, b) => ((getGrowth(b.yt_id)?.delta || 0) - (getGrowth(a.yt_id)?.delta || 0)));
   }
   return list;
 }
@@ -876,6 +954,30 @@ function renderDebuts() {
   }).join('');
 }
 
+/* ── 觀看數成長榜 ── */
+function renderGrowth() {
+  const card = document.getElementById('growth-card');
+  const list = document.getElementById('growth-list');
+  if (!card || !list) return;
+  const rows = tracks
+    .map(t => ({ t, g: getGrowth(t.yt_id) }))
+    .filter(x => x.g && x.g.delta > 0)
+    .sort((a, b) => b.g.delta - a.g.delta)
+    .slice(0, 8);
+  if (!rows.length) { card.classList.remove('show'); return; }
+  card.classList.add('show');
+  list.innerHTML = rows.map((x, i) => {
+    const t = x.t, g = x.g, vid = t.yt_id || '';
+    const open = vid ? `onclick="openMV('${vid}','${escAttr(t.group)} - ${escAttr(t.title)}')" style="cursor:pointer"` : 'style="cursor:default"';
+    return `<div class="up-item" ${open} title="播放 MV">
+      <span class="gr-rank">${i + 1}</span>
+      <span class="up-main"><span class="up-group">${escHtml(t.group)}</span> <span class="up-title">${escHtml(t.title)}</span></span>
+      <span class="gr-spark">${sparkline(g.points, 56, 18)}</span>
+      <span class="gr-delta growth-up">▲ ${fmtViews(g.delta)}</span>
+    </div>`;
+  }).join('');
+}
+
 /* ── Render ── */
 function render() {
   const list = getFiltered();
@@ -905,12 +1007,14 @@ function render() {
           <span class="play-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
         </div>`
       : `<div class="track-thumb-ph" aria-hidden="true">無縮圖</div>`;
-    return `<article class="track${isAdded ? ' added' : ''}" style="animation-delay:${i * 30}ms">
+    const g = getGrowth(t.yt_id);
+    return `<article class="track${isAdded ? ' added' : ''}${isFav(t.group) ? ' fav' : ''}" style="animation-delay:${i * 30}ms">
       <div class="track-rank" aria-hidden="true">${(i + 1).toString().padStart(2,'0')}</div>
       ${thumb}
       <div class="track-body">
         <div class="track-top-row">
           <span class="group-pill${discographies[t.group] ? ' clickable' : ''}"${discographies[t.group] ? ` onclick="openDisco('${escAttr(t.group)}')" title="查看 ${escHtml(t.group)} 歷年作品"` : ''}>${escHtml(t.group)}</span>
+          ${isFav(t.group) ? '<span class="fav-star" title="已追蹤">♥</span>' : ''}
           ${members[t.group] ? `<span class="badge clickable" style="cursor:pointer;background:var(--pink-dim);color:var(--accent2);border:1px solid var(--pink-glow)" onclick="openMembers('${escAttr(t.group)}')" title="查看 ${escHtml(t.group)} 成員">成員</span>` : ''}
           ${t.is_new ? '<span class="badge badge-new">NEW</span>' : ''}
           ${t.is_hot ? '<span class="badge badge-hot">HOT</span>' : ''}
@@ -921,10 +1025,16 @@ function render() {
           ${t.date ? `<span class="track-meta-item">${escHtml(t.date)}</span>` : ''}
           ${t.album ? `<span class="track-meta-item" style="color:var(--ink3)">${escHtml(t.album)}</span>` : ''}
           ${fmtViews(t.yt_views) ? `<span class="track-meta-item view-count" title="MV 觀看數">▶ ${fmtViews(t.yt_views)}</span>` : ''}
+          ${g && g.delta > 0 ? `<span class="track-meta-item growth-up" title="近 ${g.days} 天觀看數成長">▲ ${fmtViews(g.delta)} ${sparkline(g.points, 50, 16)}</span>` : ''}
           ${srcs.map(s => `<span class="track-meta-item"><span class="src-dot" data-s="${s}" aria-hidden="true"></span>${s}</span>`).join('')}
         </div>
       </div>
       <div class="track-actions">
+        <button class="icon-btn fav-btn${isFav(t.group) ? ' on' : ''}"
+          onclick="toggleFav('${escAttr(t.group)}')"
+          aria-label="${isFav(t.group) ? '取消追蹤' : '追蹤'} ${escHtml(t.group)}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="${isFav(t.group) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
         <button class="icon-btn check-btn${isAdded ? ' added' : ''}"
           onclick="toggleAdded('${t.id}')"
           aria-label="${isAdded ? '取消標記（個人記號）' : '標記為已看過 / 已處理（個人記號，存本機）'}">
@@ -1020,6 +1130,13 @@ async function loadFromRepo() {
   }
 }
 
+async function loadViewsHistory() {
+  try {
+    const r = await fetch('data/views_history.json?t=' + Date.now());
+    if (r.ok) { const d = await r.json(); viewsHistory = d.series || {}; }
+  } catch(e) { /* ignore */ }
+}
+
 /* ── Main fetch orchestrator ── */
 async function fetchAll() {
   const fab   = document.getElementById('fab');
@@ -1076,11 +1193,13 @@ async function fetchAll() {
       debutGroups = result.debut_girlgroups || [];
       discographies = result.discographies || {};
       members = result.members || {};
+      await loadViewsHistory();
       updateStats();
       renderUpcoming();
       renderBirthdays();
       renderPending();
       renderDebuts();
+      renderGrowth();
       render();
     } else {
       throw new Error('no tracks returned');
@@ -1139,14 +1258,23 @@ window.addEventListener('load', async () => {
     debutGroups = data.debut_girlgroups || [];
     discographies = data.discographies || {};
     members = data.members || {};
+    await loadViewsHistory();
     updateStats();
     renderUpcoming();
     renderBirthdays();
     renderPending();
     renderDebuts();
+    renderGrowth();
     render();
   }
 });
+
+/* ── PWA：註冊 service worker（離線快取 + 可安裝）── */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
 </script>
 </body>
 </html>
