@@ -1722,12 +1722,38 @@ def audiodb_profile(group: str, group_kr: str = "") -> dict:
     return out if (out["bio"] or out["banner"] or out["genre"]) else {}
 
 
+def lrclib_lyrics(group: str, title: str, group_kr: str = "") -> str:
+    """LRCLIB（免金鑰）取純文字歌詞。爬蟲端抓好存資料，避免瀏覽器 CORS。查無回空。"""
+    if not (group and title):
+        return ""
+    ua = {"User-Agent": "kpop-tracker/1.0 (https://h4you.github.io/kpop-tracker)"}
+    for a in [group, group_kr]:
+        if not a:
+            continue
+        try:
+            r = requests.get("https://lrclib.net/api/search",
+                             params={"artist_name": a, "track_name": title},
+                             headers=ua, timeout=12)
+            if r.status_code != 200:
+                continue
+            ak = _norm(a)
+            results = r.json() or []
+            # 優先藝人名相符且有純歌詞者
+            pick = next((it for it in results if it.get("plainLyrics") and ak in _norm(it.get("artistName", ""))), None)
+            pick = pick or next((it for it in results if it.get("plainLyrics")), None)
+            if pick:
+                return (pick.get("plainLyrics") or "").strip()[:6000]
+        except Exception as e:
+            log.warning(f"LRCLIB 歌詞失敗 {a}-{title}: {e}")
+    return ""
+
+
 def enrich_external(tracks: list[dict]) -> None:
-    """就地強化 tracks：Deezer 藝人照片/粉絲數/試聽（免金鑰）+ iTunes 試聽備援。
+    """就地強化 tracks：Deezer 藝人照片/粉絲數/試聽（免金鑰）+ iTunes 試聽備援 + LRCLIB 歌詞。
     註：Spotify 2025 起非 Premium 開發者帳號的 Web API 會回 403，故改用 Deezer。"""
     if not tracks:
         return
-    n_img = n_prev = n_fan = 0
+    n_img = n_prev = n_fan = n_lyr = 0
     for t in tracks:
         dz = deezer_lookup(t.get("group", ""), t.get("title", ""), t.get("group_kr", ""))
         if dz.get("artist_img"):
@@ -1740,8 +1766,11 @@ def enrich_external(tracks: list[dict]) -> None:
             pv = itunes_preview(t.get("group", ""), t.get("title", ""))
             if pv.get("preview_url"):
                 t["preview_url"] = pv["preview_url"]; n_prev += 1
+        ly = lrclib_lyrics(t.get("group", ""), t.get("title", ""), t.get("group_kr", ""))
+        if ly:
+            t["lyrics"] = ly; n_lyr += 1
         time.sleep(0.15)
-    log.info(f"外部強化（Deezer）：藝人照 {n_img}、粉絲數 {n_fan}、試聽 {n_prev}")
+    log.info(f"外部強化（Deezer）：藝人照 {n_img}、粉絲數 {n_fan}、試聽 {n_prev}、歌詞 {n_lyr}")
 
 
 # ── 6. 主執行流程 ─────────────────────────────────────────────────────────────
