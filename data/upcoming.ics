@@ -1,0 +1,38 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//KPop GirlGroup Tracker//TW//ZH
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:KPop 女團回歸行事曆
+X-WR-CALDESC:女團 / 前成員 solo 發行預告
+BEGIN:VEVENT
+UID:ba6e7b7ae524df1b@kpop-tracker
+DTSTAMP:20260608T071616Z
+DTSTART;VALUE=DATE:20260609
+DTEND;VALUE=DATE:20260609
+SUMMARY:🎀 Yerin – Reach You
+DESCRIPTION:🎤 solo 發行 · https://www.youtube.com/results?search_query=Yerin+Reach+You+MV
+URL:https://www.youtube.com/results?search_query=Yerin+Reach+You+MV
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:1f52abb71f0e5dc7@kpop-tracker
+DTSTAMP:20260608T071616Z
+DTSTART;VALUE=DATE:20260616
+DTEND;VALUE=DATE:20260616
+SUMMARY:🎀 STAYC – 2: Love
+DESCRIPTION:👯 女團 發行 · https://www.youtube.com/results?search_query=STAYC+2%3A+Love+MV
+URL:https://www.youtube.com/results?search_query=STAYC+2%3A+Love+MV
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:45c98939b9e444b3@kpop-tracker
+DTSTAMP:20260608T071616Z
+DTSTART;VALUE=DATE:20260622
+DTEND;VALUE=DATE:20260622
+SUMMARY:🎀 Hearts2Hearts – Lemon Tang
+DESCRIPTION:👯 女團 發行 · https://www.youtube.com/results?search_query=Hearts2Hearts+Lemon+Tang+MV
+URL:https://www.youtube.com/results?search_query=Hearts2Hearts+Lemon+Tang+MV
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

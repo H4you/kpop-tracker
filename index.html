@@ -483,6 +483,37 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
 .gr-spark { flex-shrink: 0; }
 .gr-delta { font-size: 12px; flex-shrink: 0; }
 
+/* ── 行事曆訂閱連結 ── */
+.ics-link {
+  margin-left: auto; font-size: 11px; color: var(--accent2);
+  border: 1px solid var(--pink-glow); background: var(--accent-soft);
+  padding: 4px 10px; border-radius: var(--radius-pill); transition: all .15s; white-space: nowrap;
+}
+.ics-link:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* ── 統計 modal ── */
+.stats-body { padding: 16px 18px 20px; max-height: 72vh; overflow-y: auto; }
+.stats-sec { margin-bottom: 22px; }
+.stats-sec:last-child { margin-bottom: 0; }
+.stats-sec-title { font-size: 11px; color: var(--text3); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 12px; }
+.stat-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.stat-card {
+  background: var(--glass); border: 1px solid var(--brd); border-radius: var(--radius);
+  padding: 14px 10px; text-align: center;
+}
+.stat-card .n { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--accent); line-height: 1; }
+.stat-card .l { font-size: 10.5px; color: var(--text3); margin-top: 6px; }
+.mbar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; font-size: 12px; }
+.mbar-label { width: 42px; flex-shrink: 0; color: var(--text3); font-variant-numeric: tabular-nums; }
+.mbar-track { flex: 1; height: 9px; background: rgba(255,255,255,.06); border-radius: 99px; overflow: hidden; }
+.mbar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-deep)); border-radius: 99px; }
+.mbar-n { width: 26px; flex-shrink: 0; text-align: right; color: var(--text2); font-variant-numeric: tabular-nums; }
+.top-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line, rgba(255,255,255,.06)); font-size: 13px; }
+.top-row:last-child { border-bottom: none; }
+.top-rank { font-family: var(--font-display); font-weight: 700; color: var(--accent); width: 22px; opacity: .8; }
+.top-name { flex: 1; color: var(--text); }
+.top-n { color: var(--text3); font-size: 12px; font-variant-numeric: tabular-nums; }
+
 /* ── Animations ── */
 @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 .spin { animation: spin .8s linear infinite; }
@@ -532,6 +563,7 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
       </div>
     </div>
     <div class="header-actions">
+      <button class="btn-ghost" onclick="openStats()" title="年度回顧與統計">📊 統計</button>
       <a class="btn-ghost" href="library.html" title="女團專輯資料庫" style="display:inline-block">💿 專輯庫</a>
       <select class="btn-ghost" id="sort-sel" style="cursor:pointer" title="排序方式">
         <option value="date">依日期</option>
@@ -625,6 +657,7 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
     <div class="upcoming-head">
       <span class="upcoming-title">🔔 發行預告</span>
       <span class="upcoming-sub">未來 45 天內的女團 / 前成員 solo 發行</span>
+      <a class="ics-link" href="data/upcoming.ics" download="kpop-comebacks.ics" title="下載 .ics，可匯入 Google 日曆 / Apple 行事曆 自動提醒回歸">📅 訂閱行事曆</a>
     </div>
     <div class="upcoming-list" id="upcoming-list"></div>
   </div>
@@ -689,6 +722,16 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
       <button class="mv-close" onclick="closeMem()" aria-label="關閉">×</button>
     </div>
     <div class="disco-list" id="mem-body"></div>
+  </div>
+</div>
+
+<div class="mv-modal" id="stats-modal" onclick="if(event.target===this)closeStats()">
+  <div class="mv-modal-box" style="background:var(--surface);max-width:580px">
+    <div class="mv-modal-head">
+      <span>📊 年度回顧 · 統計</span>
+      <button class="mv-close" onclick="closeStats()" aria-label="關閉">×</button>
+    </div>
+    <div class="stats-body" id="stats-body"></div>
   </div>
 </div>
 
@@ -1118,6 +1161,68 @@ function closeMem() {
   document.getElementById('mem-modal').classList.remove('show');
 }
 
+/* ── 年度回顧 + 統計 ── */
+async function openStats() {
+  const modal = document.getElementById('stats-modal');
+  const body = document.getElementById('stats-body');
+  modal.classList.add('show');
+  body.innerHTML = '<div class="disco-empty">統計中…</div>';
+  // 需要歷史資料（archive）
+  if (!archiveLoaded) {
+    try {
+      const r = await fetch('data/archive.json?t=' + Date.now());
+      if (r.ok) { const d = await r.json(); archiveTracks = d.tracks || []; }
+    } catch(e) { /* ignore */ }
+    archiveLoaded = true;
+  }
+  const year = new Date().getFullYear();
+  const all = archiveTracks.length ? archiveTracks : tracks;
+  const yr = all.filter(t => (t.date || '').slice(0, 4) === String(year));
+  // 每月分布
+  const months = Array(12).fill(0);
+  yr.forEach(t => { const m = parseInt((t.date || '').slice(5, 7), 10); if (m >= 1 && m <= 12) months[m - 1]++; });
+  const maxM = Math.max(1, ...months);
+  // 最常出現的團
+  const cnt = {};
+  all.forEach(t => { if (t.group) cnt[t.group] = (cnt[t.group] || 0) + 1; });
+  const topGroups = Object.entries(cnt).sort((a, b) => b[1] - a[1]).slice(0, 8);
+  const soloN = all.filter(t => t.is_solo).length;
+
+  const cards = [
+    { n: yr.length, l: `${year} 年發行` },
+    { n: new Set(all.map(t => t.group)).size, l: '追過的團' },
+    { n: all.length, l: '歷史總曲數' },
+    { n: favGroups.size, l: '我的最愛團' },
+    { n: added.size, l: '我標記過' },
+    { n: soloN, l: 'solo 發行' },
+  ];
+  body.innerHTML = `
+    <div class="stats-sec">
+      <div class="stat-cards">
+        ${cards.map(c => `<div class="stat-card"><div class="n">${c.n}</div><div class="l">${c.l}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="stats-sec">
+      <div class="stats-sec-title">${year} 年每月發行分布</div>
+      ${months.map((v, i) => `<div class="mbar-row">
+        <span class="mbar-label">${i + 1} 月</span>
+        <span class="mbar-track"><span class="mbar-fill" style="width:${(v / maxM * 100).toFixed(0)}%"></span></span>
+        <span class="mbar-n">${v}</span>
+      </div>`).join('')}
+    </div>
+    <div class="stats-sec">
+      <div class="stats-sec-title">最常出現的團 Top ${topGroups.length}</div>
+      ${topGroups.length ? topGroups.map((g, i) => `<div class="top-row">
+        <span class="top-rank">${i + 1}</span>
+        <span class="top-name">${escHtml(g[0])}${favGroups.has(g[0]) ? ' <span class="fav-star">♥</span>' : ''}</span>
+        <span class="top-n">${g[1]} 次</span>
+      </div>`).join('') : '<div class="disco-empty">尚無資料</div>'}
+    </div>`;
+}
+function closeStats() {
+  document.getElementById('stats-modal').classList.remove('show');
+}
+
 /* ── Fetch from data/latest.json (produced by GitHub Actions) ── */
 async function loadFromRepo() {
   try {
@@ -1228,7 +1333,7 @@ document.getElementById('search-box').addEventListener('input', e => {
 });
 
 /* ── ESC 關閉 MV 彈窗 ── */
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMV(); closeDisco(); closeMem(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMV(); closeDisco(); closeMem(); closeStats(); } });
 
 /* ── Init ── */
 if (myPlaylistId) document.getElementById('pl-input').value =
