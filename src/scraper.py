@@ -1627,8 +1627,29 @@ def musicbrainz_members(group: str) -> list[dict]:
         return []
 
 
+def wikipedia_summary(group: str, group_kr: str = "") -> str:
+    """Wikipedia REST 摘要當簡介備援（TheAudioDB 對 K-pop 常缺英文簡介）。"""
+    for name in [group, group_kr]:
+        if not name:
+            continue
+        try:
+            url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + quote(name.replace(" ", "_"))
+            r = requests.get(url, headers=HEADERS, timeout=12)
+            if r.status_code != 200:
+                continue
+            j = r.json()
+            if j.get("type") == "disambiguation":
+                continue
+            ex = (j.get("extract") or "").strip()
+            if ex and len(ex) > 40:
+                return ex[:700].rsplit(" ", 1)[0] + ("…" if len(ex) > 700 else "")
+        except Exception:
+            continue
+    return ""
+
+
 def audiodb_profile(group: str, group_kr: str = "") -> dict:
-    """TheAudioDB（免費）：取團體簡介、類型、成立年、橫幅/大圖。回 {} 表示查無。"""
+    """團體小檔案：TheAudioDB（免費）取類型/成立年/橫幅；簡介缺時用 Wikipedia 摘要補。"""
     if not group:
         return {}
     def _query(name):
@@ -1640,20 +1661,24 @@ def audiodb_profile(group: str, group_kr: str = "") -> dict:
             log.warning(f"TheAudioDB 失敗 {name}: {e}")
             return []
     arts = _query(group) or (_query(group_kr) if group_kr else [])
-    if not arts:
-        return {}
-    gk = _norm(group)
-    a = next((x for x in arts if _norm(x.get("strArtist", "")) == gk), None) or arts[0]
-    bio = (a.get("strBiographyEN") or a.get("strBiographyCN") or "").strip()
-    if len(bio) > 700:
-        bio = bio[:700].rsplit(" ", 1)[0] + "…"
+    a = None
+    if arts:
+        gk = _norm(group)
+        a = next((x for x in arts if _norm(x.get("strArtist", "")) == gk), None) or arts[0]
+    bio = ""
+    if a:
+        bio = (a.get("strBiographyEN") or a.get("strBiographyCN") or "").strip()
+        if len(bio) > 700:
+            bio = bio[:700].rsplit(" ", 1)[0] + "…"
+    if not bio:
+        bio = wikipedia_summary(group, group_kr)   # 備援：維基摘要
     out = {
         "bio": bio,
-        "genre": (a.get("strGenre") or a.get("strStyle") or "").strip(),
-        "formed": (a.get("intFormedYear") or "").strip(),
-        "country": (a.get("strCountry") or "").strip(),
-        "banner": (a.get("strArtistBanner") or a.get("strArtistFanart") or "").strip(),
-        "thumb": (a.get("strArtistThumb") or "").strip(),
+        "genre": (a.get("strGenre") or a.get("strStyle") or "").strip() if a else "",
+        "formed": (a.get("intFormedYear") or "").strip() if a else "",
+        "country": (a.get("strCountry") or "").strip() if a else "",
+        "banner": (a.get("strArtistBanner") or a.get("strArtistFanart") or "").strip() if a else "",
+        "thumb": (a.get("strArtistThumb") or "").strip() if a else "",
     }
     return out if (out["bio"] or out["banner"] or out["genre"]) else {}
 
