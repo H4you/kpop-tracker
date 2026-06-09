@@ -3518,6 +3518,24 @@
       ],
       "album_count": 4
     },
+    "Unchild": {
+      "albums": [
+        {
+          "id": 1893560570,
+          "album": "We Are UNCHILD - Single",
+          "artist": "UNCHILD",
+          "year": "2026",
+          "track_count": 2,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2e/b7/91/2eb791cb-5876-8967-9a98-bac301036699/cover_KM0024470_1.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/we-are-unchild-single/1893560570?uo=4",
+          "tracks": [
+            "UNCHILD",
+            "ENERGY"
+          ]
+        }
+      ],
+      "album_count": 1
+    },
     "UNIS": {
       "albums": [
         {
@@ -4047,5 +4065,5 @@
       "album_count": 8
     }
   },
-  "updated_at": "2026-06-09 16:32"
+  "updated_at": "2026-06-09 16:53"
 }
