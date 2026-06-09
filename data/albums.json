@@ -3311,6 +3311,21 @@
     "tripleS": {
       "albums": [
         {
+          "id": 6776937466,
+          "album": "<Baby Flower City Remixes> - Single",
+          "artist": "tripleS",
+          "year": "2026",
+          "track_count": 4,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8e/d4/68/8ed468b1-5bfb-73c4-4992-5060e15df2c1/820233597685.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/baby-flower-city-remixes-single/6776937466?uo=4",
+          "tracks": [
+            "Baby Flower (Seoul Remix: Vendors)",
+            "Baby Flower (Bangkok Remix: Kurtz)",
+            "Baby Flower (Taipei Remix: ntrophy)",
+            "Baby Flower (Tokyo Remix: Full8loom)"
+          ]
+        },
+        {
           "id": 6767454374,
           "album": "<LOVE&POP> pt.1",
           "artist": "tripleS",
@@ -3326,21 +3341,6 @@
             "Sleek",
             "I Like That",
             "Me Myself Mode"
-          ]
-        },
-        {
-          "id": 6776937466,
-          "album": "<Baby Flower City Remixes> - Single",
-          "artist": "tripleS",
-          "year": "2026",
-          "track_count": 4,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8e/d4/68/8ed468b1-5bfb-73c4-4992-5060e15df2c1/820233597685.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/baby-flower-city-remixes-single/6776937466?uo=4",
-          "tracks": [
-            "Baby Flower (Seoul Remix: Vendors)",
-            "Baby Flower (Bangkok Remix: Kurtz)",
-            "Baby Flower (Taipei Remix: ntrophy)",
-            "Baby Flower (Tokyo Remix: Full8loom)"
           ]
         },
         {
@@ -3400,15 +3400,6 @@
           "itunes_url": "https://music.apple.com/us/album/inner-dance-single/1751857482?uo=4"
         },
         {
-          "id": 1737939782,
-          "album": "NXT <Just Do It> - Single",
-          "artist": "tripleS",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4f/1b/d7/4f1bd79b-c9b8-ee64-1a57-0db411e8c55c/198391609152.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/nxt-just-do-it-single/1737939782?uo=4"
-        },
-        {
           "id": 1737936304,
           "album": "ASSEMBLE",
           "artist": "tripleS",
@@ -3425,6 +3416,15 @@
           "track_count": 8,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/94/06/49/940649e5-0be9-1a52-a1b4-0c13b4e057b5/8804775281877.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/lovelution/1737943607?uo=4"
+        },
+        {
+          "id": 1737939782,
+          "album": "NXT <Just Do It> - Single",
+          "artist": "tripleS",
+          "year": "2023",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4f/1b/d7/4f1bd79b-c9b8-ee64-1a57-0db411e8c55c/198391609152.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/nxt-just-do-it-single/1737939782?uo=4"
         },
         {
           "id": 1737940296,
@@ -3517,24 +3517,6 @@
         }
       ],
       "album_count": 4
-    },
-    "Unchild": {
-      "albums": [
-        {
-          "id": 1893560570,
-          "album": "We Are UNCHILD - Single",
-          "artist": "UNCHILD",
-          "year": "2026",
-          "track_count": 2,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2e/b7/91/2eb791cb-5876-8967-9a98-bac301036699/cover_KM0024470_1.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/we-are-unchild-single/1893560570?uo=4",
-          "tracks": [
-            "UNCHILD",
-            "ENERGY"
-          ]
-        }
-      ],
-      "album_count": 1
     },
     "UNIS": {
       "albums": [
@@ -3866,6 +3848,20 @@
           ]
         },
         {
+          "id": 1632552698,
+          "album": "Sequence - Single",
+          "artist": "WJSN",
+          "year": "2022",
+          "track_count": 3,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/03/12/7a/03127ac1-d348-1e95-8832-d03d5a163baa/cover_KM0015649_1.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/sequence-single/1632552698?uo=4",
+          "tracks": [
+            "Last Sequence",
+            "Done",
+            "Stronger (Sung by Dawon & Yeonjung)"
+          ]
+        },
+        {
           "id": 1705660021,
           "album": "Let Me In - Single",
           "artist": "WJSN",
@@ -3901,15 +3897,7 @@
           "year": "2020",
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/af/66/50/af665094-ceb3-5179-0f2a-a4fc058ec0f8/WJSN.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/neverland-ep/1516949922?uo=4",
-          "tracks": [
-            "BUTTERFLY",
-            "HOLA",
-            "Pantomime",
-            "Where You Are",
-            "Tra - La",
-            "Our Garden"
-          ]
+          "itunes_url": "https://music.apple.com/us/album/neverland-ep/1516949922?uo=4"
         },
         {
           "id": 1488434221,
@@ -3955,15 +3943,6 @@
           "track_count": 7,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/94/a2/6e/94a26e08-085a-ff53-500e-b14c508aae5c/COVER-.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/the-secret/1144767453?uo=4"
-        },
-        {
-          "id": 1087651006,
-          "album": "Would You Like? - EP",
-          "artist": "WJSN",
-          "year": "2016",
-          "track_count": 6,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/86/2b/0b/862b0b91-343f-eb27-b8e7-c46f0dc7071a/COVER-.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/would-you-like-ep/1087651006?uo=4"
         }
       ],
       "album_count": 10
@@ -4065,5 +4044,5 @@
       "album_count": 8
     }
   },
-  "updated_at": "2026-06-09 16:53"
+  "updated_at": "2026-06-09 17:02"
 }
