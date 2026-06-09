@@ -1,6 +1,32 @@
 {
   "tracks": [
     {
+      "group": "TripleS",
+      "group_kr": "트리플에스",
+      "title": "Assemble26 Love & Pop Pt. 1 Love",
+      "album": "Assemble26 Love & Pop Pt. 1 Love",
+      "date": "2026.06.01",
+      "is_solo": false,
+      "is_new": false,
+      "is_hot": false,
+      "sources": [
+        "Wikipedia"
+      ],
+      "note": "女團，SM旗下collective女團",
+      "id": "ab4b828b2dc3",
+      "yt_url": "https://www.youtube.com/watch?v=6q8UMVXhXsE",
+      "yt_id": "6q8UMVXhXsE",
+      "yt_title": "tripleS(트리플에스) 'Baby Flower' Official MV",
+      "yt_views": 31783026,
+      "yt_likes": 52549,
+      "yt_published": "2026-06-01",
+      "yt_channel_title": "tripleS official",
+      "yt_channel_subs": 2940000,
+      "artist_img": "https://cdn-images.dzcdn.net/images/artist/510f00eea0eb838d04dd4d1c458bd460/1000x1000-000000-80-0-0.jpg",
+      "fans": 16341,
+      "agency": "Modhaus"
+    },
+    {
       "group": "Meovv",
       "group_kr": "미야오",
       "title": "DDI RO RI",
@@ -12,25 +38,25 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "THE BLACK LABEL 女團，PTT 標題確認主打曲為 DDI RO RI",
+      "note": "The Black Label女團；PTT與YT均有佐證",
       "id": "e91f275b00e4",
       "yt_url": "https://www.youtube.com/watch?v=aHM2RKeMaeM",
       "yt_id": "aHM2RKeMaeM",
       "yt_title": "MEOVV(미야오) - ‘DDI RO RI’ M/V",
-      "yt_views": 15035358,
+      "yt_views": 15043122,
       "yt_published": "2026-06-01",
       "yt_channel_title": "THEBLACKLABEL",
       "yt_channel_subs": 4290000,
       "artist_img": "https://cdn-images.dzcdn.net/images/artist/a309b236971cedae431416366f9e2dc4/1000x1000-000000-80-0-0.jpg",
-      "fans": 40082,
-      "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/5/1/1/0/51138d183772300e0df6561638c4808e.mp3?hdnea=exp=1781025080~acl=/api/1/1/5/1/1/0/51138d183772300e0df6561638c4808e.mp3*~data=user_id=0,application_id=42~hmac=3d1d163dbf7164666855c092c3957ffac7d7c144803b536a86039bdf9bf5f5f2",
+      "fans": 40084,
+      "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/5/1/1/0/51138d183772300e0df6561638c4808e.mp3?hdnea=exp=1781026008~acl=/api/1/1/5/1/1/0/51138d183772300e0df6561638c4808e.mp3*~data=user_id=0,application_id=42~hmac=8eabe1d651ff66850ae114ff4eb282f5c9e37cd7d71e0c13d3bb3bc00fdd9560",
       "lyrics": "[Ella) What's the deal?\n이건 시작 I feel arenas\nShout my name\n난 Korea에서 Ibiza까지 float\n(Narin) Set the trends 이미 한 수 위야\nNew EP made on Apple\nFresh out the freezer\nGet a taste\n(Anna) 내 본색을 감추고 자세는 lowkey\n백이면 백 빠짐없이 다 속지\n(Gawon) 함부로 틈 보인 네 착한 목덜미\n단숨에 we bite it, like\n(Soobin) Me and my girls we on tonight\nWe outside 그저 지켜봐\n(Narin) 눈을 떠 어둠 속에서\nTurn it up\nAll the way up\n(Ella) DDI RO RI\nWhen I walk in like a threat\nLike a threat\n(Anna) DDI RO RI\nHear this song inside your head\nYour head\n(Soobin) I be on that new sh-\n나머진 다 무시, 무시, 무시\n(Gawon) You know I'm the blueprint\nI be on that new sh-\nOn some new sh-\n(Narin) Chic한 건 모태,\nCheck THE LABEL it's BLACK\nI pull up 네 앞에\n눈 감지 마 too fast, okay?\nImma take yours is that okay?\n태생부터 one of a kind\nWas taking my time now I'm game okay okay?\n(Anna) Diamond is the key 대화는 사치\nTell 'em we gon' get it 쉽게 봤다간 ouchie!\n(Gawon) 절대적이야 supreme\nYou crave it like a fiend\n명분이 필요해 give me that\nOh we love to cause a scene\n(Ella) Me and my girls we on tonight\nWe outside 그저 지켜봐\n(Soobin) 눈을 떠 어둠 속에서\nTurn it up\nAll the way up\n(Anna) DDI RO RI\nWhen I walk in like a threat\nLike a threat\n(Soobin) DDI RO RI\nHear this song inside your head\nYour head\n(Gawon) I be on that new sh-\n나머진 다 무시\n(Ella) You know I'm the blueprint\nI be on that new sh-\nOn some new sh-\n(Narin) 머릿속 울려 퍼지는 melody\n상상만 해도 너에겐tragedy\n거릴 유지해 don't try to talk to me talk to me like\n(All) Wow we pulling up 똑바로 봐\n길을 터 태도는 loud\nYeah they know what we about\nYou hear that DDI RO RI\nWow we pulling up 똑바로 봐\n길을 터 태도는 loud\nYeah they know what we about\nYou hear that DDI RO RI",
       "agency": "The Black Label"
     },
     {
       "group": "Fifty Fifty",
       "group_kr": "피프티피프티",
-      "title": "Imperfect-I'mperfect",
+      "title": "Like a Bubble",
       "album": "Imperfect-I'mperfect",
       "date": "2026.06.01",
       "is_solo": false,
@@ -39,19 +65,20 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "確定女團",
-      "id": "a0eaf4d48e08",
+      "note": "女團；PTT YT佐證",
+      "id": "91a3f4c3a65b",
       "yt_url": "https://www.youtube.com/watch?v=iZzpq5iqevg",
       "yt_id": "iZzpq5iqevg",
       "yt_title": "FIFTY FIFTY (피프티피프티) 'Like a Bubble' Official MV",
-      "yt_views": 8399712,
-      "yt_likes": 51823,
+      "yt_views": 8400213,
+      "yt_likes": 51833,
       "yt_published": "2026-06-01",
       "yt_channel_title": "FIFTY FIFTY Official",
       "yt_channel_subs": 2190000,
       "artist_img": "https://cdn-images.dzcdn.net/images/artist/931234642ed5db69b66e10df64a03d91/1000x1000-000000-80-0-0.jpg",
       "fans": 34963,
-      "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d0/54/ca/d054ca5f-2115-c979-09ab-a5b392852c44/mzaf_12196335221044040568.plus.aac.p.m4a"
+      "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/4a/2c/da/4a2cdaaa-f408-4e17-a792-96aa2010b56f/mzaf_7708366851092667082.plus.aac.p.m4a",
+      "lyrics": "Rise on the breeze heulleoga in the sky\nGliding up high bubble bubble\n\nA kiss to the air beonjyeowa sangkwaeham\nFloating so high bubble hah bubble hah\n\nLike a bubble\n\nTravel travel mamkkeot ride\nhemaedo joa never stop\n\nFloating like a bubble\n\nTrouble trouble I don’t mind\nI feel the vibe I let it drop drop\n\nWeightless rising tteooreun bal\njibung wie olla (I fly)\nnaraga\n\nbarame sillyeo tap out a rhythm\n\nnan jom jeukheungi teukgi\ngyehoegeun boring\nmangseorim eopsi begin one more\n\n(Just) tteodanillae nadapge just like that\n\nyeogijeogi yuyeonghaji ppittulppaettul\npyoryuhaji dizzy dizzy mame deulji\n\nbarameul ta dudungsil pop\n(Pop it up let it fly)\n\nRise on the breeze heulleoga in the sky\nGliding up high bubble bubble\n\nA kiss to the air beonjyeowa sangkwaeham\nFloating so high bubble hah bubble hah\n\nLike a bubble\n\nTravel travel mamkkeot ride\nhemaedo joa never stop\n\nFloating like a bubble\n\nTrouble trouble I don’t mind\nI feel the vibe I let it drop drop\n\nteoteuryeo flash\nMaybe I’m a glitch\nFloat through the noise\nwambyeokhae I don’t blink\n\nLil bit wavy\nWhen I walk when I bounce\n\nI’m selfish but I glow\nI’m a bubble\n\nwollae moheomi chwimi\njabeumyeon banchik\nNo more fears let it begin one more\n\n(Just) then gone again gone again just like that\n\nmami mami light and dreamy\nTippy trippy tteodaniji\nDizzy dizzy feeling breezy\n\nI feel the vibe teojil deut pop\n(Pop it up let it fly)\n\nRise on the breeze heulleoga in the sky\nGliding up high bubble bubble\n\nA kiss to the air beonjyeowa sangkwaeham\nFloating so high bubble hah bubble hah\n\nLike a bubble\n\nTravel travel mamkkeot ride\nhemaedo joa never stop\n\nFloating like a bubble\n\nTrouble trouble I don’t mind\nI feel the vibe I let it drop drop\n\nSay less\ndwieongkin nado joa\n\nDon’t mind mind\ngeunyang idaero go far\n\nkkeuteopsi nan\nadeukhi tteodanyeo\ni mudeu wi floating on\n(Got the flow let it fly)\n\nRise on the breeze heulleoga in the sky\nGliding up high bubble bubble\n\nnamanui way naega mandeuneun vibe\nFloating so high bubble hah bubble hah\n\nLike a bubble\n\nTravel travel mamkkeot ride\nhemaedo joa never stop\n\nFloating like a bubble\n\nTrouble trouble I don’t mind\nwambyeok malgo na let it flow flow\n\nLike a bubble\n\ngeunyang idaeroui na\ndeo jaemisseumyeon dwaetjana\n\nCalling me a bubble\n\nTrouble trouble I don’t mind\nI feel the vibe I let it drop drop\n\n[Hangeul]\n\nRise on the breeze 흘러가 in the sky\nGliding up high bubble bubble\n\nA kiss to the air 번져와 상쾌함\nFloating so high bubble hah bubble hah\n\nLike a bubble\n\nTravel travel 맘껏 ride\n헤매도 좋아 never stop\n\nFloating like a bubble\n\nTrouble trouble I don’t mind\nI feel the vibe I let it drop drop\n\nWeightless rising 떠오른 발\n지붕 위에 올라 (I fly)\n날아가\n\n바람에 실려 tap out a rhythm\n\n난 좀 즉흥이 특기\n계획은 boring\n망설임 없이 begin one more\n\n(Just) 떠다닐래 나답게 just like that\n\n여기저기 유영하지 삐뚤빼뚤\n표류하지 dizzy dizzy 맘에 들지\n\n바람을 타 두둥실 pop\n(Pop it up let it fly)\n\nRise on the breeze 흘러가 in the sky\nGliding up high bubble bubble\n\nA kiss to the air 번져와 상쾌함\nFloating so high bubble hah bubble hah\n\nLike a bubble\n\nTravel travel 맘껏 ride\n헤매도 좋아 never stop\n\nFloating like a bubble\n\nTrouble trouble I don’t mind\nI feel the vibe I let it drop drop\n\n터트려 flash\nMaybe I’m a glitch\nFloat through the noise\n완벽해 I don’t blink\n\nLil bit wavy\nWhen I walk when I bounce\n\nI’m selfish but I glow\nI’m a bubble\n\n원래 모험이 취미\n잡으면 반칙\nNo more fears let it begin one more\n\n(Just) then gone again gone again just like that\n\n맘이 맘이 light and dreamy\nTippy trippy 떠다니지\nDizzy dizzy feeling breezy\n\nI feel the vibe 터질 듯 pop\n(Pop it up let it fly)\n\nRise on the breeze 흘러가 in the sky\nGliding up high bubble bubble\n\nA kiss to the air 번져와 상쾌함\nFloating so high bubble hah bubble hah\n\nLike a bubble\n\nTravel travel 맘껏 ride\n헤매도 좋아 never stop\n\nFloating like a bubble\n\nTrouble trouble I don’t mind\nI feel the vibe I let it drop drop\n\nSay less\n뒤엉킨 나도 좋아\n\nDon’t mind mind\n그냥 이대로 go far\n\n끝없이 난\n아득히 떠다녀\n이 무드 위 floating on\n(Got the flow let it fly)\n\nRise on the breeze 흘러가 in the sky\nGliding up high bubble bubble\n\n나만의 way 내가 만드는 vibe\nFloating so high bubble hah bubble hah\n\nLike a bubble\n\nTravel travel 맘껏 ride\n헤매도 좋아 never stop\n\nFloating like a bubble\n\nTrouble trouble I don’t mind\n완벽 말고 나 let it flow flow\n\nLike a bubble\n\n그냥 이대로의 나\n더 재밌으면 됐잖아\n\nCalling me a bubble\n\nTrouble trouble I don’t mind\nI feel the vibe I let it drop drop"
     },
     {
       "group": "Mamamoo",
@@ -65,19 +92,20 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "確定女團，PTT 標題確認主打曲為 4 Flowers",
+      "note": "女團完全體回歸；PTT與YT均有佐證",
       "id": "81e722d21676",
       "yt_url": "https://www.youtube.com/watch?v=PVzSI9PpkXc",
       "yt_id": "PVzSI9PpkXc",
       "yt_title": "MAMAMOO '4 Flowers' MV",
-      "yt_views": 8173201,
-      "yt_likes": 150180,
+      "yt_views": 8187645,
+      "yt_likes": 150237,
       "yt_published": "2026-06-04",
       "yt_channel_title": "MAMAMOO",
       "yt_channel_subs": 6840000,
       "artist_img": "https://cdn-images.dzcdn.net/images/artist/c7a142a623105235451f419b18ca9ef6/1000x1000-000000-80-0-0.jpg",
-      "fans": 668610,
-      "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/9/5/0/0/95037def732b4d2d58ee7990eeff4c76.mp3?hdnea=exp=1781025108~acl=/api/1/1/9/5/0/0/95037def732b4d2d58ee7990eeff4c76.mp3*~data=user_id=0,application_id=42~hmac=20e30b8aacf760d42eb285306cf0fed21d31e2a007a8de3a1ed450c7f3be33e2",
+      "fans": 668611,
+      "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/9/5/0/0/95037def732b4d2d58ee7990eeff4c76.mp3?hdnea=exp=1781026026~acl=/api/1/1/9/5/0/0/95037def732b4d2d58ee7990eeff4c76.mp3*~data=user_id=0,application_id=42~hmac=dd5e54ca75b16f2c547ca7ce98f39e218f5c30ff1cae64a79b8f0df663ddff82",
+      "lyrics": "Oh, yeah\nOoh, yeah\nOoh\n\n화려하게 빛날 때\n활짝 피운 꽃은 지겠지, yeah\n한순간 깊게 물들어\n봄날처럼 스치듯 안녕\n\n그을린 채로 깊게 패인, world turns blue, I'm the only one in pain\n날카롭게 베인 상처 틈에 갇힌 채, 내내 계속돼 밤새 거친 호흡\nOne for the memories, two for the flame\nThree for the silence, four for the shame\n그 계절이 지나간 그 자리에\n\n꽃은 피고 꽃은 다시 지고\n이별 뒤에 우린 더 사랑하고\n흩어져도 뿌리는 하난 걸\n이별 그 후에 다시 피우는 꽃\n\nFour flowers, eh, eh, eh, as petals shed, eh, eh\nFour flowers, eh, eh, eh, mm\nFour flowers, eh, eh, eh, as petals shed, eh, eh\nFour flowers, eh, eh, eh\n\nFalling petals, deeper traces\n절대 멈추지 않을 flow\n멀어졌던 way-ay-ay, 웅크린 후에야, breathe aga-a-ain (고개를 들어)\n끝이 끝나지 않도록, oh (yeah)\n\nYou're a flower that fell, scattered in the breeze\nI'm the soil beneath, keeping all your memories (uh, uh)\n만남, 이별 다 똑같지만, 확실한 건 오직 내 결정\nOne for the memories, two for the flame\nThree for the silence, four for the shame\n우리가 지나온 그 자리에\n\n꽃은 피고 꽃은 다시 지고\n이별 뒤에 우린 더 사랑하고\n흩어져도 뿌리는 하난 걸\n이별 그 후에 다시 피우는 꽃\n\n(Only for flowers) 여기 다시 그 위로\n(Only for flowers) 흩날리던 기억들 다 모아\nDon't let them slip away, we bring the light inside our hearts\n새롭게 다시 피어나\n\nFour flowers (I'm still here), four flowers (burning red)\nFour flowers (never disappear), four flowers (oh)\nFour flowers\nFour flowers\n\nFour flowers, eh, eh, eh, as petals shed, eh, eh\nFour flowers, eh, eh, eh, eh\n꽃은 피고 꽃은 다시 지고\n이별 뒤에 우린 더 사랑하고",
       "agency": "Rainbow Bridge World",
       "debut_year": "2014"
     },
@@ -93,13 +121,13 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "確定女團",
+      "note": "女團；PTT情報佐證",
       "id": "9a82df54830c",
       "yt_url": "https://www.youtube.com/watch?v=NQRGAh7ukh8",
       "yt_id": "NQRGAh7ukh8",
       "yt_title": "izna 'METRONOME' MV",
-      "yt_views": 1867202,
-      "yt_likes": 89706,
+      "yt_views": 1880887,
+      "yt_likes": 89904,
       "yt_published": "2026-06-08",
       "yt_channel_title": "izna (이즈나)",
       "yt_channel_subs": 2000000,
@@ -108,35 +136,6 @@
       "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3d/bd/f4/3dbdf48d-2acb-eabe-da25-5d14c9e0acf9/mzaf_4370656328163799329.plus.aac.p.m4a",
       "agency": "WakeOne",
       "debut_year": "2024"
-    },
-    {
-      "group": "Aespa",
-      "group_kr": "에스파",
-      "title": "LEMONADE",
-      "album": "Lemonade",
-      "date": "2026.05.29",
-      "is_solo": false,
-      "is_new": false,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "確定女團，PTT 多則標題確認主打曲為 LEMONADE",
-      "id": "f794be81e8a4",
-      "yt_url": "https://www.youtube.com/watch?v=83C3TZ4Zm_o",
-      "yt_id": "83C3TZ4Zm_o",
-      "yt_title": "aespa 에스파 'LEMONADE' MV",
-      "yt_views": 30023160,
-      "yt_likes": 693323,
-      "yt_published": "2026-05-29",
-      "yt_channel_title": "SMTOWN",
-      "yt_channel_subs": 33700000,
-      "artist_img": "https://cdn-images.dzcdn.net/images/artist/c963d7469a999feb764ad6f16c31dd74/1000x1000-000000-80-0-0.jpg",
-      "fans": 442721,
-      "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/b/c/0/1bc9c955d3b60a673207600ea7f46f93.mp3?hdnea=exp=1781025152~acl=/api/1/1/1/b/c/0/1bc9c955d3b60a673207600ea7f46f93.mp3*~data=user_id=0,application_id=42~hmac=17caef945e673a2391615a9b3bc7162a90ceda0111852cbe32b163e5f9aad259",
-      "lyrics": "♫\nWoo, I go in all the way\nDon't step on the brakes\nI take my drama straight\nI'll make it lemonade\n겁 없이 walk my way\n던져 on my stage\nI take my karma straight\nI'll make it lemonade\nWait, hold up, nо\nI can't control my mind\n손끝에 crushin', 고민은 juicy\n다 삼켜버린 다음\nApologies in advance if I show up and I get\nWay too loud, 깨어나\nMe myself and I, that's all mine\nWith a blessing, 치워버려 all doubts\nYou probably shouldn't talk right now\nLike zip, I don't care\nI can take whatever, put it all over my body\n그게 fashion (Woo, uh-huh)\n서로 다른 세계들에 다가서면 일어나는 action\nDirty dancin'\nI'ma go hot, don't know what happened\n'Cause my day to day's in a different lane\nAt a speed that you're never catching, yeah\nI go in all the way\nDon't step on the brakes\nI take my drama straight\nI'll make it lemonade\n겁 없이 walk my way\n던져 on my stage\nI take my karma straight\nI'll make it lemonade\nNo way, no way\nI got no ETA\nT-A, T-A (Woah)\nI'll make it lemonade\nNo way, no way (Ya-ya)\nI got no ETA\nT-A, T-A (Ya-ya)\nI'll make it lemonade\nWait, oh my god, stop\n얽혀버린 문젤 다 mixing\nLike a hurricane, 휘저어 pieces\nAll the lemons, 난 갈아 마셔 다\nI don't care if you say I'm freaky\n무표정으로 난 savour\nMuchas gracias, mi amor\n전부 삼켜내 like a piece of cake\nMake me, what you still waiting for? \nI go in all the way\nDon't step on the brakes\nI take my drama straight\nI'll make it lemonade\n겁 없이 walk my way\n던져 on my stage\nI take my karma straight\nI'll make it lemonade\nNo way, no way\nI got no ETA (Yeah, yeah)\nT-A, T-A (Yeah, woah)\nI'll make it lemonade (I'll make it lemonade)\nNo way, no way (Ya-ya)\nI got no ETA (ETA)\nT-A, T-A (Ya-ya)\nI'll make it lemonade\nAin't no emergency contact\n모든 건 날 위한 party\nBring me that new flavor, you know\n더 큰 세상으로 welcome back to my world\nI'ma stand all on my own\n어디라도 now I can go\n새롭게 open the door\nI need more (More lemonade)\nI go in all the way (The way)\nDon't step on the brakes (The brakes)\nI take my drama straight (Yeah)\nI'll make it lemonade\n겁 없이 walk my way\n던져 on my stage\nI take my karma straight\nI'll make it lemonade\nNo way, no way (No way)\nI got no ETA (ETA)\nT-A, T-A (Okay)\nI'll make it lemonade\nNo way, no way (Ya-ya)\nI got no ETA (No ETA)\nT-A, T-A (Ya-ya)\nI'll make it lemonade\nWait, hold up, stop",
-      "agency": "SM Entertainment",
-      "debut_year": "2020"
     },
     {
       "group": "Hiipe Princess",
@@ -150,13 +149,13 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "出道團清單中有此名，但性別不明，寧可收錄待確認；namuwiki 無資料，待確認",
+      "note": "本年度出道團清單收錄，性別未確認，寧可多收；namuwiki 無資料，待確認",
       "id": "8def48e002d9",
       "yt_url": "https://www.youtube.com/watch?v=9sqgpi74u7w",
       "yt_id": "9sqgpi74u7w",
       "yt_title": "H//PE Princess (하입프린세스) 'One day' MV",
-      "yt_views": 4316182,
-      "yt_likes": 17002,
+      "yt_views": 4316281,
+      "yt_likes": 17006,
       "yt_published": "2026-05-27",
       "yt_channel_title": "H//PE Princess",
       "yt_channel_subs": 18
@@ -173,13 +172,13 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "出道團清單中有此名（H.O.W），團名含 Woman 可能為女團，寧可收錄待確認；namuwiki 無資料，待確認",
+      "note": "本年度出道團清單收錄，名稱含'Woman'，寧可多收；namuwiki 無資料，待確認",
       "id": "8adfe719f964",
       "yt_url": "https://www.youtube.com/watch?v=h8HGbj0enmg",
       "yt_id": "h8HGbj0enmg",
       "yt_title": "HEART OF WOMAN 'How Not to Lose Myself (Lost in Proof)' MV",
-      "yt_views": 3699607,
-      "yt_likes": 27897,
+      "yt_views": 3699919,
+      "yt_likes": 27902,
       "yt_published": "2026-05-28",
       "yt_channel_title": "HEART OF WOMAN",
       "yt_channel_subs": 32700,
@@ -199,13 +198,13 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "確定女團",
+      "note": "女團",
       "id": "6f30e52783ec",
       "yt_url": "https://www.youtube.com/watch?v=tqGcOmgTq_U",
       "yt_id": "tqGcOmgTq_U",
       "yt_title": "Queenz Eye  |  2nd Mini Album [PRISM EP.02] 'Y2K' MV",
-      "yt_views": 5433131,
-      "yt_likes": 5276,
+      "yt_views": 5433392,
+      "yt_likes": 5279,
       "yt_published": "2026-05-28",
       "yt_channel_title": "Queenz Eye",
       "yt_channel_subs": 1230000,
@@ -214,57 +213,33 @@
       "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/66/08/f6/6608f6f6-18a6-d3d4-3f73-48919cc94510/mzaf_3417528020338754910.plus.aac.p.m4a"
     },
     {
-      "group": "Unchild",
-      "group_kr": "언차일드",
-      "title": "",
-      "album": "",
-      "date": "",
+      "group": "Aespa",
+      "group_kr": "에스파",
+      "title": "LEMONADE",
+      "album": "Lemonade",
+      "date": "2026.05.29",
       "is_solo": false,
       "is_new": false,
       "is_hot": false,
       "sources": [
         "Wikipedia"
       ],
-      "note": "出道團清單確認為 High Up Entertainment 新女團，PTT 標題有 Chris Reactions 反應影片，日期與主打曲不明",
-      "id": "da8bcddf9934",
-      "yt_url": "https://www.youtube.com/watch?v=wWvu34x2INc",
-      "yt_id": "wWvu34x2INc",
-      "yt_title": "UNCHILD 언차일드 'UNCHILD' MV",
-      "yt_views": 13578708,
-      "yt_likes": 412250,
-      "yt_published": "2026-04-21",
-      "yt_channel_title": "High Up Ent",
-      "yt_channel_subs": 78500,
-      "artist_img": "https://cdn-images.dzcdn.net/images/artist/a7c8ef9042b4b6ba6ebd2e14a8938d4a/1000x1000-000000-80-0-0.jpg",
-      "fans": 4558,
-      "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/3/3/c/0/33c4f380e92414cd96ccb239d434e145.mp3?hdnea=exp=1781025193~acl=/api/1/1/3/3/c/0/33c4f380e92414cd96ccb239d434e145.mp3*~data=user_id=0,application_id=42~hmac=5c5dd9e71950cef2ef3701e009fe2a9842d918ab562548d850d738c52e7bcade",
-      "agency": "High Up Entertainment"
-    },
-    {
-      "group": "TripleS",
-      "group_kr": "트리플에스",
-      "title": "Assemble26 Love & Pop Pt. 1 Love",
-      "album": "Assemble26 Love & Pop Pt. 1 Love",
-      "date": "2026.06.01",
-      "is_solo": false,
-      "is_new": false,
-      "is_hot": false,
-      "sources": [
-        "Wikipedia"
-      ],
-      "note": "大型女團集合體，確定女團",
-      "id": "ab4b828b2dc3",
-      "yt_url": "https://youtu.be/-jKBy0rrsbM",
-      "yt_id": "-jKBy0rrsbM",
-      "yt_title": "tripleS(트리플에스) &#39;Baby Flower&#39; Official MV | REACT DO MORENO",
-      "yt_views": 456,
-      "yt_likes": 100,
-      "yt_published": "2026-06-03",
-      "yt_channel_title": "Kpops Do Moreno",
-      "yt_channel_subs": 78600,
-      "artist_img": "https://cdn-images.dzcdn.net/images/artist/510f00eea0eb838d04dd4d1c458bd460/1000x1000-000000-80-0-0.jpg",
-      "fans": 16339,
-      "agency": "Modhaus"
+      "note": "女團；PTT與YT均有大量佐證",
+      "id": "f794be81e8a4",
+      "yt_url": "https://www.youtube.com/watch?v=83C3TZ4Zm_o",
+      "yt_id": "83C3TZ4Zm_o",
+      "yt_title": "aespa 에스파 'LEMONADE' MV",
+      "yt_views": 30035754,
+      "yt_likes": 693451,
+      "yt_published": "2026-05-29",
+      "yt_channel_title": "SMTOWN",
+      "yt_channel_subs": 33700000,
+      "artist_img": "https://cdn-images.dzcdn.net/images/artist/c963d7469a999feb764ad6f16c31dd74/1000x1000-000000-80-0-0.jpg",
+      "fans": 442728,
+      "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/b/c/0/1bc9c955d3b60a673207600ea7f46f93.mp3?hdnea=exp=1781026090~acl=/api/1/1/1/b/c/0/1bc9c955d3b60a673207600ea7f46f93.mp3*~data=user_id=0,application_id=42~hmac=0f6185439d3b9f3aa74553a9e0326e8a9cb93b3083c55df00e310db42d4c2c32",
+      "lyrics": "♫\nWoo, I go in all the way\nDon't step on the brakes\nI take my drama straight\nI'll make it lemonade\n겁 없이 walk my way\n던져 on my stage\nI take my karma straight\nI'll make it lemonade\nWait, hold up, nо\nI can't control my mind\n손끝에 crushin', 고민은 juicy\n다 삼켜버린 다음\nApologies in advance if I show up and I get\nWay too loud, 깨어나\nMe myself and I, that's all mine\nWith a blessing, 치워버려 all doubts\nYou probably shouldn't talk right now\nLike zip, I don't care\nI can take whatever, put it all over my body\n그게 fashion (Woo, uh-huh)\n서로 다른 세계들에 다가서면 일어나는 action\nDirty dancin'\nI'ma go hot, don't know what happened\n'Cause my day to day's in a different lane\nAt a speed that you're never catching, yeah\nI go in all the way\nDon't step on the brakes\nI take my drama straight\nI'll make it lemonade\n겁 없이 walk my way\n던져 on my stage\nI take my karma straight\nI'll make it lemonade\nNo way, no way\nI got no ETA\nT-A, T-A (Woah)\nI'll make it lemonade\nNo way, no way (Ya-ya)\nI got no ETA\nT-A, T-A (Ya-ya)\nI'll make it lemonade\nWait, oh my god, stop\n얽혀버린 문젤 다 mixing\nLike a hurricane, 휘저어 pieces\nAll the lemons, 난 갈아 마셔 다\nI don't care if you say I'm freaky\n무표정으로 난 savour\nMuchas gracias, mi amor\n전부 삼켜내 like a piece of cake\nMake me, what you still waiting for? \nI go in all the way\nDon't step on the brakes\nI take my drama straight\nI'll make it lemonade\n겁 없이 walk my way\n던져 on my stage\nI take my karma straight\nI'll make it lemonade\nNo way, no way\nI got no ETA (Yeah, yeah)\nT-A, T-A (Yeah, woah)\nI'll make it lemonade (I'll make it lemonade)\nNo way, no way (Ya-ya)\nI got no ETA (ETA)\nT-A, T-A (Ya-ya)\nI'll make it lemonade\nAin't no emergency contact\n모든 건 날 위한 party\nBring me that new flavor, you know\n더 큰 세상으로 welcome back to my world\nI'ma stand all on my own\n어디라도 now I can go\n새롭게 open the door\nI need more (More lemonade)\nI go in all the way (The way)\nDon't step on the brakes (The brakes)\nI take my drama straight (Yeah)\nI'll make it lemonade\n겁 없이 walk my way\n던져 on my stage\nI take my karma straight\nI'll make it lemonade\nNo way, no way (No way)\nI got no ETA (ETA)\nT-A, T-A (Okay)\nI'll make it lemonade\nNo way, no way (Ya-ya)\nI got no ETA (No ETA)\nT-A, T-A (Ya-ya)\nI'll make it lemonade\nWait, hold up, stop",
+      "agency": "SM Entertainment",
+      "debut_year": "2020"
     },
     {
       "group": "Yerin",
@@ -278,13 +253,13 @@
       "sources": [
         "Wikipedia"
       ],
-      "note": "GFriend 前成員 Yerin（정예린）個人 solo",
+      "note": "前GFriend成員個人solo",
       "id": "3cac8dd5f392",
       "yt_url": "https://youtu.be/iZFRT-umFHI",
       "yt_id": "iZFRT-umFHI",
       "yt_title": "예린(YERIN) &#39;조각별 (Shooting Star) (Prod. PATEKO (파테코))&#39; MV",
-      "yt_views": 6916,
-      "yt_likes": 2113,
+      "yt_views": 7137,
+      "yt_likes": 2133,
       "yt_published": "2026-06-09",
       "yt_channel_title": "에이사이드컴퍼니 [A SIDE COMPANY]",
       "yt_channel_subs": 2200,
@@ -306,14 +281,14 @@
     },
     {
       "group": "Hearts2Hearts",
-      "group_kr": "하츠투하츠",
+      "group_kr": "",
       "title": "Lemon Tang",
       "date": "2026.06.22",
       "is_solo": false,
       "days_left": 13
     },
     {
-      "group": "(G)I-DLE",
+      "group": "I-dle",
       "group_kr": "(여자)아이들",
       "title": "We made",
       "date": "2026.07.06",
@@ -341,7 +316,7 @@
       },
       {
         "year": "2023",
-        "title": "Drama",
+        "title": "Dream Girl – The Possible World",
         "type": "迷你"
       },
       {
@@ -356,8 +331,8 @@
       },
       {
         "year": "2021",
-        "title": "Forever & Ever",
-        "type": "數位單曲"
+        "title": "Forever",
+        "type": "迷你"
       },
       {
         "year": "2020",
@@ -373,21 +348,21 @@
       },
       {
         "year": "2022",
-        "title": "The Beginning: Hear Me Out",
+        "title": "The Beginning: Girl",
         "type": "迷你"
       }
     ],
     "Izna": [
       {
         "year": "2024",
-        "title": "I Am",
+        "title": "I'M IZNA",
         "type": "迷你"
       }
     ],
     "Mamamoo": [
       {
         "year": "2023",
-        "title": "I Say Mamamoo: The Best",
+        "title": "I SAY MAMAMOO : THE BEST",
         "type": "正規"
       },
       {
@@ -397,12 +372,12 @@
       },
       {
         "year": "2021",
-        "title": "Travel",
+        "title": "WAW",
         "type": "正規"
       },
       {
         "year": "2020",
-        "title": "WAW",
+        "title": "Travel",
         "type": "正規"
       },
       {
@@ -416,27 +391,27 @@
         "type": "正規"
       },
       {
-        "year": "2017",
-        "title": "Purple",
-        "type": "迷你"
+        "year": "2016",
+        "title": "Memory",
+        "type": "正規"
       },
       {
-        "year": "2016",
-        "title": "Melting",
-        "type": "正規"
+        "year": "2015",
+        "title": "Hello",
+        "type": "迷你"
       }
     ],
     "Meovv": [
       {
         "year": "2024",
-        "title": "MEOW",
+        "title": "MEOVV",
         "type": "數位單曲"
       }
     ],
     "TripleS": [
       {
         "year": "2024",
-        "title": "Assemble24",
+        "title": "ASSEMBLE24",
         "type": "正規"
       },
       {
@@ -448,27 +423,32 @@
         "year": "2023",
         "title": "+(KR)ystal Eyes",
         "type": "迷你"
+      },
+      {
+        "year": "2023",
+        "title": "Acid Angel from Asia",
+        "type": "迷你"
       }
     ],
     "Yerin": [
       {
         "year": "2023",
-        "title": "Fall In Love",
+        "title": "Aria",
         "type": "迷你"
       },
       {
         "year": "2022",
-        "title": "My Favorite",
+        "title": "Everest",
         "type": "迷你"
       },
       {
         "year": "2021",
-        "title": "aria",
+        "title": "Page",
         "type": "迷你"
       },
       {
-        "year": "2020",
-        "title": "REC.",
+        "year": "2021",
+        "title": "My Moment",
         "type": "迷你"
       }
     ]
@@ -574,44 +554,6 @@
         "name_kr": "수인",
         "birth": "2005-04-12",
         "role": "忙內"
-      }
-    ],
-    "Unchild": [
-      {
-        "name": "Heekie",
-        "name_kr": "히키",
-        "birth": "03-17",
-        "role": "隊長、主Rapper"
-      },
-      {
-        "name": "Yeeun",
-        "name_kr": "예은",
-        "birth": "12-21",
-        "role": "主領唱、視覺、中心"
-      },
-      {
-        "name": "Tina",
-        "name_kr": "티나",
-        "birth": "03-09",
-        "role": "視覺、領舞、副唱"
-      },
-      {
-        "name": "Ako",
-        "name_kr": "아코",
-        "birth": "07-08",
-        "role": "副唱"
-      },
-      {
-        "name": "Evon",
-        "name_kr": "이본",
-        "birth": "07-11",
-        "role": "主唱"
-      },
-      {
-        "name": "Haeun",
-        "name_kr": "하은",
-        "birth": "01-16",
-        "role": "主舞、忙內"
       }
     ],
     "Aespa": [
@@ -850,13 +792,13 @@
       "group": "AFuture",
       "group_kr": "에이퓨처",
       "agency": "",
-      "note": "擁有67萬訂閱者，2026年3月14日出道的女子團體。"
+      "note": "2026年3月14日出道的女子團體，出道前已擁有67萬訂閱者。"
     },
     {
       "group": "Keyveatz",
       "group_kr": "키비츠",
       "agency": "AOMG",
-      "note": "AOMG旗下首個女子街舞團體，5人組，相關影片累積700萬次觀看。"
+      "note": "AOMG旗下首個女子crew，五人組合，相關影片累計700萬次觀看。"
     },
     {
       "group": "Unchild",
@@ -868,50 +810,50 @@
       "group": "Heart of Woman",
       "group_kr": "",
       "agency": "",
-      "note": "團名暗示為女子團體。"
+      "note": "疑為女子團體，縮寫參考來源標註為H.O.W。"
     },
     {
       "group": "Hiipe Princess",
       "group_kr": "",
       "agency": "",
-      "note": "團名含「Princess」，判斷為女子團體。"
+      "note": "名稱含「Princess」，推測為女子團體。"
     }
   ],
   "top_tracks": {
     "Aespa": [
       {
         "title": "LEMONADE",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/1/b/c/0/1bc9c955d3b60a673207600ea7f46f93.mp3?hdnea=exp=1781025228~acl=/api/1/1/1/b/c/0/1bc9c955d3b60a673207600ea7f46f93.mp3*~data=user_id=0,application_id=42~hmac=9d8fcbc8ca194b1049af868642c381c250fc369a2d7bf44fc75710e14569fd21",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/1/b/c/0/1bc9c955d3b60a673207600ea7f46f93.mp3?hdnea=exp=1781026116~acl=/api/1/1/1/b/c/0/1bc9c955d3b60a673207600ea7f46f93.mp3*~data=user_id=0,application_id=42~hmac=9501d981e549de1044eff6e4484b09865663eea90e3a899cc8167d1a6f1be36e",
         "album": "LEMONADE - The 2nd Album",
         "cover": "https://cdn-images.dzcdn.net/images/cover/b81526e9d17c0c514bfafeb16db7e48c/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Whiplash",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/9/f/0/69f061a157be03b4119f5c8671d2225c.mp3?hdnea=exp=1781025228~acl=/api/1/1/6/9/f/0/69f061a157be03b4119f5c8671d2225c.mp3*~data=user_id=0,application_id=42~hmac=d6adcbfc63828c9d309ab2ad07bbdc98f012c98c09b48c2575c76107eaa2e1b9",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/9/f/0/69f061a157be03b4119f5c8671d2225c.mp3?hdnea=exp=1781026116~acl=/api/1/1/6/9/f/0/69f061a157be03b4119f5c8671d2225c.mp3*~data=user_id=0,application_id=42~hmac=d10cb2324dbbd03ee1dc6414f3ede70a9b6893dacd214ecec1935132ce95196e",
         "album": "Whiplash - The 5th Mini Album",
         "cover": "https://cdn-images.dzcdn.net/images/cover/bb3517be9700d1e9ae0451e2186eee25/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "LEMONADE (feat. Becky G)",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/7/c/0/67ccdac390f7cdb93f80b1bcae3db74e.mp3?hdnea=exp=1781025228~acl=/api/1/1/6/7/c/0/67ccdac390f7cdb93f80b1bcae3db74e.mp3*~data=user_id=0,application_id=42~hmac=c597b188ba3ef368feb0585546f7a03b72ca481ba59ca56b5ebeae54f1a0fd9f",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/7/c/0/67ccdac390f7cdb93f80b1bcae3db74e.mp3?hdnea=exp=1781026116~acl=/api/1/1/6/7/c/0/67ccdac390f7cdb93f80b1bcae3db74e.mp3*~data=user_id=0,application_id=42~hmac=3152bd1d81916c3ace06ffdf2837b9beb11d99653f9497714dcbedd63b288dd8",
         "album": "LEMONADE - The 2nd Album",
         "cover": "https://cdn-images.dzcdn.net/images/cover/b81526e9d17c0c514bfafeb16db7e48c/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "WDA (Whole Different Animal) (feat. G-DRAGON)",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/3/5/0/635e338a7414df05ad532ac22e7f1406.mp3?hdnea=exp=1781025228~acl=/api/1/1/6/3/5/0/635e338a7414df05ad532ac22e7f1406.mp3*~data=user_id=0,application_id=42~hmac=beef452646ba3e2e3d47bb8993641e863d0e28bbdf050a4326c4883e5503f06b",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/3/5/0/635e338a7414df05ad532ac22e7f1406.mp3?hdnea=exp=1781026116~acl=/api/1/1/6/3/5/0/635e338a7414df05ad532ac22e7f1406.mp3*~data=user_id=0,application_id=42~hmac=0a1214e400e4f442537f87c8e22b533703f30247c8ec27f9557bb76d43e9a27e",
         "album": "LEMONADE - The 2nd Album",
         "cover": "https://cdn-images.dzcdn.net/images/cover/b81526e9d17c0c514bfafeb16db7e48c/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Switchblade (feat. Ty Dolla $ign)",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/b/8/8/0/b88279aaa9e0a38fbb1c6ba74fef3fb5.mp3?hdnea=exp=1781025228~acl=/api/1/1/b/8/8/0/b88279aaa9e0a38fbb1c6ba74fef3fb5.mp3*~data=user_id=0,application_id=42~hmac=45dcbae8d08901d49a1e6dc221080641aa164be48d34a474294568ae35b8cd80",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/b/8/8/0/b88279aaa9e0a38fbb1c6ba74fef3fb5.mp3?hdnea=exp=1781026116~acl=/api/1/1/b/8/8/0/b88279aaa9e0a38fbb1c6ba74fef3fb5.mp3*~data=user_id=0,application_id=42~hmac=ca1761918538ee78f2461ecb88b8e0e71d53f81e4e9d7f37483a6d9e797e32d0",
         "album": "LEMONADE - The 2nd Album",
         "cover": "https://cdn-images.dzcdn.net/images/cover/b81526e9d17c0c514bfafeb16db7e48c/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Drama",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/4/0/3/0/403021404134cd1bda1c11c10f84aedd.mp3?hdnea=exp=1781025228~acl=/api/1/1/4/0/3/0/403021404134cd1bda1c11c10f84aedd.mp3*~data=user_id=0,application_id=42~hmac=626ca001aab156a47038f440730cec86e42585942be7963ca05d60b99a2bbd0a",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/4/0/3/0/403021404134cd1bda1c11c10f84aedd.mp3?hdnea=exp=1781026116~acl=/api/1/1/4/0/3/0/403021404134cd1bda1c11c10f84aedd.mp3*~data=user_id=0,application_id=42~hmac=0897055f9b30413970e7725285fea6636a7cc8cc9b268eeb809c9df29d8829dc",
         "album": "Drama - The 4th Mini Album",
         "cover": "https://cdn-images.dzcdn.net/images/cover/ff8cfd7342e9ec437e9e19de561a155b/250x250-000000-80-0-0.jpg"
       }
@@ -919,37 +861,37 @@
     "Fifty Fifty": [
       {
         "title": "Cupid (Twin Version)",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/d/0/0/6d007dd44c8becdadb36d6e4322bf1b0.mp3?hdnea=exp=1781025230~acl=/api/1/1/6/d/0/0/6d007dd44c8becdadb36d6e4322bf1b0.mp3*~data=user_id=0,application_id=42~hmac=5271c304e344e28247f7e498dc21f210c276cb3d25ff068d42a48c53949e8fac",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/d/0/0/6d007dd44c8becdadb36d6e4322bf1b0.mp3?hdnea=exp=1781026117~acl=/api/1/1/6/d/0/0/6d007dd44c8becdadb36d6e4322bf1b0.mp3*~data=user_id=0,application_id=42~hmac=1d0b2cc8a9ccb3bed1a3bb36bfd55fe48b38102e91b8d459d542af264ceea325",
         "album": "The Beginning: Cupid",
         "cover": "https://cdn-images.dzcdn.net/images/cover/3b6d47ed87da4116f45d0859559327c1/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Cupid",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/7/7/f/0/77f60bd466b53834c9151350c5cd72e6.mp3?hdnea=exp=1781025230~acl=/api/1/1/7/7/f/0/77f60bd466b53834c9151350c5cd72e6.mp3*~data=user_id=0,application_id=42~hmac=88718a3492f79be74897c97f3ca48158d43b810ef0bd0232cc23b5ad5f6a8cec",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/7/7/f/0/77f60bd466b53834c9151350c5cd72e6.mp3?hdnea=exp=1781026117~acl=/api/1/1/7/7/f/0/77f60bd466b53834c9151350c5cd72e6.mp3*~data=user_id=0,application_id=42~hmac=63e618651641238796aefa1beedc9c5299f30a64f9d5e7dbefa193db99b0a27d",
         "album": "The Beginning: Cupid",
         "cover": "https://cdn-images.dzcdn.net/images/cover/3b6d47ed87da4116f45d0859559327c1/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "PERFECT",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/7/f/0/67fe499c004c94095668bd8760127404.mp3?hdnea=exp=1781025230~acl=/api/1/1/6/7/f/0/67fe499c004c94095668bd8760127404.mp3*~data=user_id=0,application_id=42~hmac=2d3ee1a2d0665b86d6e6b87e3557bfd10889fa212337570d041f4c164f49f9c2",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/7/f/0/67fe499c004c94095668bd8760127404.mp3?hdnea=exp=1781026117~acl=/api/1/1/6/7/f/0/67fe499c004c94095668bd8760127404.mp3*~data=user_id=0,application_id=42~hmac=f70d4cc17c9859a301dc856d2e5eb7fd23e27ddc6ccab2c6d82ade270f862aa3",
         "album": "Imperfect-I'mperfect",
         "cover": "https://cdn-images.dzcdn.net/images/cover/5033794f736cbe2d8c592c8b1aabdd70/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Cupid - Twin Ver. (FIFTY FIFTY) (Sped Up Version)",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/4/9/a/0/49a5321ae7972c58f7cc3779fc56ad0e.mp3?hdnea=exp=1781025230~acl=/api/1/1/4/9/a/0/49a5321ae7972c58f7cc3779fc56ad0e.mp3*~data=user_id=0,application_id=42~hmac=64fbee47b7cadc4260e0245b0a08f44ba338fd34f25c7834f134a4c83d3d30bc",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/4/9/a/0/49a5321ae7972c58f7cc3779fc56ad0e.mp3?hdnea=exp=1781026117~acl=/api/1/1/4/9/a/0/49a5321ae7972c58f7cc3779fc56ad0e.mp3*~data=user_id=0,application_id=42~hmac=3078204e27221a694ba375a6e5d17018fd63c067222ef8c3f2b536dae95156cd",
         "album": "Cupid - Twin Ver. (FIFTY FIFTY) (Sped Up Version)",
         "cover": "https://cdn-images.dzcdn.net/images/cover/3b6d47ed87da4116f45d0859559327c1/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Pookie",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/b/c/0/0/bc0454d79abfe63938315ba3ce186c1a.mp3?hdnea=exp=1781025230~acl=/api/1/1/b/c/0/0/bc0454d79abfe63938315ba3ce186c1a.mp3*~data=user_id=0,application_id=42~hmac=e23ee362d6c718ef62a14ee4541454ddf64e71c7c9ca1f442c040be1183d0b23",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/b/c/0/0/bc0454d79abfe63938315ba3ce186c1a.mp3?hdnea=exp=1781026117~acl=/api/1/1/b/c/0/0/bc0454d79abfe63938315ba3ce186c1a.mp3*~data=user_id=0,application_id=42~hmac=8e8099c443d43b12a0a2475f2a36a97ec012800d3741cb0f6450596a995f6bae",
         "album": "Day & Night",
         "cover": "https://cdn-images.dzcdn.net/images/cover/d0b1a2ad3d3734707db67ffa74254317/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Cupid – Twin Ver. (feat. Sabrina Carpenter)",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/1/8/d/0/18db97659969c8cff0f5c7a94f20878b.mp3?hdnea=exp=1781025230~acl=/api/1/1/1/8/d/0/18db97659969c8cff0f5c7a94f20878b.mp3*~data=user_id=0,application_id=42~hmac=538d62fe08173a3f79cead1255c0a86c3c53bf367071ab45ad268a93b5eb81b8",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/1/8/d/0/18db97659969c8cff0f5c7a94f20878b.mp3?hdnea=exp=1781026117~acl=/api/1/1/1/8/d/0/18db97659969c8cff0f5c7a94f20878b.mp3*~data=user_id=0,application_id=42~hmac=ad8e9b50998d57eb92ddbe4725cd3e60be8d46ecb586491ef04d46a9c42b1796",
         "album": "Cupid – Twin Ver. (feat. Sabrina Carpenter)",
         "cover": "https://cdn-images.dzcdn.net/images/cover/e385bc7477a9ea27f889aa853bd9ecae/250x250-000000-80-0-0.jpg"
       }
@@ -957,37 +899,37 @@
     "Heart of Woman": [
       {
         "title": "Skit.exe",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/d/6/2/0/d62c06d8af8d2544702bfc9abf4b7230.mp3?hdnea=exp=1781025233~acl=/api/1/1/d/6/2/0/d62c06d8af8d2544702bfc9abf4b7230.mp3*~data=user_id=0,application_id=42~hmac=8119e0604c8ba5fb77fd4adb94fce50bb9947e5c10e9be0d5446d34d77043dee",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/d/6/2/0/d62c06d8af8d2544702bfc9abf4b7230.mp3?hdnea=exp=1781026119~acl=/api/1/1/d/6/2/0/d62c06d8af8d2544702bfc9abf4b7230.mp3*~data=user_id=0,application_id=42~hmac=b0b9113454d715720a532166450e5c1840d6871d35f65e2d865970121f3e0202",
         "album": "Heart Byte : LEGACY",
         "cover": "https://cdn-images.dzcdn.net/images/cover/5e74db4327213bc22dafe6167c53202d/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "TEA",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/e/6/5/0/e65f302ea5286ec48bf24fd34e2e92b6.mp3?hdnea=exp=1781025233~acl=/api/1/1/e/6/5/0/e65f302ea5286ec48bf24fd34e2e92b6.mp3*~data=user_id=0,application_id=42~hmac=2c23222ace35d843ef88cdd08c719ec97db165da728dabe21e6631885d52383c",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/e/6/5/0/e65f302ea5286ec48bf24fd34e2e92b6.mp3?hdnea=exp=1781026119~acl=/api/1/1/e/6/5/0/e65f302ea5286ec48bf24fd34e2e92b6.mp3*~data=user_id=0,application_id=42~hmac=7557dfd9a95574f03fef076e7a98e3b6fbf1f1120b27048b0af67d9174d873c0",
         "album": "Heart Byte : LEGACY",
         "cover": "https://cdn-images.dzcdn.net/images/cover/5e74db4327213bc22dafe6167c53202d/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Lost in Proof",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/9/4/0/694b52cc18b05949b175e6a347c0cf80.mp3?hdnea=exp=1781025233~acl=/api/1/1/6/9/4/0/694b52cc18b05949b175e6a347c0cf80.mp3*~data=user_id=0,application_id=42~hmac=a701b7459e284b4c90089ec6ea6f523785e6ba175ce76e9bf9646aa8f5a2242f",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/9/4/0/694b52cc18b05949b175e6a347c0cf80.mp3?hdnea=exp=1781026119~acl=/api/1/1/6/9/4/0/694b52cc18b05949b175e6a347c0cf80.mp3*~data=user_id=0,application_id=42~hmac=195cb518d8f224176920d51df6b10b8d6849847f52bc23eb39cfd3c2345e3148",
         "album": "Heart Byte : LEGACY",
         "cover": "https://cdn-images.dzcdn.net/images/cover/5e74db4327213bc22dafe6167c53202d/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "My Vision",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/1/c/3/0/1c385c729152cb11a3bf520e44be48ab.mp3?hdnea=exp=1781025233~acl=/api/1/1/1/c/3/0/1c385c729152cb11a3bf520e44be48ab.mp3*~data=user_id=0,application_id=42~hmac=b321e3d5ef68172b90127bd547d94d014e7a6ce0c92483ef8e5f8c2abd0e3b47",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/1/c/3/0/1c385c729152cb11a3bf520e44be48ab.mp3?hdnea=exp=1781026119~acl=/api/1/1/1/c/3/0/1c385c729152cb11a3bf520e44be48ab.mp3*~data=user_id=0,application_id=42~hmac=45eca4a41707e2aca77a6809d20114de6d5779a8e1241835153b76c0240861a0",
         "album": "Heart Byte : LEGACY",
         "cover": "https://cdn-images.dzcdn.net/images/cover/5e74db4327213bc22dafe6167c53202d/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Told U So",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/9/a/1/0/9a1d5c510dfe3a316fd00a00664641f5.mp3?hdnea=exp=1781025233~acl=/api/1/1/9/a/1/0/9a1d5c510dfe3a316fd00a00664641f5.mp3*~data=user_id=0,application_id=42~hmac=6127eca0b5435f7a04e2464c728765ba928e1c3b8669b11b2584f14244c7b0bc",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/9/a/1/0/9a1d5c510dfe3a316fd00a00664641f5.mp3?hdnea=exp=1781026119~acl=/api/1/1/9/a/1/0/9a1d5c510dfe3a316fd00a00664641f5.mp3*~data=user_id=0,application_id=42~hmac=44eaa3fd933b7abb229f569f26fb6f383cdbd83bf46b81dbc1921ed82635a268",
         "album": "Heart Byte : LEGACY",
         "cover": "https://cdn-images.dzcdn.net/images/cover/5e74db4327213bc22dafe6167c53202d/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Dive With Me",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/d/e/1/0/de1a3a4e02a9e90a68af9269ffa793ee.mp3?hdnea=exp=1781025233~acl=/api/1/1/d/e/1/0/de1a3a4e02a9e90a68af9269ffa793ee.mp3*~data=user_id=0,application_id=42~hmac=1ec3b9dfcb08d89715f40fad691575dcd303741db57933b1dd496bc206945676",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/d/e/1/0/de1a3a4e02a9e90a68af9269ffa793ee.mp3?hdnea=exp=1781026119~acl=/api/1/1/d/e/1/0/de1a3a4e02a9e90a68af9269ffa793ee.mp3*~data=user_id=0,application_id=42~hmac=ee60bd304b1e57fffcbc25c95a74b8a942b1c436db10458c59d28c7156d1b0fd",
         "album": "Heart Byte : LEGACY",
         "cover": "https://cdn-images.dzcdn.net/images/cover/5e74db4327213bc22dafe6167c53202d/250x250-000000-80-0-0.jpg"
       }
@@ -995,13 +937,13 @@
     "Izna": [
       {
         "title": "Psycho",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/8/e/6/0/8e6936afaf2f41662782d8c31b9dd361.mp3?hdnea=exp=1781025239~acl=/api/1/1/8/e/6/0/8e6936afaf2f41662782d8c31b9dd361.mp3*~data=user_id=0,application_id=42~hmac=ec55fcf354a2440af081d4ddaff7992f9184004389d88c0538dec4923bedf3f8",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/8/e/6/0/8e6936afaf2f41662782d8c31b9dd361.mp3?hdnea=exp=1781026124~acl=/api/1/1/8/e/6/0/8e6936afaf2f41662782d8c31b9dd361.mp3*~data=user_id=0,application_id=42~hmac=beb7b34aabf93108c98d4aa0739447f0d620b86cd1ce2247fa5470cf979a49d7",
         "album": "Psycho (From \"Operation: True Love\")",
         "cover": "https://cdn-images.dzcdn.net/images/cover/d511afdb7bf0d6953541fb1fe9af46fd/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Love All",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/1/9/d/0/19dd4b7c2d1651e50181f13903550114.mp3?hdnea=exp=1781025239~acl=/api/1/1/1/9/d/0/19dd4b7c2d1651e50181f13903550114.mp3*~data=user_id=0,application_id=42~hmac=c5aeb2016e47c4f381e5fe3bf3174241540c04c46fd94f7f3fb817ea023ba348",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/1/9/d/0/19dd4b7c2d1651e50181f13903550114.mp3?hdnea=exp=1781026124~acl=/api/1/1/1/9/d/0/19dd4b7c2d1651e50181f13903550114.mp3*~data=user_id=0,application_id=42~hmac=09b218d16d837a4c38986336045f94592d6be43f61e324bc1eecf9b4c8aed88f",
         "album": "Love All",
         "cover": "https://cdn-images.dzcdn.net/images/cover/da7c5d2bf2ebaecce8fba8ab553dbf25/250x250-000000-80-0-0.jpg"
       }
@@ -1009,37 +951,37 @@
     "Mamamoo": [
       {
         "title": "4 Flowers",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/9/5/0/0/95037def732b4d2d58ee7990eeff4c76.mp3?hdnea=exp=1781025241~acl=/api/1/1/9/5/0/0/95037def732b4d2d58ee7990eeff4c76.mp3*~data=user_id=0,application_id=42~hmac=336a412438207b2f8e8847bcd328d53a9a163ca434e004388b3eb85c6e3ef386",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/9/5/0/0/95037def732b4d2d58ee7990eeff4c76.mp3?hdnea=exp=1781026125~acl=/api/1/1/9/5/0/0/95037def732b4d2d58ee7990eeff4c76.mp3*~data=user_id=0,application_id=42~hmac=f4ef186f2b2b3395cc5fdccc0e6ae3a47c7fbf8513c31f80b7c9e85f15ce5325",
         "album": "4WARD",
         "cover": "https://cdn-images.dzcdn.net/images/cover/d2fe6e5297c87ae4330fc49cdb9d46ed/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "HIP",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/c/6/f/0/c6f037a5951ef647bdbc95c61eb2e38f.mp3?hdnea=exp=1781025241~acl=/api/1/1/c/6/f/0/c6f037a5951ef647bdbc95c61eb2e38f.mp3*~data=user_id=0,application_id=42~hmac=7547b7e9333cf7514c15ae7f31fff533f446bd75bd5b38d4e7ec068fd85fd1dc",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/c/6/f/0/c6f037a5951ef647bdbc95c61eb2e38f.mp3?hdnea=exp=1781026125~acl=/api/1/1/c/6/f/0/c6f037a5951ef647bdbc95c61eb2e38f.mp3*~data=user_id=0,application_id=42~hmac=8aba7da5c460284d7a826383706de92c74d6cc5cb6d7253d232367de01ff6497",
         "album": "reality in BLACK",
         "cover": "https://cdn-images.dzcdn.net/images/cover/e27d1eaceb866b7ac0d3bed3d1e57ba9/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Blooming (Intro)",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/0/7/0/0/07037e944d51c412ab56a39ebd7af5d0.mp3?hdnea=exp=1781025241~acl=/api/1/1/0/7/0/0/07037e944d51c412ab56a39ebd7af5d0.mp3*~data=user_id=0,application_id=42~hmac=7248d53ac4842c6e73145cd87575436bdd6e6f4e4d20402b460c4c38d48bf138",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/0/7/0/0/07037e944d51c412ab56a39ebd7af5d0.mp3?hdnea=exp=1781026125~acl=/api/1/1/0/7/0/0/07037e944d51c412ab56a39ebd7af5d0.mp3*~data=user_id=0,application_id=42~hmac=e56f0aa08415da4be998db0282a11354eb7f68fcfc9fc352e5cd0e94ec07cb8c",
         "album": "4WARD",
         "cover": "https://cdn-images.dzcdn.net/images/cover/d2fe6e5297c87ae4330fc49cdb9d46ed/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "4 Flowers (Acoustic Remix)",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/b/f/4/0/bf4a3facf8036333359439484f78e24a.mp3?hdnea=exp=1781025241~acl=/api/1/1/b/f/4/0/bf4a3facf8036333359439484f78e24a.mp3*~data=user_id=0,application_id=42~hmac=6f6c79bec120a4b8e41e4a45de2c853a51ef431dd42cf21126f0c8d3e40935f2",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/b/f/4/0/bf4a3facf8036333359439484f78e24a.mp3?hdnea=exp=1781026125~acl=/api/1/1/b/f/4/0/bf4a3facf8036333359439484f78e24a.mp3*~data=user_id=0,application_id=42~hmac=af9e47d5d164f1046e78025ade5efdc9b85fb62d1e4ac1a20bc3819254944fba",
         "album": "4WARD",
         "cover": "https://cdn-images.dzcdn.net/images/cover/d2fe6e5297c87ae4330fc49cdb9d46ed/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Dingga",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/f/f/3/0/ff32e6ad2dbeda73be0552fe378bb534.mp3?hdnea=exp=1781025241~acl=/api/1/1/f/f/3/0/ff32e6ad2dbeda73be0552fe378bb534.mp3*~data=user_id=0,application_id=42~hmac=0dd7612bfafd615c4b11fdadba3963fad36055208eb20d61eb68f85c0ddb6b2b",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/f/f/3/0/ff32e6ad2dbeda73be0552fe378bb534.mp3?hdnea=exp=1781026125~acl=/api/1/1/f/f/3/0/ff32e6ad2dbeda73be0552fe378bb534.mp3*~data=user_id=0,application_id=42~hmac=5a278e2333764a1e8e623d0b6f5740b17b0fcb51eb560a15386ba36dfc8d0b93",
         "album": "Dingga",
         "cover": "https://cdn-images.dzcdn.net/images/cover/cc43ff1788b991e14d53efeb3af93922/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "4 Flowers (Latin Remix)",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/9/0/c/0/90c8a6c471f5749c712e4b06e5050c0d.mp3?hdnea=exp=1781025241~acl=/api/1/1/9/0/c/0/90c8a6c471f5749c712e4b06e5050c0d.mp3*~data=user_id=0,application_id=42~hmac=132029f51cb182199741478dc2285a8175c66d74d9a4392583f1eb8563b2c6d0",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/9/0/c/0/90c8a6c471f5749c712e4b06e5050c0d.mp3?hdnea=exp=1781026125~acl=/api/1/1/9/0/c/0/90c8a6c471f5749c712e4b06e5050c0d.mp3*~data=user_id=0,application_id=42~hmac=dd7946cf28b4832e5a5bbee173c9c193c6d3939058281aed021de52688167f95",
         "album": "4WARD",
         "cover": "https://cdn-images.dzcdn.net/images/cover/d2fe6e5297c87ae4330fc49cdb9d46ed/250x250-000000-80-0-0.jpg"
       }
@@ -1047,37 +989,37 @@
     "Meovv": [
       {
         "title": "Hit 'Em",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/e/7/6/0/e767e3754794e0c0fc3b3c90959fda11.mp3?hdnea=exp=1781025242~acl=/api/1/1/e/7/6/0/e767e3754794e0c0fc3b3c90959fda11.mp3*~data=user_id=0,application_id=42~hmac=d16af9a20cf855981c6422e22e7fad18dcd630f1c08312138ef65419915f8032",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/e/7/6/0/e767e3754794e0c0fc3b3c90959fda11.mp3?hdnea=exp=1781026126~acl=/api/1/1/e/7/6/0/e767e3754794e0c0fc3b3c90959fda11.mp3*~data=user_id=0,application_id=42~hmac=114ff7c04aff0f0bcdac8aba7f779390ec4e503c5bfc635051c33539797ee953",
         "album": "BITE NOW",
         "cover": "https://cdn-images.dzcdn.net/images/cover/1c4c1954f594178fc3a52b5620489927/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "DDI RO RI",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/5/1/1/0/51138d183772300e0df6561638c4808e.mp3?hdnea=exp=1781025242~acl=/api/1/1/5/1/1/0/51138d183772300e0df6561638c4808e.mp3*~data=user_id=0,application_id=42~hmac=767184224b59db00dcbb381447a9cf441eb67b601206a14a98f67e344bd724d5",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/5/1/1/0/51138d183772300e0df6561638c4808e.mp3?hdnea=exp=1781026126~acl=/api/1/1/5/1/1/0/51138d183772300e0df6561638c4808e.mp3*~data=user_id=0,application_id=42~hmac=44b69eaedd1e06fe53fe0439d9c484571550f29630c800ec22b16d947133f331",
         "album": "BITE NOW",
         "cover": "https://cdn-images.dzcdn.net/images/cover/1c4c1954f594178fc3a52b5620489927/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "MEOW",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/1/a/4/0/1a4271afc3f240d041ab680a2bb8d53e.mp3?hdnea=exp=1781025242~acl=/api/1/1/1/a/4/0/1a4271afc3f240d041ab680a2bb8d53e.mp3*~data=user_id=0,application_id=42~hmac=00ce58c95c63bec6a2e7eef7b1182757baa2af1fe40b47563240032c975a544b",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/1/a/4/0/1a4271afc3f240d041ab680a2bb8d53e.mp3?hdnea=exp=1781026126~acl=/api/1/1/1/a/4/0/1a4271afc3f240d041ab680a2bb8d53e.mp3*~data=user_id=0,application_id=42~hmac=e1d626a7c3cb2ac14e9ee00955e810a630a7053071295a1ba1e724bf509b05b4",
         "album": "MEOW",
         "cover": "https://cdn-images.dzcdn.net/images/cover/e0a857e1cecea2d8de43f7300cdd2b21/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "BURNING UP",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/1/4/d/0/14db342bf2ae33cc182704030a9676b5.mp3?hdnea=exp=1781025242~acl=/api/1/1/1/4/d/0/14db342bf2ae33cc182704030a9676b5.mp3*~data=user_id=0,application_id=42~hmac=b6cb40afa66ad9ab75bcd27d31d6cd9abb2c114a75275f91cc52acdfc4214c7d",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/1/4/d/0/14db342bf2ae33cc182704030a9676b5.mp3?hdnea=exp=1781026126~acl=/api/1/1/1/4/d/0/14db342bf2ae33cc182704030a9676b5.mp3*~data=user_id=0,application_id=42~hmac=70073e98c296fc6abf2a1250298a606c1d94740ada38d14e32a1ef55693432ef",
         "album": "BURNING UP",
         "cover": "https://cdn-images.dzcdn.net/images/cover/cb2c5fe9cc4d34866a568a03e48b11f7/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "HANDS UP",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/5/d/8/0/5d8c6f6a8f9d34cf89d1ccdbb9aae808.mp3?hdnea=exp=1781025242~acl=/api/1/1/5/d/8/0/5d8c6f6a8f9d34cf89d1ccdbb9aae808.mp3*~data=user_id=0,application_id=42~hmac=196c18c11ffa8da8e6c956efbd3b8341a1d77d466e2c6ce28c2a6ff61bda3930",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/5/d/8/0/5d8c6f6a8f9d34cf89d1ccdbb9aae808.mp3?hdnea=exp=1781026126~acl=/api/1/1/5/d/8/0/5d8c6f6a8f9d34cf89d1ccdbb9aae808.mp3*~data=user_id=0,application_id=42~hmac=0d63565d6ac0b1706c39424491ca5ed5cf967ffa36cd674adce4d61b634bdc0e",
         "album": "HANDS UP",
         "cover": "https://cdn-images.dzcdn.net/images/cover/a6cbeef4e583eaba95f9169bc27d1ecd/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "In my hands",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/f/c/5/0/fc5c253395e476e14b38cb4cf7f49aec.mp3?hdnea=exp=1781025242~acl=/api/1/1/f/c/5/0/fc5c253395e476e14b38cb4cf7f49aec.mp3*~data=user_id=0,application_id=42~hmac=dea7e492f8c6d142857c1cf30a8093b82677303c3a7f203f206a15db518181ec",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/f/c/5/0/fc5c253395e476e14b38cb4cf7f49aec.mp3?hdnea=exp=1781026126~acl=/api/1/1/f/c/5/0/fc5c253395e476e14b38cb4cf7f49aec.mp3*~data=user_id=0,application_id=42~hmac=e7589071c05524c4c35340088c574957a84d19b4b889a582cac44c77b176f9d3",
         "album": "BITE NOW",
         "cover": "https://cdn-images.dzcdn.net/images/cover/1c4c1954f594178fc3a52b5620489927/250x250-000000-80-0-0.jpg"
       }
@@ -1085,89 +1027,75 @@
     "TripleS": [
       {
         "title": "Girls Never Die",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/8/e/b/0/8ebf259db5efaed4591fd934198dd360.mp3?hdnea=exp=1781025249~acl=/api/1/1/8/e/b/0/8ebf259db5efaed4591fd934198dd360.mp3*~data=user_id=0,application_id=42~hmac=0ef18ae54052d73047f30732a77273dc3d123c400f7037cd03ce6e79dc03b47e",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/8/e/b/0/8ebf259db5efaed4591fd934198dd360.mp3?hdnea=exp=1781026129~acl=/api/1/1/8/e/b/0/8ebf259db5efaed4591fd934198dd360.mp3*~data=user_id=0,application_id=42~hmac=dcb832dd75540ce6bf4a0659d464a92dc2445bce418bcb088fe9bedcd31c8c58",
         "album": "<ASSEMBLE24>",
         "cover": "https://cdn-images.dzcdn.net/images/cover/1b38fc54c329156035eaee71ad72821f/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "깨어 (Are You Alive)",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/b/5/2/0/b52377425920beca6ac15f6ee03065c7.mp3?hdnea=exp=1781025249~acl=/api/1/1/b/5/2/0/b52377425920beca6ac15f6ee03065c7.mp3*~data=user_id=0,application_id=42~hmac=92b0e48433084363ab334de82a0565104c5040c9f1e48f382094c9660d11cfc1",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/b/5/2/0/b52377425920beca6ac15f6ee03065c7.mp3?hdnea=exp=1781026129~acl=/api/1/1/b/5/2/0/b52377425920beca6ac15f6ee03065c7.mp3*~data=user_id=0,application_id=42~hmac=d7923dd608c4018b76e984752446d39eac371474254e5902c829067b4fc8bf9f",
         "album": "<ASSEMBLE25>",
         "cover": "https://cdn-images.dzcdn.net/images/cover/d92a4f8f243b7b30966a03d31a19ef6d/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Cameo Love",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/4/2/0/0/420a0cc9ad189c1c6776d4c7fd767359.mp3?hdnea=exp=1781025249~acl=/api/1/1/4/2/0/0/420a0cc9ad189c1c6776d4c7fd767359.mp3*~data=user_id=0,application_id=42~hmac=c6e57bc61545ce5edf4e9b3da662da453490bf33fef43f27763d651448bef91c",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/4/2/0/0/420a0cc9ad189c1c6776d4c7fd767359.mp3?hdnea=exp=1781026129~acl=/api/1/1/4/2/0/0/420a0cc9ad189c1c6776d4c7fd767359.mp3*~data=user_id=0,application_id=42~hmac=81dd1d90a21f29394e67b41aeecdf0fb318d9113cc7cc1080fa0342981102ed2",
         "album": "msnz <Beyond Beauty>",
         "cover": "https://cdn-images.dzcdn.net/images/cover/fa463d5080fb2301f30974b38e9e4b23/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Baby Flower",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/d/3/6/0/d36b606cc8c55f100239b02876d876cb.mp3?hdnea=exp=1781025249~acl=/api/1/1/d/3/6/0/d36b606cc8c55f100239b02876d876cb.mp3*~data=user_id=0,application_id=42~hmac=bee5f7ebab51c0cce5335889cdbc616b4a9eb9dafeb7179a85b78820a3869c99",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/d/3/6/0/d36b606cc8c55f100239b02876d876cb.mp3?hdnea=exp=1781026129~acl=/api/1/1/d/3/6/0/d36b606cc8c55f100239b02876d876cb.mp3*~data=user_id=0,application_id=42~hmac=939098bdbd2110ae03a76d8f81b2fa3b19452fc6ec73bd62f5f36dd04fbd085a",
         "album": "<LOVE&POP> pt.1",
         "cover": "https://cdn-images.dzcdn.net/images/cover/d7e9e8290ab7b523a431780c8a99e3fa/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Sad Girls Schemin'",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/0/6/2/0/06285482478865369773606d5d32a8bb.mp3?hdnea=exp=1781025249~acl=/api/1/1/0/6/2/0/06285482478865369773606d5d32a8bb.mp3*~data=user_id=0,application_id=42~hmac=c7eb2531fca67db10c9b87184fb27588a757edc719804f0883a997a494da4684",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/0/6/2/0/06285482478865369773606d5d32a8bb.mp3?hdnea=exp=1781026129~acl=/api/1/1/0/6/2/0/06285482478865369773606d5d32a8bb.mp3*~data=user_id=0,application_id=42~hmac=0fb4554fa61dfadcc9f17b66fa8c2c624996cf258dd950a457470cd7b626da9d",
         "album": "<LOVE&POP> pt.1",
         "cover": "https://cdn-images.dzcdn.net/images/cover/d7e9e8290ab7b523a431780c8a99e3fa/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Generation",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/9/2/d/0/92d40cf10a730b2f0a11c74d5c389939.mp3?hdnea=exp=1781025249~acl=/api/1/1/9/2/d/0/92d40cf10a730b2f0a11c74d5c389939.mp3*~data=user_id=0,application_id=42~hmac=8fb4f2c9e18089e4a1c59614d3838671397ebf335a01914c951dcb693d343e59",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/9/2/d/0/92d40cf10a730b2f0a11c74d5c389939.mp3?hdnea=exp=1781026129~acl=/api/1/1/9/2/d/0/92d40cf10a730b2f0a11c74d5c389939.mp3*~data=user_id=0,application_id=42~hmac=b89f4df585c7120953e6d1f746c883a6b1230d755b1d70f23c5f5f6ec57d4da4",
         "album": "Acid Angel from Asia <ACCESS>",
         "cover": "https://cdn-images.dzcdn.net/images/cover/332214b7872c53337fc8c1a078aec7ba/250x250-000000-80-0-0.jpg"
-      }
-    ],
-    "Unchild": [
-      {
-        "title": "UNCHILD",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/3/3/c/0/33c4f380e92414cd96ccb239d434e145.mp3?hdnea=exp=1781025250~acl=/api/1/1/3/3/c/0/33c4f380e92414cd96ccb239d434e145.mp3*~data=user_id=0,application_id=42~hmac=9bfcccdd482c1ac3762b74812d950f1be9a03ad6abef0444ad60e9423990f70c",
-        "album": "We Are UNCHILD",
-        "cover": "https://cdn-images.dzcdn.net/images/cover/0f5685ce1edb7009122cb8bfce08a22f/250x250-000000-80-0-0.jpg"
-      },
-      {
-        "title": "ENERGY",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/5/c/6/0/5c61afde5bcec40ccfb3005ebb55dad0.mp3?hdnea=exp=1781025250~acl=/api/1/1/5/c/6/0/5c61afde5bcec40ccfb3005ebb55dad0.mp3*~data=user_id=0,application_id=42~hmac=4660eb4ab0ac3559ae43eea7cc80808e10938f2e9af7bb3967a79e00b59e9c43",
-        "album": "We Are UNCHILD",
-        "cover": "https://cdn-images.dzcdn.net/images/cover/0f5685ce1edb7009122cb8bfce08a22f/250x250-000000-80-0-0.jpg"
       }
     ],
     "Yerin": [
       {
         "title": "ARIA",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/8/b/0/68b92dee0679bbe97d2ed90f169e09cc.mp3?hdnea=exp=1781025254~acl=/api/1/1/6/8/b/0/68b92dee0679bbe97d2ed90f169e09cc.mp3*~data=user_id=0,application_id=42~hmac=fcb2967a87cfd37bc2b13ddb0b39b537d89ba060ff9615b1e6b713d50c06da8c",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/8/b/0/68b92dee0679bbe97d2ed90f169e09cc.mp3?hdnea=exp=1781026130~acl=/api/1/1/6/8/b/0/68b92dee0679bbe97d2ed90f169e09cc.mp3*~data=user_id=0,application_id=42~hmac=a98d02069b4e7bcc2f0a70a4e03c210c7dab86fb8938476beb8917beaa4da83c",
         "album": "ARIA",
         "cover": "https://cdn-images.dzcdn.net/images/cover/33b8b85aea454fe47aae76d1f679fa34/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Believer",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/d/7/7/0/d770a7f1167d0248df512bd21c7d7b4d.mp3?hdnea=exp=1781025254~acl=/api/1/1/d/7/7/0/d770a7f1167d0248df512bd21c7d7b4d.mp3*~data=user_id=0,application_id=42~hmac=3316f97d5205b3a680442207e260d23b4cdd1c77b34c54a811b6ecc4562e6999",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/d/7/7/0/d770a7f1167d0248df512bd21c7d7b4d.mp3?hdnea=exp=1781026130~acl=/api/1/1/d/7/7/0/d770a7f1167d0248df512bd21c7d7b4d.mp3*~data=user_id=0,application_id=42~hmac=f43954299fc0d84c493dff7779d112f7d6e36e3610c22198f076d53622f22603",
         "album": "ARIA",
         "cover": "https://cdn-images.dzcdn.net/images/cover/33b8b85aea454fe47aae76d1f679fa34/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Bambambam (Instrumental)",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/7/8/8/0/788e19267fd418bd2bbcc233e8946e75.mp3?hdnea=exp=1781025254~acl=/api/1/1/7/8/8/0/788e19267fd418bd2bbcc233e8946e75.mp3*~data=user_id=0,application_id=42~hmac=d725da0bf42c1f38ebfb519d3e990a893d79e1c2ab289217555652888d7577ad",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/7/8/8/0/788e19267fd418bd2bbcc233e8946e75.mp3?hdnea=exp=1781026130~acl=/api/1/1/7/8/8/0/788e19267fd418bd2bbcc233e8946e75.mp3*~data=user_id=0,application_id=42~hmac=635c9a1415625f5c283cfb936f03f58bcc6ca7daaea6f03f10b6b9608e1162f4",
         "album": "[Ready, Set, LOVE]",
         "cover": "https://cdn-images.dzcdn.net/images/cover/8d56302f7809f3c4e392796f0ad205eb/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Bambambam",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/4/d/8/0/4d87305674da7e5bbc623e1950a015b8.mp3?hdnea=exp=1781025254~acl=/api/1/1/4/d/8/0/4d87305674da7e5bbc623e1950a015b8.mp3*~data=user_id=0,application_id=42~hmac=1e443dcd1a42edf78e1d82582630342c4856e334dff08e5549ed02f581886975",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/4/d/8/0/4d87305674da7e5bbc623e1950a015b8.mp3?hdnea=exp=1781026130~acl=/api/1/1/4/d/8/0/4d87305674da7e5bbc623e1950a015b8.mp3*~data=user_id=0,application_id=42~hmac=d0268cd563938588cfebdea644b7246807a522cec717c4dde9eda5eb2a81710e",
         "album": "[Ready, Set, LOVE]",
         "cover": "https://cdn-images.dzcdn.net/images/cover/8d56302f7809f3c4e392796f0ad205eb/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "Love is a Miracle",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/0/a/1/0/0a1febecc2d54246ffc9eb757beba9c7.mp3?hdnea=exp=1781025254~acl=/api/1/1/0/a/1/0/0a1febecc2d54246ffc9eb757beba9c7.mp3*~data=user_id=0,application_id=42~hmac=d1425b368f06c9b3162ef4cb68f26f5bbaaec859c829b8ca04ce0124446869d3",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/0/a/1/0/0a1febecc2d54246ffc9eb757beba9c7.mp3?hdnea=exp=1781026130~acl=/api/1/1/0/a/1/0/0a1febecc2d54246ffc9eb757beba9c7.mp3*~data=user_id=0,application_id=42~hmac=cdd037c36f9b877ba2fe19a05b23136d9cb0eea67b51d3544f75e0b153f59894",
         "album": "Sing in the Green Part 5",
         "cover": "https://cdn-images.dzcdn.net/images/cover/1b6bc689ee1e65add3432b40580fe700/250x250-000000-80-0-0.jpg"
       },
       {
         "title": "4U",
-        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/c/b/f/0/cbf119332a04a331207e475e9708db44.mp3?hdnea=exp=1781025254~acl=/api/1/1/c/b/f/0/cbf119332a04a331207e475e9708db44.mp3*~data=user_id=0,application_id=42~hmac=4ad6b7a29d59ef939dc92d3ac57f2e3dbcb30630a547ea7c8dd1bd7c3747f875",
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/c/b/f/0/cbf119332a04a331207e475e9708db44.mp3?hdnea=exp=1781026130~acl=/api/1/1/c/b/f/0/cbf119332a04a331207e475e9708db44.mp3*~data=user_id=0,application_id=42~hmac=197b58fe55049d817dbff58cbfced1cc6ff661e6f22aa39e2f50e1cfb873a566",
         "album": "Rewrite",
         "cover": "https://cdn-images.dzcdn.net/images/cover/d1ed8e0f752f846d4b60100d4edb77b1/250x250-000000-80-0-0.jpg"
       }
@@ -1221,33 +1149,9 @@
       "country": "",
       "banner": "https://r2.theaudiodb.com/images/media/artist/banner/v81n391759756319.jpg",
       "thumb": "https://r2.theaudiodb.com/images/media/artist/thumb/m2wf001728197681.jpg"
-    },
-    "Queenz Eye": {
-      "bio": "Queenz Eye 是韓國Big Mountain娛樂於2022年推出的五人女子團體、由成員Wonchae、Damin、Hannah、Jenna、Narin、Ahyoon所組成，於10月24日以首張單曲專輯《QUEENZ TABLE》正式出道。2025年1月24日，Big Mountain娛樂宣佈Hannah、Narin、Damin退出組合。2025年7月9日，Big",
-      "genre": "",
-      "formed": "2022",
-      "country": "",
-      "banner": "",
-      "thumb": ""
-    },
-    "TripleS": {
-      "bio": "tripleS 是由韓國Modhaus娛樂於2022年推出的24人女子音樂團體，由所屬社代表製作人鄭炳基",
-      "genre": "",
-      "formed": "",
-      "country": "",
-      "banner": "",
-      "thumb": ""
-    },
-    "Unchild": {
-      "bio": "Unchild是由High Up Entertainment組成的韓國跨國女子團體。該小組由六名成員組成： Yeeun、Heekie、Tina、Ako、Evon和Haeun。他們於2026年4月21日推出單曲專輯《We Are》",
-      "genre": "",
-      "formed": "",
-      "country": "",
-      "banner": "",
-      "thumb": ""
     }
   },
-  "summary": "本期收錄 11 首有官方 MV 的女團／前成員 solo 主打發行：Meovv、Fifty Fifty、Mamamoo、Izna、Aespa、Hiipe Princess、Heart of Woman、Queenz Eye、Unchild、TripleS、Yerin。",
+  "summary": "本期收錄 10 首有官方 MV 的女團／前成員 solo 主打發行：TripleS、Meovv、Fifty Fifty、Mamamoo、Izna、Hiipe Princess、Heart of Woman、Queenz Eye、Aespa、Yerin。",
   "digest": "",
-  "fetched_at": "2026-06-09 16:55"
+  "fetched_at": "2026-06-09 17:10"
 }
