@@ -1555,6 +1555,53 @@ def youtube_api_search_mv(group: str, title: str, group_kr: str = "") -> dict | 
             "title": cands[best_vid]["title"]}
 
 
+def youtube_api_recent_group_mv(group: str, group_kr: str = "", days: int = 50) -> dict | None:
+    """放寬版 fallback：用團名搜「近 N 天」的官方 MV，不要求曲名相符。
+    解決「發行名 ≠ 主打曲名」「官方頻道是經紀公司沒帶團名」的漏抓
+    （如 tripleS『Baby Flower』、예린『조각별』）。
+    判定：標題含團名(英/韓) + 像正式 MV(_MV_POS、非 _MV_NEG)；publishedAfter 擋掉舊熱門曲。
+    多筆取觀看數最高。回 {url,vid,title} 或 None。"""
+    if not YT_API_KEY or not group:
+        return None
+    after = (datetime.utcnow() - timedelta(days=days)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    gtok = _norm(group)
+    gkr = _norm(group_kr)
+    queries = [f"{group} MV"]
+    if group_kr:
+        queries.append(f"{group_kr} MV")
+    cands = {}
+    for q in queries:
+        try:
+            r = requests.get("https://www.googleapis.com/youtube/v3/search",
+                             params={"part": "snippet", "q": q, "type": "video",
+                                     "order": "date", "publishedAfter": after,
+                                     "maxResults": 15, "key": YT_API_KEY}, timeout=15)
+        except Exception as e:
+            log.warning(f"YouTube API 近期團 MV 搜尋失敗: {e}")
+            break
+        for it in r.json().get("items", []):
+            sn = it.get("snippet", {})
+            vtitle = sn.get("title", "")
+            vid = it.get("id", {}).get("videoId", "")
+            if not vid:
+                continue
+            up = vtitle.upper()
+            if any(n in up for n in _MV_NEG):
+                continue
+            if not any(p in up for p in _MV_POS):
+                continue
+            nt = _norm(vtitle)
+            # 標題要含團名（英文 token ≥3 或韓文團名），避免抓到別團
+            if not ((gtok and len(gtok) >= 3 and gtok in nt) or (gkr and len(gkr) >= 2 and gkr in nt)):
+                continue
+            cands.setdefault(vid, vtitle)
+    if not cands:
+        return None
+    det = youtube_api_video_details(list(cands.keys()))
+    best_vid = max(cands.keys(), key=lambda v: (det.get(v, {}).get("views") or 0))
+    return {"url": f"https://youtu.be/{best_vid}", "vid": best_vid, "title": cands[best_vid]}
+
+
 def youtube_api_discover(days: int = 21) -> list[dict]:
     """用 YouTube Data API 搜尋近期女團 comeback/MV 上傳，當作額外發掘來源
     （補 Wikipedia 表格沒收錄的新團/新曲）。回 [{source,title}]，丟給 AI 篩選。
@@ -1871,11 +1918,13 @@ def run_scraper(days_back: int = 14) -> dict:
     if YT_API_KEY:
         still_pending = []
         for b in pending_mv:
-            found = youtube_api_search_mv(b.get("group", ""), b.get("title", ""), b.get("group_kr", ""))
+            # 1) 嚴格：曲名+官方頻道相符  2) 放寬：近期、團名在標題的官方 MV（解發行名≠主打曲名）
+            found = youtube_api_search_mv(b.get("group", ""), b.get("title", ""), b.get("group_kr", "")) \
+                or youtube_api_recent_group_mv(b.get("group", ""), b.get("group_kr", ""))
             if found:
                 b.update({"yt_url": found["url"], "yt_id": found["vid"], "yt_title": found["title"]})
                 b.pop("yt_search", None)
-                log.info(f"YouTube API 找到官方 MV: {b.get('group')} - {b.get('title')}")
+                log.info(f"YouTube API 找到官方 MV: {b.get('group')} → {found['title']}")
                 tracks.append(b)
             else:
                 still_pending.append(b)
