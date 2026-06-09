@@ -1052,8 +1052,10 @@ function openProfile(group) {
   if (!p) return;
   document.getElementById('prof-title').textContent = group;
   const meta = [p.genre, p.formed ? p.formed + ' 成立' : '', p.country].filter(Boolean).join(' · ');
+  // 橫幅優先用 TheAudioDB，沒有就退回 Deezer 藝人照（避免無圖）
+  const img = p.banner || p.thumb || (tracks.concat(archiveTracks).find(t => t.group === group) || {}).artist_img || '';
   document.getElementById('prof-body').innerHTML = `
-    ${p.banner ? `<img class="prof-banner" src="${escAttr(p.banner)}" alt="">` : (p.thumb ? `<img class="prof-banner" src="${escAttr(p.thumb)}" alt="">` : '')}
+    ${img ? `<img class="prof-banner" src="${escAttr(img)}" alt="">` : ''}
     ${meta ? `<div class="prof-meta">${escHtml(meta)}</div>` : ''}
     ${p.bio ? `<div class="prof-bio">${escHtml(p.bio)}</div>` : '<div class="disco-empty">查無簡介</div>'}`;
   document.getElementById('prof-modal').classList.add('show');

@@ -1785,7 +1785,17 @@ def audiodb_profile(group: str, group_kr: str = "") -> dict:
     a = None
     if arts:
         gk = _norm(group)
-        a = next((x for x in arts if _norm(x.get("strArtist", "")) == gk), None) or arts[0]
+        cand = next((x for x in arts if _norm(x.get("strArtist", "")) == gk), None) or arts[0]
+        # 驗證確實是「韓國團 / K-pop」，避免配到同名西洋團（如 tripleS → 多倫多搖滾團）
+        country = (cand.get("strCountry") or "").lower()
+        genre = ((cand.get("strGenre") or "") + " " + (cand.get("strStyle") or "")).lower()
+        if "korea" in country or any(k in genre for k in ["k-pop", "kpop", "k pop"]):
+            a = cand
+        else:
+            log.info(f"TheAudioDB 配到非韓國同名團，捨棄: {group} → {cand.get('strArtist')} ({country})")
+    fy = (a.get("intFormedYear") or "").strip() if a else ""
+    if fy in ("0", "0000"):
+        fy = ""
     # 簡介：優先繁中維基 → 否則英文(維基/TheAudioDB)用免費翻譯轉繁中 → 再不行給英文原文
     bio = wikipedia_summary(group, group_kr, lang="zh")
     if not bio:
@@ -1801,7 +1811,7 @@ def audiodb_profile(group: str, group_kr: str = "") -> dict:
     out = {
         "bio": bio,
         "genre": (a.get("strGenre") or a.get("strStyle") or "").strip() if a else "",
-        "formed": (a.get("intFormedYear") or "").strip() if a else "",
+        "formed": fy,
         "country": (a.get("strCountry") or "").strip() if a else "",
         "banner": (a.get("strArtistBanner") or a.get("strArtistFanart") or "").strip() if a else "",
         "thumb": (a.get("strArtistThumb") or "").strip() if a else "",
