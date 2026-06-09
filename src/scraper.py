@@ -458,7 +458,8 @@ def namu_page_text(name: str, limit: int = 2500) -> str:
 _MV_POS = ["MV", "M/V", "MUSIC VIDEO", "뮤직비디오", "MUSICVIDEO"]
 _MV_NEG = ["DANCE PRACTICE", "DANCE VIDEO", "DANCE PERFORMANCE", "PERFORMANCE VIDEO",
            "AUDIO", "LYRIC", "TEASER", "PREVIEW", "TRAILER", "BEHIND", "MAKING",
-           "CHALLENGE", "RELAY", "FANCAM", "직캠", "REACTION", "COVER", "LIVE",
+           "CHALLENGE", "RELAY", "FANCAM", "직캠", "REACTION", "REACTING", "REACTS",
+           "REACT TO", "리액션", "SHORTS", "#SHORTS", "쇼츠", "COVER", "LIVE",
            "SHOW!", "MUSIC CORE", "MUSIC BANK", "뮤직뱅크", "쇼!", "인기가요",
            "엠카운트다운", "M COUNTDOWN", "STAGE", "스페셜", "SPECIAL", "PLAYLIST",
            "플레이리스트", "INKIGAYO", "쇼챔피언", "더쇼",
@@ -497,7 +498,9 @@ SEED_GIRLGROUPS = [
 
 # 人工黑名單：經確認「不是女團」但 AI/namuwiki 自動判斷漏抓的（多為極冷門新出道男團）。
 # 大小寫不敏感比對。發現新的誤收就加進來。
-NOT_GIRLGROUPS = ["XLOV", "And2ble", "Naze"]
+# 人工確認「非女團 / 非真實/不收」清單（使用者回報的假團、業餘、非女團）
+NOT_GIRLGROUPS = ["XLOV", "And2ble", "Naze",
+                  "Mirror on Me", "WEGLOW", "P.I.N.Y.A", "P.I.N.Y.A.", "MELLOWiT", "VEGINZ"]
 _NOT_GG_KEYS = {re.sub(r"[^a-z0-9]", "", n.lower()) for n in NOT_GIRLGROUPS}
 
 
@@ -1864,6 +1867,7 @@ def run_scraper(days_back: int = 14) -> dict:
 
         # namuwiki 補強：只對「待確認」且「非 solo」者查
         # （solo 是個人，其 namuwiki 頁面不會標「걸그룹」，不可用女團關鍵字否決）
+        shaky = False   # AI 不確定 + 無可靠來源佐證者，事後需通過資料庫存在性檢核
         if c.get("needs_confirm") and not c.get("is_solo"):
             nm = namu_confirm_girlgroup(group)
             if nm.get("is_boygroup"):
@@ -1876,6 +1880,7 @@ def run_scraper(days_back: int = 14) -> dict:
                 continue
             else:
                 note = (note + "；namuwiki 無資料，待確認").strip("；")
+                shaky = True   # 既是 AI 待確認、namuwiki 又查無 → 標記，稍後需 DB 佐證
             time.sleep(0.4)
 
         raw_id = f"{group}{title}{c.get('date','')}"
@@ -1890,6 +1895,7 @@ def run_scraper(days_back: int = 14) -> dict:
             "is_hot": False,
             "sources": ["Wikipedia"],
             "note": note,
+            "_shaky": shaky,
             "id": hashlib.md5(raw_id.encode()).hexdigest()[:12],
         }
 
@@ -2026,6 +2032,27 @@ def run_scraper(days_back: int = 14) -> dict:
         time.sleep(1.1)
     if mb_filled:
         log.info(f"MusicBrainz 成員補強：{mb_filled} 團")
+
+    # ── 存在性檢核：AI 待確認 + namuwiki 查無者，須在任一可靠資料庫留下足跡才保留 ──
+    # （Deezer 藝人照/粉絲、Wikidata 公司/出道、TheAudioDB 小檔案、成員名單其一）
+    # 擋掉 PTT/AI 猜出來、各大資料庫查無的業餘/假團（如 Mirror on Me 之類）。
+    kept = []
+    for t in tracks:
+        if not t.get("_shaky"):
+            t.pop("_shaky", None); kept.append(t); continue
+        g = t.get("group", "")
+        corroborated = bool(t.get("artist_img") or t.get("fans") or t.get("agency")
+                            or t.get("debut_year") or profiles.get(g) or members.get(g))
+        if corroborated:
+            t.pop("_shaky", None); kept.append(t)
+        else:
+            log.info(f"剔除（AI 待確認且各資料庫查無，疑似非真實女團）: {g} - {t.get('title')}")
+    dropped = len(tracks) - len(kept)
+    tracks = kept
+    if dropped:
+        log.info(f"存在性檢核：剔除 {dropped} 筆無佐證的待確認候選")
+    for _p in pending_mv:
+        _p.pop("_shaky", None)
 
     n = len(tracks)
     groups = "、".join(dict.fromkeys(t["group"] for t in tracks))
