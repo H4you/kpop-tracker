@@ -1786,13 +1786,16 @@ def audiodb_profile(group: str, group_kr: str = "") -> dict:
     if arts:
         gk = _norm(group)
         cand = next((x for x in arts if _norm(x.get("strArtist", "")) == gk), None) or arts[0]
-        # 驗證確實是「韓國團 / K-pop」，避免配到同名西洋團（如 tripleS → 多倫多搖滾團）
+        # 只有「明確標示為非韓國」才捨棄，避免配到同名西洋團（如 tripleS → 多倫多搖滾團）。
+        # country 空白不算衝突（多數 K-pop 條目沒填國別），仍採用以保留正常團資料。
         country = (cand.get("strCountry") or "").lower()
         genre = ((cand.get("strGenre") or "") + " " + (cand.get("strStyle") or "")).lower()
-        if "korea" in country or any(k in genre for k in ["k-pop", "kpop", "k pop"]):
-            a = cand
-        else:
+        is_kpop = any(k in genre for k in ["k-pop", "kpop", "k pop"])
+        conflict = bool(country) and "korea" not in country and not is_kpop
+        if conflict:
             log.info(f"TheAudioDB 配到非韓國同名團，捨棄: {group} → {cand.get('strArtist')} ({country})")
+        else:
+            a = cand
     fy = (a.get("intFormedYear") or "").strip() if a else ""
     if fy in ("0", "0000"):
         fy = ""
