@@ -1,25 +1,33 @@
 {
   "_comment": "人工核對的成員名單覆蓋檔。AI 對新/改組/冷門團會混團或捏造，這裡寫正確名單覆蓋之。鍵名大小寫不敏感比對。發現 AI 出錯的團就加進來。",
   "MEOVV": [
-    {"name": "Gawon",  "name_kr": "가원", "birth": "", "role": ""},
-    {"name": "Narin",  "name_kr": "나린", "birth": "", "role": ""},
-    {"name": "Ella",   "name_kr": "엘라", "birth": "", "role": ""},
-    {"name": "Anna",   "name_kr": "안나", "birth": "", "role": ""},
-    {"name": "Sooin",  "name_kr": "수인", "birth": "", "role": "忙內"}
+    {"name": "Gawon", "name_kr": "가원", "birth": "2005-04-27", "role": "Leader(門面/隊形首位)"},
+    {"name": "Narin", "name_kr": "나린", "birth": "2007-08-15", "role": "Vocal"},
+    {"name": "Ella",  "name_kr": "엘라", "birth": "2008-12-01", "role": "Vocal"},
+    {"name": "Anna",  "name_kr": "안나", "birth": "2005-11-17", "role": "Vocal"},
+    {"name": "Sooin", "name_kr": "수인", "birth": "2005-04-12", "role": "忙內"}
   ],
   "izna": [
-    {"name": "Koko",          "name_kr": "코코",   "birth": "", "role": ""},
-    {"name": "Mai",           "name_kr": "마이",   "birth": "", "role": ""},
-    {"name": "Bang Jimin",    "name_kr": "방지민", "birth": "", "role": ""},
-    {"name": "Choi Jeongeun", "name_kr": "최정은", "birth": "", "role": ""},
-    {"name": "Yoo Sarang",    "name_kr": "유사랑", "birth": "", "role": ""},
-    {"name": "Jeong Sebi",    "name_kr": "정세비", "birth": "", "role": "忙內"}
+    {"name": "Koko",          "name_kr": "코코",   "birth": "2006-11-14", "role": "Main Dancer"},
+    {"name": "Mai",           "name_kr": "마이",   "birth": "2004-10-28", "role": "Vocal/Rap"},
+    {"name": "Bang Jimin",    "name_kr": "방지민", "birth": "2005-05-08", "role": "Center"},
+    {"name": "Choi Jeongeun", "name_kr": "최정은", "birth": "2007-08-04", "role": "Main Vocal"},
+    {"name": "Yoo Sarang",    "name_kr": "유사랑", "birth": "2007-04-18", "role": "Vocal/Visual"},
+    {"name": "Jeong Sebi",    "name_kr": "정세비", "birth": "2008-01-22", "role": "忙內"}
   ],
   "FIFTY FIFTY": [
-    {"name": "Keena",       "name_kr": "키나",   "birth": "", "role": ""},
-    {"name": "Moon Chanel", "name_kr": "문샤넬", "birth": "", "role": ""},
-    {"name": "Yewon",       "name_kr": "예원",   "birth": "", "role": ""},
-    {"name": "Hana",        "name_kr": "하나",   "birth": "", "role": ""},
-    {"name": "Athena",      "name_kr": "아테나", "birth": "", "role": ""}
+    {"name": "Keena",        "name_kr": "키나",   "birth": "2002", "role": "Leader/Main Rapper"},
+    {"name": "Moon Chanelle", "name_kr": "문샤넬", "birth": "2003", "role": "Main Vocal"},
+    {"name": "Yewon",        "name_kr": "예원",   "birth": "", "role": "Lead Vocal"},
+    {"name": "Hana",         "name_kr": "하나",   "birth": "", "role": "Main Vocal"},
+    {"name": "Athena",       "name_kr": "아테나", "birth": "", "role": "Sub Vocal/忙內"}
+  ],
+  "UNCHILD": [
+    {"name": "Heekie", "name_kr": "히키", "birth": "03-17", "role": "隊長、主Rapper"},
+    {"name": "Yeeun",  "name_kr": "예은", "birth": "12-21", "role": "主領唱、視覺、中心"},
+    {"name": "Tina",   "name_kr": "티나", "birth": "03-09", "role": "視覺、領舞、副唱"},
+    {"name": "Ako",    "name_kr": "아코", "birth": "07-08", "role": "副唱"},
+    {"name": "Evon",   "name_kr": "이본", "birth": "07-11", "role": "主唱"},
+    {"name": "Haeun",  "name_kr": "하은", "birth": "01-16", "role": "主舞、忙內"}
   ]
 }
