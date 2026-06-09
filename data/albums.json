@@ -1546,6 +1546,15 @@
           "itunes_url": "https://music.apple.com/us/album/almond-chocolate-single/1793026346?uo=4"
         },
         {
+          "id": 1741605277,
+          "album": "Magnetic (Remixes) - Single",
+          "artist": "ILLIT",
+          "year": "2024",
+          "track_count": 3,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c7/ef/d3/c7efd336-b086-58cf-f6dd-767f46647d2a/196922938214_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/magnetic-remixes-single/1741605277?uo=4"
+        },
+        {
           "id": 1734500886,
           "album": "SUPER REAL ME - EP",
           "artist": "ILLIT",
@@ -1562,15 +1571,6 @@
           "track_count": 5,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e9/20/73/e9207332-1b22-18d0-5d1b-daaf370a4317/198704136962_Cover.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/ill-like-you-ep/1772790085?uo=4"
-        },
-        {
-          "id": 1741605277,
-          "album": "Magnetic (Remixes) - Single",
-          "artist": "ILLIT",
-          "year": "2024",
-          "track_count": 3,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c7/ef/d3/c7efd336-b086-58cf-f6dd-767f46647d2a/196922938214_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/magnetic-remixes-single/1741605277?uo=4"
         },
         {
           "id": 1779877392,
@@ -3125,20 +3125,18 @@
           ]
         },
         {
-          "id": 1468948702,
-          "album": "‘The ReVe Festival’ Day 1 - EP",
+          "id": 1491888504,
+          "album": "‘The ReVe Festival’ Finale - EP",
           "artist": "Red Velvet",
           "year": "2019",
-          "track_count": 7,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7a/d0/f5/7ad0f523-eda6-7b2a-1ff0-e58402cde920/RV_The_ReVe_Festival_Day1_COV.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/the-reve-festival-day-1-ep/1468948702?uo=4",
+          "track_count": 5,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/92/5d/da/925ddaf9-1108-ddc9-ce9c-34247d6ffce4/D-Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/the-reve-festival-finale-ep/1491888504?uo=4",
           "tracks": [
-            "Zimzalabim",
-            "Sunny Side Up!",
-            "Milkshake",
-            "Bing Bing",
-            "Parade",
-            "LP"
+            "Psycho",
+            "In & Out",
+            "Remember Forever",
+            "La Rouge (Special Track)"
           ]
         },
         {
@@ -3313,21 +3311,6 @@
     "tripleS": {
       "albums": [
         {
-          "id": 6776937466,
-          "album": "<Baby Flower City Remixes> - Single",
-          "artist": "tripleS",
-          "year": "2026",
-          "track_count": 4,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8e/d4/68/8ed468b1-5bfb-73c4-4992-5060e15df2c1/820233597685.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/baby-flower-city-remixes-single/6776937466?uo=4",
-          "tracks": [
-            "Baby Flower (Seoul Remix: Vendors)",
-            "Baby Flower (Bangkok Remix: Kurtz)",
-            "Baby Flower (Taipei Remix: ntrophy)",
-            "Baby Flower (Tokyo Remix: Full8loom)"
-          ]
-        },
-        {
           "id": 6767454374,
           "album": "<LOVE&POP> pt.1",
           "artist": "tripleS",
@@ -3343,6 +3326,21 @@
             "Sleek",
             "I Like That",
             "Me Myself Mode"
+          ]
+        },
+        {
+          "id": 6776937466,
+          "album": "<Baby Flower City Remixes> - Single",
+          "artist": "tripleS",
+          "year": "2026",
+          "track_count": 4,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8e/d4/68/8ed468b1-5bfb-73c4-4992-5060e15df2c1/820233597685.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/baby-flower-city-remixes-single/6776937466?uo=4",
+          "tracks": [
+            "Baby Flower (Seoul Remix: Vendors)",
+            "Baby Flower (Bangkok Remix: Kurtz)",
+            "Baby Flower (Taipei Remix: ntrophy)",
+            "Baby Flower (Tokyo Remix: Full8loom)"
           ]
         },
         {
@@ -3402,6 +3400,15 @@
           "itunes_url": "https://music.apple.com/us/album/inner-dance-single/1751857482?uo=4"
         },
         {
+          "id": 1737939782,
+          "album": "NXT <Just Do It> - Single",
+          "artist": "tripleS",
+          "year": "2023",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4f/1b/d7/4f1bd79b-c9b8-ee64-1a57-0db411e8c55c/198391609152.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/nxt-just-do-it-single/1737939782?uo=4"
+        },
+        {
           "id": 1737936304,
           "album": "ASSEMBLE",
           "artist": "tripleS",
@@ -3418,15 +3425,6 @@
           "track_count": 8,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/94/06/49/940649e5-0be9-1a52-a1b4-0c13b4e057b5/8804775281877.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/lovelution/1737943607?uo=4"
-        },
-        {
-          "id": 1737939782,
-          "album": "NXT <Just Do It> - Single",
-          "artist": "tripleS",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4f/1b/d7/4f1bd79b-c9b8-ee64-1a57-0db411e8c55c/198391609152.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/nxt-just-do-it-single/1737939782?uo=4"
         },
         {
           "id": 1737940296,
@@ -3628,6 +3626,22 @@
           ]
         },
         {
+          "id": 1785776928,
+          "album": "The 4th Mini Album 'VERSUS' - EP",
+          "artist": "VIVIZ",
+          "year": "2023",
+          "track_count": 5,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/42/5a/20/425a2026-a87d-7e6a-26d9-4159de176762/8804775284434_cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/the-4th-mini-album-versus-ep/1785776928?uo=4",
+          "tracks": [
+            "MANIAC",
+            "Untie",
+            "Overflow",
+            "Day by day",
+            "Up 2 Me"
+          ]
+        },
+        {
           "id": 1785776546,
           "album": "The 3rd Mini Album 'VarioUS' - EP",
           "artist": "VIVIZ",
@@ -3645,22 +3659,6 @@
           ]
         },
         {
-          "id": 1785776928,
-          "album": "The 4th Mini Album 'VERSUS' - EP",
-          "artist": "VIVIZ",
-          "year": "2023",
-          "track_count": 5,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/42/5a/20/425a2026-a87d-7e6a-26d9-4159de176762/8804775284434_cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/the-4th-mini-album-versus-ep/1785776928?uo=4",
-          "tracks": [
-            "MANIAC",
-            "Untie",
-            "Overflow",
-            "Day by day",
-            "Up 2 Me"
-          ]
-        },
-        {
           "id": 1785775499,
           "album": "The 1st Mini Album 'Beam Of Prism'",
           "artist": "VIVIZ",
@@ -3670,15 +3668,6 @@
           "itunes_url": "https://music.apple.com/us/album/the-1st-mini-album-beam-of-prism/1785775499?uo=4"
         },
         {
-          "id": 1651171332,
-          "album": "Rum Pum Pum - Single",
-          "artist": "VIVIZ",
-          "year": "2022",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/ab/f9/4d/abf94dda-fa40-1de4-5ca0-fa75ad4ac1a1/888272107920.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/rum-pum-pum-single/1651171332?uo=4"
-        },
-        {
           "id": 1785776101,
           "album": "The 2nd Mini Album 'Summer Vibe' - EP",
           "artist": "VIVIZ",
@@ -3686,6 +3675,15 @@
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f2/35/78/f23578ca-7828-a836-0947-a380dacc9ce4/8804775229657_cover.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/the-2nd-mini-album-summer-vibe-ep/1785776101?uo=4"
+        },
+        {
+          "id": 1651171332,
+          "album": "Rum Pum Pum - Single",
+          "artist": "VIVIZ",
+          "year": "2022",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/ab/f9/4d/abf94dda-fa40-1de4-5ca0-fa75ad4ac1a1/888272107920.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/rum-pum-pum-single/1651171332?uo=4"
         },
         {
           "id": 1619951910,
@@ -3850,20 +3848,6 @@
           ]
         },
         {
-          "id": 1632552698,
-          "album": "Sequence - Single",
-          "artist": "WJSN",
-          "year": "2022",
-          "track_count": 3,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/03/12/7a/03127ac1-d348-1e95-8832-d03d5a163baa/cover_KM0015649_1.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/sequence-single/1632552698?uo=4",
-          "tracks": [
-            "Last Sequence",
-            "Done",
-            "Stronger (Sung by Dawon & Yeonjung)"
-          ]
-        },
-        {
           "id": 1705660021,
           "album": "Let Me In - Single",
           "artist": "WJSN",
@@ -3899,7 +3883,15 @@
           "year": "2020",
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/af/66/50/af665094-ceb3-5179-0f2a-a4fc058ec0f8/WJSN.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/neverland-ep/1516949922?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/neverland-ep/1516949922?uo=4",
+          "tracks": [
+            "BUTTERFLY",
+            "HOLA",
+            "Pantomime",
+            "Where You Are",
+            "Tra - La",
+            "Our Garden"
+          ]
         },
         {
           "id": 1488434221,
@@ -3945,6 +3937,15 @@
           "track_count": 7,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/94/a2/6e/94a26e08-085a-ff53-500e-b14c508aae5c/COVER-.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/the-secret/1144767453?uo=4"
+        },
+        {
+          "id": 1087651006,
+          "album": "Would You Like? - EP",
+          "artist": "WJSN",
+          "year": "2016",
+          "track_count": 6,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/86/2b/0b/862b0b91-343f-eb27-b8e7-c46f0dc7071a/COVER-.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/would-you-like-ep/1087651006?uo=4"
         }
       ],
       "album_count": 10
@@ -4007,15 +4008,6 @@
           ]
         },
         {
-          "id": 1660487903,
-          "album": "SHOOTING STAR - Single",
-          "artist": "XG",
-          "year": "2023",
-          "track_count": 2,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/f8/4c/0a/f84c0abd-7bab-12ae-d7f0-0e8a9ad8079a/ANTCD-A0000009111.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/shooting-star-single/1660487903?uo=4"
-        },
-        {
           "id": 1692289010,
           "album": "GRL GVNG - Single",
           "artist": "XG",
@@ -4023,6 +4015,15 @@
           "track_count": 1,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/2a/df/2e/2adf2e56-a30a-d7a8-6a3a-d72e3c47e8e7/ANTCD-A0000010570.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/grl-gvng-single/1692289010?uo=4"
+        },
+        {
+          "id": 1660487903,
+          "album": "SHOOTING STAR - Single",
+          "artist": "XG",
+          "year": "2023",
+          "track_count": 2,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/f8/4c/0a/f84c0abd-7bab-12ae-d7f0-0e8a9ad8079a/ANTCD-A0000009111.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/shooting-star-single/1660487903?uo=4"
         },
         {
           "id": 1703356590,
@@ -4046,5 +4047,5 @@
       "album_count": 8
     }
   },
-  "updated_at": "2026-06-09 16:09"
+  "updated_at": "2026-06-09 16:32"
 }
