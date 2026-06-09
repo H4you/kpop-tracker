@@ -1,0 +1,8 @@
+{
+  "_comment": "人工指定正確官方 MV：團名 → YouTube 影片ID。比對大小寫/符號不敏感，會同時比對英文團名與韓文團名(group_kr)。自動比對抓錯時，把正確的影片ID加進來即可覆蓋。同一團多種拼法可各加一條指向同一個ID。",
+  "UNCHILD": "wWvu34x2INc",
+  "FIFTY FIFTY": "iZzpq5iqevg",
+  "Hiipe Princess": "9sqgpi74u7w",
+  "H//PE Princess": "9sqgpi74u7w",
+  "하입프린세스": "9sqgpi74u7w"
+}

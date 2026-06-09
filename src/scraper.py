@@ -1238,6 +1238,43 @@ def _norm(s: str) -> str:
     return re.sub(r"[^a-z0-9]", "", str(s or "").lower())
 
 
+def _normk(s: str) -> str:
+    """正規化鍵（保留韓文，供人工指定檔比對團名）。"""
+    return re.sub(r"[^a-z0-9가-힣]", "", str(s or "").lower())
+
+
+def load_mv_override() -> dict:
+    """讀 data/mv_override.json：人工指定『團名 → 正確 MV 影片ID』。回 {normkey: vid}。"""
+    path = os.path.join(os.path.dirname(__file__), "..", "data", "mv_override.json")
+    out = {}
+    if not os.path.exists(path):
+        return out
+    try:
+        raw = json.load(open(path, encoding="utf-8"))
+    except Exception as e:
+        log.warning(f"mv_override 讀取失敗: {e}")
+        return out
+    for k, v in raw.items():
+        if k.startswith("_") or not isinstance(v, str):
+            continue
+        nk = _normk(k)
+        if nk and v.strip():
+            out[nk] = v.strip()
+    return out
+
+
+def _yt_oembed_title(vid: str) -> str:
+    """免金鑰取 YouTube 影片標題（給人工指定 MV 當顯示標題用）。"""
+    try:
+        u = "https://www.youtube.com/oembed?format=json&url=" + quote_plus(f"https://www.youtube.com/watch?v={vid}")
+        r = requests.get(u, timeout=10)
+        if r.status_code == 200:
+            return (r.json().get("title") or "").strip()
+    except Exception:
+        pass
+    return ""
+
+
 _spotify_tok = {"token": "", "exp": 0.0}
 
 
@@ -1853,6 +1890,7 @@ def run_scraper(days_back: int = 14) -> dict:
         # 註：不再用 has_mv 阻擋——改由「官方頻道 + 真正MV」直接判定，避免誤擋已上線 MV
 
     cutoff7 = (datetime.now().date() - timedelta(days=7)).strftime("%Y.%m.%d")
+    mv_override = load_mv_override()   # 人工指定的正確 MV（最高優先）
     tracks = []
     pending_mv = []   # 已確認女團/solo、但官方 MV 尚未上線（MV 即將上線）
     for c in candidates:
@@ -1898,6 +1936,17 @@ def run_scraper(days_back: int = 14) -> dict:
             "_shaky": shaky,
             "id": hashlib.md5(raw_id.encode()).hexdigest()[:12],
         }
+
+        # 人工指定 MV（最高優先）：比對英文/韓文團名，命中就直接用，跳過自動比對
+        ov_vid = mv_override.get(_normk(group)) or mv_override.get(_normk(c.get("group_kr", "")))
+        if ov_vid:
+            base.pop("_shaky", None)   # 人工指定即視為已確認
+            base.update({"yt_url": f"https://www.youtube.com/watch?v={ov_vid}",
+                         "yt_id": ov_vid,
+                         "yt_title": _yt_oembed_title(ov_vid) or title})
+            log.info(f"MV 人工指定：{group} → {ov_vid}")
+            tracks.append(base)
+            continue
 
         # YouTube 官方 MV 驗證：取第一支官方頻道的真正 MV（有主打曲名則優先精準匹配）
         mv = youtube_find_mv(group, title,
