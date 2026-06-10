@@ -470,6 +470,14 @@ _MV_NEG = ["DANCE PRACTICE", "DANCE VIDEO", "DANCE PERFORMANCE", "PERFORMANCE VI
            "COMMENTARY", "INTRODUCTION", "수록곡", "HIGHLIGHT", "SHOWCASE", "쇼케이스",
            "INTERVIEW", "UNBOXING", "언박싱", "RECAP", "PHOTOTIME", "포토타임"]
 
+# 已知經銷 / 廠牌官方頻道關鍵字（不含單字「official」——假搬運頻道常濫用該字）
+# 模組層級常數：youtube_find_mv 與 youtube_api_search_mv 共用
+_DISTRIB = ["1thek", "stonemusic", "smtown", "jypentertainment", "hybe",
+            "ygentertainment", "starship", "swing", "blacklabel", "pledis",
+            "cube", "rbw", "woollim", "fnc", "ador", "wakeone", "kakao",
+            "mnetkpop", "genie", "kozent", "mystic", "bluebrown", "records",
+            "banatv", "watchbana", "entertainment", "엔터테인먼트", "레코드"]
+
 # 官方頻道線索（出現在頻道名時，可信度高，放寬曲名比對）
 _OFFICIAL_CH = ["entertainment", "official", "smtown", "jyp", "hybe", "yg",
                 "starship", "kakao", "1thek", "stone music", "label", "records",
@@ -743,12 +751,6 @@ def youtube_find_mv(group: str, title: str,
     if gkr_norm and len(gkr_norm) >= 2:
         gtokens.append(gkr_norm)
     chan_norm = norm(yt_channel)
-    # 已知經銷 / 廠牌官方頻道關鍵字（不含單字「official」——假搬運頻道常濫用該字）
-    _DISTRIB = ["1thek", "stonemusic", "smtown", "jypentertainment", "hybe",
-                "ygentertainment", "starship", "swing", "blacklabel", "pledis",
-                "cube", "rbw", "woollim", "fnc", "ador", "wakeone", "kakao",
-                "mnetkpop", "genie", "kozent", "mystic", "bluebrown", "records",
-                "banatv", "watchbana", "entertainment", "엔터테인먼트", "레코드"]
 
     def channel_official(ch_norm: str) -> bool:
         # a) AI 給的官方頻道名相符（雙向子字串）
