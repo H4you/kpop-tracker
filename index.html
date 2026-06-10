@@ -580,7 +580,13 @@ select.btn-ghost option { background: #16111f; color: var(--text); }
   .track-rank { display: none; }
   .fab-wrap { bottom: 20px; right: 16px; }
   .track-thumb, .track-thumb-ph { width: 92px; height: 52px; }
-  .track { gap: 13px; padding: 13px; }
+  /* 手機：縮圖+內容一列，動作鍵換到第二列靠右，避免內容被擠成 4px */
+  .track { gap: 11px 13px; padding: 13px; flex-wrap: wrap; }
+  .track-body { flex: 1 1 55%; }
+  .track-actions { width: 100%; justify-content: flex-end; }
+  /* 手機精簡資訊列：藏掉專輯名與里程碑，避免卡片過高 */
+  .track-meta .track-meta-item.album-meta,
+  .track-meta .track-meta-item.milestone { display: none; }
 }
 
 /* ── Reduced motion / transparency fallbacks ── */
@@ -1373,7 +1379,7 @@ function render() {
         <div class="track-title" title="${escHtml(t.title)}">${escHtml(t.title)}</div>
         <div class="track-meta">
           ${t.date ? `<span class="track-meta-item">${escHtml(t.date)}</span>` : ''}
-          ${t.album ? `<span class="track-meta-item" style="color:var(--ink3)">${escHtml(t.album)}</span>` : ''}
+          ${t.album ? `<span class="track-meta-item album-meta" style="color:var(--ink3)">${escHtml(t.album)}</span>` : ''}
           ${fmtViews(t.yt_views) ? `<span class="track-meta-item view-count" title="MV 觀看數">▶ ${fmtViews(t.yt_views)}</span>` : ''}
           ${typeof t.yt_likes === 'number' && t.yt_likes > 0 ? `<span class="track-meta-item" title="MV 按讚數">👍 ${fmtViews(t.yt_likes)}</span>` : ''}
           ${g && g.delta > 0 ? `<span class="track-meta-item growth-up" title="近 ${g.days} 天觀看數成長">▲ ${fmtViews(g.delta)} ${sparkline(g.points, 50, 16)}</span>` : ''}
