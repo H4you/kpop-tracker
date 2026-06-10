@@ -508,7 +508,8 @@ SEED_GIRLGROUPS = [
 # 大小寫不敏感比對。發現新的誤收就加進來。
 # 人工確認「非女團 / 非真實/不收」清單（使用者回報的假團、業餘、非女團）
 NOT_GIRLGROUPS = ["XLOV", "And2ble", "Naze",
-                  "Mirror on Me", "WEGLOW", "P.I.N.Y.A", "P.I.N.Y.A.", "MELLOWiT", "VEGINZ"]
+                  "Mirror on Me", "WEGLOW", "P.I.N.Y.A", "P.I.N.Y.A.", "MELLOWiT", "VEGINZ",
+                  "LUNAR"]   # PTT pre-debut 猜測，配到非洲歌手 Lunar Star，Deezer 同名誤配騙過檢核
 _NOT_GG_KEYS = {re.sub(r"[^a-z0-9]", "", n.lower()) for n in NOT_GIRLGROUPS}
 
 
@@ -1277,6 +1278,23 @@ def _yt_oembed_title(vid: str) -> str:
     return ""
 
 
+def load_extra_tracks() -> list[dict]:
+    """讀 data/extra_tracks.json：自動抓取漏掉時的手動補錄清單。回 [{group,title,yt_id,...}]。"""
+    path = os.path.join(os.path.dirname(__file__), "..", "data", "extra_tracks.json")
+    if not os.path.exists(path):
+        return []
+    try:
+        raw = json.load(open(path, encoding="utf-8"))
+    except Exception as e:
+        log.warning(f"extra_tracks 讀取失敗: {e}")
+        return []
+    out = []
+    for ex in raw.get("tracks", []):
+        if isinstance(ex, dict) and ex.get("group") and ex.get("yt_id") and ex.get("title"):
+            out.append(ex)
+    return out
+
+
 _spotify_tok = {"token": "", "exp": 0.0}
 
 
@@ -1953,7 +1971,9 @@ def run_scraper(days_back: int = 14) -> dict:
         }
 
         # 人工指定 MV（最高優先）：比對英文/韓文團名，命中就直接用，跳過自動比對
-        ov_vid = mv_override.get(_normk(group)) or mv_override.get(_normk(c.get("group_kr", "")))
+        ov_vid = (mv_override.get(_normk(group + title))            # 團名+曲名（最精準）
+                  or mv_override.get(_normk(group))
+                  or mv_override.get(_normk(c.get("group_kr", ""))))
         if ov_vid:
             base.pop("_shaky", None)   # 人工指定即視為已確認
             base.update({"yt_url": f"https://www.youtube.com/watch?v={ov_vid}",
@@ -1984,6 +2004,37 @@ def run_scraper(days_back: int = 14) -> dict:
         })
         tracks.append(base)
 
+    # ── 手動補錄（extra_tracks.json）：自動抓取漏掉的新曲，依 group+title 去重 ──
+    existing_keys = {_normk(t["group"] + t["title"]) for t in tracks}
+    n_extra = 0
+    for ex in load_extra_tracks():
+        key = _normk(ex["group"] + ex["title"])
+        if key in existing_keys:
+            continue
+        existing_keys.add(key)
+        vid = ex["yt_id"].strip()
+        raw_id = f"{ex['group']}{ex['title']}{ex.get('date', '')}"
+        tracks.append({
+            "group": ex["group"],
+            "group_kr": ex.get("group_kr", ""),
+            "title": ex["title"],
+            "album": ex.get("album", ex["title"]),
+            "date": ex.get("date", ""),       # 留空稍後用 MV 上線日補
+            "is_solo": bool(ex.get("is_solo")),
+            "is_new": bool(ex.get("date", "") >= cutoff7) if ex.get("date") else True,
+            "is_hot": False,
+            "sources": ["Wikipedia"],
+            "note": "手動補錄",
+            "id": hashlib.md5(raw_id.encode()).hexdigest()[:12],
+            "yt_url": f"https://www.youtube.com/watch?v={vid}",
+            "yt_id": vid,
+            "yt_title": _yt_oembed_title(vid) or ex["title"],
+        })
+        n_extra += 1
+        log.info(f"手動補錄：{ex['group']} - {ex['title']} → {vid}")
+    if n_extra:
+        log.info(f"手動補錄共 {n_extra} 筆")
+
     # ── YouTube 官方 API：對找不到 MV 者做官方搜尋 fallback + 補正所有觀看數 ──
     if YT_API_KEY:
         still_pending = []
@@ -2012,6 +2063,9 @@ def run_scraper(days_back: int = 14) -> dict:
                 t["yt_likes"] = d["likes"]
             if d.get("published"):
                 t["yt_published"] = d["published"]
+                if not t.get("date"):   # 手動補錄沒填日期 → 用 MV 上線日
+                    t["date"] = d["published"].replace("-", ".")
+                    t["is_new"] = bool(t["date"] >= cutoff7)
             if d.get("channel_title"):
                 t["yt_channel_title"] = d["channel_title"]
             if d.get("channel_id") in subs:

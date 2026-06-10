@@ -1,0 +1,7 @@
+{
+  "_comment": "手動補錄的新曲：自動抓取漏掉時把歌加進來（給 yt_id 即可，日期/觀看數會自動補）。欄位：group(必)、yt_id(必)、title(必)、group_kr、date(YYYY.MM.DD，留空自動用 MV 上線日)、is_solo。同團同曲若之後被自動抓到會自動去重。",
+  "tracks": [
+    {"group": "BABYMONSTER", "group_kr": "베이비몬스터", "title": "SUGAR HONEY ICE TEA", "yt_id": "naoGk-Zjc1s", "date": "", "is_solo": false},
+    {"group": "LE SSERAFIM × ILLIT × KATSEYE", "group_kr": "", "title": "ICONIC BY MISTAKE", "yt_id": "27C4pfRsf9g", "date": "", "is_solo": false}
+  ]
+}
