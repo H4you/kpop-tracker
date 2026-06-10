@@ -13,10 +13,18 @@ on:
         type: boolean
         default: false
 
+permissions:
+  contents: write      # commit 資料回 repo
+  pages: write         # 部署 GitHub Pages
+  id-token: write      # deploy-pages 需要 OIDC
+
 jobs:
   fetch-and-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout
@@ -57,15 +65,21 @@ jobs:
             git commit -m "chore: daily update $(date +'%Y-%m-%d')"
           git push
 
-      # ── Step 3：部署 GitHub Pages ──
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      # ── Step 3：部署 GitHub Pages（官方 Actions 部署；舊的 branch-based 管線已 401 損壞）──
+      - name: Prepare site
+        run: |
+          mkdir -p _site
+          rsync -a --exclude '.git' --exclude '.github' --exclude 'src' \
+                --exclude '_site' --exclude 'requirements.txt' --exclude '*.md' . _site/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          publish_branch: gh-pages
-          force_orphan: false
-          exclude_assets: ".github,src,scripts,*.py,requirements.txt,*.md"
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
       # ── Step 4：若有失敗，發 GitHub Issue 通知 ──
       - name: Notify on failure
