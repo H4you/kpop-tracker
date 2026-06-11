@@ -246,6 +246,11 @@ header {
 .src-chip.on[data-s="Wikipedia"]{ background: rgba(52,211,153,.14); border-color: rgba(52,211,153,.5); color: var(--green); }
 .src-chip.on[data-s="PTT"]      { background: rgba(124,192,255,.14); border-color: rgba(124,192,255,.5); color: var(--blue); }
 .milestone { color: var(--gold) !important; }
+.rank-tag {
+  color: var(--blue) !important; font-weight: 600;
+  background: rgba(124,192,255,.12); border: 1px solid rgba(124,192,255,.4);
+  padding: 1px 8px; border-radius: var(--radius-pill);
+}
 .lyrics { white-space: pre-wrap; line-height: 1.9; font-size: 14px; color: var(--text2); padding: 4px 2px 8px; }
 
 /* ── 回歸月曆視圖 ── */
@@ -1380,6 +1385,7 @@ function render() {
         <div class="track-meta">
           ${t.date ? `<span class="track-meta-item">${escHtml(t.date)}</span>` : ''}
           ${t.album ? `<span class="track-meta-item album-meta" style="color:var(--ink3)">${escHtml(t.album)}</span>` : ''}
+          ${typeof t.yt_rank === 'number' ? `<span class="track-meta-item rank-tag" title="kworb 全球 YouTube MV 日榜（近24小時觀看）${t.yt_daily_views ? '，24h 觀看 ' + fmtViews(t.yt_daily_views) : ''}">🌍 全球 #${t.yt_rank}${t.yt_rank_change && t.yt_rank_change !== '=' ? ' ' + escHtml(t.yt_rank_change) : ''}</span>` : ''}
           ${fmtViews(t.yt_views) ? `<span class="track-meta-item view-count" title="MV 觀看數">▶ ${fmtViews(t.yt_views)}</span>` : ''}
           ${typeof t.yt_likes === 'number' && t.yt_likes > 0 ? `<span class="track-meta-item" title="MV 按讚數">👍 ${fmtViews(t.yt_likes)}</span>` : ''}
           ${g && g.delta > 0 ? `<span class="track-meta-item growth-up" title="近 ${g.days} 天觀看數成長">▲ ${fmtViews(g.delta)} ${sparkline(g.points, 50, 16)}</span>` : ''}

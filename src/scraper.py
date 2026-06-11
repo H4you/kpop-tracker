@@ -1279,6 +1279,42 @@ def _yt_oembed_title(vid: str) -> str:
     return ""
 
 
+def kworb_youtube_ranks() -> dict:
+    """kworb.net 全球 YouTube 音樂 MV 日榜（近24小時觀看，前500名）。
+    回 {yt_id: {"rank": int, "change": str, "daily_views": int}}。免金鑰。"""
+    out = {}
+    try:
+        r = requests.get("https://kworb.net/youtube/", headers=HEADERS, timeout=20)
+        r.raise_for_status()
+    except Exception as e:
+        log.warning(f"kworb 日榜抓取失敗: {e}")
+        return out
+    soup = BeautifulSoup(r.text, "html.parser")
+    for tr in soup.select("table tr"):
+        tds = tr.find_all("td")
+        if len(tds) < 4:
+            continue
+        try:
+            rank = int(tds[0].get_text(strip=True))
+        except ValueError:
+            continue
+        a = tr.find("a", href=True)
+        if not a:
+            continue
+        m = re.search(r"video/([A-Za-z0-9_-]{6,})\.html", a["href"]) \
+            or re.search(r"[?&]v=([A-Za-z0-9_-]{6,})", a["href"])
+        if not m:
+            continue
+        change = tds[1].get_text(strip=True)
+        dv = None
+        mv = re.search(r"([\d,]+)", tds[3].get_text(strip=True))
+        if mv:
+            dv = int(mv.group(1).replace(",", ""))
+        out[m.group(1)] = {"rank": rank, "change": change, "daily_views": dv}
+    log.info(f"kworb 全球日榜：解析 {len(out)} 名")
+    return out
+
+
 def load_extra_tracks() -> list[dict]:
     """讀 data/extra_tracks.json：自動抓取漏掉時的手動補錄清單。回 [{group,title,yt_id,...}]。"""
     path = os.path.join(os.path.dirname(__file__), "..", "data", "extra_tracks.json")
@@ -2072,6 +2108,23 @@ def run_scraper(days_back: int = 14) -> dict:
             if d.get("channel_id") in subs:
                 t["yt_channel_subs"] = subs[d["channel_id"]]
         log.info(f"YouTube API：官方詳情校正 {fixed} 支（觀看/按讚/上線日/頻道訂閱）")
+
+    # ── 全球 YouTube 日榜（kworb，免金鑰）：標上每支 MV 的全球名次與變化 ──
+    try:
+        ranks = kworb_youtube_ranks()
+        n_rk = 0
+        for t in tracks:
+            rk = ranks.get(t.get("yt_id"))
+            if rk:
+                t["yt_rank"] = rk["rank"]
+                if rk.get("change"):
+                    t["yt_rank_change"] = rk["change"]
+                if rk.get("daily_views"):
+                    t["yt_daily_views"] = rk["daily_views"]
+                n_rk += 1
+        log.info(f"kworb 全球日榜：本期 {n_rk} 支上榜")
+    except Exception as e:
+        log.warning(f"kworb 日榜處理失敗: {e}")
 
     # ── 外部資料源強化：Deezer 藝人照/粉絲/試聽 + iTunes 備援 ──
     try:
