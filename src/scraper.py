@@ -460,6 +460,7 @@ _MV_NEG = ["DANCE PRACTICE", "DANCE VIDEO", "DANCE PERFORMANCE", "PERFORMANCE VI
            "AUDIO", "LYRIC", "TEASER", "PREVIEW", "TRAILER", "BEHIND", "MAKING",
            "CHALLENGE", "RELAY", "FANCAM", "직캠", "REACTION", "REACTING", "REACTS",
            "REACT TO", "리액션", "SHORTS", "#SHORTS", "쇼츠", "COVER", "LIVE",
+           "FOCUS", "포커스",   # 成員個人 focus 直拍/剪輯（常帶 Official MV 字樣混進來）
            "SHOW!", "MUSIC CORE", "MUSIC BANK", "뮤직뱅크", "쇼!", "인기가요",
            "엠카운트다운", "M COUNTDOWN", "STAGE", "스페셜", "SPECIAL", "PLAYLIST",
            "플레이리스트", "INKIGAYO", "쇼챔피언", "더쇼",
