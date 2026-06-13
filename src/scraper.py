@@ -472,6 +472,10 @@ _MV_NEG = ["DANCE PRACTICE", "DANCE VIDEO", "DANCE PERFORMANCE", "PERFORMANCE VI
            "INTERVIEW", "UNBOXING", "언박싱", "RECAP", "PHOTOTIME", "포토타임",
            "가사", "LYRICS", "리릭"]   # 歌詞影片（常是粉絲自製，非官方 MV）
 
+# 非官方頻道關鍵字（反應/評論/vlog/翻唱），用於頻道名比對，擋掉標題沒寫但頻道透露的內容
+_BAD_CHANNEL = ["react", "리액션", "리뷰", "review", "vlog", "브이로그",
+                "cover", "커버", "shorts", "쇼츠", "reaction"]
+
 # 已知經銷 / 廠牌官方頻道關鍵字（不含單字「official」——假搬運頻道常濫用該字）
 # 模組層級常數：youtube_find_mv 與 youtube_api_search_mv 共用
 _DISTRIB = ["1thek", "stonemusic", "smtown", "jypentertainment", "hybe",
@@ -512,7 +516,7 @@ SEED_GIRLGROUPS = [
 NOT_GIRLGROUPS = ["XLOV", "And2ble", "Naze",
                   "Mirror on Me", "WEGLOW", "P.I.N.Y.A", "P.I.N.Y.A.", "MELLOWiT", "VEGINZ",
                   "LUNAR",   # PTT pre-debut 猜測，配到非洲歌手 Lunar Star，Deezer 同名誤配騙過檢核
-                  "FROST", "MOONLIGHT", "VELLYA"]   # 使用者確認不存在（疑似 AI 量產/假廠牌）
+                  "FROST", "MOONLIGHT", "VELLYA", "FABULA"]   # 使用者確認不存在（疑似 AI 量產/假廠牌）
 _NOT_GG_KEYS = {re.sub(r"[^a-z0-9]", "", n.lower()) for n in NOT_GIRLGROUPS}
 
 
@@ -1697,7 +1701,12 @@ def youtube_api_recent_group_mv(group: str, group_kr: str = "", days: int = 50) 
             if not vid:
                 continue
             up = vtitle.upper()
+            ch = sn.get("channelTitle", "")
+            cn = _norm(ch)
             if any(n in up for n in _MV_NEG):
+                continue
+            # 反應/評論/vlog 頻道（標題沒寫但頻道名透露），如「WYD Reacts」的「WE WATCH 3 MAMAMOO MVS!」
+            if any(b in cn for b in _BAD_CHANNEL):
                 continue
             if not any(p in up for p in _MV_POS):
                 continue
