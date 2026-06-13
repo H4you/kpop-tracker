@@ -6,18 +6,18 @@ METHOD:PUBLISH
 X-WR-CALNAME:KPop 女團回歸行事曆
 X-WR-CALDESC:女團 / 前成員 solo 發行預告
 BEGIN:VEVENT
-UID:1f52abb71f0e5dc7@kpop-tracker
-DTSTAMP:20260612T052918Z
+UID:1f0fd8551fcac9a3@kpop-tracker
+DTSTAMP:20260613T051901Z
 DTSTART;VALUE=DATE:20260616
 DTEND;VALUE=DATE:20260616
-SUMMARY:🎀 STAYC – 2: Love
-DESCRIPTION:👯 女團 發行 · https://www.youtube.com/results?search_query=STAYC+2%3A+Love+MV
-URL:https://www.youtube.com/results?search_query=STAYC+2%3A+Love+MV
+SUMMARY:🎀 STAYC – 2:Love
+DESCRIPTION:👯 女團 發行 · https://www.youtube.com/results?search_query=STAYC+2%3ALove+MV
+URL:https://www.youtube.com/results?search_query=STAYC+2%3ALove+MV
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:45c98939b9e444b3@kpop-tracker
-DTSTAMP:20260612T052918Z
+DTSTAMP:20260613T051901Z
 DTSTART;VALUE=DATE:20260622
 DTEND;VALUE=DATE:20260622
 SUMMARY:🎀 Hearts2Hearts – Lemon Tang
@@ -26,13 +26,13 @@ URL:https://www.youtube.com/results?search_query=Hearts2Hearts+Lemon+Tang+MV
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:836cc6036cbf026d@kpop-tracker
-DTSTAMP:20260612T052918Z
+UID:7bea6d5b2ec55d99@kpop-tracker
+DTSTAMP:20260613T051901Z
 DTSTART;VALUE=DATE:20260706
 DTEND;VALUE=DATE:20260706
-SUMMARY:🎀 (G)I-DLE – We made
-DESCRIPTION:👯 女團 發行 · https://www.youtube.com/results?search_query=%28G%29I-DLE+We+made+MV
-URL:https://www.youtube.com/results?search_query=%28G%29I-DLE+We+made+MV
+SUMMARY:🎀 I-dle – We Made
+DESCRIPTION:👯 女團 發行 · https://www.youtube.com/results?search_query=I-dle+We+Made+MV
+URL:https://www.youtube.com/results?search_query=I-dle+We+Made+MV
 TRANSP:TRANSPARENT
 END:VEVENT
 END:VCALENDAR
