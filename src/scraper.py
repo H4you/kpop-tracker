@@ -476,6 +476,16 @@ _MV_NEG = ["DANCE PRACTICE", "DANCE VIDEO", "DANCE PERFORMANCE", "PERFORMANCE VI
 _BAD_CHANNEL = ["react", "리액션", "리뷰", "review", "vlog", "브이로그",
                 "cover", "커버", "shorts", "쇼츠", "reaction"]
 
+
+def _looks_compilation(title: str) -> bool:
+    """反應/合輯影片常把多個團名用「+」串起來（如「A VIRAL + B METRONOME + C... MV」）。
+    官方單曲 MV 不會這樣，據此排除。"""
+    t = str(title or "")
+    if t.count("+") >= 2:
+        return True
+    up = t.upper()
+    return any(k in up for k in ["TOP 10", "TOP10", "WEEKLY", "COMPILATION", "BEST OF", "ALL MV"])
+
 # 已知經銷 / 廠牌官方頻道關鍵字（不含單字「official」——假搬運頻道常濫用該字）
 # 模組層級常數：youtube_find_mv 與 youtube_api_search_mv 共用
 _DISTRIB = ["1thek", "stonemusic", "smtown", "jypentertainment", "hybe",
@@ -799,6 +809,8 @@ def youtube_find_mv(group: str, title: str,
     for idx, (t, ch, vid, vc, pub) in enumerate(vids[:30]):
         up = t.upper()
         if any(n in up for n in _MV_NEG):
+            continue
+        if _looks_compilation(t):   # 多團合輯/反應片（標題用 + 串多團名）
             continue
         if not any(p in up for p in _MV_POS):
             continue
@@ -1649,6 +1661,8 @@ def youtube_api_search_mv(group: str, title: str, group_kr: str = "") -> dict | 
             # 必須像「正式 MV」：含 MV 字樣、且不是 medley/teaser/preview/audio/live…
             if any(n in up for n in _MV_NEG):
                 continue
+            if _looks_compilation(vtitle):   # 多團合輯/反應片
+                continue
             if not any(p in up for p in _MV_POS):
                 continue
             # 曲名要對得上
@@ -1704,6 +1718,8 @@ def youtube_api_recent_group_mv(group: str, group_kr: str = "", days: int = 50) 
             ch = sn.get("channelTitle", "")
             cn = _norm(ch)
             if any(n in up for n in _MV_NEG):
+                continue
+            if _looks_compilation(vtitle):   # 多團合輯/反應片（標題用 + 串多團名）
                 continue
             # 反應/評論/vlog 頻道（標題沒寫但頻道名透露），如「WYD Reacts」的「WE WATCH 3 MAMAMOO MVS!」
             if any(b in cn for b in _BAD_CHANNEL):

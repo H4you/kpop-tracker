@@ -1,7 +1,7 @@
 {
   "_comment": "人工指定正確官方 MV：鍵可以是『團名』或『團名+曲名』(較精準，不會卡住該團未來新歌)，值是 YouTube 影片ID。比對大小寫/符號不敏感，同時比對英文與韓文團名。自動比對抓錯時把正確影片ID加進來即可覆蓋。",
   "_blocklist_vids_comment": "永不採用的影片ID（抓錯但沒有正確替代時用；該團會改歸 MV 即將上線）。",
-  "_blocklist_vids": ["qg1xHfl6d0M", "2k1zuVvrfX8"],
+  "_blocklist_vids": ["qg1xHfl6d0M", "2k1zuVvrfX8", "kEMvGzvFUiU"],
   "UNCHILD": "wWvu34x2INc",
   "TripleS": "6q8UMVXhXsE",
   "트리플에스": "6q8UMVXhXsE",
