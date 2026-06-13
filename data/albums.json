@@ -2767,15 +2767,6 @@
           "itunes_url": "https://music.apple.com/us/album/fe3o4-stick-out-ep/1760493303?uo=4"
         },
         {
-          "id": 1693911798,
-          "album": "Roller Coaster - Single",
-          "artist": "NMIXX",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/13/d8/26/13d826a9-7a4d-13ce-0ac6-50b308e98f79/738676860757_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/roller-coaster-single/1693911798?uo=4"
-        },
-        {
           "id": 1689309595,
           "album": "expérgo - EP",
           "artist": "NMIXX",
@@ -2783,6 +2774,15 @@
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/4f/92/32/4f9232bc-b05d-b467-edcb-41f39356045f/738676860504_Cover.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/exp%C3%A9rgo-ep/1689309595?uo=4"
+        },
+        {
+          "id": 1693911798,
+          "album": "Roller Coaster - Single",
+          "artist": "NMIXX",
+          "year": "2023",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/13/d8/26/13d826a9-7a4d-13ce-0ac6-50b308e98f79/738676860757_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/roller-coaster-single/1693911798?uo=4"
         },
         {
           "id": 1689309381,
@@ -3133,20 +3133,32 @@
           ]
         },
         {
-          "id": 1468948702,
-          "album": "‘The ReVe Festival’ Day 1 - EP",
+          "id": 1446883400,
+          "album": "Sappy - Single",
           "artist": "Red Velvet",
           "year": "2019",
-          "track_count": 7,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7a/d0/f5/7ad0f523-eda6-7b2a-1ff0-e58402cde920/RV_The_ReVe_Festival_Day1_COV.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/the-reve-festival-day-1-ep/1468948702?uo=4",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/39/b3/87/39b38796-3870-058c-f0c8-9479bda80481/ANTCD-30170.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/sappy-single/1446883400?uo=4",
           "tracks": [
-            "Zimzalabim",
-            "Sunny Side Up!",
-            "Milkshake",
-            "Bing Bing",
-            "Parade",
-            "LP"
+            "Sappy"
+          ]
+        },
+        {
+          "id": 1400640685,
+          "album": "#Cookie Jar - EP",
+          "artist": "Red Velvet",
+          "year": "2018",
+          "track_count": 6,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/5d/c6/cc/5dc6cc10-18a8-4ede-ad58-90bd8750c912/AVCK-79478.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/cookie-jar-ep/1400640685?uo=4",
+          "tracks": [
+            "#Cookie Jar",
+            "Aitai-tai",
+            "'Cause it's you",
+            "Dumb Dumb (JP version)",
+            "Russian Roulette (JP version)",
+            "Red Flavor (JP version)"
           ]
         },
         {
@@ -3166,23 +3178,6 @@
           ]
         },
         {
-          "id": 1444409443,
-          "album": "RBB - The 5th Mini Album - EP",
-          "artist": "Red Velvet",
-          "year": "2018",
-          "track_count": 7,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/a4/e9/00/a4e90023-0af1-a499-d875-6b2fcafacb3d/RBB_DIGITAL_COVER.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/rbb-the-5th-mini-album-ep/1444409443?uo=4",
-          "tracks": [
-            "RBB (Really Bad Boy)",
-            "Butterflies",
-            "So Good",
-            "Sassy Me",
-            "Taste",
-            "RBB (Really Bad Boy) [English Version]"
-          ]
-        },
-        {
           "id": 1314273377,
           "album": "Perfect Velvet - The 2nd Album",
           "artist": "Red Velvet",
@@ -3190,9 +3185,18 @@
           "track_count": 10,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/e5/43/f8/e543f849-b92d-9812-c7c8-0a2f16126d96/RV_02_DC.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/perfect-velvet-the-2nd-album/1314273377?uo=4"
+        },
+        {
+          "id": 905840092,
+          "album": "Happiness - Single",
+          "artist": "Red Velvet",
+          "year": "2014",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/4a/77/76/4a77761b-53e1-9e29-6937-3eea9c3f4210/0801_redvelvet_cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/happiness-single/905840092?uo=4"
         }
       ],
-      "album_count": 5
+      "album_count": 6
     },
     "STAYC": {
       "albums": [
@@ -4073,5 +4077,5 @@
       "album_count": 8
     }
   },
-  "updated_at": "2026-06-13 18:39"
+  "updated_at": "2026-06-13 19:04"
 }
