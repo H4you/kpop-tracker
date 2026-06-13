@@ -469,7 +469,8 @@ _MV_NEG = ["DANCE PRACTICE", "DANCE VIDEO", "DANCE PERFORMANCE", "PERFORMANCE VI
            "AI ", "MASHUP", "REMIX", "FMV", "팬메이드", "EDIT", "COMPILATION",
            "MEDLEY", "ALL MV", "PROFILE", "EXPLAINED", "REVIEW", "이론", "분석",
            "COMMENTARY", "INTRODUCTION", "수록곡", "HIGHLIGHT", "SHOWCASE", "쇼케이스",
-           "INTERVIEW", "UNBOXING", "언박싱", "RECAP", "PHOTOTIME", "포토타임"]
+           "INTERVIEW", "UNBOXING", "언박싱", "RECAP", "PHOTOTIME", "포토타임",
+           "가사", "LYRICS", "리릭"]   # 歌詞影片（常是粉絲自製，非官方 MV）
 
 # 已知經銷 / 廠牌官方頻道關鍵字（不含單字「official」——假搬運頻道常濫用該字）
 # 模組層級常數：youtube_find_mv 與 youtube_api_search_mv 共用
@@ -510,7 +511,8 @@ SEED_GIRLGROUPS = [
 # 人工確認「非女團 / 非真實/不收」清單（使用者回報的假團、業餘、非女團）
 NOT_GIRLGROUPS = ["XLOV", "And2ble", "Naze",
                   "Mirror on Me", "WEGLOW", "P.I.N.Y.A", "P.I.N.Y.A.", "MELLOWiT", "VEGINZ",
-                  "LUNAR"]   # PTT pre-debut 猜測，配到非洲歌手 Lunar Star，Deezer 同名誤配騙過檢核
+                  "LUNAR",   # PTT pre-debut 猜測，配到非洲歌手 Lunar Star，Deezer 同名誤配騙過檢核
+                  "FROST", "MOONLIGHT", "VELLYA"]   # 使用者確認不存在（疑似 AI 量產/假廠牌）
 _NOT_GG_KEYS = {re.sub(r"[^a-z0-9]", "", n.lower()) for n in NOT_GIRLGROUPS}
 
 
@@ -1267,6 +1269,18 @@ def load_mv_override() -> dict:
     return out
 
 
+def load_mv_blocklist() -> set:
+    """讀 data/mv_override.json 的 _blocklist_vids：永不採用的影片ID（抓錯但無替代時）。"""
+    path = os.path.join(os.path.dirname(__file__), "..", "data", "mv_override.json")
+    if not os.path.exists(path):
+        return set()
+    try:
+        raw = json.load(open(path, encoding="utf-8"))
+    except Exception:
+        return set()
+    return {v.strip() for v in raw.get("_blocklist_vids", []) if isinstance(v, str) and v.strip()}
+
+
 def _yt_oembed_title(vid: str) -> str:
     """免金鑰取 YouTube 影片標題（給人工指定 MV 當顯示標題用）。"""
     try:
@@ -1961,6 +1975,7 @@ def run_scraper(days_back: int = 14) -> dict:
 
     cutoff7 = (datetime.now().date() - timedelta(days=7)).strftime("%Y.%m.%d")
     mv_override = load_mv_override()   # 人工指定的正確 MV（最高優先）
+    mv_blocklist = load_mv_blocklist()   # 永不採用的影片ID（抓錯但無替代）
     tracks = []
     pending_mv = []   # 已確認女團/solo、但官方 MV 尚未上線（MV 即將上線）
     for c in candidates:
@@ -2026,6 +2041,9 @@ def run_scraper(days_back: int = 14) -> dict:
                              title_track=c.get("title_track", ""),
                              group_kr=c.get("group_kr", ""))
         time.sleep(0.3)
+        if mv and mv.get("vid") in mv_blocklist:   # 抓到被封鎖的錯誤影片 → 當作沒找到
+            log.info(f"略過被封鎖影片: {group} - {mv.get('vid')}")
+            mv = None
         if not mv:
             # 找不到官方 MV → 歸入「MV 即將上線」，附 YouTube 搜尋連結方便手動確認
             log.info(f"無官方 MV，歸入即將上線: {group} - {title}")
@@ -2079,6 +2097,8 @@ def run_scraper(days_back: int = 14) -> dict:
             # 1) 嚴格：曲名+官方頻道相符  2) 放寬：近期、團名在標題的官方 MV（解發行名≠主打曲名）
             found = youtube_api_search_mv(b.get("group", ""), b.get("title", ""), b.get("group_kr", "")) \
                 or youtube_api_recent_group_mv(b.get("group", ""), b.get("group_kr", ""))
+            if found and found.get("vid") in mv_blocklist:
+                found = None
             if found:
                 b.update({"yt_url": found["url"], "yt_id": found["vid"], "yt_title": found["title"]})
                 b.pop("yt_search", None)
