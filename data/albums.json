@@ -127,18 +127,6 @@
           "tracks": []
         },
         {
-          "id": 1895001305,
-          "album": "WDA (Whole Different Animal) [feat. G-DRAGON] - Single",
-          "artist": "aespa",
-          "year": "2026",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e2/b8/2f/e2b82f49-e51b-725f-2797-ea2a3de44b55/888735955426_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/wda-whole-different-animal-feat-g-dragon-single/1895001305?uo=4",
-          "tracks": [
-            "WDA (Whole Different Animal) [feat. G-DRAGON]"
-          ]
-        },
-        {
           "id": 6772870169,
           "album": "LEMONADE - The 2nd Album (GISELLE Special Version)",
           "artist": "aespa",
@@ -162,6 +150,18 @@
             "LEMONADE (Sped Up Version)",
             "LEMONADE (Slowed Down Version)",
             "LEMONADE (Instrumental)"
+          ]
+        },
+        {
+          "id": 1895001305,
+          "album": "WDA (Whole Different Animal) [feat. G-DRAGON] - Single",
+          "artist": "aespa",
+          "year": "2026",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e2/b8/2f/e2b82f49-e51b-725f-2797-ea2a3de44b55/888735955426_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/wda-whole-different-animal-feat-g-dragon-single/1895001305?uo=4",
+          "tracks": [
+            "WDA (Whole Different Animal) [feat. G-DRAGON]"
           ]
         },
         {
@@ -240,28 +240,6 @@
           ]
         },
         {
-          "id": 1609044867,
-          "album": "HORN",
-          "artist": "Apink",
-          "year": "2022",
-          "track_count": 11,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/95/3f/45/953f45be-4721-d022-e61c-992da252bc7f/cover_KM0014752_1.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/horn/1609044867?uo=4",
-          "tracks": [
-            "Dilemma",
-            "HOLY MOLY",
-            "My oh My",
-            "Nothing",
-            "Red Carpet",
-            "Single Rider",
-            "Free & Love",
-            "Just Like This",
-            "Trip",
-            "Dream",
-            "Thank you"
-          ]
-        },
-        {
           "id": 1507748380,
           "album": "Look",
           "artist": "Apink",
@@ -303,25 +281,15 @@
           "year": "2018",
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/a7/01/5d/a7015d38-b710-4135-6440-9498476ae7df/cover-Apink.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/one-six-ep/1406280939?uo=4"
-        },
-        {
-          "id": 1252559242,
-          "album": "Pink Up",
-          "artist": "Apink",
-          "year": "2017",
-          "track_count": 7,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music117/v4/bf/df/f4/bfdff470-b5cd-2d52-86c6-28d0277ef7f9/cover-.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/pink-up/1252559242?uo=4"
-        },
-        {
-          "id": 1186543016,
-          "album": "Dear",
-          "artist": "Apink",
-          "year": "2016",
-          "track_count": 11,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music111/v4/e8/38/4e/e8384ef9-c6ba-ab83-9b51-ef19684a76a9/cover-_Apink.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/dear/1186543016?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/one-six-ep/1406280939?uo=4",
+          "tracks": [
+            "I'm So Sick",
+            "A L R I G H T",
+            "Don't Be Silly",
+            "Forever Star",
+            "Promise Me",
+            "I Like That Kiss"
+          ]
         },
         {
           "id": 1158744688,
@@ -333,6 +301,15 @@
           "itunes_url": "https://music.apple.com/us/album/pink-revolution/1158744688?uo=4"
         },
         {
+          "id": 1186543016,
+          "album": "Dear",
+          "artist": "Apink",
+          "year": "2016",
+          "track_count": 11,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music111/v4/e8/38/4e/e8384ef9-c6ba-ab83-9b51-ef19684a76a9/cover-_Apink.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/dear/1186543016?uo=4"
+        },
+        {
           "id": 1019999290,
           "album": "Pink Memory",
           "artist": "Apink",
@@ -340,6 +317,24 @@
           "track_count": 10,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music7/v4/49/7e/4e/497e4e38-0b03-6a25-942e-c5a933140cac/cover-_Apink_2.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/pink-memory/1019999290?uo=4"
+        },
+        {
+          "id": 854849858,
+          "album": "Pink Blossom",
+          "artist": "Apink",
+          "year": "2014",
+          "track_count": 7,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/26/d6/ce/26d6cef6-17e8-33b3-145d-2c5e399c068f/KM0002664-_-0331.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/pink-blossom/854849858?uo=4"
+        },
+        {
+          "id": 944845614,
+          "album": "Pink LUV - EP",
+          "artist": "Apink",
+          "year": "2014",
+          "track_count": 6,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music3/v4/ae/01/65/ae01650f-08d2-ccb6-7cae-8f01649872f9/KM0003041-_-1124.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/pink-luv-ep/944845614?uo=4"
         },
         {
           "id": 1078504175,
@@ -1044,6 +1039,23 @@
     "fromis_9": {
       "albums": [
         {
+          "id": 1821787094,
+          "album": "From Our 20's - EP",
+          "artist": "fromis_9",
+          "year": "2025",
+          "track_count": 6,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a9/15/90/a91590ad-9288-049a-d8f7-dd4aa63f1113/191953455365.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/from-our-20s-ep/1821787094?uo=4",
+          "tracks": [
+            "LIKE YOU BETTER",
+            "REBELUTIONAL",
+            "Love=Disaster",
+            "Strawberry Mimosa",
+            "Twisted love",
+            "Merry Go Round"
+          ]
+        },
+        {
           "id": 1856551390,
           "album": "White Memories - Single",
           "artist": "fromis_9",
@@ -1097,14 +1109,7 @@
           "year": "2022",
           "track_count": 5,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/20/bc/71/20bc7113-c509-acc6-cbcd-efd597f3e7a0/192641872471_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/from-our-memento-box-ep/1629965210?uo=4",
-          "tracks": [
-            "Up And",
-            "Stay This Way",
-            "Blind Letter",
-            "Cheese",
-            "Rewind"
-          ]
+          "itunes_url": "https://music.apple.com/us/album/from-our-memento-box-ep/1629965210?uo=4"
         },
         {
           "id": 1604496144,
@@ -1132,15 +1137,6 @@
           "track_count": 5,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/a3/23/5c/a3235c13-e7d8-5cd5-2f09-c35bc8642125/888272068313_Cover.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/my-little-society-ep/1606892941?uo=4"
-        },
-        {
-          "id": 1569905890,
-          "album": "From.9 - Single",
-          "artist": "fromis_9",
-          "year": "2018",
-          "track_count": 3,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/78/50/47/785047a8-d5ae-c337-d647-d567932088d4/8809603546494_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/from-9-single/1569905890?uo=4"
         },
         {
           "id": 1609199918,
@@ -1361,26 +1357,29 @@
           ]
         },
         {
-          "id": 1796402197,
-          "album": "The Chase - Single",
-          "artist": "Hearts2Hearts",
-          "year": "2025",
-          "track_count": 3,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/2b/0e/e8/2b0ee80e-eae3-aff6-9ca7-01cf7a830c78/888735951398.png/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/the-chase-single/1796402197?uo=4",
-          "tracks": [
-            "The Chase",
-            "Butterflies"
-          ]
-        },
-        {
           "id": 1841828519,
           "album": "FOCUS - The 1st Mini Album - EP",
           "artist": "Hearts2Hearts",
           "year": "2025",
           "track_count": 6,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/df/26/ea/df26eafa-06e8-8bd0-4180-5ba91fb91c39/888735953859.png/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/focus-the-1st-mini-album-ep/1841828519?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/focus-the-1st-mini-album-ep/1841828519?uo=4",
+          "tracks": [
+            "FOCUS",
+            "Apple Pie",
+            "Pretty Please",
+            "Flutter",
+            "Blue Moon"
+          ]
+        },
+        {
+          "id": 1796402197,
+          "album": "The Chase - Single",
+          "artist": "Hearts2Hearts",
+          "year": "2025",
+          "track_count": 3,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/2b/0e/e8/2b0ee80e-eae3-aff6-9ca7-01cf7a830c78/888735951398.png/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/the-chase-single/1796402197?uo=4"
         },
         {
           "id": 1848276184,
@@ -1651,31 +1650,19 @@
           ]
         },
         {
-          "id": 1627524248,
-          "album": "CHECKMATE",
+          "id": 1654019775,
+          "album": "CHESHIRE - EP",
           "artist": "ITZY",
           "year": "2022",
-          "track_count": 7,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/65/86/05/658605e1-1057-c6b7-fdc1-825ae50e6e2c/738676858761_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/checkmate/1627524248?uo=4",
+          "track_count": 4,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/e8/aa/52/e8aa52be-338e-0903-fb66-cc8de1f37dcc/738676860368_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/cheshire-ep/1654019775?uo=4",
           "tracks": [
-            "SNEAKERS",
-            "RACER",
-            "WHAT I WANT",
-            "Free Fall",
-            "365",
-            "DOMINO",
-            "SNEAKERS (English Ver.)"
+            "Cheshire",
+            "Snowy",
+            "Freaky",
+            "Boys Like You"
           ]
-        },
-        {
-          "id": 1608111697,
-          "album": "CRAZY IN LOVE",
-          "artist": "ITZY",
-          "year": "2021",
-          "track_count": 18,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/e7/f3/d7/e7f3d7dc-4bf6-e15d-ca28-3105f713e693/192641938573_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/crazy-in-love/1608111697?uo=4"
         },
         {
           "id": 1608247024,
@@ -1685,6 +1672,15 @@
           "track_count": 7,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/e8/41/c4/e841c413-9eab-b493-fd8e-3fe655b82387/192641939617_Cover.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/guess-who-ep/1608247024?uo=4"
+        },
+        {
+          "id": 1608111697,
+          "album": "CRAZY IN LOVE",
+          "artist": "ITZY",
+          "year": "2021",
+          "track_count": 18,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/e7/f3/d7/e7f3d7dc-4bf6-e15d-ca28-3105f713e693/192641938573_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/crazy-in-love/1608111697?uo=4"
         },
         {
           "id": 1608253207,
@@ -1918,15 +1914,6 @@
           "itunes_url": "https://music.apple.com/us/album/not-just-pretty-ep/1840860810?uo=4"
         },
         {
-          "id": 1853513111,
-          "album": "Psycho (From \"Operation: True Love\") - Single",
-          "artist": "izna",
-          "year": "2025",
-          "track_count": 2,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/60/1d/f4/601df4f0-f3d0-5f5a-326f-26a474da2ec0/191953486840.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/psycho-from-operation-true-love-single/1853513111?uo=4"
-        },
-        {
           "id": 1816665797,
           "album": "WORLD OF STREET WOMAN FIGHTER(WSWF) Original, Vol.1 (Original Television Soundtrack) - EP",
           "artist": "SUNG HAN BIN, izna, Kim Min Seok & ASH ISLAND",
@@ -1934,6 +1921,15 @@
           "track_count": 4,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/07/f8/78/07f87808-0acd-9d58-145b-08bc24490d14/888272154245_Cover.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/world-of-street-woman-fighter-wswf-original-vol-1/1816665797?uo=4"
+        },
+        {
+          "id": 1853513111,
+          "album": "Psycho (From \"Operation: True Love\") - Single",
+          "artist": "izna",
+          "year": "2025",
+          "track_count": 2,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/60/1d/f4/601df4f0-f3d0-5f5a-326f-26a474da2ec0/191953486840.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/psycho-from-operation-true-love-single/1853513111?uo=4"
         },
         {
           "id": 1779444219,
@@ -2046,15 +2042,6 @@
           "itunes_url": "https://music.apple.com/us/album/magic-hour-ep/1706470349?uo=4"
         },
         {
-          "id": 1600423424,
-          "album": "FIRST IMPACT - EP",
-          "artist": "Kep1er",
-          "year": "2022",
-          "track_count": 6,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/30/ca/74/30ca745e-574c-2e30-d947-9ef5d80a5178/888272092226_Cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/first-impact-ep/1600423424?uo=4"
-        },
-        {
           "id": 1628511839,
           "album": "DOUBLAST - EP",
           "artist": "Kep1er",
@@ -2062,6 +2049,15 @@
           "track_count": 5,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/8e/3f/ed/8e3fedcc-2f5f-824b-8a2c-6642c57e7ff1/888272100723_Cover.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/doublast-ep/1628511839?uo=4"
+        },
+        {
+          "id": 1600423424,
+          "album": "FIRST IMPACT - EP",
+          "artist": "Kep1er",
+          "year": "2022",
+          "track_count": 6,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/30/ca/74/30ca745e-574c-2e30-d947-9ef5d80a5178/888272092226_Cover.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/first-impact-ep/1600423424?uo=4"
         },
         {
           "id": 1648412215,
@@ -3066,15 +3062,6 @@
           ]
         },
         {
-          "id": 1737366584,
-          "album": "1st Mini Album 'MANITO'",
-          "artist": "QWER",
-          "year": "2024",
-          "track_count": 7,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/75/54/38/75543853-92c7-064c-fe26-2cbf5eecc6d8/cover_KM0019655_1.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/1st-mini-album-manito/1737366584?uo=4"
-        },
-        {
           "id": 1765233146,
           "album": "FAKE IDOL - Single",
           "artist": "QWER",
@@ -3082,6 +3069,15 @@
           "track_count": 1,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d0/a8/51/d0a851ab-061e-115c-7264-b198fa7f2e19/cover_KM0020310_1.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/fake-idol-single/1765233146?uo=4"
+        },
+        {
+          "id": 1737366584,
+          "album": "1st Mini Album 'MANITO'",
+          "artist": "QWER",
+          "year": "2024",
+          "track_count": 7,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/75/54/38/75543853-92c7-064c-fe26-2cbf5eecc6d8/cover_KM0019655_1.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/1st-mini-album-manito/1737366584?uo=4"
         },
         {
           "id": 1769572152,
@@ -3142,20 +3138,20 @@
           ]
         },
         {
-          "id": 1400640685,
-          "album": "#Cookie Jar - EP",
+          "id": 1468948702,
+          "album": "‘The ReVe Festival’ Day 1 - EP",
           "artist": "Red Velvet",
-          "year": "2018",
-          "track_count": 6,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/5d/c6/cc/5dc6cc10-18a8-4ede-ad58-90bd8750c912/AVCK-79478.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/cookie-jar-ep/1400640685?uo=4",
+          "year": "2019",
+          "track_count": 7,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7a/d0/f5/7ad0f523-eda6-7b2a-1ff0-e58402cde920/RV_The_ReVe_Festival_Day1_COV.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/the-reve-festival-day-1-ep/1468948702?uo=4",
           "tracks": [
-            "#Cookie Jar",
-            "Aitai-tai",
-            "'Cause it's you",
-            "Dumb Dumb (JP version)",
-            "Russian Roulette (JP version)",
-            "Red Flavor (JP version)"
+            "Zimzalabim",
+            "Sunny Side Up!",
+            "Milkshake",
+            "Bing Bing",
+            "Parade",
+            "LP"
           ]
         },
         {
@@ -3175,54 +3171,36 @@
           ]
         },
         {
+          "id": 1444409443,
+          "album": "RBB - The 5th Mini Album - EP",
+          "artist": "Red Velvet",
+          "year": "2018",
+          "track_count": 7,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/a4/e9/00/a4e90023-0af1-a499-d875-6b2fcafacb3d/RBB_DIGITAL_COVER.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/rbb-the-5th-mini-album-ep/1444409443?uo=4",
+          "tracks": [
+            "RBB (Really Bad Boy)",
+            "Butterflies",
+            "So Good",
+            "Sassy Me",
+            "Taste",
+            "RBB (Really Bad Boy) [English Version]"
+          ]
+        },
+        {
           "id": 1314273377,
           "album": "Perfect Velvet - The 2nd Album",
           "artist": "Red Velvet",
           "year": "2017",
           "track_count": 10,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/e5/43/f8/e543f849-b92d-9812-c7c8-0a2f16126d96/RV_02_DC.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/perfect-velvet-the-2nd-album/1314273377?uo=4",
-          "tracks": [
-            "피카부 Peek-A-Boo",
-            "봐 Look",
-            "I Just",
-            "Kingdom Come",
-            "두 번째 데이트 My Second Date",
-            "Attaboy",
-            "Perfect 10",
-            "About Love",
-            "달빛 소리 Moonlight Melody"
-          ]
-        },
-        {
-          "id": 905840092,
-          "album": "Happiness - Single",
-          "artist": "Red Velvet",
-          "year": "2014",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/4a/77/76/4a77761b-53e1-9e29-6937-3eea9c3f4210/0801_redvelvet_cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/happiness-single/905840092?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/perfect-velvet-the-2nd-album/1314273377?uo=4"
         }
       ],
       "album_count": 5
     },
     "STAYC": {
       "albums": [
-        {
-          "id": 1774695485,
-          "album": "...l - Single",
-          "artist": "STAYC",
-          "year": "2024",
-          "track_count": 4,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a5/98/8c/a5988c68-c82c-f9e5-4d98-07a7b20fc325/cover_KM0020496_1.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/l-single/1774695485?uo=4",
-          "tracks": [
-            "GPT",
-            "Meant To Be",
-            "GPT (Instrumental)",
-            "GPT (Acapella)"
-          ]
-        },
         {
           "id": 1752835376,
           "album": "Metamorphic",
@@ -3246,6 +3224,21 @@
             "Stay WITH me",
             "Flexing On My Ex",
             "Trouble Maker"
+          ]
+        },
+        {
+          "id": 1774695485,
+          "album": "...l - Single",
+          "artist": "STAYC",
+          "year": "2024",
+          "track_count": 4,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a5/98/8c/a5988c68-c82c-f9e5-4d98-07a7b20fc325/cover_KM0020496_1.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/l-single/1774695485?uo=4",
+          "tracks": [
+            "GPT",
+            "Meant To Be",
+            "GPT (Instrumental)",
+            "GPT (Acapella)"
           ]
         },
         {
@@ -3364,23 +3357,6 @@
           ]
         },
         {
-          "id": 1852753248,
-          "album": "msnz <Beyond Beauty> - EP",
-          "artist": "tripleS",
-          "year": "2025",
-          "track_count": 6,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/28/9e/48/289e4813-c115-6905-757c-06c12528ae45/8804775401770.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/msnz-beyond-beauty-ep/1852753248?uo=4",
-          "tracks": [
-            "Magic Shine New Zone",
-            "Fly Up",
-            "Cameo Love",
-            "Bubble Gum Girl",
-            "Q&A",
-            "Christmas Alone"
-          ]
-        },
-        {
           "id": 1809896514,
           "album": "<ASSEMBLE25>",
           "artist": "tripleS",
@@ -3402,6 +3378,23 @@
           ]
         },
         {
+          "id": 1852753248,
+          "album": "msnz <Beyond Beauty> - EP",
+          "artist": "tripleS",
+          "year": "2025",
+          "track_count": 6,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/28/9e/48/289e4813-c115-6905-757c-06c12528ae45/8804775401770.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/msnz-beyond-beauty-ep/1852753248?uo=4",
+          "tracks": [
+            "Magic Shine New Zone",
+            "Fly Up",
+            "Cameo Love",
+            "Bubble Gum Girl",
+            "Q&A",
+            "Christmas Alone"
+          ]
+        },
+        {
           "id": 1743890798,
           "album": "<ASSEMBLE24>",
           "artist": "tripleS",
@@ -3420,6 +3413,15 @@
           "itunes_url": "https://music.apple.com/us/album/inner-dance-single/1751857482?uo=4"
         },
         {
+          "id": 1737939782,
+          "album": "NXT <Just Do It> - Single",
+          "artist": "tripleS",
+          "year": "2023",
+          "track_count": 1,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4f/1b/d7/4f1bd79b-c9b8-ee64-1a57-0db411e8c55c/198391609152.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/nxt-just-do-it-single/1737939782?uo=4"
+        },
+        {
           "id": 1737936304,
           "album": "ASSEMBLE",
           "artist": "tripleS",
@@ -3436,15 +3438,6 @@
           "track_count": 8,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/94/06/49/940649e5-0be9-1a52-a1b4-0c13b4e057b5/8804775281877.jpg/600x600bb.jpg",
           "itunes_url": "https://music.apple.com/us/album/lovelution/1737943607?uo=4"
-        },
-        {
-          "id": 1737939782,
-          "album": "NXT <Just Do It> - Single",
-          "artist": "tripleS",
-          "year": "2023",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4f/1b/d7/4f1bd79b-c9b8-ee64-1a57-0db411e8c55c/198391609152.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/nxt-just-do-it-single/1737939782?uo=4"
         },
         {
           "id": 1737940296,
@@ -3886,18 +3879,6 @@
           ]
         },
         {
-          "id": 1705660021,
-          "album": "Let Me In - Single",
-          "artist": "WJSN",
-          "year": "2021",
-          "track_count": 1,
-          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/6b/f1/c9/6bf1c970-1f38-dd5b-d076-55953b956786/888272122787.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/let-me-in-single/1705660021?uo=4",
-          "tracks": [
-            "Let Me In"
-          ]
-        },
-        {
           "id": 1560652748,
           "album": "UNNATURAL - EP",
           "artist": "WJSN",
@@ -3938,7 +3919,25 @@
           "year": "2019",
           "track_count": 7,
           "art": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/fb/f8/f9/fbf8f95f-f4a0-5b68-dd8f-713fdcded228/wjsn_cover.jpg/600x600bb.jpg",
-          "itunes_url": "https://music.apple.com/us/album/as-you-wish/1488434221?uo=4"
+          "itunes_url": "https://music.apple.com/us/album/as-you-wish/1488434221?uo=4",
+          "tracks": [
+            "As You Wish",
+            "Luckitty-Cat",
+            "Lights Up",
+            "Ww",
+            "Badaboom",
+            "Full Moon",
+            "Don’t Touch"
+          ]
+        },
+        {
+          "id": 1448845507,
+          "album": "WJ Stay?",
+          "artist": "WJSN",
+          "year": "2019",
+          "track_count": 7,
+          "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/8a/b4/dc/8ab4dcd6-3cb3-a369-7ce3-c24725d409c2/cover-.jpg/600x600bb.jpg",
+          "itunes_url": "https://music.apple.com/us/album/wj-stay/1448845507?uo=4"
         },
         {
           "id": 1466755917,
@@ -4086,5 +4085,5 @@
       "album_count": 8
     }
   },
-  "updated_at": "2026-06-13 17:14"
+  "updated_at": "2026-06-13 17:44"
 }
