@@ -2215,8 +2215,7 @@ def run_scraper(days_back: int = 14) -> dict:
     except Exception as e:
         log.warning(f"發行預告建置失敗: {e}")
 
-    # 本月成員生日 / 各團 discography / 新出道女團專區
-    birthdays = ai_month_birthdays(group_names)
+    # 各團 discography / 新出道女團專區
     discographies = ai_discographies(group_names)
     debut_girlgroups = ai_debut_girlgroups(debuts)
 
@@ -2233,6 +2232,24 @@ def run_scraper(days_back: int = 14) -> dict:
         time.sleep(1.1)
     if mb_filled:
         log.info(f"MusicBrainz 成員補強：{mb_filled} 團")
+
+    # 本月成員生日：改由「人工核對的成員生日」推算（AI 生日常幻覺，已停用 ai_month_birthdays）。
+    # 只取 members 內有確切生日(MM-DD 或 YYYY-MM-DD)且月份為本月者，正確優先於數量。
+    birthdays = []
+    today = datetime.now()
+    for g, mems in members.items():
+        for mb in mems:
+            bd = re.search(r"(?:\d{4}-)?(\d{1,2})-(\d{1,2})", str(mb.get("birth", "")))
+            if not bd:
+                continue
+            mm, dd = int(bd.group(1)), int(bd.group(2))
+            if mm != today.month:
+                continue
+            birthdays.append({"group": g, "member": mb.get("name", ""),
+                              "date": f"{mm:02d}-{dd:02d}",
+                              "is_today": (mm == today.month and dd == today.day)})
+    birthdays.sort(key=lambda x: x.get("date", ""))
+    log.info(f"本月成員生日（依人工成員資料）：{len(birthdays)} 位")
 
     # ── 存在性檢核：AI 待確認 + namuwiki 查無者，須在任一可靠資料庫留下足跡才保留 ──
     # （Deezer 藝人照/粉絲、Wikidata 公司/出道、TheAudioDB 小檔案、成員名單其一）
